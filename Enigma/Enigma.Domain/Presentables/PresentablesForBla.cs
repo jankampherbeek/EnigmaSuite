@@ -33,15 +33,13 @@ public record PresentableCrossElementsCount(String Name, int Sign, int House, in
 /// <summary>
 /// Presentable data for dispositors
 /// </summary>
-/// <param name="MainRuler">Glyph for mainruler</param>
-/// <param name="Sep">Separator (just a slash)</param>
-/// <param name="SubRuler">Glyph for subruler</param>
+/// <param name="RulerGlyphs">Glyphs for main and sub ruler</param>
 /// <param name="SignSplitted">Values for mainruler and subruler, separated with a slash</param>
-/// <param name="SignMain">Count for signs using the rulers directly</param>
-/// <param name="SignSub">Count for signs using the indirect rulers</param>
+/// <param name="SignDirect">Count for signs using the rulers directly</param>
+/// <param name="SignIndirect">Count for signs using the indirect rulers</param>
 /// <param name="SignSum">Sum of SignSub and SignSum</param>
 /// <param name="HouseMain">Count for houses using the rulers directly</param>
 /// <param name="HouseSub">Count for houses using the indirect rulers</param>
 /// <param name="HouseSum">Sum of HouseMain and HouseSub</param>
 /// <param name="Total">Sum of SignSum and HoouseSum</param>
-public record PresentableDispositorCounts(String MainRuler, String Sep, String SubRuler, string SignSplitted, int SignMain, int SignSub, int SignSum, int HouseMain, int HouseSub, int HouseSum, int Total);
+public record PresentableDispositorCounts(String RulerGlyphs, string SignSplitted, int SignDirect, int SignIndirect, int SignSum, int HouseMain, int HouseSub, int HouseSum, int Total);

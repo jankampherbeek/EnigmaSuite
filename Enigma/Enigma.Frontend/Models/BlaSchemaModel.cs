@@ -23,20 +23,20 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
 {
 
     private Dictionary<ChartPoints, FullPointPos> ? _blaPositions;
-    private ChartDetails _chartDetails;
+    private BlaChartDetails _blaChartDetails;
     
     public void CreateDataForBla(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
     {
         var cpRequest = CreateCelPointsRequest(selectedHouseSystem, useChiron, useEris);
         _blaPositions = chartsApi.GetChart(cpRequest);
         var calcChart = GetCalculatedChart();
-        _chartDetails = blaSchemaService.GetChartDetails(calcChart);
+        _blaChartDetails = blaSchemaService.GetChartDetails(calcChart);
 
     }
 
-    public ChartDetails GetChartDetails()
+    public BlaChartDetails GetChartDetails()
     {
-        return _chartDetails;
+        return _blaChartDetails;
     } 
     
     
@@ -128,6 +128,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         points.Add(ChartPoints.VulcanusCarteret);
         points.Add(ChartPoints.ApogeeMean);
         points.Add(ChartPoints.ApogeeCorrected);
+        points.Add(ChartPoints.BlackSun);
         points.Add(ChartPoints.Diamond);
         points.Add(ChartPoints.Priapus);   
         points.Add(ChartPoints.PriapusCorrected);

@@ -23,9 +23,9 @@ public interface IBlaPositionForDataGridFactory
     /// <summary>
     /// Create a presentable BLA position
     /// </summary>
-    /// <param name="chartDetails">Details for BLA position</param>
+    /// <param name="blaChartDetails">Details for BLA position</param>
     /// <returns>The presentable positions</returns>
-    public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(ChartDetails chartDetails);
+    public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(BlaChartDetails blaChartDetails);
 }
 
 public class BlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
@@ -34,17 +34,17 @@ public class BlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsCo
     private readonly BlaPositionsFactory _blaPositionsFactory = new();
     private readonly HousePositions _housePositions = new();
 
-    public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(ChartDetails chartDetails)
+    public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(BlaChartDetails blaChartDetails)
     {
         List<PresentableBlaPosition> presentableBlaPositions = new();
 
-        foreach (var pos in chartDetails.SignsDecansHouses)
+        foreach (var pos in blaChartDetails.SignsDecansHouses)
         {
             if (pos.Point.GetDetails().PointCat == PointCats.Common ||
                 pos.Point.GetDetails().PointCat == PointCats.Angle)
             {
                 var pointGlyph = GlyphsForChartPoints.FindGlyph(pos.Point);
-                presentableBlaPositions.Add(CreatePresBlaPosition(pointGlyph, pos.longitude, pos.Decan, pos.House));
+                presentableBlaPositions.Add(CreatePresBlaPosition(pointGlyph, pos.Longitude, pos.Decan, pos.House));
             }
         }
 
@@ -102,10 +102,10 @@ public class BlaElementsCrossesForDataGridFactory()
     private int _cardinalCCount, _fixedCCount, _mutableCCount, _fireCCount, _earthCCount, _airCCount, _waterCCount;
  
 
-    public List<PresentableCrossElementsCount> CreatePresCrossesCounts(ChartDetails chartDetails, CalculatedChart calculatedChart)
+    public List<PresentableCrossElementsCount> CreatePresCrossesCounts(BlaChartDetails blaChartDetails, CalculatedChart calculatedChart)
     {
         ResetCounts();
-        CreateBlaItemsForCrosses(chartDetails, calculatedChart);
+        CreateBlaItemsForCrosses(blaChartDetails, calculatedChart);
         List<PresentableCrossElementsCount> counts =
         [
             CreateSinglePresCrossElementsCount("Cardinal", _cardinalSCount, _cardinalHCount, _cardinalCCount),
@@ -117,10 +117,10 @@ public class BlaElementsCrossesForDataGridFactory()
     }
     
     
-    public List<PresentableCrossElementsCount> CreatePresElementsCounts(ChartDetails chartDetails, CalculatedChart calculatedChart)
+    public List<PresentableCrossElementsCount> CreatePresElementsCounts(BlaChartDetails blaChartDetails, CalculatedChart calculatedChart)
     {
         ResetCounts();
-        CreateBlaItemsForElements(chartDetails, calculatedChart);
+        CreateBlaItemsForElements(blaChartDetails, calculatedChart);
         List<PresentableCrossElementsCount> counts =
         [
             CreateSinglePresCrossElementsCount("Fire", _fireSCount, _fireHCount, _fireCCount),
@@ -142,9 +142,9 @@ public class BlaElementsCrossesForDataGridFactory()
     }
     
     
-    private void CreateBlaItemsForCrosses(ChartDetails chartDetails, CalculatedChart calculatedChart)
+    private void CreateBlaItemsForCrosses(BlaChartDetails blaChartDetails, CalculatedChart calculatedChart)
     {
-        foreach (var pos in chartDetails.SignsDecansHouses)
+        foreach (var pos in blaChartDetails.SignsDecansHouses)
         {
             switch (pos.Sign)
             {
@@ -160,7 +160,7 @@ public class BlaElementsCrossesForDataGridFactory()
             }
         }
 
-        foreach (var pos in chartDetails.SignsDecansHouses)
+        foreach (var pos in blaChartDetails.SignsDecansHouses)
         {
             if (pos.Point.GetDetails().PointCat == PointCats.Common)
             {
@@ -180,7 +180,7 @@ public class BlaElementsCrossesForDataGridFactory()
         }
 
         var houseRulingSigns = SignOnCusps(calculatedChart);
-        var pointsInHouses = CalcNrOfPointsInHouses(chartDetails); 
+        var pointsInHouses = CalcNrOfPointsInHouses(blaChartDetails); 
         
         foreach (var hrs in houseRulingSigns)
         {
@@ -206,9 +206,9 @@ public class BlaElementsCrossesForDataGridFactory()
     }
 
     
-       public void CreateBlaItemsForElements(ChartDetails chartDetails, CalculatedChart calculatedChart)
+       public void CreateBlaItemsForElements(BlaChartDetails blaChartDetails, CalculatedChart calculatedChart)
     {
-        foreach (var pos in chartDetails.SignsDecansHouses)
+        foreach (var pos in blaChartDetails.SignsDecansHouses)
         {
             switch (pos.Sign)
             {
@@ -227,7 +227,7 @@ public class BlaElementsCrossesForDataGridFactory()
             }
         }
 
-        foreach (var pos in chartDetails.SignsDecansHouses)
+        foreach (var pos in blaChartDetails.SignsDecansHouses)
         {
             if (pos.Point.GetDetails().PointCat == PointCats.Common)
             {
@@ -250,7 +250,7 @@ public class BlaElementsCrossesForDataGridFactory()
         }
 
         var houseRulingSigns = SignOnCusps(calculatedChart);
-        var pointsInHouses = CalcNrOfPointsInHouses(chartDetails); 
+        var pointsInHouses = CalcNrOfPointsInHouses(blaChartDetails); 
         
         foreach (var hrs in houseRulingSigns)
         {
@@ -329,7 +329,7 @@ public class BlaElementsCrossesForDataGridFactory()
         return count;
     }
 
-    private static Dictionary<int, int> CalcNrOfPointsInHouses(ChartDetails chartDetails)
+    private static Dictionary<int, int> CalcNrOfPointsInHouses(BlaChartDetails blaChartDetails)
     {
         var counts = new Dictionary<int, int>
         {
@@ -347,7 +347,7 @@ public class BlaElementsCrossesForDataGridFactory()
             { 12, 0 }
         };
 
-        foreach (var point in chartDetails.Houses)
+        foreach (var point in blaChartDetails.Houses)
         {
             if (point.Key.GetDetails().PointCat != PointCats.Common) continue;
             var houseNr = point.Value;
@@ -362,10 +362,10 @@ public record PresentableQuadrantCount(int Quadrant, int Count);
 
 public class BlaPresQuadrantCountFactory()
 {
-    public List<PresentableQuadrantCount> CreatePresQuadrants(ChartDetails chartDetails)
+    public List<PresentableQuadrantCount> CreatePresQuadrants(BlaChartDetails blaChartDetails)
     {
         var presQuadrants = new List<PresentableQuadrantCount>();
-        foreach (var qData in chartDetails.QuadrantCounts)
+        foreach (var qData in blaChartDetails.QuadrantCounts)
         {
             presQuadrants.Add(new PresentableQuadrantCount(qData.Key, qData.Value));    
         }
@@ -378,10 +378,10 @@ public record PresentableDecanCount(string Decan, int Count);
 
 public class BlaPresDecanCountFactory()
 {
-    public List<PresentableDecanCount> CreatePresDecans(ChartDetails chartDetails)
+    public List<PresentableDecanCount> CreatePresDecans(BlaChartDetails blaChartDetails)
     {
         var counts = new int[7];
-        foreach (var sdh in chartDetails.SignsDecansHouses)
+        foreach (var sdh in blaChartDetails.SignsDecansHouses)
         {
             
             counts[sdh.Decan - 1]++;
@@ -419,71 +419,203 @@ public class BlaPresDecanCountFactory()
 
 //public record PresentableDispositorCounts(String Rulers, int SignSplitted, int SignMain, int SignSub, int SignSum, int HouseMain, int HouseSub, int HouseSum, int Total);
 
-public class BlaPresDispositorCountsFactory(ChartDetails chartDetails)
+public class BlaPresDispositorCountsFactory
 {
 
-    public List<PresentableDispositorCounts> CreatePresDispositorCounts(ChartDetails chartDetails)
+    public List<PresentableDispositorCounts> CreatePresDispositorCounts(BlaChartDetails blaChartDetails)
     {
-        var rulerPairs = CreateRulerPairs();
+        var rulerPairs = BlaDomain.SignRulers();
         var presDispositorCounts = new List<PresentableDispositorCounts>();
+        const string separator = "/";
+        const string space = " ";
+        //pseudo:
+        // voor elk heerserpaar
         foreach (var rulerPair in rulerPairs)
         {
-            const string separator = "/";
-            var mainRuler = CreateRulerGlyph(rulerPair.Ruler);
-            var subRuler = CreateRulerGlyph(rulerPair.SubRuler);
-            var mainRulerCount = CreateSignRulerCount(chartDetails, rulerPair.Ruler) ;
-            var subRulerCount = CreateSignRulerCount(chartDetails, rulerPair.SubRuler);
-            var signSplitted = mainRulerCount + separator + subRulerCount;
-            var signMain = mainRulerCount;
-            var signSub = subRulerCount;
-            var signSum = signMain + signSub;
-            var houseMain = CreateHouseRulerCount(chartDetails, rulerPair.Ruler);
-            var houseSub = CreateHouseRulerCount(chartDetails, rulerPair.SubRuler);
+            
+               // TODO check if this is correct
+            if (rulerPair.SubRuler is ChartPoints.Sun or ChartPoints.Moon or ChartPoints.Mercury or ChartPoints.Venus or ChartPoints.Mars or ChartPoints.Jupiter) continue;
+
+            var mainRulerGlyph = CreateRulerGlyph(rulerPair.MainRuler);
+            var subRulerGlyph = CreateRulerGlyph(rulerPair.SubRuler);
+            var rulerGlyphs = mainRulerGlyph + space + subRulerGlyph;
+            
+            //    bepaal teken waar main ruler over heerst
+            var mainSign = FindSignRuledByMainRuler(rulerPair.MainRuler);
+            //    tel factoren in dit teken (1e getal in 1e kolom)
+            var mainSignCount = blaChartDetails.SignCounts[mainSign];
+            Console.WriteLine("===================================================================");
+            Console.WriteLine("mainSign: " + mainSign  +  " mainSignCount: " +mainSignCount);
+            //    bepaal teken waar sub ruler over heerst            
+            var subSign = FindSignRuledByMainRuler(rulerPair.SubRuler);
+            //    tel factoren in dit teken (2e getal in 2e kolom)
+            var subSignCount = blaChartDetails.SignCounts[subSign];
+            var signSplitted = mainSignCount + separator + subSignCount;
+            //    bepaal de som van beide factoren (1e getal in "signs")
+            var sumDirectCount = mainSignCount + subSignCount;
+            Console.WriteLine("subSign: " + subSign  +  " subSignCount: " +subSignCount);
+            Console.WriteLine("sumDirectCount: " + sumDirectCount + " signSplitted: " + signSplitted);
+            //    bepaal heersers die in tekens staan waar main ruler en sub ruler over heersen (alleen heersers die niet gelijk
+            //       zijn main ruler of sub ruler)
+            var effectiveMainRulers = FindeffectiveRulersInSign(mainSign, rulerPair.MainRuler, rulerPair.SubRuler, blaChartDetails);
+            var effectiveSubRulers = FindeffectiveRulersInSign(subSign, rulerPair.MainRuler, rulerPair.SubRuler, blaChartDetails);
+            //    voor elke gevonden heerser
+            //       bepaal teken waar main ruler over heerst
+            //       bepaal teken waar sub ruler over heerst
+            var signMainIndirectCount = 0;
+            var signSubIndirectCount = 0;
+            
+            foreach (var effectiveMainRuler in effectiveMainRulers)
+            {
+                var (signMain, signSub) = FindSignsRuledByPoint(rulerPair.MainRuler);
+                //       tel factoren in beide tekens
+                signMainIndirectCount+= blaChartDetails.SignCounts[signMain];
+                signSubIndirectCount+= blaChartDetails.SignCounts[signSub];
+                Console.WriteLine("effectiveMainRuler: " + effectiveMainRuler);
+                Console.WriteLine("chartDetails.SignCounts[signMain]: " + blaChartDetails.SignCounts[signMain]);
+                Console.WriteLine("chartDetails.SignCounts[signSub]: " + blaChartDetails.SignCounts[signSub]);
+            }
+            // foreach (var effectiveSubRuler in effectiveSubRulers)
+            // {
+            //     var (signMain, signSub) = FindSignsRuledByPoint(rulerPair.SubRuler);
+            //     //       tel factoren in beide tekens
+            //     signMainIndirectCount+= blaChartDetails.SignCounts[signMain];
+            //     signSubIndirectCount+= blaChartDetails.SignCounts[signSub];
+            //     Console.WriteLine("effectiveSubRuler: " + effectiveSubRuler);
+            //     Console.WriteLine("chartDetails.SignCounts[signMain]: " + blaChartDetails.SignCounts[signMain]);
+            //     Console.WriteLine("chartDetails.SignCounts[signSub]: " + blaChartDetails.SignCounts[signSub]);
+            // }
+            
+  
+            //       bereken de som (2e kolom in "Signs")
+            var sumIndirectCounts = signMainIndirectCount + signSubIndirectCount;
+            //       Bereken de som van de 1e en 2e kolom (3e kolom in "Signs")
+            var totalSignCounts = sumDirectCount + sumIndirectCounts;
+
+            Console.WriteLine("sumIndirectCounts: " + sumIndirectCounts);
+            Console.WriteLine("totalSignCounts: " + totalSignCounts);
+            //    todo huizen               
+            
+            
+            
+            // var mainRulerCount = CreateSignRulerCount(chartDetails, rulerPair.MainRuler) ;
+            // var subRulerCount = CreateSignRulerCount(chartDetails, rulerPair.SubRuler);
+             // var signSplitted = mainRulerCount + separator + subRulerCount;
+            // var signMain = mainRulerCount;
+            // var signSub = subRulerCount;
+            // var signSum = signMain + signSub;
+            var houseMain = CreateHouseRulerCount(blaChartDetails, rulerPair.MainRuler);
+            var houseSub = CreateHouseRulerCount(blaChartDetails, rulerPair.SubRuler);
             var houseSum = houseMain + houseSub;;
-            var total = signSum + houseSum;
-            presDispositorCounts.Add(new PresentableDispositorCounts(mainRuler, separator, subRuler, 
-                signSplitted, signMain, signSub, signSum, houseMain, houseSub, houseSum, total));
+            var total = sumDirectCount + houseSum;
+            presDispositorCounts.Add(new PresentableDispositorCounts(rulerGlyphs, signSplitted, sumDirectCount, signSubIndirectCount, totalSignCounts, houseMain, houseSub, houseSum, total));
         }
         return presDispositorCounts;   
     }
 
-    private int CreateSignRulerCount(ChartDetails chartDetails, ChartPoints ruler)
+    private static int FindSignRuledByMainRuler(ChartPoints ruler)
+    {
+        var sign = 0;
+        foreach (var rulers in BlaDomain.SignRulers())
+        {
+            if (ruler == rulers.MainRuler) sign = rulers.SignIndex;
+        }
+        return sign;
+    }
+    
+
+    /// <summary>
+    /// Find all points in a sign that are qualified as dispositor and are not the same as a specified main ruler of sub ruler
+    /// </summary>
+    /// <param name="sign">Index of the sign</param>
+    /// <param name="mainRulerToExclude">Main ruler: cannot be part of the result</param>
+    /// <param name="subRulerToExclude">Sub ruler: cannot be part of the result</param>
+    /// <param name="blaChartDetails">BLA related details for the actual chart</param>
+    /// <returns>List with points that qualify the conditions</returns>
+    private static List<ChartPoints> FindeffectiveRulersInSign(int sign, ChartPoints mainRulerToExclude,
+        ChartPoints subRulerToExclude, BlaChartDetails blaChartDetails)
+    {
+        // Saturn and Uranus are no rulers in BLA astrology
+        var allRulers = new List<ChartPoints>
+        {
+            ChartPoints.Sun,
+            ChartPoints.Moon,
+            ChartPoints.Mercury,
+            ChartPoints.Venus,
+            ChartPoints.Mars,
+            ChartPoints.Jupiter,
+            ChartPoints.Neptune,
+            ChartPoints.Pluto,
+            ChartPoints.PersephoneCarteret,
+            ChartPoints.VulcanusCarteret,
+            ChartPoints.Priapus,
+            ChartPoints.ApogeeMean
+            
+        };
+        var effectiveRulers = new List<ChartPoints>();
+        foreach (var point in blaChartDetails.SignsDecansHouses)
+        {
+            if (point.Sign == sign && point.Point != mainRulerToExclude && point.Point != subRulerToExclude)
+            {
+                foreach (var ruler in allRulers)
+                {
+                    if (ruler == point.Point) effectiveRulers.Add(point.Point);
+                }
+            }
+        }
+        return effectiveRulers;
+    }
+
+    private static (int, int) FindSignsRuledByPoint(ChartPoints chartPoint)
+    {
+        var signMain = 0;
+        var signSub = 0;
+        foreach (var rulers in BlaDomain.SignRulers())
+        {
+            if (chartPoint == rulers.MainRuler ) signMain = rulers.SignIndex;
+            if (chartPoint == rulers.SubRuler) signSub = rulers.SignIndex;
+        }
+        return (signMain, signSub);
+    }    
+    
+    
+    private static int CreateSignRulerCount(BlaChartDetails blaChartDetails, ChartPoints ruler)
     {
         var sign = 0; 
         var signCount = 0;
         // find sign that is ruled by this ruler
         foreach (var rulers in BlaDomain.SignRulers())
         {
-            if (ruler == rulers.Value.Ruler || ruler == rulers.Value.SubRuler) sign = rulers.Key;
+            if (ruler == rulers.MainRuler) sign = rulers.SignIndex;
         }
         // find count of factors in this sign
         if (sign > 0)
         {
-            signCount = chartDetails.SignCounts[sign];
+            signCount = blaChartDetails.SignCounts[sign];
         }
         return signCount;
     }
 
-    private int CreateHouseRulerCount(ChartDetails chartDetails, ChartPoints ruler)
+    private static int CreateHouseRulerCount(BlaChartDetails blaChartDetails, ChartPoints ruler)
     {
         var house = 0;
         var houseCount = 0;
   
         // find house that is ruled by this ruler
-        foreach (var houseRulers in chartDetails.HouseRulers)
+        foreach (var houseRulers in blaChartDetails.HouseRulers)
         {
             // use only first ruler pair
             var rulerPair = houseRulers.Value[0];
-            if (ruler == rulerPair.Ruler || ruler == rulerPair.SubRuler)
+            if (ruler == rulerPair.MainRuler || ruler == rulerPair.SubRuler)
             {
                 house = houseRulers.Key;
-                houseCount = chartDetails.HouseCounts[house];
+                houseCount = blaChartDetails.HouseCounts[house];
             }
         }
         return houseCount;
     }
     
-    private string CreateRulerGlyph(ChartPoints ruler)
+    private static string CreateRulerGlyph(ChartPoints ruler)
     {
         switch (ruler)
         {
@@ -503,21 +635,6 @@ public class BlaPresDispositorCountsFactory(ChartDetails chartDetails)
             case ChartPoints.VulcanusCarteret: return "Ï";            
         }
         return "";
-    }
-    
-    
-    private List<RulerPair> CreateRulerPairs()
-    {
-        var rulerPairs = new List<RulerPair>();
-        {
-           rulerPairs.Add(new RulerPair(ChartPoints.Sun, ChartPoints.ApogeeMean));
-           rulerPairs.Add(new RulerPair(ChartPoints.Moon, ChartPoints.Priapus));
-           rulerPairs.Add(new RulerPair(ChartPoints.Mercury, ChartPoints.VulcanusCarteret));
-           rulerPairs.Add(new RulerPair(ChartPoints.Venus, ChartPoints.PersephoneCarteret));
-           rulerPairs.Add(new RulerPair(ChartPoints.Mars, ChartPoints.Pluto));
-           rulerPairs.Add(new RulerPair(ChartPoints.Jupiter, ChartPoints.Neptune));
-        }
-        return rulerPairs;
     }
     
 }

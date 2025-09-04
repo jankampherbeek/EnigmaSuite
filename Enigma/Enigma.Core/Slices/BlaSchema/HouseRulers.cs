@@ -33,11 +33,15 @@ public class HouseRulers
             // Get the sign on the current house cusp
             if (cusps.TryGetValue(houseIndex, out int cuspSign))
             {
-                // Add rulers for the sign on the cusp
-                if (signRulers.TryGetValue(cuspSign, out var cuspRulers))
+                foreach (var sr in signRulers)
                 {
-                    rulers.Add(cuspRulers);
+                    if (sr.SignIndex == cuspSign) rulers.Add(sr);
                 }
+                // Add rulers for the sign on the cusp
+                // if (signRulers.TryGetValue(cuspSign, out var cuspRulers))
+                // {
+                //     rulers.Add(cuspRulers);
+                // }
             }
             
             var interceptedSignsInHouse = FindInterceptedSignsInHouse(houseIndex, cusps);
@@ -45,10 +49,14 @@ public class HouseRulers
             // Add rulers for each intercepted sign
             foreach (var interceptedSign in interceptedSignsInHouse)
             {
-                if (signRulers.TryGetValue(interceptedSign, out var interceptedRulers))
+                foreach (var sr in signRulers)
                 {
-                    rulers.Add(interceptedRulers);
+                    
                 }
+                // if (signRulers.TryGetValue(interceptedSign, out var interceptedRulers))
+                // {
+                //     rulers.Add(interceptedRulers);
+                // }
             }
             
             houseRulers.Add(houseIndex, rulers);

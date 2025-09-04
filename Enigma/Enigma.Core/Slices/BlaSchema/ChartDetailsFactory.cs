@@ -22,7 +22,7 @@ public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory,
     /// </summary>
     /// <param name="chart">A recalculated chart which should include the required chartpoints, independent of the configuration.</param>
     /// <returns>Populated instance of ChartDetails</returns>
-    public ChartDetails CreateChartDetails(CalculatedChart chart)
+    public BlaChartDetails CreateChartDetails(CalculatedChart chart)
     {
         // calculate positions in signs and decans
         List<BlaPositions> signsDecans = [];
@@ -44,10 +44,10 @@ public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory,
         var houseCounts = HouseCounts.CountPosInHouses(signsDecans);
         var interceptedSigns = interceptedClamped.DefineInterceptedSigns(chart);
         var clampedHouses = interceptedClamped.DefineClampedHouses(chart);
-        var signRulers = SignRulers.CreateSignRulers();
+        var signRulers = BlaDomain.SignRulers();
         var allHouseRulers = houseRulers.DefineHouseRulers(chart);
         
-        return new ChartDetails(signsDecans, interceptedSigns, clampedHouses, housePositions,  quadrantCounts, signCounts, houseCounts, signRulers, allHouseRulers);
+        return new BlaChartDetails(signsDecans, interceptedSigns, clampedHouses, housePositions,  quadrantCounts, signCounts, houseCounts, signRulers, allHouseRulers);
 
     }
     

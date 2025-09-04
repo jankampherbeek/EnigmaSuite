@@ -24,12 +24,48 @@ public partial class BlaSchemaWindow
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
+        // Position window within visible screen area
+        PositionWindowWithinScreen();
+        
         // Trigger initial population when window loads
         if (DataContext is BlaSchemaViewModel viewModel)
         {
             viewModel.Populate();
             UpdateHistograms();
         }
+    }
+    
+    private void PositionWindowWithinScreen()
+    {
+        // Get the work area (screen minus taskbar)
+        var workArea = System.Windows.SystemParameters.WorkArea;
+        
+        // Set maximum height to work area height to prevent going below taskbar
+        this.MaxHeight = workArea.Height;
+        
+        // Calculate center position
+        var centerX = (workArea.Width - this.Width) / 2;
+        var centerY = (workArea.Height - this.Height) / 2;
+        
+        // Ensure window is fully visible
+        var left = Math.Max(0, centerX);
+        var top = Math.Max(0, centerY);
+        
+        // If window is too wide, adjust position
+        if (this.Width > workArea.Width)
+        {
+            left = 0;
+        }
+        
+        // If window is too tall, position it at the top
+        if (this.Height > workArea.Height)
+        {
+            top = 0;
+        }
+        
+        // Set window position
+        this.Left = left;
+        this.Top = top;
     }
 
     private void BlackMoonCorrectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -97,10 +133,15 @@ public partial class BlaSchemaWindow
             {
                 UpdateSingleHistogram(QuadrantsPlot, viewModel.HistogramQuadrantValues, viewModel.HistogramQuadrantLabels, "Quadrants");
             }
-            // update decns plot
+            // update decans plot
             if (viewModel.HistogramDecanValues.Length > 0)
             {
                 UpdateSingleHistogram(DecansPlot, viewModel.HistogramDecanValues, viewModel.HistogramDecanLabels, "Decans", "EnigmaAstrologyBLA2");
+            }
+            // update dispositor plot
+            if (viewModel.HistogramDispositorValues.Length > 0)
+            {
+                UpdateSingleHistogram(DispositorsPlot, viewModel.HistogramDispositorValues, viewModel.HistogramDispositorLabels, "Dispositors", "EnigmaAstrologyBLA2");
             }
             
         }
@@ -131,6 +172,13 @@ public partial class BlaSchemaWindow
         {
             // Set font name as string for ScottPlot 5.0
             plot.Plot.Axes.Bottom.TickLabelStyle.FontName = "EnigmaAstrologyBLA2";
+            // Use larger font size for special font plots (Decans and Dispositors)
+            plot.Plot.Axes.Bottom.TickLabelStyle.FontSize = 16;
+        }
+        else
+        {
+            // Use smaller font size for regular plots (Elements, Crosses, Quadrants)
+            plot.Plot.Axes.Bottom.TickLabelStyle.FontSize = 12;
         }
         
         // Set x-axis tick labels to show the actual names

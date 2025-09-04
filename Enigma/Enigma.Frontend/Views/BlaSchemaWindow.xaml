@@ -6,14 +6,19 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
         xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        Title="Enigma - BLA Schema" Height="2000" Width="1400"
+        WindowStartupLocation="Manual"
+        Title="Enigma - BLA Schema" 
+        MinHeight="600" MinWidth="800"
+        MaxWidth="{x:Static SystemParameters.PrimaryScreenWidth}"
+        SizeToContent="WidthAndHeight"
+        WindowState="Normal"
         Loaded="Window_Loaded">
     <Window.DataContext>
         <viewModels:BlaSchemaViewModel/>
@@ -309,22 +314,30 @@
                                     
                                     <!-- Left subpart - DataGrid -->
                                     <DataGrid Grid.Column="0" 
+                                              ItemsSource="{Binding DispositorCounts}"  
                                               AutoGenerateColumns="False" 
                                               Height="200" 
                                               Margin="0,0,8,0"
                                               Style="{StaticResource MaterialDesignDataGrid}">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Rulers" Width="Auto"/>
-                                            <DataGridTextColumn Header="" Width="Auto"/>
-                                            <DataGridTextColumn Header="" Width="Auto"/>
-                                            <DataGridTextColumn Header="Combined" Width="Auto"/>
-                                            <DataGridTextColumn Header="Signs" Width="auto"/>
-                                            <DataGridTextColumn Header="" Width="Auto"/>
-                                            <DataGridTextColumn Header="Sum" Width="Auto"/>
-                                            <DataGridTextColumn Header="Houses" Width="Auto"/>
-                                            <DataGridTextColumn Header="" Width="Auto"/>
-                                            <DataGridTextColumn Header="Sum" Width="Auto"/>
-                                            <DataGridTextColumn Header="Total" Width="Auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding RulerGlyphs}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                                            <DataGridTextColumn Header="Combined" Width="Auto" Binding="{Binding SignSplitted}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Signs" Width="auto" Binding="{Binding SignDirect}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding SignIndirect}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Sum" Width="Auto" Binding="{Binding SignSum}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Houses" Width="Auto" Binding="{Binding HouseMain}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding HouseSub}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Sum" Width="Auto" Binding="{Binding HouseSum}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Total" Width="Auto" Binding="{Binding Total}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
 
                                         </DataGrid.Columns>
                                     </DataGrid>
@@ -336,9 +349,7 @@
                                             BorderThickness="1" 
                                             Margin="8,0,0,0" 
                                             Background="{DynamicResource MaterialDesignPaper}">
-                                        <TextBlock Text = "Dispositors" 
-                                                   HorizontalAlignment="Center" 
-                                                   VerticalAlignment="Center"/>
+                                        <ScottPlot:WpfPlot x:Name="DispositorsPlot" Margin="4"/>
                                     </Border>
                                 </Grid>
                             </StackPanel>

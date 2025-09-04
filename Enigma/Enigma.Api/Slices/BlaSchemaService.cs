@@ -18,7 +18,7 @@ public class BlaSchemaService(ChartDetailsFactory chartDetailsFactory)
     /// </summary>
     /// <param name="chart">A calculated chart</param>
     /// <returns>Instance of ChartDetails</returns>
-    public ChartDetails GetChartDetails(CalculatedChart chart)
+    public BlaChartDetails GetChartDetails(CalculatedChart chart)
     {
         return chartDetailsFactory.CreateChartDetails(chart);
     }

@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -28,6 +29,7 @@ public partial class BlaSchemaViewModel : ObservableObject
     private BlaElementsCrossesForDataGridFactory _blaElementsCrossesFactory = App.ServiceProvider.GetRequiredService<BlaElementsCrossesForDataGridFactory>();
     private BlaPresQuadrantCountFactory _blaPresQuadrantCountFactory = App.ServiceProvider.GetRequiredService<BlaPresQuadrantCountFactory>();
     private BlaPresDecanCountFactory _blaPresDecanCountFactory = App.ServiceProvider.GetRequiredService<BlaPresDecanCountFactory>();
+    private BlaPresDispositorCountsFactory _blaPresDispositorCountsFactory = App.ServiceProvider.GetRequiredService<BlaPresDispositorCountsFactory>();
     
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
@@ -35,6 +37,7 @@ public partial class BlaSchemaViewModel : ObservableObject
     [ObservableProperty] private List<PresentableCrossElementsCount> _elementsCounts = new();
     [ObservableProperty] private List<PresentableQuadrantCount> _quadrantCounts = new();
     [ObservableProperty] private List<PresentableDecanCount> _decanCounts = new();
+    [ObservableProperty] private List<PresentableDispositorCounts> _dispositorCounts = new();
     
     
     // ScottPlot histogram data
@@ -42,10 +45,13 @@ public partial class BlaSchemaViewModel : ObservableObject
     public double[] HistogramElementsValues { get; private set; } = new double[0];
     public double[] HistogramQuadrantValues { get; private set; } = new double[0];
     public double[] HistogramDecanValues { get; private set; } = new double[0];
+    public double[] HistogramDispositorValues { get; private set; } = new double[0];
+    
     public string[] HistogramCrossesLabels { get; private set; } = new string[0];
     public string[] HistogramElementsLabels { get; private set; } = new string[0];
     public string[] HistogramQuadrantLabels { get; private set; } = new string[4];
     public string[] HistogramDecanLabels { get; private set; } = new string[7];
+    public string[] HistogramDispositorLabels { get; private set; } = new string[7];
 
     public void Populate()
     {
@@ -65,6 +71,7 @@ public partial class BlaSchemaViewModel : ObservableObject
         ElementsCounts = _blaElementsCrossesFactory.CreatePresElementsCounts(chartDetails, _schemaModel.GetCalculatedChart());
         QuadrantCounts = _blaPresQuadrantCountFactory.CreatePresQuadrants(chartDetails);
         DecanCounts = _blaPresDecanCountFactory.CreatePresDecans(chartDetails);
+        DispositorCounts = _blaPresDispositorCountsFactory.CreatePresDispositorCounts(chartDetails);
         
         // Update histogram data
         UpdateHistogramData();
@@ -119,12 +126,21 @@ public partial class BlaSchemaViewModel : ObservableObject
             HistogramDecanLabels = new string[7];
             return;
         }
+
+        if (DispositorCounts.Count == 0)
+        {
+            HistogramDispositorValues = [];
+            HistogramDispositorLabels = new string[7];
+            return;
+        }
         
         // Extract totals and labels from ElementsCrosses
         HistogramCrossesValues = CrossesCounts.Select(item => (double)item.Total).ToArray();
         HistogramElementsValues = ElementsCounts.Select(item => (double)item.Total).ToArray();
         HistogramQuadrantValues = QuadrantCounts.Select(item => (double)item.Count).ToArray();
         HistogramDecanValues = DecanCounts.Select(item => (double)item.Count).ToArray();
+        HistogramDispositorValues = DispositorCounts.Select(item => (double)item.Total).ToArray();
+        
         HistogramCrossesLabels = CrossesCounts.Select(item => item.Name).ToArray();
         HistogramElementsLabels = ElementsCounts.Select(item => item.Name).ToArray();
         for (int i = 0; i < 4; i++)
@@ -135,6 +151,7 @@ public partial class BlaSchemaViewModel : ObservableObject
         {
             HistogramDecanLabels[i] = FindGlyphForDecan(i + 1);
         }
+        HistogramDispositorLabels = DispositorCounts.Select(item => item.RulerGlyphs).ToArray();
     }
 
     private string FindGlyphForDecan(int decan)

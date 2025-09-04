@@ -48,6 +48,7 @@ public partial class App
         serviceCollection.AddSingleton<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddSingleton<IBlaPositionForDataGridFactory, BlaPositionForDataGridFactory>();
         serviceCollection.AddSingleton<BlaPresDecanCountFactory>();
+        serviceCollection.AddSingleton<BlaPresDispositorCountsFactory>();        
         serviceCollection.AddSingleton<BlaPresQuadrantCountFactory>();
         serviceCollection.AddTransient<BlaSchemaModel>();
         serviceCollection.AddSingleton<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
