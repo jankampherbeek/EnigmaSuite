@@ -12,7 +12,8 @@ namespace Enigma.Core.Slices.BlaSchema;
 /// <summary>
 /// Factory for the creation of BlaPositions
 /// </summary>
-public class BlaPositionsFactory()
+///  TODO remove, obsolete
+public static class BlaPositionsFactory
 {
     /// <summary>
     /// Create a record BlaPositions
@@ -21,7 +22,7 @@ public class BlaPositionsFactory()
     /// <param name="longitude">Ecliptical longitude</param>
     /// <param name="house">Number of the house 1..12</param>
     /// <returns>BlaPositions</returns>
-    public BlaPositions CreateBlaPositions(ChartPoints point, double longitude, int house)
+    public static BlaPositions CreateBlaPositions(ChartPoints point, double longitude, int house)
     {
         var sign = (int)Math.Truncate(longitude / 30.0) + 1;
         var decan = (int)Math.Truncate(longitude / 10.0) + 1;

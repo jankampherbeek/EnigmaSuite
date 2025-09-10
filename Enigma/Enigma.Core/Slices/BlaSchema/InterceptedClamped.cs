@@ -12,10 +12,10 @@ namespace Enigma.Core.Slices.BlaSchema;
 /// <summary>
 /// Intercepted signs and clamped houses
 /// </summary>
-public class InterceptedClamped
+public static class InterceptedClamped
 {
 
-    public List<int> DefineInterceptedSigns(CalculatedChart chart)
+    public static List<int> DefineInterceptedSigns(ChartLongitudes chart)
     {
         var intercepted = new List<int>();
         var cusps = DefineCusps(chart);
@@ -32,7 +32,7 @@ public class InterceptedClamped
         return intercepted;
     }
 
-    public List<int> DefineClampedHouses(CalculatedChart chart)
+    public static List<int> DefineClampedHouses(ChartLongitudes chart)
     {
         var clampedHouses = new List<int>();
         var cusps = DefineCusps(chart);
@@ -58,23 +58,15 @@ public class InterceptedClamped
     
     
 
-    private Dictionary<int, int> DefineCusps(CalculatedChart chart)
+    private static Dictionary<int, int> DefineCusps(ChartLongitudes chart)
     {
         var cusps = new Dictionary<int, int>();    // index of cusp, index of sign, both 1..12
-        foreach (var pos in chart.Positions)
+        foreach (var pos in chart.Cusps)
         {
-            if (pos.Key.GetDetails().PointCat == PointCats.Cusp)
-            {
-                var cuspIndex = pos.Key.GetDetails().CalcId;
-                var longitude = pos.Value.Ecliptical.DistancePosSpeed.Position;
-                var signIndex = (int)(longitude / 30.0) + 1;
-                // Handle the case where longitude is exactly 360° (should be Pisces = 12)
-                if (longitude >= 360.0)
-                {
-                    signIndex = 12;
-                }
-                cusps.Add(cuspIndex, signIndex);
-            }               
+            var cuspIndex = pos.Key;
+            var longitude = pos.Value;
+            var signIndex = (int)(longitude / 30.0) + 1;
+            cusps.Add(cuspIndex, signIndex);
         }
         return cusps;
     }

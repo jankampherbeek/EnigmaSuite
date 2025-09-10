@@ -11,7 +11,7 @@ namespace Enigma.Core.Slices.BlaSchema;
 /// <summary>
 /// Rulers for the houses
 /// </summary>
-public class HouseRulers
+public static class HouseRulers
 {
     /// <summary>
     /// Calculate all rulers for each cusp
@@ -19,11 +19,11 @@ public class HouseRulers
     /// <param name="chart">The calculated chart</param>
     /// <returns>Dictionary with the cusps and a list of RulerPairs.
     /// The list contains one pair, or more if intercepted signs are involved</returns>
-    public Dictionary<int, List<RulerPair>> DefineHouseRulers(CalculatedChart chart)
+    public static Dictionary<int, List<RulerPair>> DefineHouseRulers(ChartLongitudes chart)
     {
         var houseRulers = new Dictionary<int, List<RulerPair>>();
         var cusps = DefineCusps(chart);
-        var signRulers = BlaDomain.SignRulers();
+        var signRulers = BlaDomain.RulerPairs();
         
         // Process each house (1-12)
         for (var houseIndex = 1; houseIndex <= 12; houseIndex++)
@@ -70,23 +70,15 @@ public class HouseRulers
     /// </summary>
     /// <param name="chart">The calculated chart</param>
     /// <returns>Dictionary with cusp index and sign index (both 1-12)</returns>
-    private Dictionary<int, int> DefineCusps(CalculatedChart chart)
+    private static Dictionary<int, int> DefineCusps(ChartLongitudes chart)
     {
         var cusps = new Dictionary<int, int>();
-        foreach (var pos in chart.Positions)
+        foreach (var pos in chart.Cusps)
         {
-            if (pos.Key.GetDetails().PointCat == PointCats.Cusp)
-            {
-                var cuspIndex = pos.Key.GetDetails().CalcId;
-                var longitude = pos.Value.Ecliptical.DistancePosSpeed.Position;
-                var signIndex = (int)(longitude / 30.0) + 1;
-                // Handle the case where longitude is exactly 360° 
-                if (longitude >= 360.0)
-                {
-                    signIndex = 12;
-                }
-                cusps.Add(cuspIndex, signIndex);
-            }               
+            var cuspIndex = pos.Key;
+            var longitude = pos.Value;
+            var signIndex = (int)(longitude / 30.0) + 1;
+            cusps.Add(cuspIndex, signIndex);
         }
         return cusps;
     }
@@ -97,7 +89,7 @@ public class HouseRulers
     /// <param name="houseIndex">The house index (1-12)</param>
     /// <param name="cusps">Dictionary of cusps and their signs</param>
     /// <returns>List of intercepted sign indices within the house</returns>
-    private List<int> FindInterceptedSignsInHouse(int houseIndex, Dictionary<int, int> cusps)
+    private static List<int> FindInterceptedSignsInHouse(int houseIndex, Dictionary<int, int> cusps)
     {
         var interceptedSigns = new List<int>();
         

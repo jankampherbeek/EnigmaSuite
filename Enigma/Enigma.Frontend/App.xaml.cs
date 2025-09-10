@@ -12,6 +12,7 @@ using Serilog;
 using System.Windows;
 using Enigma.Api.Calc;
 using Enigma.Api.Persistency;
+using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 using Enigma.Frontend.Ui.Graphics;
@@ -46,7 +47,7 @@ public partial class App
         serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddSingleton<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddSingleton<IAspectForWheelFactory, AspectForWheelFactory>();
-        serviceCollection.AddSingleton<IBlaPositionForDataGridFactory, BlaPositionForDataGridFactory>();
+        serviceCollection.AddSingleton<BlaPositionForDataGridFactory>();
         serviceCollection.AddSingleton<BlaPresDecanCountFactory>();
         serviceCollection.AddSingleton<BlaPresDispositorCountsFactory>();        
         serviceCollection.AddSingleton<BlaPresQuadrantCountFactory>();

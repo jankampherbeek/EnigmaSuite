@@ -9,6 +9,7 @@ using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
@@ -25,7 +26,7 @@ public partial class BlaSchemaViewModel : ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.BLA_SCHEMA;
     private BlaSchemaModel _schemaModel = App.ServiceProvider.GetRequiredService<BlaSchemaModel>();
-    private IBlaPositionForDataGridFactory _blaPositionFactory = App.ServiceProvider.GetRequiredService<IBlaPositionForDataGridFactory>();
+  //  private IBlaPositionForDataGridFactory _blaPositionFactory = App.ServiceProvider.GetRequiredService<IBlaPositionForDataGridFactory>();
     private BlaElementsCrossesForDataGridFactory _blaElementsCrossesFactory = App.ServiceProvider.GetRequiredService<BlaElementsCrossesForDataGridFactory>();
     private BlaPresQuadrantCountFactory _blaPresQuadrantCountFactory = App.ServiceProvider.GetRequiredService<BlaPresQuadrantCountFactory>();
     private BlaPresDecanCountFactory _blaPresDecanCountFactory = App.ServiceProvider.GetRequiredService<BlaPresDecanCountFactory>();
@@ -64,7 +65,7 @@ public partial class BlaSchemaViewModel : ObservableObject
 
         // Get chart points and populate the DataGrid
         var chartDetails = _schemaModel.GetChartDetails();
-        BlaPositions = _blaPositionFactory.CreateBlaPositionsForDataGrid(chartDetails);
+    //    BlaPositions = _blaPositionFactory.CreateBlaPositionsForDataGrid(chartDetails);
         
         // Populate Elements/Crosses DataGrid
         CrossesCounts = _blaElementsCrossesFactory.CreatePresCrossesCounts(chartDetails, _schemaModel.GetCalculatedChart());

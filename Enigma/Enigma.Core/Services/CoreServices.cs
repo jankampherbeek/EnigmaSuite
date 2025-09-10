@@ -37,7 +37,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IAspectPointSelector, AspectPointSelector>();
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
-        serviceCollection.AddTransient<BlaPositionsFactory>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
         serviceCollection.AddTransient<ICalcSecDirHandler, ProgSecDirHandler>();
@@ -50,7 +49,6 @@ public static class CoreServices
         serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
         serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();
         serviceCollection.AddTransient<IChartDataDao, ChartDataDao>();
-        serviceCollection.AddTransient<ChartDetailsFactory>();
         serviceCollection.AddTransient<IChartPointsMapping, ChartPointsMapping>();
         serviceCollection.AddTransient<IChartsEventsDao, ChartsEventsDao>();
         serviceCollection.AddTransient<ICheckedProgAspects, CheckedProgAspects>();
@@ -86,13 +84,10 @@ public static class CoreServices
         serviceCollection.AddTransient<IHarmonicsHandler, HarmonicsHandler>();
         serviceCollection.AddTransient<IHorizontalCalc, HorizontalCalc>();
         serviceCollection.AddTransient<IHorizontalHandler, HorizontalHandler>();
-        serviceCollection.AddTransient<HousePositions>();
-        serviceCollection.AddTransient<HouseRulers>();
         serviceCollection.AddTransient<IHousesCalc, HousesCalc>();
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
         serviceCollection.AddTransient<IInclinationCalc, InclinationCalc>();
-        serviceCollection.AddTransient<InterceptedClamped>();
         serviceCollection.AddTransient<JdForPosition>();
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
@@ -121,7 +116,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
         serviceCollection.AddTransient<IProjectDao, ProjectDao>();
         serviceCollection.AddTransient<IProjectPersistencyHandler, ProjectPersistencyHandler>();
-        serviceCollection.AddTransient<QuadrantPositions>();
         serviceCollection.AddTransient<IRdbmsPreparator, RdbmsPreparator>();
         serviceCollection.AddTransient<IReferencesDao, ReferencesDao>();
         serviceCollection.AddTransient<IResearchPathHandler, ResearchPathHandler>();

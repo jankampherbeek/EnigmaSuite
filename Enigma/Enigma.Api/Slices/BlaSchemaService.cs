@@ -11,15 +11,15 @@ namespace Enigma.Api.Slices;
 /// <summary>
 /// Service to retrieve details from BLA schema
 /// </summary>
-public class BlaSchemaService(ChartDetailsFactory chartDetailsFactory)
+public class BlaSchemaService(BlaSchemaOrchestrator orchestrator)
 {
     /// <summary>
     /// Get BLA schema details
     /// </summary>
     /// <param name="chart">A calculated chart</param>
     /// <returns>Instance of ChartDetails</returns>
-    public BlaChartDetails GetChartDetails(CalculatedChart chart)
+    public BlaSchemaDataSheet GetChartDetails(ChartLongitudes chart)
     {
-        return chartDetailsFactory.CreateChartDetails(chart);
+        return orchestrator.CreateBlaSchema(chart);;
     }
 }

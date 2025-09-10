@@ -30,8 +30,8 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         var cpRequest = CreateCelPointsRequest(selectedHouseSystem, useChiron, useEris);
         _blaPositions = chartsApi.GetChart(cpRequest);
         var calcChart = GetCalculatedChart();
-        _blaChartDetails = blaSchemaService.GetChartDetails(calcChart);
-
+//        _blaChartDetails = blaSchemaService.GetChartDetails(calcChart);
+    // TODO use ChartLongitudes 
     }
 
     public BlaChartDetails GetChartDetails()

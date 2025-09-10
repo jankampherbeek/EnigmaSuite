@@ -3,96 +3,126 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
-using System.Collections.Generic;
-using CsvHelper.Configuration.Attributes;
-using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Support;
-using Enigma.Frontend.Ui.Support.Conversions;
 
-namespace Enigma.Frontend.Ui.PresentationFactories;
+namespace Enigma.Core.Slices.BlaSchema;
+
+
+
+
+
+// TODO move to separate file
+/// <summary>
+/// Handle the calculation of counts for signs, houses and hcusps
+/// </summary>
+public class BlaSchemaSignHouseCountsOrchestrator
+{
+    public Dictionary<string, BlaSignHouseCountLine> GetBlaHouseSigns()
+    {
+        var houseSigns = new Dictionary<string, BlaSignHouseCountLine>();
+        
+        // TODO define the counts for signs and houses, both for elements and crosses
+        
+        return houseSigns;
+    }
+}
+
+// TODO move to separate file
+/// <summary>
+/// Handle the calculation of quadrant counts
+/// </summary>
+public class BlaSchemaQuadrantCountsOrchestrator
+{
+    public Dictionary<int, int> GetBlaQuadrantCounts(ChartLongitudes chart)
+    {
+        var quadrantCounts = QuadrantPositions.DefineQuadrants(chart);
+        return quadrantCounts;
+    }
+}
 
 /// <summary>
-/// Factory for the creation of presentable BLA positions
+/// Handle the calculation of data to be used in a BLA schema
 /// </summary>
-public interface IBlaPositionForDataGridFactory
+public class BlaSchemaDispositorsOrchestrator
 {
-    /// <summary>
-    /// Create a presentable BLA position
-    /// </summary>
-    /// <param name="blaChartDetails">Details for BLA position</param>
-    /// <returns>The presentable positions</returns>
-    public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(BlaChartDetails blaChartDetails);
+    public List<BlaDispositorLine> GetBlaDispositorSpecs()
+    {
+        var dispositors = new List<BlaDispositorLine>();
+        // TODO define the counts for all dispositor pairs
+        
+        return dispositors;
+    }
 }
 
-public class BlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
-    : IBlaPositionForDataGridFactory
-{
-    private readonly BlaPositionsFactory _blaPositionsFactory = new();
-    private readonly HousePositions _housePositions = new();
 
-    public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(BlaChartDetails blaChartDetails)
-    {
-        List<PresentableBlaPosition> presentableBlaPositions = new();
-
-        foreach (var pos in blaChartDetails.SignsDecansHouses)
-        {
-            if (pos.Point.GetDetails().PointCat == PointCats.Common ||
-                pos.Point.GetDetails().PointCat == PointCats.Angle)
-            {
-                var pointGlyph = GlyphsForChartPoints.FindGlyph(pos.Point);
-                presentableBlaPositions.Add(CreatePresBlaPosition(pointGlyph, pos.Longitude, pos.Decan, pos.House));
-            }
-        }
-
-        return presentableBlaPositions;
-    }
-
-    private PresentableBlaPosition CreatePresBlaPosition(char pointGlyph, double position, int decan, int houseNr)
-    {
-        var (longTxt, glyph) = doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(position);
-        var houseTxt = GetHouseInRomanNumerals(houseNr);
-        var decanateGlyph = GetDecanateGlyph(decan);
-        return new PresentableBlaPosition(pointGlyph, longTxt, glyph, houseTxt, decanateGlyph);
-    }
-
-    private string GetHouseInRomanNumerals(int house)
-    {
-        return house switch
-        {
-            1 => "I",
-            2 => "II",
-            3 => "III",
-            4 => "IV",
-            5 => "V",
-            6 => "VI",
-            7 => "VII",
-            8 => "VIII",
-            9 => "IX",
-            10 => "X",
-            11 => "XI",
-            12 => "XII"
-        };
-    }
-
-    private char GetDecanateGlyph(int decan)
-    {
-        return decan switch
-        {
-            1 => 'f', // Mars
-            2 => 'a', // Sun
-            3 => 'd', // Venus
-            4 => 'c', // Mercury
-            5 => 'b', // Moon
-            6 => 'h', // Saturn
-            7 => 'g', // Jupiter
-            _ => '?'
-        };
-    }
-}
+//
+// public class XBlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
+//
+// {
+//     private readonly BlaPositionsFactory _blaPositionsFactory = new();
+//     private readonly HousePositions _housePositions = new();
+//
+//     public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(BlaChartDetails blaChartDetails)
+//     {
+//         List<PresentableBlaPosition> presentableBlaPositions = new();
+//
+//         foreach (var pos in blaChartDetails.SignsDecansHouses)
+//         {
+//             if (pos.Point.GetDetails().PointCat == PointCats.Common ||
+//                 pos.Point.GetDetails().PointCat == PointCats.Angle)
+//             {
+//                 var pointGlyph = GlyphsForChartPoints.FindGlyph(pos.Point);
+//                 presentableBlaPositions.Add(CreatePresBlaPosition(pointGlyph, pos.Longitude, pos.Decan, pos.House));
+//             }
+//         }
+//
+//         return presentableBlaPositions;
+//     }
+//
+//     private PresentableBlaPosition CreatePresBlaPosition(char pointGlyph, double position, int decan, int houseNr)
+//     {
+//         var (longTxt, glyph) = doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(position);
+//         var houseTxt = GetHouseInRomanNumerals(houseNr);
+//         var decanateGlyph = GetDecanateGlyph(decan);
+//         return new PresentableBlaPosition(pointGlyph, longTxt, glyph, houseTxt, decanateGlyph);
+//     }
+//
+//     private string GetHouseInRomanNumerals(int house)
+//     {
+//         return house switch
+//         {
+//             1 => "I",
+//             2 => "II",
+//             3 => "III",
+//             4 => "IV",
+//             5 => "V",
+//             6 => "VI",
+//             7 => "VII",
+//             8 => "VIII",
+//             9 => "IX",
+//             10 => "X",
+//             11 => "XI",
+//             12 => "XII"
+//         };
+//     }
+//
+//     private char GetDecanateGlyph(int decan)
+//     {
+//         return decan switch
+//         {
+//             1 => 'f', // Mars
+//             2 => 'a', // Sun
+//             3 => 'd', // Venus
+//             4 => 'c', // Mercury
+//             5 => 'b', // Moon
+//             6 => 'h', // Saturn
+//             7 => 'g', // Jupiter
+//             _ => '?'
+//         };
+//     }
+//}
 
 
 public class BlaElementsCrossesForDataGridFactory()
@@ -424,7 +454,7 @@ public class BlaPresDispositorCountsFactory
 
     public List<PresentableDispositorCounts> CreatePresDispositorCounts(BlaChartDetails blaChartDetails)
     {
-        var rulerPairs = BlaDomain.SignRulers();
+        var rulerPairs = BlaDomain.RulerPairs();
         var presDispositorCounts = new List<PresentableDispositorCounts>();
         const string separator = "/";
         const string space = " ";
@@ -516,7 +546,7 @@ public class BlaPresDispositorCountsFactory
     private static int FindSignRuledByMainRuler(ChartPoints ruler)
     {
         var sign = 0;
-        foreach (var rulers in BlaDomain.SignRulers())
+        foreach (var rulers in BlaDomain.RulerPairs())
         {
             if (ruler == rulers.MainRuler) sign = rulers.SignIndex;
         }
@@ -570,7 +600,7 @@ public class BlaPresDispositorCountsFactory
     {
         var signMain = 0;
         var signSub = 0;
-        foreach (var rulers in BlaDomain.SignRulers())
+        foreach (var rulers in BlaDomain.RulerPairs())
         {
             if (chartPoint == rulers.MainRuler ) signMain = rulers.SignIndex;
             if (chartPoint == rulers.SubRuler) signSub = rulers.SignIndex;
@@ -584,7 +614,7 @@ public class BlaPresDispositorCountsFactory
         var sign = 0; 
         var signCount = 0;
         // find sign that is ruled by this ruler
-        foreach (var rulers in BlaDomain.SignRulers())
+        foreach (var rulers in BlaDomain.RulerPairs())
         {
             if (ruler == rulers.MainRuler) sign = rulers.SignIndex;
         }

@@ -1,3 +1,4 @@
+
 // Enigma Astrology Research.
 // Copyright (c) 2025 Jan Kampherbeek.
 // Enigma is open source.
@@ -12,10 +13,10 @@ namespace Enigma.Core.Slices.BlaSchema;
 /// <summary>
 /// Position in a quadrants
 /// </summary>
-public class QuadrantPositions
+public static class QuadrantPositions
 {
 
-    public Dictionary<int, int> DefineQuadrants(CalculatedChart chart)
+    public static Dictionary<int, int> DefineQuadrants(ChartLongitudes chart)
     {
         if (chart == null)
             throw new ArgumentNullException(nameof(chart));
@@ -31,11 +32,11 @@ public class QuadrantPositions
         };
 
         // Define longitude for quadrants
-        foreach (var pos in chart.Positions)
+        foreach (var pos in chart.Points)
         {
             if (pos.Key.GetDetails().PointCat == PointCats.Angle)
             {
-                var longitude = pos.Value.Ecliptical.MainPosSpeed.Position;
+                var longitude = pos.Value;
                 if (pos.Key == ChartPoints.Ascendant)
                 {
                     quadrantLongitudes.Add(1, longitude); // Quadrant 1 starts at Ascendant
@@ -51,11 +52,11 @@ public class QuadrantPositions
         }
         
         // Find quadrant positions for each ChartPoint that is not an angle
-        foreach (var pos in chart.Positions)
+        foreach (var pos in chart.Points)
         {
             if (pos.Key.GetDetails().PointCat == PointCats.Common)
             {
-                var longitude = pos.Value.Ecliptical.MainPosSpeed.Position;
+                var longitude = pos.Value;
                 var quadrantNumber = FindQuadrantForLongitude(longitude, quadrantLongitudes);
                 if (quadrantNumber > 0)
                 {
