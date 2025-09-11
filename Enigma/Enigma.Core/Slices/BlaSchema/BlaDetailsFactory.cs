@@ -25,15 +25,17 @@ public static class BlaDetailsFactory
         var longitude = 0.0;
         foreach (var p in chart.Points)
         {
-            if (p.Key == point) longitude = p.Value;       
+            if (p.Key == point) longitude = p.Value;
         }
+
         var sign = (int)Math.Truncate(longitude / 30.0) + 1;
         var house = HousePositions.FindSingleHousePosition(chart, longitude);
         var (mainRuledSign, subRuledSign) = FindSignsForRuler(point);
         var (mainRuledHouses, subRuledHouses) = FindHousesForRuler(mainRuledSign, subRuledSign, chart.Cusps);
-        return new BlaPointDetails(point, longitude, sign, house, mainRuledSign, subRuledSign, mainRuledHouses, subRuledHouses);
+        return new BlaPointDetails(point, longitude, sign, house, mainRuledSign, subRuledSign, mainRuledHouses,
+            subRuledHouses);
     }
-    
+
     /// <summary>
     /// Define details for a house in a BLA schema.
     /// </summary>
@@ -42,15 +44,16 @@ public static class BlaDetailsFactory
     /// <returns>A populated record with the details</returns>
     public static BlaHouseDetails CreateBlaHouseDetails(int houseNr, ChartLongitudes chart)
     {
-            var signOnCusp = FindSignOnCusp(houseNr, chart.Cusps);
-            var (mainRuler, subRuler) = FindRulersForSign(signOnCusp);
-            var pointsInHouse = new List<ChartPoints>();
-            var allPointsInHouses = HousePositions.DefineHousePositions(chart);
-            foreach (var point in allPointsInHouses)
-            {
-                if (point.Value == houseNr) pointsInHouse.Add(point.Key);           
-            }
-            return new BlaHouseDetails(houseNr, signOnCusp, mainRuler, subRuler, pointsInHouse);
+        var signOnCusp = FindSignOnCusp(houseNr, chart.Cusps);
+        var (mainRuler, subRuler) = FindRulersForSign(signOnCusp);
+        var pointsInHouse = new List<ChartPoints>();
+        var allPointsInHouses = HousePositions.DefineHousePositions(chart);
+        foreach (var point in allPointsInHouses)
+        {
+            if (point.Value == houseNr) pointsInHouse.Add(point.Key);
+        }
+
+        return new BlaHouseDetails(houseNr, signOnCusp, mainRuler, subRuler, pointsInHouse);
     }
 
 
@@ -64,11 +67,13 @@ public static class BlaDetailsFactory
             if (rulers.MainRuler == point)
             {
                 signMain = rulers.SignIndex;
-            } else if (rulers.SubRuler == point)
+            }
+            else if (rulers.SubRuler == point)
             {
                 signSub = rulers.SignIndex;
             }
         }
+
         return (signMain, signSub);
     }
 
@@ -83,9 +88,10 @@ public static class BlaDetailsFactory
                 return (rulersPair.MainRuler, rulersPair.SubRuler);
             }
         }
-        throw new Exception("Could not find rulers for sign " + sign);   
+
+        throw new Exception("Could not find rulers for sign " + sign);
     }
-    
+
 
     // Return houses that are ruled by a given sign, main and sub, in that sequence
     private static (List<int>, List<int>) FindHousesForRuler(int mainSign, int subSign, Dictionary<int, double> houses)
@@ -98,6 +104,7 @@ public static class BlaDetailsFactory
             if (sign == mainSign) housesMain.Add(house);
             if (sign == subSign) housesSub.Add(house);
         }
+
         return (housesMain, housesSub);
     }
 
@@ -112,43 +119,44 @@ public static class BlaDetailsFactory
                 signOnCusp = (int)Math.Truncate(longitude / 30.0) + 1;
             }
         }
+
         return signOnCusp;
     }
-    
 
-    
-    /// <summary>
-    /// Create ChartDetails
-    /// </summary>
-    /// <param name="chart">A recalculated chart which should include the required chartpoints, independent of the configuration.</param>
-    /// <returns>Populated instance of ChartDetails</returns>
-    public static BlaChartDetails CreateChartDetails(ChartLongitudes chart)
-    {
-        // calculate positions in signs and decans
-        List<BlaPositions> signsDecans = [];
-        foreach (var point in chart.Points)
-        {
-            if (point.Key.GetDetails().PointCat == PointCats.Common ||
-                point.Key.GetDetails().PointCat == PointCats.Angle)
-            {
-                var longitude = point.Value;
-                var house = HousePositions.FindSingleHousePosition(chart, longitude);
-                var blaPositions = BlaPositionsFactory.CreateBlaPositions(point.Key, longitude, house);
-                signsDecans.Add(blaPositions);  
-            }
-        }
-
-        var housePositions = HousePositions.DefineHousePositions(chart);
-        var quadrantCounts = QuadrantPositions.DefineQuadrants(chart);
-        var signCounts = SignPositions.DefineSignCounts(chart);
-        var houseCounts = HousePositions.DefineHouseCounts(chart);
-        var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
-        var clampedHouses = InterceptedClamped.DefineClampedHouses(chart);
-        var signRulers = BlaDomain.RulerPairs();
-        var allHouseRulers = HouseRulers.DefineHouseRulers(chart);
-        
-        return new BlaChartDetails(signsDecans, interceptedSigns, clampedHouses, housePositions,  quadrantCounts, signCounts, houseCounts, signRulers, allHouseRulers);
-
-    }
-    
 }
+
+//     /// <summary>
+//     /// Create ChartDetails
+//     /// </summary>
+//     /// <param name="chart">A recalculated chart which should include the required chartpoints, independent of the configuration.</param>
+//     /// <returns>Populated instance of ChartDetails</returns>
+//     public static BlaChartDetails CreateChartDetails(ChartLongitudes chart)
+//     {
+//         // calculate positions in signs and decans
+//         List<BlaPositions> signsDecans = [];
+//         foreach (var point in chart.Points)
+//         {
+//             if (point.Key.GetDetails().PointCat == PointCats.Common ||
+//                 point.Key.GetDetails().PointCat == PointCats.Angle)
+//             {
+//                 var longitude = point.Value;
+//                 var house = HousePositions.FindSingleHousePosition(chart, longitude);
+//                 var blaPositions = BlaPositionsFactory.CreateBlaPositions(point.Key, longitude, house);
+//                 signsDecans.Add(blaPositions);  
+//             }
+//         }
+//
+//         var housePositions = HousePositions.DefineHousePositions(chart);
+//         var quadrantCounts = QuadrantPositions.DefineQuadrants(chart);
+//         var signCounts = SignPositions.DefineSignCounts(chart);
+//         var houseCounts = HousePositions.DefineHouseCounts(chart);
+//         var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
+//         var clampedHouses = InterceptedClamped.DefineClampedHouses(chart);
+//         var signRulers = BlaDomain.RulerPairs();
+//         var allHouseRulers = HouseRulers.DefineHouseRulers(chart);
+//         
+//         return new BlaChartDetails(signsDecans, interceptedSigns, clampedHouses, housePositions,  quadrantCounts, signCounts, houseCounts, signRulers, allHouseRulers);
+//
+//     }
+//     
+// }

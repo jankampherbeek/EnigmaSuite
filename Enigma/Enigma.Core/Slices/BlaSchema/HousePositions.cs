@@ -57,17 +57,29 @@ public static class HousePositions
     /// <summary>
     /// Count the points in the houses
     /// </summary>
-    /// <param name="chart">The longitudes of the chart</param>
+    /// <param name="pointDetails">Details for the chartpoints, inlcuding the house</param>
     /// <returns>Dictionary with the index for the houses (1..12) and the count for each house</returns>
-    public static Dictionary<int,int> DefineHouseCounts(ChartLongitudes chart)
+    public static Dictionary<int,int> DefineHouseCounts(List<BlaPointDetails> pointDetails)
     {
-        var houseCounts = new Dictionary<int, int>();
-        foreach (var (chartPoint, value) in chart.Points)
+        var houseCounts = new Dictionary<int, int>()
         {
-            // Ignore angles
-            if (chartPoint.GetDetails().PointCat != PointCats.Common) continue;
-            var longitude = value;
-            var house = HousePositions.FindSingleHousePosition(chart, longitude);
+            { 1, 0 },
+            { 2, 0 },
+            { 3, 0 },
+            { 4, 0 },
+            { 5, 0 },
+            { 6, 0 },
+            { 7, 0 },
+            { 8, 0 },
+            { 9, 0 },
+            { 10, 0 },
+            { 11, 0 },
+            { 12, 0 }
+        };
+            
+        foreach (var details in pointDetails)
+        {
+            var house = details.House; 
             houseCounts[house]++;
         }
         return houseCounts;

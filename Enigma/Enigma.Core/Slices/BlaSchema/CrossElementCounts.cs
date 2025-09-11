@@ -17,13 +17,14 @@ public static class CrossElementCounts
     /// <param name="signCounts">Counts for signs</param>
     /// <param name="houseCounts">Counts for houses</param>
     /// <param name="signsOnCusps">Signs on housecusps</param>
-    /// <returns>Two dictionaries, the first for crosses, the second for elements.Dictionary with for the cusp (1..12) and for the sign (1..12)</returns>
+    /// <returns>Two dictionaries, the first for crosses, the second for elements.
+    /// Dictionary with index for the cusp (1..12) and for the sign (1..12)</returns>
     public static (Dictionary<int, BlaSignHouseCountLine>, Dictionary<int, BlaSignHouseCountLine>) CreateCrossesElementsCounts(
         Dictionary<int, int> signCounts,
         Dictionary<int, int> houseCounts,
-        Dictionary<int, int> signsOnCusps)
+        List<BlaHouseDetails> houseDetails)
     {
-        var allLines = CreateAllLines(signCounts, houseCounts, signsOnCusps);
+        var allLines = CreateAllLines(signCounts, houseCounts, houseDetails);
         var crossLines = CreateLinesForCrosses(allLines);
         var elementLines = CreateLinesForElements(allLines);
         return (crossLines, elementLines);
@@ -32,7 +33,7 @@ public static class CrossElementCounts
     private static Dictionary<int, BlaSignHouseCountLine> CreateAllLines(        
         Dictionary<int, int> signCounts,
         Dictionary<int, int> houseCounts,
-        Dictionary<int, int> signsOnCusps)
+        List<BlaHouseDetails> houseDetails)
     {
         var countLines = new Dictionary<int, BlaSignHouseCountLine>();
         foreach (var (signIndex, signCount) in signCounts)
@@ -40,11 +41,12 @@ public static class CrossElementCounts
             var houseCount = houseCounts[signIndex];
             var sum = signCount + houseCount;
             var hCusp = 0;
-            foreach (var soc in signsOnCusps)
+
+            foreach (var houseDetail in houseDetails)
             {
-                if (soc.Key == signIndex) // one sign can rule multiple houses
+                if (houseDetail.SignOnCusp == signIndex)
                 {
-                    hCusp += soc.Value;
+                    hCusp+= houseDetail.PointsInHouse.Count;
                 }
             }
             var total = sum + hCusp;

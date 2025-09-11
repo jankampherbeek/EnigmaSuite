@@ -17,30 +17,42 @@ public static class SignPositions
     /// <summary>
     /// Count the points in the signs
     /// </summary>
-    /// <param name="chart">The calculated chart</param>
+    /// <param name="pointDetails">Details for each point, including the sign</param>
     /// <returns>Dictionary with the index for the signs (1..12) and the count for each sign</returns>
-    public static Dictionary<int,int> DefineSignCounts(ChartLongitudes chart)
+    public static Dictionary<int,int> DefineSignCounts(List<BlaPointDetails> pointDetails)
     {
-        var signCounts = new Dictionary<int, int>();
-        foreach (var (chartPoint, value) in chart.Points)
+        var signCounts = new Dictionary<int, int>()
         {
-            var longitude = value;
-            var sign = (int)Math.Truncate(longitude / 30.0) + 1;
-            signCounts[sign]++;
+            { 1, 0 },
+            { 2, 0 },
+            { 3, 0 },
+            { 4, 0 },
+            { 5, 0 },
+            { 6, 0 },
+            { 7, 0 },
+            { 8, 0 },
+            { 9, 0 },
+            { 10, 0 },
+            { 11, 0 },
+            { 12, 0 }
+        };
+        foreach (var detail in pointDetails)
+        {
+            signCounts[detail.Sign]++;
         }
         return signCounts;
     }
     
-    public static Dictionary<ChartPoints, int> CreatePointsInSign(ChartLongitudes chart)
-    { 
-        Dictionary<ChartPoints, int> planetsInSign = new();
-        foreach (var planet in chart.Points)
-        {
-            if (planet.Key.GetDetails().PointCat != PointCats.Common && planet.Key.GetDetails().PointCat != PointCats.Angle) continue;
-            var sign = (int)Math.Truncate(planet.Value / 30.0) + 1;
-            planetsInSign.Add(planet.Key, sign);
-        } 
-        return planetsInSign;
-    }
+    // public static Dictionary<ChartPoints, int> CreatePointsInSign(ChartLongitudes chart)
+    // { 
+    //     Dictionary<ChartPoints, int> planetsInSign = new();
+    //     foreach (var planet in chart.Points)
+    //     {
+    //         if (planet.Key.GetDetails().PointCat != PointCats.Common && planet.Key.GetDetails().PointCat != PointCats.Angle) continue;
+    //         var sign = (int)Math.Truncate(planet.Value / 30.0) + 1;
+    //         planetsInSign.Add(planet.Key, sign);
+    //     } 
+    //     return planetsInSign;
+    // }
     
 }

@@ -17,23 +17,37 @@ public class BlaSchemaOrchestrator
 
     public BlaSchemaDataSheet CreateBlaSchema(ChartLongitudes chart)
     {
+        var pointDetails = new List<BlaPointDetails>();
+        foreach (var point in chart.Points)
+        {
+            pointDetails.Add(BlaDetailsFactory.CreateBlaPointDetails(point.Key, chart));
+        }
+        var houseDetails = new List<BlaHouseDetails>();
+        for (int i = 1; i < 13; i++)
+        {
+            houseDetails.Add(BlaDetailsFactory.CreateBlaHouseDetails(i, chart));
+        }
 
-        var houseCounts =  HousePositions.DefineHouseCounts(chart);             // Number of points in houses
-        var signCounts = SignPositions.DefineSignCounts(chart);                 // Number of points in signs
-        var planetsInSign = SignPositions.CreatePointsInSign(chart);      // Sign for each point   
-        var planetsInHouses = HousePositions.DefineHousePositions(chart); // House for each point
-        var signsOnCusps = SignsOnCusps.DefineSignsOnCusps(chart.Cusps);        // Signs on cusps (no intercepted signs)
-        var crossesElementsCounts =   
-            CrossElementCounts.CreateCrossesElementsCounts(signCounts, houseCounts, signsOnCusps); // Crosses and elements counts
-        var crossesSignHouseCounts = crossesElementsCounts.Item1;
-        var elementsSignHousecounts = crossesElementsCounts.Item2;; 
-        var quadrantCounts = QuadrantPositions.DefineQuadrants(chart);
+        var houseCounts =  HousePositions.DefineHouseCounts(pointDetails);      // Number of points in houses
+        var signCounts = SignPositions.DefineSignCounts(pointDetails);          // Number of points in signs
+        //  var planetsInSign = SignPositions.CreatePointsInSign(chart);      // Sign for each point   
+        //  var planetsInHouses = HousePositions.DefineHousePositions(chart); // House for each point
+        // var signsOnCusps = SignsOnCusps.DefineSignsOnCusps(chart.Cusps);        // Signs on cusps (no intercepted signs)
+        var (crossesSignHouseCounts, elementsSignHousecounts) = CrossElementCounts.CreateCrossesElementsCounts(signCounts, houseCounts, houseDetails);
+        var quadrantCounts = QuadrantPositions.DefineQuadrants(houseDetails);
+        // =======================
+
+        
+
+        
+ 
+    
     
         
         
         // Define dispositors
-        var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSign, planetsInHouses);
-        
+        //var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSign, planetsInHouses);
+        var dispositors = new List<BlaDispositorLine>();
         
         // Define decans
         // Define details (Sister sign asc etc.)

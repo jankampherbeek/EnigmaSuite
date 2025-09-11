@@ -84,6 +84,7 @@ public class TestBlaDetailsFactory
             { ChartPoints.Pluto, 142.3},
             { ChartPoints.VulcanusCarteret, 44.9},
             { ChartPoints.PersephoneCarteret, 265.08},
+            { ChartPoints.FortunaNoSect, 127.35},
             { ChartPoints.NorthNode, 312.3},
             { ChartPoints.SouthNode, 132.3},
             { ChartPoints.Dragon, 42.3},

@@ -23,20 +23,20 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
 {
 
     private Dictionary<ChartPoints, FullPointPos> ? _blaPositions;
-    private BlaChartDetails _blaChartDetails;
+    private BlaSchemaDataSheet _blaDataSheet;
     
     public void CreateDataForBla(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
     {
         var cpRequest = CreateCelPointsRequest(selectedHouseSystem, useChiron, useEris);
         _blaPositions = chartsApi.GetChart(cpRequest);
-        var calcChart = GetCalculatedChart();
-//        _blaChartDetails = blaSchemaService.GetChartDetails(calcChart);
-    // TODO use ChartLongitudes 
+        var chart = GetChartLongitudes();
+        _blaDataSheet = blaSchemaService.GetChartDetails(chart);
+
     }
 
-    public BlaChartDetails GetChartDetails()
+    public BlaSchemaDataSheet GetDataSheet()
     {
-        return _blaChartDetails;
+        return _blaDataSheet;
     } 
     
     
@@ -57,15 +57,27 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         return pointPositions;
     }
 
-    public CalculatedChart GetCalculatedChart()
+    public ChartLongitudes GetChartLongitudes()
     {
         if (_blaPositions == null) throw new InvalidOperationException("No data available for BLA");
         
         // Get the current chart from the data vault to access its input data and obliquity
         var currentChart = DataVaultCharts.Instance.GetCurrentChart();
         if (currentChart == null) throw new InvalidOperationException("No current chart available");
-        
-        return new CalculatedChart(_blaPositions, currentChart.InputtedChartData, currentChart.Obliquity);
+        var pointLongitudes = new Dictionary<ChartPoints, double>();
+        var houseLongitudes = new Dictionary<int, double>();
+        foreach (var pointPos in _blaPositions)
+        {
+            if (pointPos.Key.GetDetails().PointCat == PointCats.Common ||
+                pointPos.Key.GetDetails().PointCat == PointCats.Angle)
+            {
+                pointLongitudes.Add(pointPos.Key, pointPos.Value.Ecliptical.MainPosSpeed.Position);
+            } else if (pointPos.Key.GetDetails().PointCat == PointCats.Cusp)
+            {
+                houseLongitudes.Add(pointPos.Key.GetDetails().CalcId,  pointPos.Value.Ecliptical.MainPosSpeed.Position);
+            }
+        }
+        return new ChartLongitudes(pointLongitudes, houseLongitudes);
     }
 
     public Dictionary<ChartPoints, double> GetHouseCusps()

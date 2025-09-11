@@ -29,18 +29,18 @@ public class BlaSchemaSignHouseCountsOrchestrator
     }
 }
 
-// TODO move to separate file
-/// <summary>
-/// Handle the calculation of quadrant counts
-/// </summary>
-public class BlaSchemaQuadrantCountsOrchestrator
-{
-    public Dictionary<int, int> GetBlaQuadrantCounts(ChartLongitudes chart)
-    {
-        var quadrantCounts = QuadrantPositions.DefineQuadrants(chart);
-        return quadrantCounts;
-    }
-}
+
+// /// <summary>
+// /// Handle the calculation of quadrant counts
+// /// </summary>
+// public class BlaSchemaQuadrantCountsOrchestrator
+// {
+//     public Dictionary<int, int> GetBlaQuadrantCounts(ChartLongitudes chart)
+//     {
+//         var quadrantCounts = QuadrantPositions.DefineQuadrants(chart);
+//         return quadrantCounts;
+//     }
+// }
 
 /// <summary>
 /// Handle the calculation of data to be used in a BLA schema

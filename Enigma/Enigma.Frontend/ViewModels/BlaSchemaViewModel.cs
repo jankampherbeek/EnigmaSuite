@@ -64,15 +64,15 @@ public partial class BlaSchemaViewModel : ObservableObject
         _schemaModel.CreateDataForBla(houseSystem, useChiron, useEris);
 
         // Get chart points and populate the DataGrid
-        var chartDetails = _schemaModel.GetChartDetails();
+        var dataSheet = _schemaModel.GetDataSheet();
     //    BlaPositions = _blaPositionFactory.CreateBlaPositionsForDataGrid(chartDetails);
         
         // Populate Elements/Crosses DataGrid
-        CrossesCounts = _blaElementsCrossesFactory.CreatePresCrossesCounts(chartDetails, _schemaModel.GetCalculatedChart());
-        ElementsCounts = _blaElementsCrossesFactory.CreatePresElementsCounts(chartDetails, _schemaModel.GetCalculatedChart());
-        QuadrantCounts = _blaPresQuadrantCountFactory.CreatePresQuadrants(chartDetails);
-        DecanCounts = _blaPresDecanCountFactory.CreatePresDecans(chartDetails);
-        DispositorCounts = _blaPresDispositorCountsFactory.CreatePresDispositorCounts(chartDetails);
+        // CrossesCounts = _blaElementsCrossesFactory.CreatePresCrossesCounts(dataSheet, _schemaModel.GetChartLongitudes());
+        // ElementsCounts = _blaElementsCrossesFactory.CreatePresElementsCounts(dataSheet, _schemaModel.GetChartLongitudes());
+        // QuadrantCounts = _blaPresQuadrantCountFactory.CreatePresQuadrants(dataSheet);
+        // DecanCounts = _blaPresDecanCountFactory.CreatePresDecans(dataSheet);
+        // DispositorCounts = _blaPresDispositorCountsFactory.CreatePresDispositorCounts(dataSheet);
         
         // Update histogram data
         UpdateHistogramData();
