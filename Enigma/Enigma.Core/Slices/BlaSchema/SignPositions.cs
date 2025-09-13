@@ -43,16 +43,16 @@ public static class SignPositions
         return signCounts;
     }
     
-    // public static Dictionary<ChartPoints, int> CreatePointsInSign(ChartLongitudes chart)
-    // { 
-    //     Dictionary<ChartPoints, int> planetsInSign = new();
-    //     foreach (var planet in chart.Points)
-    //     {
-    //         if (planet.Key.GetDetails().PointCat != PointCats.Common && planet.Key.GetDetails().PointCat != PointCats.Angle) continue;
-    //         var sign = (int)Math.Truncate(planet.Value / 30.0) + 1;
-    //         planetsInSign.Add(planet.Key, sign);
-    //     } 
-    //     return planetsInSign;
-    // }
+    public static Dictionary<ChartPoints, int> CreatePointsInSign(ChartLongitudes chart)
+    { 
+        Dictionary<ChartPoints, int> planetsInSign = new();
+        foreach (var planet in chart.Points)
+        {
+            if (planet.Key.GetDetails().PointCat != PointCats.Common && planet.Key.GetDetails().PointCat != PointCats.Angle) continue;
+            var sign = (int)Math.Truncate(planet.Value / 30.0) + 1;
+            planetsInSign.Add(planet.Key, sign);
+        } 
+        return planetsInSign;
+    }
     
 }

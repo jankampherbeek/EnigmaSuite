@@ -30,24 +30,19 @@ public class BlaSchemaOrchestrator
 
         var houseCounts =  HousePositions.DefineHouseCounts(pointDetails);      // Number of points in houses
         var signCounts = SignPositions.DefineSignCounts(pointDetails);          // Number of points in signs
-        //  var planetsInSign = SignPositions.CreatePointsInSign(chart);      // Sign for each point   
-        //  var planetsInHouses = HousePositions.DefineHousePositions(chart); // House for each point
-        // var signsOnCusps = SignsOnCusps.DefineSignsOnCusps(chart.Cusps);        // Signs on cusps (no intercepted signs)
+//        var planetsInSign = SignPositions.DefineSignCounts(pointDetails);       // Sign for each point   
+        var planetsInSign = pointDetails.ToDictionary(x => x.Point, x => x.Sign);
+        var planetsInHouses = HousePositions.DefineHousePositions(chart); // House for each point
+        var signsOnCusps = SignsOnCusps. DefineSignsOnCusps(chart.Cusps);        // Signs on cusps (no intercepted signs)
         var (crossesSignHouseCounts, elementsSignHousecounts) = CrossElementCounts.CreateCrossesElementsCounts(signCounts, houseCounts, houseDetails);
         var quadrantCounts = QuadrantPositions.DefineQuadrants(houseDetails);
+        
         // =======================
-
-        
-
-        
- 
-    
-    
-        
         
         // Define dispositors
-        //var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSign, planetsInHouses);
-        var dispositors = new List<BlaDispositorLine>();
+        var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSign, planetsInHouses);
+       // var dispositors = new List<BlaDispositorLine>();
+       
         
         // Define decans
         // Define details (Sister sign asc etc.)
