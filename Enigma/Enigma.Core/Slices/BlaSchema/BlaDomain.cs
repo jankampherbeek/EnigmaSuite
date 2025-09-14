@@ -19,12 +19,52 @@ public record BlaSchemaDataSheet( // TODO augment
     Dictionary<int, BlaSignHouseCountLine> CrossesSignHouseCounts,
     Dictionary<int, BlaSignHouseCountLine> ElementsSignHouseCounts,
     Dictionary<int, int> QuadrantPositions,
-    List<BlaDispositorLine> Dispositors
+    List<BlaDispositorLine> Dispositors,
+    Dictionary<ChartPoints, int> Decans,
+    BlaDetails Details,
+    BlaCyclesData CyclesData
  
 );
 
+/// <summary>
+/// Several details for the BLA Schema that are combined in one visual rectangle
+/// </summary>
+/// <param name="SisterSignAsc">The sign that is ruled by the other point in the same ruler pair</param>
+/// <param name="ClampedHouses">Houses that that not contain the beginning of a new sign</param>
+/// <param name="InterceptedSigns">Signs that do not contain a house cusp</param>
+/// <param name="GroundNote">Houses related to the ascendant, respectively the ascendant, mundane house ascendant
+///     (same index for house as for sign on the as: Libra is 7), house with sister sign on cusp, house ruled by same
+///     sign as ascendant (if any)</param>
+/// <param name="LordAscInHouses">The house(s) where rulers of the ascendant are located</param>
+/// <param name="MoonInSign">The ecliptical sign of the Moon</param>
+public record BlaDetails(
+    int SisterSignAsc,
+    List<int> ClampedHouses,
+    List<int> InterceptedSigns,
+    List<int> GroundNote,
+    List<int> LordAscInHouses,
+    int MoonInSign);
 
-
+/// <summary>
+/// Cyclic connections in a BLA schema. Each connection conists of two houses (1..12). The ruler of the first house
+/// is located in the second house.
+/// </summary>
+/// <param name="Cardinal">Cycles in cardinal houses</param>
+/// <param name="Fixed">Cycles in fixed houses</param>
+/// <param name="Mutable">Cycles in mutable houses</param>
+/// <param name="Fire">Cycles in fire houses</param>
+/// <param name="Earth">Cycles in earth houses</param>
+/// <param name="Air">Cycles in air houses</param>
+/// <param name="Water">Cycles in water houses</param>
+public record BlaCyclesData(
+    List<(int, int)> Cardinal,
+    List<(int, int)> Fixed,
+    List<(int, int)> Mutable,
+    List<(int, int)> Fire,
+    List<(int, int)> Earth,
+    List<(int, int)> Air,
+    List<(int, int)> Water
+);
 
 /// <summary>
 /// Counts for a sign, house and cusp in a BLA schema

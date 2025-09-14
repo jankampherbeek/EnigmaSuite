@@ -30,23 +30,18 @@ public class BlaSchemaOrchestrator
 
         var houseCounts =  HousePositions.DefineHouseCounts(pointDetails);      // Number of points in houses
         var signCounts = SignPositions.DefineSignCounts(pointDetails);          // Number of points in signs
-//        var planetsInSign = SignPositions.DefineSignCounts(pointDetails);       // Sign for each point   
         var planetsInSign = pointDetails.ToDictionary(x => x.Point, x => x.Sign);
         var planetsInHouses = HousePositions.DefineHousePositions(chart); // House for each point
         var signsOnCusps = SignsOnCusps. DefineSignsOnCusps(chart.Cusps);        // Signs on cusps (no intercepted signs)
         var (crossesSignHouseCounts, elementsSignHousecounts) = CrossElementCounts.CreateCrossesElementsCounts(signCounts, houseCounts, houseDetails);
         var quadrantCounts = QuadrantPositions.DefineQuadrants(houseDetails);
-        
-        // =======================
-        
-        // Define dispositors
         var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSign, planetsInHouses);
-       // var dispositors = new List<BlaDispositorLine>();
-       
+        var decans = BlaDecans.DefineDecans(chart.Points);
+        var details = CreateDetails(chart, signsOnCusps);
         
-        // Define decans
-        // Define details (Sister sign asc etc.)
         // Define cyclic connections
+        var cyclesData = BlaCycles.CreateCyclesData(planetsInHouses, signsOnCusps);
+        
         // Define shortened cycles
         // Define reinforcements
 
@@ -54,18 +49,53 @@ public class BlaSchemaOrchestrator
             crossesSignHouseCounts,
             elementsSignHousecounts,
             quadrantCounts,
-            dispositors);
+            dispositors,
+            decans,
+            details,
+            cyclesData);
 
     }
 
-    
-    // TODO: create a record like BlaPositions with ChartPoint, longitude, sign, house, ruledSigns, ruledHouses
-    // See ChartDetailsFactory for examples
+    // TODO move to separate class
+    private BlaDetails CreateDetails(ChartLongitudes chart, Dictionary<int, int> signsOnCusps)
+    {
+        
+        var asc = signsOnCusps[1];
+        var ascRulers = BlaDomain.RulerPairs()[asc];
+        var sisterRulerAsc = ascRulers.SubRuler;
+        var sisterSignAsc = (int)Math.Truncate(chart.Points[sisterRulerAsc] / 30.0) + 1;
+        var clampedHouses = InterceptedClamped.DefineClampedHouses(chart);
+        var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
+        var groundNote = new List<int>();
+        groundNote.Add(asc);
+        var mundaneHouseAsc = (int)Math.Truncate(asc / 30.0) + 1;
+        groundNote.Add(mundaneHouseAsc);
+        var sisterSignCusp = 0;
+        foreach (var rulerPair in BlaDomain.RulerPairs())
+        {
+            if (rulerPair.MainRuler == sisterRulerAsc)
+            {
+                sisterSignCusp = rulerPair.SignIndex;
+            }
+        }
+        groundNote.Add(sisterSignCusp);
+        foreach (var cuspSign in signsOnCusps)
+        {
+            if (cuspSign.Value == asc && cuspSign.Key != 1)
+            {
+                groundNote.Add(cuspSign.Key);
+            }
+        }
+        var lordAscInHouses = new List<int>();
+        // TODO define lord ascendant in houses
+
+        var moonInSign = (int)Math.Truncate(chart.Points[ChartPoints.Moon] / 30.0) + 1;
+        
+        return new BlaDetails(sisterSignAsc, clampedHouses, interceptedSigns, groundNote, lordAscInHouses, moonInSign);
+
+    }
 
 
-   
-    
-  
     
  
 
