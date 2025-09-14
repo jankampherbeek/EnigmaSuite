@@ -23,20 +23,13 @@ public static class BlaCycles
     {
         var rulersForHouses = CreateRulersForHouses(signsOnCusps);
         var rulerHouseRuledHouse = RuledHouseRulerInHouse(rulersForHouses, planetsInHouses);
-        var cardinalHouses = new List<int>(){1, 4, 7, 10};
-        var cardinal = FindCycles(cardinalHouses, rulerHouseRuledHouse);
-        var fixHouses = new List<int>(){2, 5, 8, 11};
-        var fix = FindCycles(fixHouses, rulerHouseRuledHouse);  
-        var mutableHouses = new List<int>(){3, 6, 9, 12};
-        var mutable = FindCycles(mutableHouses, rulerHouseRuledHouse);
-        var fireHouses = new List<int>(){1, 5, 9};
-        var fire = FindCycles(fireHouses, rulerHouseRuledHouse);
-        var earthHouses = new List<int>(){2, 6, 10};
-        var earth = FindCycles(earthHouses, rulerHouseRuledHouse);
-        var airHouses = new List<int>(){3, 7, 11};
-        var air = FindCycles(airHouses, rulerHouseRuledHouse);
-        var waterHouses = new List<int>(){4, 8, 12};
-        var water = FindCycles(waterHouses, rulerHouseRuledHouse);
+        var cardinal = FindCycles([1, 4, 7, 10], rulerHouseRuledHouse);
+        var fix = FindCycles([2, 5, 8, 11], rulerHouseRuledHouse);  
+        var mutable = FindCycles([3, 6, 9, 12], rulerHouseRuledHouse);
+        var fire = FindCycles([1, 5, 9], rulerHouseRuledHouse);
+        var earth = FindCycles([2, 6, 10], rulerHouseRuledHouse);
+        var air = FindCycles([3, 7, 11], rulerHouseRuledHouse);
+        var water = FindCycles([4, 8, 12], rulerHouseRuledHouse);
         
         return new BlaCyclesData(cardinal, fix, mutable, fire, earth, air, water);
     }
@@ -48,7 +41,7 @@ public static class BlaCycles
         foreach (var cusps in signsOnCusps)
         {
             var rulerPair = BlaDomain.RulerPairs()[cusps.Value];
-            rulersForHouses.Add(cusps.Key, new List<ChartPoints>() { rulerPair.MainRuler, rulerPair.SubRuler });
+            rulersForHouses.Add(cusps.Key, [rulerPair.MainRuler, rulerPair.SubRuler]);
         }
         return rulersForHouses;
     }
@@ -69,7 +62,7 @@ public static class BlaCycles
         return rulerHouseRuledHouse;
     }
     
-    
+    // Find cycles in a specific group of houses
     private static List<(int, int)> FindCycles(List<int> houses, Dictionary<ChartPoints, (int, int)> ruledHousesRulerInHouse)
     {
         var cycles = new List<(int, int)>();

@@ -21,7 +21,7 @@ public record BlaSchemaDataSheet( // TODO augment
     Dictionary<int, int> QuadrantPositions,
     List<BlaDispositorLine> Dispositors,
     Dictionary<ChartPoints, int> Decans,
-    BlaDetails Details,
+    BlaDetailsData DetailsData,
     BlaCyclesData CyclesData
  
 );
@@ -37,7 +37,7 @@ public record BlaSchemaDataSheet( // TODO augment
 ///     sign as ascendant (if any)</param>
 /// <param name="LordAscInHouses">The house(s) where rulers of the ascendant are located</param>
 /// <param name="MoonInSign">The ecliptical sign of the Moon</param>
-public record BlaDetails(
+public record BlaDetailsData(
     int SisterSignAsc,
     List<int> ClampedHouses,
     List<int> InterceptedSigns,

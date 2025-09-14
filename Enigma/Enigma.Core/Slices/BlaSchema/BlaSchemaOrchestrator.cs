@@ -23,7 +23,7 @@ public class BlaSchemaOrchestrator
             pointDetails.Add(BlaDetailsFactory.CreateBlaPointDetails(point.Key, chart));
         }
         var houseDetails = new List<BlaHouseDetails>();
-        for (int i = 1; i < 13; i++)
+        for (var i = 1; i < 13; i++)
         {
             houseDetails.Add(BlaDetailsFactory.CreateBlaHouseDetails(i, chart));
         }
@@ -37,9 +37,7 @@ public class BlaSchemaOrchestrator
         var quadrantCounts = QuadrantPositions.DefineQuadrants(houseDetails);
         var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSign, planetsInHouses);
         var decans = BlaDecans.DefineDecans(chart.Points);
-        var details = CreateDetails(chart, signsOnCusps);
-        
-        // Define cyclic connections
+        var details = BlaDetails.CreateDetails(chart, signsOnCusps, planetsInHouses);
         var cyclesData = BlaCycles.CreateCyclesData(planetsInHouses, signsOnCusps);
         
         // Define shortened cycles
@@ -56,45 +54,7 @@ public class BlaSchemaOrchestrator
 
     }
 
-    // TODO move to separate class
-    private BlaDetails CreateDetails(ChartLongitudes chart, Dictionary<int, int> signsOnCusps)
-    {
-        
-        var asc = signsOnCusps[1];
-        var ascRulers = BlaDomain.RulerPairs()[asc];
-        var sisterRulerAsc = ascRulers.SubRuler;
-        var sisterSignAsc = (int)Math.Truncate(chart.Points[sisterRulerAsc] / 30.0) + 1;
-        var clampedHouses = InterceptedClamped.DefineClampedHouses(chart);
-        var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
-        var groundNote = new List<int>();
-        groundNote.Add(asc);
-        var mundaneHouseAsc = (int)Math.Truncate(asc / 30.0) + 1;
-        groundNote.Add(mundaneHouseAsc);
-        var sisterSignCusp = 0;
-        foreach (var rulerPair in BlaDomain.RulerPairs())
-        {
-            if (rulerPair.MainRuler == sisterRulerAsc)
-            {
-                sisterSignCusp = rulerPair.SignIndex;
-            }
-        }
-        groundNote.Add(sisterSignCusp);
-        foreach (var cuspSign in signsOnCusps)
-        {
-            if (cuspSign.Value == asc && cuspSign.Key != 1)
-            {
-                groundNote.Add(cuspSign.Key);
-            }
-        }
-        var lordAscInHouses = new List<int>();
-        // TODO define lord ascendant in houses
-
-        var moonInSign = (int)Math.Truncate(chart.Points[ChartPoints.Moon] / 30.0) + 1;
-        
-        return new BlaDetails(sisterSignAsc, clampedHouses, interceptedSigns, groundNote, lordAscInHouses, moonInSign);
-
-    }
-
+ 
 
     
  
