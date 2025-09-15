@@ -22,7 +22,8 @@ public record BlaSchemaDataSheet( // TODO augment
     List<BlaDispositorLine> Dispositors,
     Dictionary<ChartPoints, int> Decans,
     BlaDetailsData DetailsData,
-    BlaCyclesData CyclesData
+    BlaCyclesData CyclesData,
+    BlaCyclesData ShortenedCyclesData
  
 );
 
@@ -65,6 +66,7 @@ public record BlaCyclesData(
     List<(int, int)> Air,
     List<(int, int)> Water
 );
+
 
 /// <summary>
 /// Counts for a sign, house and cusp in a BLA schema

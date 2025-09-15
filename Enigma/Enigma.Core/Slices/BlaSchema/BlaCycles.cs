@@ -34,6 +34,28 @@ public static class BlaCycles
         return new BlaCyclesData(cardinal, fix, mutable, fire, earth, air, water);
     }
 
+    /// <summary>
+    /// Create shortened cycles data 
+    /// </summary>
+    /// <param name="planetsInHouses">Planets in houses</param>
+    /// <param name="signsOnCusps">Signs on cusps</param>
+    /// <returns>Shortened cycles data</returns>
+    public static BlaCyclesData CreateShortenedCyclesData(Dictionary<ChartPoints, int> planetsInHouses,
+        Dictionary<int, int> signsOnCusps)
+    {
+        var rulersForHouses = CreateRulersForHouses(signsOnCusps);
+        var rulerHouseRuledHouse = RuledHouseRulerInHouse(rulersForHouses, planetsInHouses);
+        var cardinal = FindShortenedCycles([1, 4, 7, 10], rulerHouseRuledHouse);
+        var fix = FindShortenedCycles([2, 5, 8, 11], rulerHouseRuledHouse);  
+        var mutable = FindShortenedCycles([3, 6, 9, 12], rulerHouseRuledHouse);
+        var fire = FindShortenedCycles([1, 5, 9], rulerHouseRuledHouse);
+        var earth = FindShortenedCycles([2, 6, 10], rulerHouseRuledHouse);
+        var air = FindShortenedCycles([3, 7, 11], rulerHouseRuledHouse);
+        var water = FindShortenedCycles([4, 8, 12], rulerHouseRuledHouse);
+        return new BlaCyclesData(cardinal, fix, mutable, fire, earth, air, water);
+    }
+    
+    
     // Return a dictionary with the index of the cusp and a list of rulers
     private static Dictionary<int, List<ChartPoints>> CreateRulersForHouses(Dictionary<int, int> signsOnCusps)
     {
@@ -71,6 +93,39 @@ public static class BlaCycles
             if (houses.Contains(ruler.Value.Item1) && houses.Contains(ruler.Value.Item2))
             {
                 cycles.Add(ruler.Value);
+            }
+        }
+        return cycles;
+    }
+    
+    // Find shortened cycles in a specific group of houses
+    // A shortened cycle exists if houses from the same element or cross or ruler by points from the same ruler pair
+    private static List<(int, int)> FindShortenedCycles(List<int> houses, Dictionary<ChartPoints, (int, int)> ruledHousesRulerInHouse)
+    {
+        var cycles = new List<(int, int)>();
+        
+        foreach (var ruler in ruledHousesRulerInHouse)
+        {
+            foreach (var rulerPair in BlaDomain.RulerPairs())
+            {
+                var mainRuler = rulerPair.MainRuler;
+                var subRuler = rulerPair.SubRuler;
+                var housesFound = new List<int>();
+                foreach (var house in houses)
+                {
+                    if (ruledHousesRulerInHouse[mainRuler].Item1 == house ||
+                        ruledHousesRulerInHouse[subRuler].Item1 == house)
+                    {
+                        housesFound.Add(house);   
+                    }
+                }
+                if (housesFound.Count < 2) continue;
+                {
+                    foreach (var house in housesFound)
+                    {
+                        cycles.Add((house, ruler.Value.Item2));   
+                    };
+                }
             }
         }
         return cycles;

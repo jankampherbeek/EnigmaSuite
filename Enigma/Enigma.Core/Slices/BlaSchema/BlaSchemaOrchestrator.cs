@@ -39,6 +39,7 @@ public class BlaSchemaOrchestrator
         var decans = BlaDecans.DefineDecans(chart.Points);
         var details = BlaDetails.CreateDetails(chart, signsOnCusps, planetsInHouses);
         var cyclesData = BlaCycles.CreateCyclesData(planetsInHouses, signsOnCusps);
+        var shortenedCyclesData = BlaCycles.CreateShortenedCyclesData(planetsInHouses, signsOnCusps);
         
         // Define shortened cycles
         // Define reinforcements
@@ -50,7 +51,8 @@ public class BlaSchemaOrchestrator
             dispositors,
             decans,
             details,
-            cyclesData);
+            cyclesData,
+            shortenedCyclesData);
 
     }
 
