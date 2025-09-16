@@ -40,7 +40,7 @@ public class BlaSchemaOrchestrator
         var details = BlaDetails.CreateDetails(chart, signsOnCusps, planetsInHouses);
         var cyclesData = BlaCycles.CreateCyclesData(planetsInHouses, signsOnCusps);
         var shortenedCyclesData = BlaCycles.CreateShortenedCyclesData(planetsInHouses, signsOnCusps);
-        var reinforcements = BlaReinforcements.CreateReinforcements(planetsInSigns, planetsInHouses);
+        var reinforcements = BlaReinforcements.CreateReinforcements(planetsInSigns, planetsInHouses, signsOnCusps);
 
         return new BlaSchemaDataSheet(
             crossesSignHouseCounts,

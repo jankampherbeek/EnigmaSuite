@@ -8,20 +8,20 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.BlaSchema;
 
+/// <summary>
+/// Handle the construction of all refinforcement items
+/// </summary>
 public static class BlaReinforcements
 {
     public static Reinforcements CreateReinforcements(Dictionary<ChartPoints, int> planetsInSigns,
-        Dictionary<ChartPoints, int> planetsInHouses)
+        Dictionary<ChartPoints, int> planetsInHouses,
+        Dictionary<int, int> signsOnCusps)
     {
         var pointInOwnSign = ReinforcementCalc.FindPointsInOwnSign(planetsInSigns);
-        var pointsInOwnHouse = new Dictionary<ChartPoints, int>();
+        var pointsInOwnHouse = ReinforcementCalc.FindPointsInOwnHouses(planetsInHouses, signsOnCusps);
         var pointsInOwnMundaneHouse = new Dictionary<ChartPoints, int>();
         
         return new Reinforcements(pointInOwnSign, pointsInOwnHouse, pointsInOwnMundaneHouse);
 
     }
-
-    
-
-    
 }

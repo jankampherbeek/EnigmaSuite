@@ -241,4 +241,73 @@ public class TestReinforcementCalc
             Assert.That(result[ChartPoints.Sun], Is.EqualTo(5));
         });
     }
+
+
+    [Test]
+    public void TestFindPointsinOwnHouse()
+    {
+        var planetsInHouses = CreatePlanetsInHouses();
+        var signsOnCusp = SignsOnCusp();
+        var result = ReinforcementCalc.FindPointsInOwnHouses(planetsInHouses, signsOnCusp);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result.ContainsKey(ChartPoints.VulcanusCarteret));
+            Assert.That(result.ContainsValue(6));
+        });
+    }
+
+    [Test]
+    public void TestfindPointsInMundaneHouses()
+    {
+        var planetsInHouses = CreatePlanetsInHouses();
+        var result = ReinforcementCalc.FindPointsInMundaneHouses(planetsInHouses);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Count, Is.EqualTo(4));
+            Assert.That(result.ContainsKey(ChartPoints.VulcanusCarteret));
+            Assert.That(result.ContainsKey(ChartPoints.Mars));
+            Assert.That(result.ContainsKey(ChartPoints.Venus));
+            Assert.That(result.ContainsValue(6));
+            Assert.That(result.ContainsValue(8));
+            Assert.That(result.ContainsValue(7));
+            Assert.That(result.ContainsValue(2));
+        });
+    }
+    
+    
+    private Dictionary<ChartPoints, int> CreatePlanetsInHouses()
+    {
+        return new Dictionary<ChartPoints, int>()
+        {
+            { ChartPoints.Sun, 7 },
+            { ChartPoints.Moon, 1 },
+            { ChartPoints.Mercury, 7 },
+            { ChartPoints.Venus, 7 },
+            { ChartPoints.Mars, 8 },
+            { ChartPoints.Jupiter, 7 },
+            { ChartPoints.Saturn, 2 },
+            { ChartPoints.PersephoneCarteret, 2 },
+            { ChartPoints.VulcanusCarteret, 6 }
+        };
+    }
+
+    private Dictionary<int, int> SignsOnCusp()
+    {
+        return new Dictionary<int, int>()
+        {
+            { 1, 10 },
+            { 2, 11 },
+            { 3, 1 },
+            { 4, 2 },
+            { 5, 3 },
+            { 6, 3 },
+            { 7, 4 },
+            { 8, 5 },
+            { 9, 7 },
+            { 10, 8 },
+            { 11, 9 },
+            { 12, 9 }
+        };
+    }
 }
