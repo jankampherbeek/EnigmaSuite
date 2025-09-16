@@ -12,9 +12,15 @@ namespace Enigma.Core.Slices.BlaSchema;
 /// Fully specified data sheet for BLA schema calculations
 /// </summary>
 /// <param name="CrossesSignHouseCounts">Counts of points in crosses, first dictionary for signs, the second for houses</param>
-/// <param name="ElementsSignHouseCounts">Counts of points in elements, first ditctionary for signs, the second for houses</param>
+/// <param name="ElementsSignHouseCounts">Counts of points in elements, first dictionary for signs, the second for houses</param>
 /// <param name="QuadrantPositions">Counts of points per quadrant</param>
-public record BlaSchemaDataSheet( // TODO augment
+/// <param name="Dispositors">Dispositors for the BLA schema</param>
+/// <param name="Decans">Decans</param>
+/// <param name="DetailsData">Details for the BLA schema</param>
+/// <param name="CyclesData">House cycles, separate for all elements and all crosses</param>
+/// <param name="ShortenedCyclesData">Shortened house cycles, separate for all elements and all crosses</param>
+/// <param name="Reinforcements">Several reinforcements</param>
+public record BlaSchemaDataSheet( 
   
     Dictionary<int, BlaSignHouseCountLine> CrossesSignHouseCounts,
     Dictionary<int, BlaSignHouseCountLine> ElementsSignHouseCounts,
@@ -23,8 +29,8 @@ public record BlaSchemaDataSheet( // TODO augment
     Dictionary<ChartPoints, int> Decans,
     BlaDetailsData DetailsData,
     BlaCyclesData CyclesData,
-    BlaCyclesData ShortenedCyclesData
- 
+    BlaCyclesData ShortenedCyclesData,
+    Reinforcements Reinforcements
 );
 
 /// <summary>
@@ -66,6 +72,13 @@ public record BlaCyclesData(
     List<(int, int)> Air,
     List<(int, int)> Water
 );
+
+public record Reinforcements(    // todo augment
+    Dictionary<ChartPoints, int> pointsInOwnSign,
+    Dictionary<ChartPoints, int> pointsInOwnHouse,
+    Dictionary<ChartPoints, int> pointsInOwnMundaneHouse
+    );
+
 
 
 /// <summary>

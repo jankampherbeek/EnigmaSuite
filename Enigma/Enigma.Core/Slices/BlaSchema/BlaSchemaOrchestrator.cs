@@ -30,19 +30,17 @@ public class BlaSchemaOrchestrator
 
         var houseCounts =  HousePositions.DefineHouseCounts(pointDetails);      // Number of points in houses
         var signCounts = SignPositions.DefineSignCounts(pointDetails);          // Number of points in signs
-        var planetsInSign = pointDetails.ToDictionary(x => x.Point, x => x.Sign);
+        var planetsInSigns = pointDetails.ToDictionary(x => x.Point, x => x.Sign);
         var planetsInHouses = HousePositions.DefineHousePositions(chart); // House for each point
         var signsOnCusps = SignsOnCusps. DefineSignsOnCusps(chart.Cusps);        // Signs on cusps (no intercepted signs)
         var (crossesSignHouseCounts, elementsSignHousecounts) = CrossElementCounts.CreateCrossesElementsCounts(signCounts, houseCounts, houseDetails);
         var quadrantCounts = QuadrantPositions.DefineQuadrants(houseDetails);
-        var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSign, planetsInHouses);
+        var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSigns, planetsInHouses);
         var decans = BlaDecans.DefineDecans(chart.Points);
         var details = BlaDetails.CreateDetails(chart, signsOnCusps, planetsInHouses);
         var cyclesData = BlaCycles.CreateCyclesData(planetsInHouses, signsOnCusps);
         var shortenedCyclesData = BlaCycles.CreateShortenedCyclesData(planetsInHouses, signsOnCusps);
-        
-        // Define shortened cycles
-        // Define reinforcements
+        var reinforcements = BlaReinforcements.CreateReinforcements(planetsInSigns, planetsInHouses);
 
         return new BlaSchemaDataSheet(
             crossesSignHouseCounts,
@@ -52,7 +50,8 @@ public class BlaSchemaOrchestrator
             decans,
             details,
             cyclesData,
-            shortenedCyclesData);
+            shortenedCyclesData,
+            reinforcements);
 
     }
 
