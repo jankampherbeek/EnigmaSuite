@@ -274,6 +274,46 @@ public class TestReinforcementCalc
             Assert.That(result.ContainsValue(2));
         });
     }
+
+    [Test]
+    public void TestRulerInHouseAsSign()
+    {
+        var signsOnCusp = SignsOnCusp();
+        var planetsInHouses = CreatePlanetsInHouses();
+        var planetsInSigns = CreatePlanetsInSigns();
+        var result = ReinforcementCalc.FindRulerInHouseAsSign(signsOnCusp, planetsInSigns);
+        foreach (var resultItem in result)
+        {
+            Console.WriteLine($"{resultItem.Key} = {resultItem.Value}");       
+        }
+        
+        
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result.ContainsKey(ChartPoints.Venus));
+            Assert.That(result.ContainsValue(4));
+            Assert.That(result.ContainsKey(ChartPoints.Mercury));
+            Assert.That(result.ContainsValue(5));
+        });
+    }
+
+    private Dictionary<ChartPoints, int> CreatePlanetsInSigns()
+    {
+        return new Dictionary<ChartPoints, int>()
+        {
+            { ChartPoints.Sun, 5 },
+            { ChartPoints.Moon, 11 },
+            { ChartPoints.Mercury, 5 },
+            { ChartPoints.Venus, 4 },
+            { ChartPoints.Mars, 7 },
+            { ChartPoints.Jupiter, 4 },
+            { ChartPoints.Saturn, 1 },
+            { ChartPoints.PersephoneCarteret, 12 },
+            { ChartPoints.VulcanusCarteret, 3 }
+        };
+    }
+    
     
     
     private Dictionary<ChartPoints, int> CreatePlanetsInHouses()

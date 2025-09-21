@@ -88,6 +88,46 @@ public static class ReinforcementCalc
         return pointsInMundaneHouse;
         
     }
-    
+
+    /// <summary>
+    /// Find rulers that are in a sign with the same index as the house they rule
+    /// </summary>
+    /// <param name="signsOnCusps">All cusps and the signs on each cusp, both indexed 1..12</param>
+    /// <param name="planetsInSigns">All planets and the signs (1..12) where they are located</param>   
+    /// <returns>Dictionary with ChartPoints and the sign index (1..12)</returns>
+    public static Dictionary<ChartPoints, int> FindRulerInHouseAsSign(Dictionary<int, int> signsOnCusps, Dictionary<ChartPoints, int> planetsInSigns)
+    {
+        var signHouseRulers = new Dictionary<ChartPoints, int>();
+        // Voor alle cusps
+        // Bepaal teken dat op cusp heerst
+        foreach (var (house, sign) in signsOnCusps)
+        {
+            ChartPoints? mainRulingPoint = null;
+            ChartPoints? subRulingPoint = null;
+            // Bepaal punt dat teken, en dus cusp beheert
+            foreach (var rulerPair in BlaDomain.RulerPairs())
+            {
+                if (rulerPair.SignIndex != sign) continue;
+                mainRulingPoint = rulerPair.MainRuler;
+                subRulingPoint = rulerPair.SubRuler;
+            }
+            var signMainRuler = 0;
+            var signSubRuler = 0;
+            foreach (var planetInSign in planetsInSigns)
+            {
+                if (planetInSign.Key == mainRulingPoint) signMainRuler = planetInSign.Value;
+                if (planetInSign.Key == subRulingPoint) signSubRuler = planetInSign.Value;
+            }
+            if (mainRulingPoint != null && signMainRuler == house)
+            {
+                signHouseRulers.Add((ChartPoints)mainRulingPoint, signMainRuler);
+            }
+            if (subRulingPoint != null && signSubRuler == house)
+            {
+                signHouseRulers.Add((ChartPoints)subRulingPoint, signSubRuler);
+            }
+        }        
+        return signHouseRulers;
+    }
     
 }

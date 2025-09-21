@@ -19,7 +19,7 @@ public static class BlaReinforcements
     {
         var pointInOwnSign = ReinforcementCalc.FindPointsInOwnSign(planetsInSigns);
         var pointsInOwnHouse = ReinforcementCalc.FindPointsInOwnHouses(planetsInHouses, signsOnCusps);
-        var pointsInOwnMundaneHouse = new Dictionary<ChartPoints, int>();
+        var pointsInOwnMundaneHouse = ReinforcementCalc.FindPointsInMundaneHouses(planetsInHouses);
         
         return new Reinforcements(pointInOwnSign, pointsInOwnHouse, pointsInOwnMundaneHouse);
 
