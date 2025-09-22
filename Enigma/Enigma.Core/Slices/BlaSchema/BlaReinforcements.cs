@@ -20,8 +20,13 @@ public static class BlaReinforcements
         var pointInOwnSign = ReinforcementCalc.FindPointsInOwnSign(planetsInSigns);
         var pointsInOwnHouse = ReinforcementCalc.FindPointsInOwnHouses(planetsInHouses, signsOnCusps);
         var pointsInOwnMundaneHouse = ReinforcementCalc.FindPointsInMundaneHouses(planetsInHouses);
+        var rulersInHouseAsSign = ReinforcementCalc.FindRulerInHouseAsSign(signsOnCusps, planetsInSigns);
+        var factorPairs = ReinforcementCalc.FindFactorPairs(planetsInSigns, planetsInHouses);
         
-        return new Reinforcements(pointInOwnSign, pointsInOwnHouse, pointsInOwnMundaneHouse);
-
+        return new Reinforcements(pointInOwnSign, 
+            pointsInOwnHouse, 
+            pointsInOwnMundaneHouse, 
+            rulersInHouseAsSign, 
+            factorPairs);
     }
 }

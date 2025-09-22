@@ -74,12 +74,24 @@ public record BlaCyclesData(
 );
 
 public record Reinforcements(    // todo augment
-    Dictionary<ChartPoints, int> pointsInOwnSign,
-    Dictionary<ChartPoints, int> pointsInOwnHouse,
-    Dictionary<ChartPoints, int> pointsInOwnMundaneHouse
-    );
+    Dictionary<ChartPoints, int> PointsInOwnSign,
+    Dictionary<ChartPoints, int> PointsInOwnHouse,
+    Dictionary<ChartPoints, int> PointsInOwnMundaneHouse,
+    Dictionary<ChartPoints, int> RulersInHouseAsSign,
+    List<FactorPairAnalogHouseSign> FactorPairs);
 
-
+/// <summary>
+/// Factor pair in analog house and sign
+/// </summary>
+/// <param name="PointInSign">The point in a sign</param>
+/// <param name="sign">Index of the sign 1..12</param>
+/// <param name="PointInHouse">The point in an analog house</param>
+/// <param name="house">Index of the house 1..12</param>
+public record FactorPairAnalogHouseSign(
+    ChartPoints PointInSign,
+    int sign,
+    ChartPoints PointInHouse,
+    int house);
 
 /// <summary>
 /// Counts for a sign, house and cusp in a BLA schema
@@ -206,7 +218,32 @@ public static class BlaDomain
         };
         return rulers;
     }
-    
+
+
+    /// <summary>
+    /// Create logical pairs of factors
+    /// </summary>
+    /// <returns>The create factors</returns>
+    public static List<(ChartPoints, ChartPoints)> FactorPairs()
+    {
+        var pairs = new List<(ChartPoints, ChartPoints)>
+        {
+            (ChartPoints.Mars, ChartPoints.Pluto),
+            (ChartPoints.Venus, ChartPoints.PersephoneCarteret),
+            (ChartPoints.Mercury, ChartPoints.VulcanusCarteret),
+            (ChartPoints.Moon, ChartPoints.Priapus),
+            (ChartPoints.Sun, ChartPoints.ApogeeMean),
+            (ChartPoints.Jupiter, ChartPoints.Neptune),
+            (ChartPoints.Saturn, ChartPoints.Uranus),
+            (ChartPoints.NorthNode, ChartPoints.SouthNode),
+            (ChartPoints.NorthNode, ChartPoints.Beast),
+            (ChartPoints.NorthNode, ChartPoints.Dragon),
+            (ChartPoints.SouthNode, ChartPoints.Beast),
+            (ChartPoints.SouthNode, ChartPoints.Dragon),
+            (ChartPoints.Beast, ChartPoints.Dragon)
+        };
+        return pairs;
+    }
  
     
 }

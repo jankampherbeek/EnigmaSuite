@@ -130,4 +130,40 @@ public static class ReinforcementCalc
         return signHouseRulers;
     }
     
+
+
+    /// <summary>
+    /// Find factorpairs with analogous house and sign
+    /// </summary>
+    /// <param name="planetsInSigns">Planets in signs</param>
+    /// <param name="planetsInHouses">Planets in houses</param>
+    /// <returns>List with records FactorPairAnalogHouseSign</returns>
+    public static List<FactorPairAnalogHouseSign> FindFactorPairs(Dictionary<ChartPoints, int> planetsInSigns,
+        Dictionary<ChartPoints, int> planetsInHouses)
+    {
+        var factorPairs = new List<FactorPairAnalogHouseSign>();
+
+        foreach (var (point1, point2) in BlaDomain.FactorPairs())
+        {
+            if (planetsInSigns.ContainsKey(point1) && planetsInSigns.ContainsKey(point2)
+                                                   && planetsInHouses.ContainsKey(point1)
+                                                   && planetsInHouses.ContainsKey(point2))
+            {
+                var house1 = planetsInHouses[point1];
+                var house2 = planetsInHouses[point2];
+                var sign1 = planetsInSigns[point1];
+                var sign2 = planetsInSigns[point2];
+                
+                if (sign1 == house2)
+                {
+                    factorPairs.Add(new FactorPairAnalogHouseSign(point1, sign1, point2, house2));
+                }
+                else if (sign2 == house1)
+                {
+                    factorPairs.Add(new FactorPairAnalogHouseSign(point2, sign2, point1, house1));
+                }
+            }
+        }
+        return factorPairs;
+    }
 }

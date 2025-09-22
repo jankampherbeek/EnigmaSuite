@@ -298,6 +298,37 @@ public class TestReinforcementCalc
         });
     }
 
+    [Test]
+    public void TestFactorPairs()
+    {
+        var planetsInSigns = new Dictionary<ChartPoints, int>
+        {
+            { ChartPoints.Sun, 5 },
+            { ChartPoints.Moon, 11 },
+            { ChartPoints.Mercury, 5 },
+            { ChartPoints.Saturn, 1 },
+            { ChartPoints.Uranus, 5 }
+        };
+        var planetsInHouses = new Dictionary<ChartPoints, int>()
+        {
+            { ChartPoints.Sun, 7 },
+            { ChartPoints.Moon, 1 },
+            { ChartPoints.Mercury, 7 },
+            { ChartPoints.Saturn, 2 },
+            { ChartPoints.Uranus, 1 }
+        };
+        var result = ReinforcementCalc.FindFactorPairs(planetsInSigns, planetsInHouses);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result[0].PointInSign, Is.EqualTo(ChartPoints.Saturn));
+            Assert.That(result[0].sign, Is.EqualTo(1));
+            Assert.That(result[0].PointInHouse, Is.EqualTo(ChartPoints.Uranus));
+            Assert.That(result[0].house, Is.EqualTo(1));
+        });
+    }
+    
+    
     private Dictionary<ChartPoints, int> CreatePlanetsInSigns()
     {
         return new Dictionary<ChartPoints, int>()
