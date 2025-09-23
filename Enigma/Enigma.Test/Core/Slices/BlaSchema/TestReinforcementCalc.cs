@@ -251,7 +251,7 @@ public class TestReinforcementCalc
         var result = ReinforcementCalc.FindPointsInOwnHouses(planetsInHouses, signsOnCusp);
         Assert.Multiple(() =>
         {
-            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result, Has.Count.EqualTo(1));
             Assert.That(result.ContainsKey(ChartPoints.VulcanusCarteret));
             Assert.That(result.ContainsValue(6));
         });
@@ -264,7 +264,7 @@ public class TestReinforcementCalc
         var result = ReinforcementCalc.FindPointsInMundaneHouses(planetsInHouses);
         Assert.Multiple(() =>
         {
-            Assert.That(result.Count, Is.EqualTo(4));
+            Assert.That(result, Has.Count.EqualTo(4));
             Assert.That(result.ContainsKey(ChartPoints.VulcanusCarteret));
             Assert.That(result.ContainsKey(ChartPoints.Mars));
             Assert.That(result.ContainsKey(ChartPoints.Venus));
@@ -290,7 +290,7 @@ public class TestReinforcementCalc
         
         Assert.Multiple(() =>
         {
-            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result, Has.Count.EqualTo(2));
             Assert.That(result.ContainsKey(ChartPoints.Venus));
             Assert.That(result.ContainsValue(4));
             Assert.That(result.ContainsKey(ChartPoints.Mercury));
@@ -299,7 +299,7 @@ public class TestReinforcementCalc
     }
 
     [Test]
-    public void TestFactorPairs()
+    public void TestFindFactorPairs()
     {
         var planetsInSigns = new Dictionary<ChartPoints, int>
         {
@@ -320,12 +320,115 @@ public class TestReinforcementCalc
         var result = ReinforcementCalc.FindFactorPairs(planetsInSigns, planetsInHouses);
         Assert.Multiple(() =>
         {
-            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result, Has.Count.EqualTo(1));
             Assert.That(result[0].PointInSign, Is.EqualTo(ChartPoints.Saturn));
-            Assert.That(result[0].sign, Is.EqualTo(1));
+            Assert.That(result[0].Sign, Is.EqualTo(1));
             Assert.That(result[0].PointInHouse, Is.EqualTo(ChartPoints.Uranus));
-            Assert.That(result[0].house, Is.EqualTo(1));
+            Assert.That(result[0].House, Is.EqualTo(1));
         });
+    }
+
+    [Test]
+    public void TestFindReceptionInSigns()
+    {
+        var planetsInSigns = new Dictionary<ChartPoints, int>()
+        {
+            { ChartPoints.Sun, 5 },
+            { ChartPoints.Moon, 11 },
+            { ChartPoints.Mercury, 5 },
+            { ChartPoints.Venus, 4 },
+            { ChartPoints.Mars, 7 },
+            { ChartPoints.Jupiter, 4 },
+            { ChartPoints.Saturn, 1 },
+            { ChartPoints.Priapus, 2 }
+        };
+        var result = ReinforcementCalc.FindReceptionInSigns(planetsInSigns);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Has.Count.EqualTo(1));
+            Assert.That(result[0].Point1, Is.EqualTo(ChartPoints.Venus));
+            Assert.That(result[0].SignOrHouse1, Is.EqualTo(4));
+            Assert.That(result[0].Point2, Is.EqualTo(ChartPoints.Priapus));
+            Assert.That(result[0].SignOrHouse2, Is.EqualTo(2));
+        });
+    }
+
+
+    [Test]
+    public void TestFindReceptionInHouses()
+    {
+        var planetsInHouses = new Dictionary<ChartPoints, int>()
+        {
+            { ChartPoints.Sun, 7 },
+            { ChartPoints.Moon, 1 },
+            { ChartPoints.Mercury, 7 },
+            { ChartPoints.Venus, 7 },
+            { ChartPoints.Mars, 8 },
+            { ChartPoints.Jupiter, 7 },
+            { ChartPoints.Saturn, 2 },
+            { ChartPoints.Uranus, 4 },
+            { ChartPoints.Neptune, 2},
+            { ChartPoints.Pluto, 1 },
+            { ChartPoints.PersephoneCarteret, 2 },
+            { ChartPoints.VulcanusCarteret, 6 },
+            { ChartPoints.ApogeeMean, 10 },
+            { ChartPoints.Priapus, 4}
+        };
+        
+        var signsOnCusp = SignsOnCusp();
+        var result = ReinforcementCalc.FindReceptionInHouses(planetsInHouses, signsOnCusp);
+        /*
+         * Expected: 5 receptions:
+         * ApogeeMean + Pluto = 10 + 1
+         * Zon + Maan = 7 + 1           --> tested
+         * Priapus + Persephone = 4 + 2
+         * Venus + Priapus = 7 + 4
+         * ApogeeMean + Mars = 10 + 8
+         */
+        
+        
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Has.Count.EqualTo(5));
+            Assert.That(result[0].Point1, Is.EqualTo(ChartPoints.Sun));
+            Assert.That(result[0].SignOrHouse1, Is.EqualTo(7));
+            Assert.That(result[0].Point2, Is.EqualTo(ChartPoints.Moon));
+            Assert.That(result[0].SignOrHouse2, Is.EqualTo(1));
+        }); 
+    }
+
+    [Test]
+    public void TestFindReceptionInMundaneHouses()
+    {
+        var planetsInHouses = new Dictionary<ChartPoints, int>()
+        {
+            { ChartPoints.Sun, 4 },
+            { ChartPoints.Moon, 5 },
+            { ChartPoints.Mercury, 4 },
+            { ChartPoints.Venus, 3 },
+            { ChartPoints.Mars, 8 },
+            { ChartPoints.Jupiter, 7 },
+            { ChartPoints.Saturn, 2 },
+            { ChartPoints.Uranus, 4 },
+            { ChartPoints.Neptune, 2},
+            { ChartPoints.Pluto, 1 },
+            { ChartPoints.PersephoneCarteret, 2 },
+            { ChartPoints.VulcanusCarteret, 6 },
+            { ChartPoints.ApogeeMean, 10 },
+            { ChartPoints.Priapus, 4}
+        };
+        var signsOnCusp = SignsOnCusp();
+        var result = ReinforcementCalc.FindReceptionInMundaneHouses(planetsInHouses, signsOnCusp);
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Has.Count.EqualTo(1));
+            Assert.That(result[0].Point1, Is.EqualTo(ChartPoints.Sun));
+            Assert.That(result[0].SignOrHouse1, Is.EqualTo(4));
+            Assert.That(result[0].Point2, Is.EqualTo(ChartPoints.Moon));
+            Assert.That(result[0].SignOrHouse2, Is.EqualTo(5));
+        }); 
+        
+        
     }
     
     

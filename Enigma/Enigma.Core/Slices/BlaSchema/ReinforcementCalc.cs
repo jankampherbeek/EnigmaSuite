@@ -7,11 +7,27 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.BlaSchema;
 
+
+
+
 /// <summary>
 /// Calculations to support the construction of reinforcements for the BLA schema
 /// </summary>
 public static class ReinforcementCalc
 {
+    /// <summary>
+    /// Data for receptions in houses
+    /// </summary>
+    /// <param name="Point">The chart point</param>
+    /// <param name="HousePos">House that contains the chart point</param>
+    /// <param name="HouseRuled">House ruled by the chart point</param>
+    private record HousesPosAndRuler(
+        ChartPoints Point,
+        int HousePos,
+        List<int> HouseRuled);
+    
+    
+    
     /// <summary>
     /// Finds points that are in the sign they rule
     /// </summary>
@@ -166,4 +182,158 @@ public static class ReinforcementCalc
         }
         return factorPairs;
     }
+
+
+    /// <summary>
+    /// Find reception in signs
+    /// </summary>
+    /// <param name="planetsInSigns">PLanets in signs</param>
+    /// <returns>The receptions</returns>
+    public static List<Reception> FindReceptionInSigns(Dictionary<ChartPoints, int> planetsInSigns)
+    {
+        var receptions = new List<Reception>();
+
+        foreach (var rulerPair1 in BlaDomain.RulerPairs())
+        {
+            var point1 = rulerPair1.MainRuler;          // use only main ruler, otherwise we get duplicates
+            foreach (var rulerPair2 in BlaDomain.RulerPairs())
+            {
+                var point2 = rulerPair2.MainRuler;
+                if (point1 == point2) continue;  // avoid identical points
+                var sign1 = 0;
+                var sign2 = 0;
+                foreach (var planet in planetsInSigns)
+                {
+                    if (planet.Key == point1)
+                    {
+                        sign1 = planet.Value;
+                    }
+                    if (planet.Key == point2)
+                    {
+                        sign2 = planet.Value;
+                    }
+                }
+                
+                var ruledBy1 = new List<int>();
+                var ruledBy2 = new List<int>();
+                foreach (var rulerPair in BlaDomain.RulerPairs())
+                {
+                    if (rulerPair.MainRuler == point1 || rulerPair.SubRuler == point1)
+                    {
+                        ruledBy1.Add(rulerPair.SignIndex);
+                    }
+                    if (rulerPair.MainRuler == point2 || rulerPair.SubRuler == point2)
+                    {
+                        ruledBy2.Add(rulerPair.SignIndex);
+                    }
+                }
+                if ((sign1 == ruledBy2[0] || sign1 == ruledBy2[1]) && (sign2 == ruledBy1[0] || sign2 == ruledBy1[1]))
+                {
+                    var reception = new Reception(point1, sign1, point2, sign2);
+                    var reception2 = new Reception(point2, sign2, point1, sign1);
+                    if (receptions.Contains(reception) || receptions.Contains(reception2)) continue;
+                    receptions.Add(new Reception(point1, sign1, point2, sign2));
+                }
+
+            }
+        }
+        
+        return receptions;
+    }
+    
+    
+    /// <summary>
+    /// Find reception in houses
+    /// </summary>
+    /// <param name="planetsInHouses">Planets in houses</param>
+    /// <param name="signsOnCusps">Signs on the cusps of houses</param>
+    /// <returns>The receptions</returns>
+    public static List<Reception> FindReceptionInHouses(Dictionary<ChartPoints, int> planetsInHouses, 
+        Dictionary<int, int> signsOnCusps)
+    {
+        var housesPosAndRuler = new List<HousesPosAndRuler>();
+        foreach (var rulerAndSigns in BlaDomain.AllRulerAndSigns())
+        {
+            var housePos = planetsInHouses[rulerAndSigns.Ruler];
+            var housesRuled = new List<int>();
+            foreach (var signOnCusp in signsOnCusps)
+            {
+               
+                if (signOnCusp.Value == rulerAndSigns.MainSign || signOnCusp.Value == rulerAndSigns.SubSign)
+                {
+                    housesRuled.Add(signOnCusp.Key);
+                }
+            }
+            if (housesRuled.Count == 0) continue;   // sign is intercepted: no house is ruled
+            var hpr = new HousesPosAndRuler(rulerAndSigns.Ruler, housePos, housesRuled);
+            if (!housesPosAndRuler.Contains(hpr)) housesPosAndRuler.Add(hpr);
+        }
+        
+        var receptions = new List<Reception>();
+        var count = housesPosAndRuler.Count;
+
+        for (var i = 0; i < count; i++)
+        {
+            var hpr1 = housesPosAndRuler[i];
+            for (var j = i + 1; j < count; j++)
+            {
+                var hpr2 = housesPosAndRuler[j];
+                if (hpr2.HouseRuled.Contains(hpr1.HousePos) && hpr1.HouseRuled.Contains(hpr2.HousePos))
+                {
+                    receptions.Add(new Reception(hpr1.Point, hpr1.HousePos, hpr2.Point, hpr2.HousePos));
+                }
+            }            
+        }
+        
+        return receptions;
+    }
+
+    public static List<Reception> FindReceptionInMundaneHouses(Dictionary<ChartPoints, int> planetsInHouses,
+        Dictionary<int, int> signsOnCusps)
+    {
+        var housesPosAndRuler = new List<HousesPosAndRuler>();
+        foreach (var rulerAndSigns in BlaDomain.AllRulerAndSigns())
+        {
+            var housePos = planetsInHouses[rulerAndSigns.Ruler];
+            var mundaneHousesRuled = new List<int> {
+                rulerAndSigns.MainSign,
+                rulerAndSigns.SubSign,
+            };
+            housesPosAndRuler.Add(new HousesPosAndRuler(rulerAndSigns.Ruler, housePos, mundaneHousesRuled));
+         //   if (!housesPosAndRuler.Contains(hpr)) housesPosAndRuler.Add(hpr);
+        }
+        
+        var receptions = new List<Reception>();
+        var count = housesPosAndRuler.Count;
+
+        for (var i = 0; i < count; i++)
+        {
+            var hpr1 = housesPosAndRuler[i];
+            for (var j = i + 1; j < count; j++)
+            {
+                var hpr2 = housesPosAndRuler[j];
+                if (hpr2.HouseRuled.Contains(hpr1.HousePos) && hpr1.HouseRuled.Contains(hpr2.HousePos))
+                {
+                    var samePair = false;
+                    foreach (var rulerPair in BlaDomain.RulerPairs())
+                    {
+                        if ((hpr1.Point == rulerPair.MainRuler && hpr2.Point == rulerPair.SubRuler) ||
+                            (hpr1.Point == rulerPair.SubRuler && hpr2.Point == rulerPair.MainRuler))
+                        {
+                            samePair = true;
+                        }
+                    }
+                    if (!samePair) receptions.Add(new Reception(hpr1.Point, hpr1.HousePos, hpr2.Point, hpr2.HousePos));
+                }
+            }            
+        }
+
+        foreach (var reception in receptions)
+        {
+            Console.WriteLine(reception);
+        }
+        return receptions;
+    }
+    
+    
 }

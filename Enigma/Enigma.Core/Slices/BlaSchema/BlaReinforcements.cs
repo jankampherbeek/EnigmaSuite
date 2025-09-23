@@ -22,11 +22,17 @@ public static class BlaReinforcements
         var pointsInOwnMundaneHouse = ReinforcementCalc.FindPointsInMundaneHouses(planetsInHouses);
         var rulersInHouseAsSign = ReinforcementCalc.FindRulerInHouseAsSign(signsOnCusps, planetsInSigns);
         var factorPairs = ReinforcementCalc.FindFactorPairs(planetsInSigns, planetsInHouses);
+        var receptionInsigns = ReinforcementCalc.FindReceptionInSigns(planetsInSigns);
+        var receptionInHouses = ReinforcementCalc.FindReceptionInHouses(planetsInHouses, signsOnCusps);
+        var receptionInMundaneHouses  = ReinforcementCalc.FindReceptionInMundaneHouses(planetsInHouses, signsOnCusps);
         
         return new Reinforcements(pointInOwnSign, 
             pointsInOwnHouse, 
             pointsInOwnMundaneHouse, 
             rulersInHouseAsSign, 
-            factorPairs);
+            factorPairs,
+            receptionInsigns,
+            receptionInHouses,
+            receptionInMundaneHouses);
     }
 }

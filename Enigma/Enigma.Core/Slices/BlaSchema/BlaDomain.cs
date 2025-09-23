@@ -73,25 +73,41 @@ public record BlaCyclesData(
     List<(int, int)> Water
 );
 
-public record Reinforcements(    // todo augment
+public record Reinforcements(    
     Dictionary<ChartPoints, int> PointsInOwnSign,
     Dictionary<ChartPoints, int> PointsInOwnHouse,
     Dictionary<ChartPoints, int> PointsInOwnMundaneHouse,
     Dictionary<ChartPoints, int> RulersInHouseAsSign,
-    List<FactorPairAnalogHouseSign> FactorPairs);
+    List<FactorPairAnalogHouseSign> FactorPairs,
+    List<Reception> ReceptionsInSigns,
+    List<Reception> ReceptionsInHouses,
+    List<Reception> ReceptionsInMundaneHouses);
 
 /// <summary>
 /// Factor pair in analog house and sign
 /// </summary>
 /// <param name="PointInSign">The point in a sign</param>
-/// <param name="sign">Index of the sign 1..12</param>
+/// <param name="Sign">Index of the sign 1..12</param>
 /// <param name="PointInHouse">The point in an analog house</param>
-/// <param name="house">Index of the house 1..12</param>
+/// <param name="House">Index of the house 1..12</param>
 public record FactorPairAnalogHouseSign(
     ChartPoints PointInSign,
-    int sign,
+    int Sign,
     ChartPoints PointInHouse,
-    int house);
+    int House);
+
+/// <summary>
+/// Reception of 2 points, either in signs or in  houses
+/// </summary>
+/// <param name="Point1">First point</param>
+/// <param name="SignOrHouse1">Index of sign or of house of first point</param>
+/// <param name="Point2">Second point</param>
+/// <param name="SignOrHouse2">Index of sign of or house of second point</param>
+public record Reception(
+    ChartPoints Point1,
+    int SignOrHouse1,
+    ChartPoints Point2,
+    int SignOrHouse2);
 
 /// <summary>
 /// Counts for a sign, house and cusp in a BLA schema
@@ -192,6 +208,14 @@ public record BlaHouseDetails(int HouseNr, int SignOnCusp, ChartPoints MainRuler
 /// <param name="SubRuler">ChartPoint for the subruler</param>
 public record RulerPair(int SignIndex, ChartPoints MainRuler, ChartPoints SubRuler);
 
+/// <summary>
+/// Ruler and the signs it rules
+/// </summary>
+/// <param name="Ruler">The ruler</param>
+/// <param name="MainSign">The sign where the ruler is the mainruler</param>
+/// <param name="SubSign">The sign where the ruler is the subruler</param>
+public record RulerAndSigns(ChartPoints Ruler, int MainSign, int SubSign);
+
 
 /// <summary>
 /// Domain for Black Lights Astrology
@@ -219,6 +243,30 @@ public static class BlaDomain
         return rulers;
     }
 
+    /// <summary>
+    /// Define a list with all rulers and the signs they rule
+    /// </summary>
+    /// <returns>The list with the rulers</returns>
+    public static List<RulerAndSigns> AllRulerAndSigns()
+    {
+        var rulerSigns = new List<RulerAndSigns>()
+        {
+            new(ChartPoints.Sun, 5, 10),
+            new(ChartPoints.Moon, 4, 11),
+            new(ChartPoints.Mercury, 3, 6),
+            new(ChartPoints.Venus, 2, 7),
+            new(ChartPoints.Mars, 1, 8),
+            new(ChartPoints.Jupiter, 9, 12),
+            new(ChartPoints.Neptune, 12, 9),
+            new(ChartPoints.Pluto, 8, 1),
+            new(ChartPoints.PersephoneCarteret, 7, 2),
+            new(ChartPoints.VulcanusCarteret, 6, 3),
+            new(ChartPoints.ApogeeMean, 10, 5),
+            new(ChartPoints.Priapus, 11, 4)
+        };
+        return rulerSigns;   
+    }
+    
 
     /// <summary>
     /// Create logical pairs of factors
