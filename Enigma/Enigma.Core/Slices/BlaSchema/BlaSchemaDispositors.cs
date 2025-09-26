@@ -13,50 +13,6 @@ namespace Enigma.Core.Slices.BlaSchema;
 
 
 
-// TODO move to separate file
-/// <summary>
-/// Handle the calculation of counts for signs, houses and hcusps
-/// </summary>
-public class BlaSchemaSignHouseCountsOrchestrator
-{
-    public Dictionary<string, BlaSignHouseCountLine> GetBlaHouseSigns()
-    {
-        var houseSigns = new Dictionary<string, BlaSignHouseCountLine>();
-        
-        // TODO define the counts for signs and houses, both for elements and crosses
-        
-        return houseSigns;
-    }
-}
-
-
-// /// <summary>
-// /// Handle the calculation of quadrant counts
-// /// </summary>
-// public class BlaSchemaQuadrantCountsOrchestrator
-// {
-//     public Dictionary<int, int> GetBlaQuadrantCounts(ChartLongitudes chart)
-//     {
-//         var quadrantCounts = QuadrantPositions.DefineQuadrants(chart);
-//         return quadrantCounts;
-//     }
-// }
-
-/// <summary>
-/// Handle the calculation of data to be used in a BLA schema
-/// </summary>
-public class BlaSchemaDispositorsOrchestrator
-{
-    public List<BlaDispositorLine> GetBlaDispositorSpecs()
-    {
-        var dispositors = new List<BlaDispositorLine>();
-        // TODO define the counts for all dispositor pairs
-        
-        return dispositors;
-    }
-}
-
-
 //
 // public class XBlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
 //

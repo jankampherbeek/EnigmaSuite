@@ -300,7 +300,6 @@ public static class ReinforcementCalc
                 rulerAndSigns.SubSign,
             };
             housesPosAndRuler.Add(new HousesPosAndRuler(rulerAndSigns.Ruler, housePos, mundaneHousesRuled));
-         //   if (!housesPosAndRuler.Contains(hpr)) housesPosAndRuler.Add(hpr);
         }
         
         var receptions = new List<Reception>();
