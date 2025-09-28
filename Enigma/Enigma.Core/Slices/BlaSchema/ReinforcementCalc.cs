@@ -232,7 +232,16 @@ public static class ReinforcementCalc
                     var reception = new Reception(point1, sign1, point2, sign2);
                     var reception2 = new Reception(point2, sign2, point1, sign1);
                     if (receptions.Contains(reception) || receptions.Contains(reception2)) continue;
-                    receptions.Add(new Reception(point1, sign1, point2, sign2));
+                    var samePair = false;
+                    foreach (var rulerPair in BlaDomain.RulerPairs())
+                    {
+                        if ((point1 == rulerPair.MainRuler && point2 == rulerPair.SubRuler) ||
+                            (point1 == rulerPair.SubRuler && point2 == rulerPair.MainRuler))
+                        {
+                            samePair = true;
+                        }
+                    }
+                    if (!samePair) receptions.Add(new Reception(point1, sign1, point2, sign2));
                 }
 
             }
@@ -280,7 +289,16 @@ public static class ReinforcementCalc
                 var hpr2 = housesPosAndRuler[j];
                 if (hpr2.HouseRuled.Contains(hpr1.HousePos) && hpr1.HouseRuled.Contains(hpr2.HousePos))
                 {
-                    receptions.Add(new Reception(hpr1.Point, hpr1.HousePos, hpr2.Point, hpr2.HousePos));
+                    var samePair = false;
+                    foreach (var rulerPair in BlaDomain.RulerPairs())
+                    {
+                        if ((hpr1.Point == rulerPair.MainRuler && hpr2.Point == rulerPair.SubRuler) ||
+                            (hpr1.Point == rulerPair.SubRuler && hpr2.Point == rulerPair.MainRuler))
+                        {
+                            samePair = true;
+                        }
+                    }
+                    if (!samePair) receptions.Add(new Reception(hpr1.Point, hpr1.HousePos, hpr2.Point, hpr2.HousePos));
                 }
             }            
         }
@@ -299,6 +317,10 @@ public static class ReinforcementCalc
                 rulerAndSigns.MainSign,
                 rulerAndSigns.SubSign,
             };
+            
+            
+            
+            
             housesPosAndRuler.Add(new HousesPosAndRuler(rulerAndSigns.Ruler, housePos, mundaneHousesRuled));
         }
         

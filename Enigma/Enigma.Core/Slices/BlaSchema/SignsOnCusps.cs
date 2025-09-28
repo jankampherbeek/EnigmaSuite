@@ -7,7 +7,7 @@
 namespace Enigma.Core.Slices.BlaSchema;
 
 /// <summary>
-/// Ecliptical signs o houses cusps
+/// Ecliptical signs of houses cusps
 /// </summary>
 public static class SignsOnCusps   
 {
