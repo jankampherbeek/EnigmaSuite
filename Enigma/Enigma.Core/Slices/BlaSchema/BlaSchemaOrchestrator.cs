@@ -9,59 +9,146 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.BlaSchema;
 
+// I will use the orchestrator without an API, and try to access the orchestrator directly for the Model.
+
 /// <summary>
 /// Orchestrator for BLA Schema
 /// </summary>
 public class BlaSchemaOrchestrator
 {
-
-    public BlaSchemaDataSheet CreateBlaSchema(ChartLongitudes chart)
+    private ChartLongitudes _chart;
+    private List<BlaPointDetails> _pointDetails;
+    private List<BlaHouseDetails> _houseDetails;
+    private Dictionary<int, int> _houseCounts;
+    private Dictionary<int, int> _signCounts;
+    private Dictionary<ChartPoints, int> _planetsInSigns;
+    private Dictionary<ChartPoints, int> _planetsInHouses;
+    private Dictionary<int, int> _signsOnCusps;
+    
+    public BlaSchemaOrchestrator(ChartLongitudes chart)
     {
-        var pointDetails = new List<BlaPointDetails>();
-        foreach (var point in chart.Points)
+        _chart = chart;
+        _pointDetails = new List<BlaPointDetails>();
+        foreach (var point in _chart.Points)
         {
-            pointDetails.Add(BlaDetailsFactory.CreateBlaPointDetails(point.Key, chart));
+            _pointDetails.Add(BlaDetailsFactory.CreateBlaPointDetails(point.Key, _chart));
         }
-        var houseDetails = new List<BlaHouseDetails>();
+        _houseDetails = new List<BlaHouseDetails>();
         for (var i = 1; i < 13; i++)
         {
-            houseDetails.Add(BlaDetailsFactory.CreateBlaHouseDetails(i, chart));
-        }
-
-        var houseCounts =  HousePositions.DefineHouseCounts(pointDetails);      // Number of points in houses
-        var signCounts = SignPositions.DefineSignCounts(pointDetails);          // Number of points in signs
-        var planetsInSigns = pointDetails.ToDictionary(x => x.Point, x => x.Sign);
-        var planetsInHouses = HousePositions.DefineHousePositions(chart); // House for each point
-        var signsOnCusps = SignsOnCusps. DefineSignsOnCusps(chart.Cusps);        // Signs on cusps (no intercepted signs)
-        var (crossesSignHouseCounts, elementsSignHousecounts) = CrossElementCounts.CreateCrossesElementsCounts(signCounts, houseCounts, houseDetails);
-        var quadrantCounts = QuadrantPositions.DefineQuadrants(houseDetails);
-        var dispositors = Dispositors.CreateDispositors(chart, signCounts, houseCounts, signsOnCusps, planetsInSigns, planetsInHouses);
-        var decans = BlaDecans.DefineDecans(chart.Points);
-        var details = BlaDetails.CreateDetails(chart, signsOnCusps, planetsInHouses);
-        var cyclesData = BlaCycles.CreateCyclesData(planetsInHouses, signsOnCusps);
-        var shortenedCyclesData = BlaCycles.CreateShortenedCyclesData(planetsInHouses, signsOnCusps);
-        var reinforcements = BlaReinforcements.CreateReinforcements(planetsInSigns, planetsInHouses, signsOnCusps);
-
-        return new BlaSchemaDataSheet(
-            crossesSignHouseCounts,
-            elementsSignHousecounts,
-            quadrantCounts,
-            dispositors,
-            decans,
-            details,
-            cyclesData,
-            shortenedCyclesData,
-            reinforcements);
-
+            _houseDetails.Add(BlaDetailsFactory.CreateBlaHouseDetails(i, _chart));
+        }        
+        _houseCounts =  HousePositions.DefineHouseCounts(_pointDetails);    
+        _signCounts = SignPositions.DefineSignCounts(_pointDetails);          
+        _planetsInSigns = _pointDetails.ToDictionary(x => x.Point, x => x.Sign);
+        _planetsInHouses = HousePositions.DefineHousePositions(_chart); 
+        _signsOnCusps = SignsOnCusps. DefineSignsOnCusps(_chart.Cusps);           
     }
 
- 
 
-    
- 
+    public Dictionary<int, int> GetSignCounts()
+    {
+        return _signCounts;   
+    }
+    public Dictionary<int, int> GetHouseCounts()
+    {
+        return _houseCounts;
+    }
 
+    public Dictionary<ChartPoints, int> GetPlanetsInSigns()
+    {
+        return _planetsInSigns;
+    }
+    
+    public Dictionary<ChartPoints, int> GetPlanetsInHouses()
+    {
+        return _planetsInHouses;
+    }
 
+    public Dictionary<int, int> GetSignsOnCusps()
+    {
+        return _signsOnCusps;
+    }
+    
+    public (Dictionary<int, BlaSignHouseCountLine>, Dictionary<int, BlaSignHouseCountLine>) GetCrossELementCounts()
+    {
+        return CrossElementCounts.CreateCrossesElementsCounts(_signCounts, _houseCounts, _houseDetails);
+    }
+    
+    public Dictionary<int, int> GetQuadrantCounts()
+    {
+        return QuadrantPositions.DefineQuadrants(_houseDetails);
+    }
+    
+    public List<BlaDispositorLine> GetDispositors()
+    {
+        return Dispositors.CreateDispositors(_chart, _signCounts, _houseCounts, _signsOnCusps, _planetsInSigns, _planetsInHouses);  
+    }
+
+    public Dictionary<ChartPoints, int> GetDecans()
+    {
+        return BlaDecans.DefineDecans(_chart.Points);
+    }
+
+    /// <summary>
+    /// Define details: rulers of asc, sisterRuler asc, clampedhouses, interceptedsigns, groundnote, mundanehouseasc, sistersignCusp
+    /// </summary>
+    /// <returns>The calculated details</returns>
+    public BlaDetailsData GetDetails()
+    {
+        return BlaDetails.CreateDetails(_chart, _signsOnCusps, _planetsInHouses);
+    }
+
+    public BlaCyclesData GetCycles()
+    {
+        return BlaCycles.CreateCyclesData(_planetsInHouses, _signsOnCusps);
+    }
+
+    public BlaCyclesData GetShortenedCycles()
+    {
+        return BlaCycles.CreateShortenedCyclesData(_planetsInHouses, _signsOnCusps);
+    }
+    
+    // Reinforcements
     
     
-    
+    public Dictionary<ChartPoints, int> GetPointsInOwnSign()
+    {
+        return ReinforcementCalc.FindPointsInOwnSign(_planetsInSigns);
+    }
+
+    public Dictionary<ChartPoints, int> GetPointsInOwnHouse()
+    {
+        return ReinforcementCalc.FindPointsInOwnHouse(_planetsInHouses, _signsOnCusps);
+    }
+
+    public Dictionary<ChartPoints, int> GetPointsInOwnMundaneHouse()
+    {
+        return ReinforcementCalc.FindPointsInMundaneHouses(_planetsInHouses);        
+    }
+
+    public Dictionary<ChartPoints, int> GetRulersInHouseAsSign()
+    {
+        return ReinforcementCalc.FindRulerInHouseAsSign(_signsOnCusps, _planetsInSigns);        
+    }
+
+    public List<FactorPairAnalogHouseSign> GetFactorPairs()
+    {
+        return ReinforcementCalc.FindFactorPairs(_planetsInSigns, _planetsInHouses);
+    }
+
+    public List<Reception> GetReceptionsInSigns()
+    {
+        return ReinforcementCalc.FindReceptionInSigns(_planetsInSigns);        
+    }
+
+    public List<Reception> GetReceptionsInHouses()
+    {
+        return ReinforcementCalc.FindReceptionInHouses(_planetsInHouses, _signsOnCusps);        
+    }
+
+    public List<Reception> GetReceptionsInMundaneHouses()
+    {
+        return ReinforcementCalc.FindReceptionInMundaneHouses(_planetsInHouses, _signsOnCusps);
+    } 
 }

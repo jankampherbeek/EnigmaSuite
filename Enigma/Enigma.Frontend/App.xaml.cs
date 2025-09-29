@@ -47,7 +47,6 @@ public partial class App
         serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddSingleton<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddSingleton<IAspectForWheelFactory, AspectForWheelFactory>();
-        serviceCollection.AddSingleton<BlaPositionForDataGridFactory>();
         serviceCollection.AddSingleton<BlaPresDecanCountFactory>();
         serviceCollection.AddSingleton<BlaPresDispositorCountsFactory>();        
         serviceCollection.AddSingleton<BlaPresQuadrantCountFactory>();
@@ -104,7 +103,6 @@ public partial class App
         serviceCollection.AddTransient<OobCalModel>();
         serviceCollection.AddSingleton<IOobEventForDataGridFactory, OobEventForDataGridFactory>();
         serviceCollection.AddSingleton<IParallelsForDataGridFactory, ParallelsForDataGridFactory>();
-        serviceCollection.AddSingleton<BlaElementsCrossesForDataGridFactory>();
         serviceCollection.AddSingleton<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddSingleton<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();
         serviceCollection.AddSingleton<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();

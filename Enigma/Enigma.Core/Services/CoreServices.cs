@@ -37,7 +37,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IAspectPointSelector, AspectPointSelector>();
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
-        serviceCollection.AddTransient<BlaSchemaOrchestrator>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
         serviceCollection.AddTransient<ICalcSecDirHandler, ProgSecDirHandler>();

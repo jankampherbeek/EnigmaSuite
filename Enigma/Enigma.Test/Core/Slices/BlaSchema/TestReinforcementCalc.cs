@@ -248,7 +248,7 @@ public class TestReinforcementCalc
     {
         var planetsInHouses = CreatePlanetsInHouses();
         var signsOnCusp = SignsOnCusp();
-        var result = ReinforcementCalc.FindPointsInOwnHouses(planetsInHouses, signsOnCusp);
+        var result = ReinforcementCalc.FindPointsInOwnHouse(planetsInHouses, signsOnCusp);
         Assert.Multiple(() =>
         {
             Assert.That(result, Has.Count.EqualTo(1));

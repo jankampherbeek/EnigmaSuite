@@ -37,11 +37,10 @@ public static class HousePositions
     {
         var houseLongitudes = chart.Cusps;
         var housePositions = new Dictionary<ChartPoints, int>();
-        
-        // find house positions for each ChartPoint that is not a cusp
+
         foreach (var pos in chart.Points)
         {
-            if (pos.Key.GetDetails().PointCat == PointCats.Common)    // Exclude angles
+            if (pos.Key.GetDetails().PointCat != PointCats.Angle)    // Exclude angles but include Pars Fortunae
             {
                 var longitude = pos.Value;
                 var houseNumber = FindHouseForLongitude(longitude, houseLongitudes);
@@ -76,11 +75,14 @@ public static class HousePositions
             { 11, 0 },
             { 12, 0 }
         };
-            
+
         foreach (var details in pointDetails)
         {
-            var house = details.House; 
-            houseCounts[house]++;
+            var house = details.House;
+            if (details.Point.GetDetails().PointCat != PointCats.Angle)
+            {
+                houseCounts[house]++;                
+            }
         }
         return houseCounts;
     }

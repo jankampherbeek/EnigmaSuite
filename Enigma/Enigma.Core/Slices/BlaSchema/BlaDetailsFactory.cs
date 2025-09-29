@@ -124,39 +124,3 @@ public static class BlaDetailsFactory
     }
 
 }
-
-//     /// <summary>
-//     /// Create ChartDetails
-//     /// </summary>
-//     /// <param name="chart">A recalculated chart which should include the required chartpoints, independent of the configuration.</param>
-//     /// <returns>Populated instance of ChartDetails</returns>
-//     public static BlaChartDetails CreateChartDetails(ChartLongitudes chart)
-//     {
-//         // calculate positions in signs and decans
-//         List<BlaPositions> signsDecans = [];
-//         foreach (var point in chart.Points)
-//         {
-//             if (point.Key.GetDetails().PointCat == PointCats.Common ||
-//                 point.Key.GetDetails().PointCat == PointCats.Angle)
-//             {
-//                 var longitude = point.Value;
-//                 var house = HousePositions.FindSingleHousePosition(chart, longitude);
-//                 var blaPositions = BlaPositionsFactory.CreateBlaPositions(point.Key, longitude, house);
-//                 signsDecans.Add(blaPositions);  
-//             }
-//         }
-//
-//         var housePositions = HousePositions.DefineHousePositions(chart);
-//         var quadrantCounts = QuadrantPositions.DefineQuadrants(chart);
-//         var signCounts = SignPositions.DefineSignCounts(chart);
-//         var houseCounts = HousePositions.DefineHouseCounts(chart);
-//         var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
-//         var clampedHouses = InterceptedClamped.DefineClampedHouses(chart);
-//         var signRulers = BlaDomain.RulerPairs();
-//         var allHouseRulers = HouseRulers.DefineHouseRulers(chart);
-//         
-//         return new BlaChartDetails(signsDecans, interceptedSigns, clampedHouses, housePositions,  quadrantCounts, signCounts, houseCounts, signRulers, allHouseRulers);
-//
-//     }
-//     
-// }

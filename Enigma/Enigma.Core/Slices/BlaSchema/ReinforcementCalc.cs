@@ -7,9 +7,6 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.BlaSchema;
 
-
-
-
 /// <summary>
 /// Calculations to support the construction of reinforcements for the BLA schema
 /// </summary>
@@ -57,7 +54,7 @@ public static class ReinforcementCalc
     /// <param name="planetsInHouses">All points and the houses where they are located</param>
     /// <param name="signsOnCusps">All signs and the cusps where they are located</param>
     /// <returns>A dictionary with ChartPoints that are in their own house and indexes for the houses (1..12)</returns>
-    public static Dictionary<ChartPoints, int> FindPointsInOwnHouses(Dictionary<ChartPoints, int> planetsInHouses,
+    public static Dictionary<ChartPoints, int> FindPointsInOwnHouse(Dictionary<ChartPoints, int> planetsInHouses,
         Dictionary<int, int> signsOnCusps)
     {
         var pointsInOwnHouse = new Dictionary<ChartPoints, int>();

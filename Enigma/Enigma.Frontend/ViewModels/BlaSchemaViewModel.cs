@@ -27,7 +27,7 @@ public partial class BlaSchemaViewModel : ObservableObject
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.BLA_SCHEMA;
     private BlaSchemaModel _schemaModel = App.ServiceProvider.GetRequiredService<BlaSchemaModel>();
   //  private IBlaPositionForDataGridFactory _blaPositionFactory = App.ServiceProvider.GetRequiredService<IBlaPositionForDataGridFactory>();
-    private BlaElementsCrossesForDataGridFactory _blaElementsCrossesFactory = App.ServiceProvider.GetRequiredService<BlaElementsCrossesForDataGridFactory>();
+//    private BlaElementsCrossesForDataGridFactory _blaElementsCrossesFactory = App.ServiceProvider.GetRequiredService<BlaElementsCrossesForDataGridFactory>();
     private BlaPresQuadrantCountFactory _blaPresQuadrantCountFactory = App.ServiceProvider.GetRequiredService<BlaPresQuadrantCountFactory>();
     private BlaPresDecanCountFactory _blaPresDecanCountFactory = App.ServiceProvider.GetRequiredService<BlaPresDecanCountFactory>();
     private BlaPresDispositorCountsFactory _blaPresDispositorCountsFactory = App.ServiceProvider.GetRequiredService<BlaPresDispositorCountsFactory>();
@@ -64,12 +64,14 @@ public partial class BlaSchemaViewModel : ObservableObject
         _schemaModel.CreateDataForBla(houseSystem, useChiron, useEris);
 
         // Get chart points and populate the DataGrid
-        var dataSheet = _schemaModel.GetDataSheet();
+    //    var dataSheet = _schemaModel.GetDataSheet();
     //    BlaPositions = _blaPositionFactory.CreateBlaPositionsForDataGrid(chartDetails);
         
         // Populate Elements/Crosses DataGrid
         // CrossesCounts = _blaElementsCrossesFactory.CreatePresCrossesCounts(dataSheet, _schemaModel.GetChartLongitudes());
+        CrossesCounts = _schemaModel.GetCrossesCounts();
         // ElementsCounts = _blaElementsCrossesFactory.CreatePresElementsCounts(dataSheet, _schemaModel.GetChartLongitudes());
+        ElementsCounts = _schemaModel.GetElementsCounts();
         // QuadrantCounts = _blaPresQuadrantCountFactory.CreatePresQuadrants(dataSheet);
         // DecanCounts = _blaPresDecanCountFactory.CreatePresDecans(dataSheet);
         // DispositorCounts = _blaPresDispositorCountsFactory.CreatePresDispositorCounts(dataSheet);
@@ -78,6 +80,8 @@ public partial class BlaSchemaViewModel : ObservableObject
         UpdateHistogramData();
 
     }
+    
+    
     
     
     

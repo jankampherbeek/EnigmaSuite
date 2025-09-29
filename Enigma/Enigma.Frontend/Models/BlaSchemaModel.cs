@@ -10,8 +10,10 @@ using Enigma.Api.Configuration;
 using Enigma.Api.Slices;
 using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
+using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -19,49 +21,53 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>
 /// Model for the calculation of BLA items
 /// </summary>
-public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi chartsApi, BlaSchemaService blaSchemaService)
+public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi chartsApi)
 {
 
+    private ChartLongitudes _chart;
     private Dictionary<ChartPoints, FullPointPos> ? _blaPositions;
-    private BlaSchemaDataSheet _blaDataSheet;
+    private BlaSchemaOrchestrator _orchestrator;
+    private List<PresentableCrossElementsCount> _crossesCounts;
+    private List<PresentableCrossElementsCount> _elementsCounts;
+    private CrossElementPresFactory _crossElementPresFactory;
     
     public void CreateDataForBla(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
     {
         var cpRequest = CreateCelPointsRequest(selectedHouseSystem, useChiron, useEris);
         _blaPositions = chartsApi.GetChart(cpRequest);
-        var chart = GetChartLongitudes();
-        _blaDataSheet = blaSchemaService.GetChartDetails(chart);
-
+        _chart = GetChartLongitudes();
+        _orchestrator = new BlaSchemaOrchestrator(_chart);
+        var signCounts = _orchestrator.GetSignCounts();
+        var houseCounts = _orchestrator.GetHouseCounts();
+        var planetsInHouses = _orchestrator.GetPlanetsInHouses();
+        var signOnCusps = _orchestrator.GetSignsOnCusps();
+        _crossElementPresFactory = new CrossElementPresFactory();
+        DefineCrossElementCounts(signCounts, houseCounts, planetsInHouses, signOnCusps);
     }
 
-    public BlaSchemaDataSheet GetDataSheet()
+    private void DefineCrossElementCounts(Dictionary<int, int> signCounts, Dictionary<int, int> houseCounts,Dictionary<ChartPoints, int> planetsInHouses, Dictionary<int, int> signOnCusps)
     {
-        return _blaDataSheet;
-    } 
-    
-    
-    
-    public Dictionary<ChartPoints, double> GetChartPoints()
-    {
-        if (_blaPositions == null) throw new InvalidOperationException("No data available for BLA");
-        var pointPositions = new Dictionary<ChartPoints, double>();
-        foreach (var pointPos in _blaPositions)
-        {
-            if (pointPos.Key.GetDetails().PointCat != PointCats.Common &&
-                pointPos.Key.GetDetails().PointCat != PointCats.Angle) continue;
-            var point = pointPos.Key;
-            var pos = pointPos.Value.Ecliptical.MainPosSpeed.Position;
-            pointPositions.Add(point, pos);
-
-        }
-        return pointPositions;
+        var ceCounts = _orchestrator.GetCrossELementCounts();
+        _crossesCounts = _crossElementPresFactory.CreatePresCrossesCounts(signCounts, houseCounts, planetsInHouses, signOnCusps);
+        _elementsCounts = _crossElementPresFactory.CreatePresElementsCounts(signCounts, planetsInHouses, signOnCusps);
     }
 
-    public ChartLongitudes GetChartLongitudes()
+
+    public List<PresentableCrossElementsCount> GetCrossesCounts()
+    {
+        return _crossesCounts;
+    }
+
+    public List<PresentableCrossElementsCount> GetElementsCounts()
+    {
+        return _elementsCounts;
+    }
+    
+    
+
+    private ChartLongitudes GetChartLongitudes()
     {
         if (_blaPositions == null) throw new InvalidOperationException("No data available for BLA");
-        
-        // Get the current chart from the data vault to access its input data and obliquity
         var currentChart = DataVaultCharts.Instance.GetCurrentChart();
         if (currentChart == null) throw new InvalidOperationException("No current chart available");
         var pointLongitudes = new Dictionary<ChartPoints, double>();
