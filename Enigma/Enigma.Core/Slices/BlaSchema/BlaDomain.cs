@@ -43,14 +43,14 @@ public record BlaSchemaDataSheet(
 ///     (same index for house as for sign on the as: Libra is 7), house with sister sign on cusp, house ruled by same
 ///     sign as ascendant (if any)</param>
 /// <param name="LordAscInHouses">The house(s) where rulers of the ascendant are located</param>
-/// <param name="MoonInSign">The ecliptical sign of the Moon</param>
+/// <param name="MoonInHouse">The house of the Moon</param>
 public record BlaDetailsData(
     int SisterSignAsc,
     List<int> ClampedHouses,
     List<int> InterceptedSigns,
     List<int> GroundNote,
     List<int> LordAscInHouses,
-    int MoonInSign);
+    int MoonInHouse);
 
 /// <summary>
 /// Cyclic connections in a BLA schema. Each connection conists of two houses (1..12). The ruler of the first house
@@ -129,9 +129,9 @@ public record BlaSignHouseCountLine(int Sign, int House, int Sum, int HCusp, int
 /// <param name="SumRulerSignCount">Sum of MainRulerSignCount and SubRulerSignCount</param>
 /// <param name="IndirectRulerSignCount">Count of unique points in signs via indirect rulership</param>
 /// <param name="TotalRulerSignCount">Total of IndirectRulerSignCount and SumRulerSignCount</param>
-/// <param name="SumRulerHouseCount">Count of points in a house ruler by main ruler</param>
+/// <param name="DirectRulerHouseCount">Count of points in a house ruler by main ruler</param>
 /// <param name="IndirectRulerHouseCount">Count of unique points in houses via indirect rulership</param>
-/// <param name="TotalRulerHouseCount">Sum of SumRulerHouseCount and IndirectRulerHoouseCount</param>
+/// <param name="SumRulerHouseCount">Sum of SumRulerHouseCount and IndirectRulerHoouseCount</param>
 /// <param name="Total">Sum of TotalRulerSignCount and TotalRulerHouseCount</param>
 public record BlaDispositorLine(
     ChartPoints MainRuler,
@@ -141,9 +141,9 @@ public record BlaDispositorLine(
     int SumRulerSignCount,
     int IndirectRulerSignCount,
     int TotalRulerSignCount,
-    int SumRulerHouseCount,
+    int DirectRulerHouseCount,
     int IndirectRulerHouseCount,
-    int TotalRulerHouseCount,
+    int SumRulerHouseCount,
     int Total
 );
 

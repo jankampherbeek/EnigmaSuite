@@ -85,10 +85,6 @@ public class BlaSchemaOrchestrator
         return Dispositors.CreateDispositors(_chart, _signCounts, _houseCounts, _signsOnCusps, _planetsInSigns, _planetsInHouses);  
     }
 
-    public Dictionary<ChartPoints, int> GetDecans()
-    {
-        return BlaDecans.DefineDecans(_chart.Points);
-    }
 
     /// <summary>
     /// Define details: rulers of asc, sisterRuler asc, clampedhouses, interceptedsigns, groundnote, mundanehouseasc, sistersignCusp

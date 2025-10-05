@@ -69,20 +69,20 @@ public class CrossElementPresFactory
             switch (sign.Key)
             {
                 case 1 or 4 or 7 or 10:
-                    _cardinalSCount++;
+                    _cardinalSCount+= sign.Value;
                     break;
                 case 2 or 5 or 8 or 11:
-                    _fixedSCount++;
+                    _fixedSCount+= sign.Value;
                     break;
                 case 3 or 6 or 9 or 12:
-                    _mutableSCount++;
+                    _mutableSCount+= sign.Value;
                     break;
             }
         }
 
         foreach (var pos in planetsInHouses)
         {
-            if (pos.Key.GetDetails().PointCat == PointCats.Common)
+            if (pos.Key.GetDetails().PointCat != PointCats.Angle)
             {
                 switch (pos.Value)
                 {
@@ -134,23 +134,23 @@ public class CrossElementPresFactory
             switch (sign.Key)
             {
                 case 1 or 5 or 9:
-                    _fireSCount++;
+                    _fireSCount+= sign.Value;
                     break;
                 case 2 or 6 or 10:
-                    _earthSCount++;
+                    _earthSCount+= sign.Value;
                     break;
                 case 3 or 7 or 11:
-                    _airSCount++;
+                    _airSCount+= sign.Value;
                     break;
                 case 4 or 8 or 12:
-                    _waterSCount++;
+                    _waterSCount+= sign.Value;
                     break;
             }
         }
 
         foreach (var pos in planetsInHouses)
         {
-            if (pos.Key.GetDetails().PointCat == PointCats.Common)
+            if (pos.Key.GetDetails().PointCat != PointCats.Angle)
             {
                 switch (pos.Value)
                 {
@@ -231,7 +231,7 @@ public class CrossElementPresFactory
 
         foreach (var point in planetsInHouse)
         {
-            if (point.Key.GetDetails().PointCat != PointCats.Common) continue;
+            if (point.Key.GetDetails().PointCat == PointCats.Angle) continue;
             var houseNr = point.Value;
             counts[houseNr]++;
         }

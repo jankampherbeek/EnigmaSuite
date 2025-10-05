@@ -15,6 +15,7 @@ using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
+using PresentableDispositorCounts = Enigma.Frontend.Ui.PresentationFactories.PresentableDispositorCounts;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -29,7 +30,17 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     private BlaSchemaOrchestrator _orchestrator;
     private List<PresentableCrossElementsCount> _crossesCounts;
     private List<PresentableCrossElementsCount> _elementsCounts;
+    private List<PresentableQuadrantCount> _quadrantCounts;
+    private List<PresentableDispositorCounts> _dispositors;
+    private List<PresentableBlaDetails> _blaDetails;
+    private BlaDetailsData _blaDetailsData;
+    private List<PresentableBlaCycle> _blaCycles;
+    
     private CrossElementPresFactory _crossElementPresFactory;
+    private QuadrantPresFactory _quadrantPresFactory;
+    private DispositorPresFactory _dispositorPresFactory;
+    private BlaDetailsPresFactory _blaDetailsPresFactory;
+    private BlaCyclesPresFactory _blaCyclesPresFactory;
     
     public void CreateDataForBla(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
     {
@@ -41,8 +52,19 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         var houseCounts = _orchestrator.GetHouseCounts();
         var planetsInHouses = _orchestrator.GetPlanetsInHouses();
         var signOnCusps = _orchestrator.GetSignsOnCusps();
+      //  var dispositorLines = _orchestrator.GetDispositors();
+        
         _crossElementPresFactory = new CrossElementPresFactory();
         DefineCrossElementCounts(signCounts, houseCounts, planetsInHouses, signOnCusps);
+        _quadrantPresFactory = new QuadrantPresFactory();
+        DefineQuadrantCounts(houseCounts);
+        _dispositorPresFactory = new DispositorPresFactory();
+        DefineDispositorLines();
+        _blaDetailsPresFactory = new BlaDetailsPresFactory();
+        DefineBlaDetailLines();
+        _blaCyclesPresFactory = new BlaCyclesPresFactory();
+        DefineCycles();
+
     }
 
     private void DefineCrossElementCounts(Dictionary<int, int> signCounts, Dictionary<int, int> houseCounts,Dictionary<ChartPoints, int> planetsInHouses, Dictionary<int, int> signOnCusps)
@@ -52,7 +74,31 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         _elementsCounts = _crossElementPresFactory.CreatePresElementsCounts(signCounts, planetsInHouses, signOnCusps);
     }
 
+    private void DefineQuadrantCounts(Dictionary<int, int> houseCounts)
+    {
+        var qCounts = _orchestrator.GetQuadrantCounts();
+        _quadrantCounts = _quadrantPresFactory.CreateQuadrantCounts(qCounts);
+    }
 
+    private void DefineDispositorLines()
+    {
+        var dLines = _orchestrator.GetDispositors();
+        _dispositors = _dispositorPresFactory.CreatePresDispositorCounts(dLines);
+    }
+
+    private void DefineBlaDetailLines()
+    {
+        var bladLines = _orchestrator.GetDetails();
+        _blaDetails = _blaDetailsPresFactory.CreateBlaDetails(bladLines);
+    }
+
+    private void DefineCycles()
+    {
+        var cycles = _orchestrator.GetCycles();
+        _blaCycles = _blaCyclesPresFactory.CreateBlaCycles(cycles);
+    }
+    
+    
     public List<PresentableCrossElementsCount> GetCrossesCounts()
     {
         return _crossesCounts;
@@ -62,9 +108,27 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     {
         return _elementsCounts;
     }
-    
-    
 
+    public List<PresentableQuadrantCount> GetQuadrantCounts()
+    {
+        return _quadrantCounts;
+    }
+
+    public List<PresentableDispositorCounts> GetDispositors()
+    {
+        return _dispositors;
+    }
+
+    public List<PresentableBlaDetails> GetBlaDetails()
+    {
+        return _blaDetails;
+    }
+
+    public List<PresentableBlaCycle> GetBlaCycles()
+    {
+        return _blaCycles;
+    }
+    
     private ChartLongitudes GetChartLongitudes()
     {
         if (_blaPositions == null) throw new InvalidOperationException("No data available for BLA");
@@ -75,7 +139,8 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         foreach (var pointPos in _blaPositions)
         {
             if (pointPos.Key.GetDetails().PointCat == PointCats.Common ||
-                pointPos.Key.GetDetails().PointCat == PointCats.Angle)
+                pointPos.Key.GetDetails().PointCat == PointCats.Angle ||
+                pointPos.Key.GetDetails().PointCat == PointCats.Lots)
             {
                 pointLongitudes.Add(pointPos.Key, pointPos.Value.Ecliptical.MainPosSpeed.Position);
             } else if (pointPos.Key.GetDetails().PointCat == PointCats.Cusp)
@@ -85,23 +150,6 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         }
         return new ChartLongitudes(pointLongitudes, houseLongitudes);
     }
-
-    public Dictionary<ChartPoints, double> GetHouseCusps()
-    {
-        if (_blaPositions == null) throw new InvalidOperationException("No data available for BLA");
-        var pointPositions = new Dictionary<ChartPoints, double>();
-        foreach (var pointPos in _blaPositions)
-        {
-            if (pointPos.Key.GetDetails().PointCat != PointCats.Cusp) continue;
-            var point = pointPos.Key;
-            var pos = pointPos.Value.Ecliptical.MainPosSpeed.Position;
-            pointPositions.Add(point, pos);
-
-        }
-        return pointPositions;
-    }
-    
-    
 
     private CelPointsRequest CreateCelPointsRequest(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
     {
@@ -152,14 +200,11 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         points.Add(ChartPoints.PriapusCorrected);
         points.Add(ChartPoints.Dragon);
         points.Add(ChartPoints.Beast);
+        points.Add(ChartPoints.FortunaNoSect);
         if (useChiron) points.Add(ChartPoints.Chiron);
         if (useEris) points.Add(ChartPoints.Eris);
         
         return points;
     }
-
-    private HouseSystems DefineHouseSystem(HouseSystems houseSystem)
-    {
-        return houseSystem;
-    }
+    
 }

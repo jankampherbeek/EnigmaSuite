@@ -25,18 +25,3 @@ public record PresentableBlaPosition(char PointTextGlyph, string PosText, char S
 /// <param name="Hcusp">HCusp</param>
 /// <param name="Total">Total</param>
 public record PresentableCrossElementsCount(String Name, int Sign, int House, int Sum, int Hcusp, int Total);
-
-
-/// <summary>
-/// Presentable data for dispositors
-/// </summary>
-/// <param name="RulerGlyphs">Glyphs for main and sub ruler</param>
-/// <param name="SignSplitted">Values for mainruler and subruler, separated with a slash</param>
-/// <param name="SignDirect">Count for signs using the rulers directly</param>
-/// <param name="SignIndirect">Count for signs using the indirect rulers</param>
-/// <param name="SignSum">Sum of SignSub and SignSum</param>
-/// <param name="HouseMain">Count for houses using the rulers directly</param>
-/// <param name="HouseSub">Count for houses using the indirect rulers</param>
-/// <param name="HouseSum">Sum of HouseMain and HouseSub</param>
-/// <param name="Total">Sum of SignSum and HoouseSum</param>
-public record PresentableDispositorCounts(String RulerGlyphs, string SignSplitted, int SignDirect, int SignIndirect, int SignSum, int HouseMain, int HouseSub, int HouseSum, int Total);

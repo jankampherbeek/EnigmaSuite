@@ -107,6 +107,16 @@ public partial class BlaSchemaWindow
             UpdateHistograms();
         }
     }
+
+    private void UseTrueNodeCheckBox_Changed(object sender, RoutedEventArgs e)
+    {
+        // Trigger population when Use True node checkbox changes
+        if (DataContext is BlaSchemaViewModel viewModel)
+        {
+            viewModel.Populate();
+            UpdateHistograms();
+        }
+    }
     
     private void UpdateHistograms()
     {
@@ -117,32 +127,11 @@ public partial class BlaSchemaWindow
         
         try
         {
-            // Update Crosses Plot
-            // if (viewModel.HistogramCrossesValues.Length > 0)
-            // {
-            //     UpdateSingleHistogram(CrossesPlot, viewModel.HistogramCrossesValues, viewModel.HistogramCrossesLabels, "Crosses");
-            // }
-            //
-            // // Update Elements Plot
-            // if (viewModel.HistogramElementsValues.Length > 0)
-            // {
-            //     UpdateSingleHistogram(ElementsPlot, viewModel.HistogramElementsValues, viewModel.HistogramElementsLabels, "Elements");
-            // }
-            // // Update quadrants Plot
-            // if (viewModel.HistogramQuadrantValues.Length > 0)
-            // {
-            //     UpdateSingleHistogram(QuadrantsPlot, viewModel.HistogramQuadrantValues, viewModel.HistogramQuadrantLabels, "Quadrants");
-            // }
-            // // update decans plot
-            // if (viewModel.HistogramDecanValues.Length > 0)
-            // {
-            //     UpdateSingleHistogram(DecansPlot, viewModel.HistogramDecanValues, viewModel.HistogramDecanLabels, "Decans", "EnigmaAstrologyBLA2");
-            // }
-            // // update dispositor plot
-            // if (viewModel.HistogramDispositorValues.Length > 0)
-            // {
-            //     UpdateSingleHistogram(DispositorsPlot, viewModel.HistogramDispositorValues, viewModel.HistogramDispositorLabels, "Dispositors", "EnigmaAstrologyBLA2");
-            // }
+    // update dispositor plot
+            if (viewModel.HistogramDispositorValues.Length > 0)
+            {
+                UpdateSingleHistogram(DispositorsPlot, viewModel.HistogramDispositorValues, viewModel.HistogramDispositorLabels, "Dispositors", "EnigmaAstrologyBLA2");
+            }
             
         }
         catch (Exception ex)

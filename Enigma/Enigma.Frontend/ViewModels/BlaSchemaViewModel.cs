@@ -26,57 +26,37 @@ public partial class BlaSchemaViewModel : ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.BLA_SCHEMA;
     private BlaSchemaModel _schemaModel = App.ServiceProvider.GetRequiredService<BlaSchemaModel>();
-  //  private IBlaPositionForDataGridFactory _blaPositionFactory = App.ServiceProvider.GetRequiredService<IBlaPositionForDataGridFactory>();
-//    private BlaElementsCrossesForDataGridFactory _blaElementsCrossesFactory = App.ServiceProvider.GetRequiredService<BlaElementsCrossesForDataGridFactory>();
-    private BlaPresQuadrantCountFactory _blaPresQuadrantCountFactory = App.ServiceProvider.GetRequiredService<BlaPresQuadrantCountFactory>();
-    private BlaPresDecanCountFactory _blaPresDecanCountFactory = App.ServiceProvider.GetRequiredService<BlaPresDecanCountFactory>();
-    private BlaPresDispositorCountsFactory _blaPresDispositorCountsFactory = App.ServiceProvider.GetRequiredService<BlaPresDispositorCountsFactory>();
     
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _crossesCounts = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _elementsCounts = new();
     [ObservableProperty] private List<PresentableQuadrantCount> _quadrantCounts = new();
-    [ObservableProperty] private List<PresentableDecanCount> _decanCounts = new();
     [ObservableProperty] private List<PresentableDispositorCounts> _dispositorCounts = new();
+    [ObservableProperty] private List<PresentableBlaDetails> _blaDetails = new();
+    [ObservableProperty] private List<PresentableBlaCycle> _blaCycles = new();
     
     
     // ScottPlot histogram data
-    public double[] HistogramCrossesValues { get; private set; } = new double[0];
-    public double[] HistogramElementsValues { get; private set; } = new double[0];
-    public double[] HistogramQuadrantValues { get; private set; } = new double[0];
-    public double[] HistogramDecanValues { get; private set; } = new double[0];
     public double[] HistogramDispositorValues { get; private set; } = new double[0];
-    
-    public string[] HistogramCrossesLabels { get; private set; } = new string[0];
-    public string[] HistogramElementsLabels { get; private set; } = new string[0];
-    public string[] HistogramQuadrantLabels { get; private set; } = new string[4];
-    public string[] HistogramDecanLabels { get; private set; } = new string[7];
     public string[] HistogramDispositorLabels { get; private set; } = new string[7];
 
     public void Populate()
     {
         // TODO find correct values for Housesystem, Chiron and Eris 
+        // TODO check for true or mean node
         var houseSystem = HouseSystems.Placidus;
-        var useChiron = true;
-        var useEris = true;
+        var useChiron = false;
+        var useEris = false;
         
         _schemaModel.CreateDataForBla(houseSystem, useChiron, useEris);
-
-        // Get chart points and populate the DataGrid
-    //    var dataSheet = _schemaModel.GetDataSheet();
-    //    BlaPositions = _blaPositionFactory.CreateBlaPositionsForDataGrid(chartDetails);
-        
-        // Populate Elements/Crosses DataGrid
-        // CrossesCounts = _blaElementsCrossesFactory.CreatePresCrossesCounts(dataSheet, _schemaModel.GetChartLongitudes());
         CrossesCounts = _schemaModel.GetCrossesCounts();
-        // ElementsCounts = _blaElementsCrossesFactory.CreatePresElementsCounts(dataSheet, _schemaModel.GetChartLongitudes());
         ElementsCounts = _schemaModel.GetElementsCounts();
-        // QuadrantCounts = _blaPresQuadrantCountFactory.CreatePresQuadrants(dataSheet);
-        // DecanCounts = _blaPresDecanCountFactory.CreatePresDecans(dataSheet);
-        // DispositorCounts = _blaPresDispositorCountsFactory.CreatePresDispositorCounts(dataSheet);
-        
-        // Update histogram data
+        QuadrantCounts = _schemaModel.GetQuadrantCounts();
+        DispositorCounts = _schemaModel.GetDispositors();
+        BlaDetails = _schemaModel.GetBlaDetails();
+        BlaCycles = _schemaModel.GetBlaCycles();
+
         UpdateHistogramData();
 
     }
@@ -106,72 +86,15 @@ public partial class BlaSchemaViewModel : ObservableObject
     
     private void UpdateHistogramData()
     {
-        if (CrossesCounts.Count == 0)
-        {
-            HistogramCrossesValues = [];
-            HistogramCrossesLabels = [];
-            return;
-        }
-        if (ElementsCounts.Count == 0)
-        {
-            HistogramElementsValues = [];
-            HistogramElementsLabels = [];
-            return;
-        }
-        if (QuadrantCounts.Count == 0)
-        {
-            HistogramQuadrantValues = [];
-            HistogramQuadrantLabels = new string[4];
-            return;
-        }
-
-        if (DecanCounts.Count == 0)
-        {
-            HistogramDecanValues = [];
-            HistogramDecanLabels = new string[7];
-            return;
-        }
-
         if (DispositorCounts.Count == 0)
         {
             HistogramDispositorValues = [];
             HistogramDispositorLabels = new string[7];
             return;
         }
-        
-        // Extract totals and labels from ElementsCrosses
-        HistogramCrossesValues = CrossesCounts.Select(item => (double)item.Total).ToArray();
-        HistogramElementsValues = ElementsCounts.Select(item => (double)item.Total).ToArray();
-        HistogramQuadrantValues = QuadrantCounts.Select(item => (double)item.Count).ToArray();
-        HistogramDecanValues = DecanCounts.Select(item => (double)item.Count).ToArray();
+
         HistogramDispositorValues = DispositorCounts.Select(item => (double)item.Total).ToArray();
-        
-        HistogramCrossesLabels = CrossesCounts.Select(item => item.Name).ToArray();
-        HistogramElementsLabels = ElementsCounts.Select(item => item.Name).ToArray();
-        for (int i = 0; i < 4; i++)
-        {
-            HistogramQuadrantLabels[i] = $"Quadrant {i + 1}";
-        }
-        for (int i = 0; i < 7; i++)
-        {
-            HistogramDecanLabels[i] = FindGlyphForDecan(i + 1);
-        }
-        HistogramDispositorLabels = DispositorCounts.Select(item => item.RulerGlyphs).ToArray();
+        HistogramDispositorLabels = DispositorCounts.Select(item => item.Rulers).ToArray();
     }
 
-    private string FindGlyphForDecan(int decan)
-    {
-        switch (decan)
-        {
-            case 1: return "f";  // Mars
-            case 2: return "a";  // Sun
-            case 3: return "d";  // Venus
-            case 4: return "c";  // Mercury
-            case 5: return "b";  // Moon
-            case 6: return "h";  // Saturn
-            case 7: return "g";  // Jupiter
-            default: return " ";
-
-        }
-    }
 }

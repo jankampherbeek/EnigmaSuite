@@ -18,6 +18,7 @@ public static class BlaDetails
     /// </summary>
     /// <param name="chart">Positions in longitude</param>
     /// <param name="signsOnCusps">Signs on cusps</param>
+    /// <param name="planetsInHouses">Planets in houses</param>   
     /// <returns>Populated BlaDetailsData</returns>
     public static BlaDetailsData CreateDetails(ChartLongitudes chart, 
         Dictionary<int, int> signsOnCusps,
@@ -56,9 +57,9 @@ public static class BlaDetails
             planetsInHouses[ascRulers.SubRuler]
         };
 
-        var moonInSign = (int)Math.Truncate(chart.Points[ChartPoints.Moon] / 30.0) + 1;
+        var moonInHouse = planetsInHouses[ChartPoints.Moon];
         
-        return new BlaDetailsData(sisterSignAsc, clampedHouses, interceptedSigns, groundNote, lordAscInHouses, moonInSign);
+        return new BlaDetailsData(sisterSignAsc, clampedHouses, interceptedSigns, groundNote, lordAscInHouses, moonInHouse);
 
     }
 
