@@ -35,6 +35,7 @@ public partial class BlaSchemaViewModel : ObservableObject
     [ObservableProperty] private List<PresentableDispositorCounts> _dispositorCounts = new();
     [ObservableProperty] private List<PresentableBlaDetails> _blaDetails = new();
     [ObservableProperty] private List<PresentableBlaCycle> _blaCycles = new();
+    [ObservableProperty] private List<PresentableBlaCycle> _shortenedCycles = new();
     
     
     // ScottPlot histogram data
@@ -56,6 +57,7 @@ public partial class BlaSchemaViewModel : ObservableObject
         DispositorCounts = _schemaModel.GetDispositors();
         BlaDetails = _schemaModel.GetBlaDetails();
         BlaCycles = _schemaModel.GetBlaCycles();
+        ShortenedCycles = _schemaModel.GetBlaShortenedCycles();
 
         UpdateHistogramData();
 

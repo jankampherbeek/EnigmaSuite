@@ -27,14 +27,43 @@ public class BlaCyclesPresFactory
         return allCycles;
     }
 
+    public List<PresentableBlaCycle> CreateShortenedCycles(BlaCyclesData cyclesData)
+    {
+        var allCycles = new List<PresentableBlaCycle>();
+        allCycles.Add(ConstructShortenedCycle("Cardinal", cyclesData.Cardinal));
+        allCycles.Add(ConstructShortenedCycle("Fixed", cyclesData.Fixed));
+        allCycles.Add(ConstructShortenedCycle("Mutable", cyclesData.Mutable));
+        allCycles.Add(ConstructShortenedCycle("Fire", cyclesData.Fire));
+        allCycles.Add(ConstructShortenedCycle("Earth", cyclesData.Earth));
+        allCycles.Add(ConstructShortenedCycle("Air", cyclesData.Air));
+        allCycles.Add(ConstructShortenedCycle("Water", cyclesData.Water));
+        return allCycles;
+    }
+
     private static PresentableBlaCycle ConstructCycle(string cat, List<(int, int)> cycles)
     {
         var descr = "";
+        var sep = "";
         foreach (var cycle in cycles)
         {
-            descr += cycle.Item1 + ">>" + cycle.Item2;
+            descr += sep + cycle.Item1 + ">>" + cycle.Item2;
+            sep = ", ";
         }
         return new PresentableBlaCycle(cat, descr);
     }
- 
+
+    private static PresentableBlaCycle ConstructShortenedCycle(string cat, List<(int, int)> cycles)
+    {
+        var descr = "";
+        var sep = "";
+        var lord = "L.";
+        foreach (var cycle in cycles)
+        {
+            descr += sep + lord + cycle.Item1 + " = " + lord + cycle.Item2;
+            sep = ", ";
+        }
+        return new PresentableBlaCycle(cat, descr);
+    }
+    
+    
 }

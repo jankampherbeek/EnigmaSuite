@@ -195,11 +195,12 @@
                         <DataGrid
                             AutoGenerateColumns="False"
                             Background="#F0F8FF"
-                            Margin="8,0,8,0"
+                            Margin="0,0,8,0"
                             ItemsSource="{Binding CrossesCounts}"
                             Style="{StaticResource MaterialDesignDataGrid}"
                             Width="Auto"
                             HorizontalAlignment="Left">
+                            
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="" Width="70" Binding="{Binding Name}"
                                                     IsReadOnly="True"
@@ -244,9 +245,10 @@
                         <DataGrid ItemsSource="{Binding QuadrantCounts}"
                                   AutoGenerateColumns="False"
                                   Background="#F0F8FF"
-                                  Height="150"
+                                  Width="Auto"
                                   Margin="0,0,8,0"
-                                  Style="{StaticResource MaterialDesignDataGrid}">
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  HorizontalAlignment="Left">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="" Width="100" Binding="{Binding Quadrant}"
                                                     IsReadOnly="True"
@@ -268,7 +270,8 @@
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
                         Margin="6,6,6,16"
-                        Padding="6,6,6,16">
+                        Padding="6,6,6,16"
+                        HorizontalAlignment="Left">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Dispositors"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -278,7 +281,7 @@
                             ItemsSource="{Binding DispositorCounts}"
                             AutoGenerateColumns="False"
                             Background="#F0F8FF"
-                            Height="Auto"
+                            Width="Auto"
                             Margin="0,0,8,0"
                             Style="{StaticResource MaterialDesignDataGrid}">
                             <DataGrid.Columns>
@@ -336,6 +339,7 @@
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
+                        Width="Auto"
                         Margin="6,6,6,16"
                         Padding="6,6,6,16">
                     <StackPanel Orientation="Vertical">
@@ -349,7 +353,8 @@
                             Background="#F0F8FF"
                             Height="Auto"
                             Margin="0,0,8,0"
-                            Style="{StaticResource MaterialDesignDataGrid}">
+                            Style="{StaticResource MaterialDesignDataGrid}"
+                            HorizontalAlignment="Left">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Name}"
                                                     IsReadOnly="True"
@@ -369,10 +374,13 @@
                 </Border>
 
                 <!-- Cycles -->
-                <Border Grid.Row="5" Grid.Column="0" BorderBrush="{DynamicResource MaterialDesignDivider}"
+                <Border Grid.Row="5" Grid.Column="0" 
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
-                        Margin="0,0,0,16"
-                        Padding="0,0,0,16">
+                        Width="Auto"
+                        Margin="6,6,6,16"
+                        Padding="6,6,6,16">
                     <StackPanel Margin="0,0,8,0">
                         <TextBlock Text="Cycles"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -383,7 +391,8 @@
                             Background="#F0F8FF"
                             Height="Auto"
                             Margin="0,0,8,0"
-                            Style="{StaticResource MaterialDesignDataGrid}">
+                            Style="{StaticResource MaterialDesignDataGrid}"
+                            HorizontalAlignment="Left">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="" Width="Auto" Binding="{Binding ElemCross}"
                                                     IsReadOnly="True"
@@ -398,33 +407,40 @@
                     </StackPanel>
                 </Border>
 
-                <UniformGrid Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2" Columns="2">
+                <!-- Shortened cycles -->
+                <Border Grid.Row="5" Grid.Column="1" 
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        Background="#F0F8FF"
+                        BorderThickness="0,0,0,1"
+                        Width="Auto"
+                        Margin="6,6,6,16"
+                        Padding="6,6,6,16">
 
-  
-
-                    <!-- Shortened cycles -->
-                    <Border BorderBrush="{DynamicResource MaterialDesignDivider}"
-                            BorderThickness="0,0,0,1"
-                            Margin="0,0,0,16"
-                            Padding="0,0,0,16">
-
-                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                            <TextBlock Text="Shortened cycles"
-                                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                       Margin="0,0,0,8" />
-                            <DataGrid AutoGenerateColumns="False"
-                                      Height="200"
-                                      Style="{StaticResource MaterialDesignDataGrid}">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Col 1" Width="*" />
-                                    <DataGridTextColumn Header="Col 2" Width="*" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </StackPanel>
-                    </Border>
-
-
-                </UniformGrid>
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock Text="Shortened cycles"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,8" />
+                        <DataGrid AutoGenerateColumns="False"
+                                  ItemsSource="{Binding ShortenedCycles}"
+                                  Background="#F0F8FF"
+                                  Height="Auto"
+                                  Margin="0,0,8,0"
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  HorizontalAlignment="Left">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding ElemCross}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding description}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+                
             </Grid>
 
         </ScrollViewer>

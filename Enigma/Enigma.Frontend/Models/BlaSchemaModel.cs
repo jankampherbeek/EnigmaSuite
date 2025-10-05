@@ -35,6 +35,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     private List<PresentableBlaDetails> _blaDetails;
     private BlaDetailsData _blaDetailsData;
     private List<PresentableBlaCycle> _blaCycles;
+    private List<PresentableBlaCycle> _blaShortenedCycles;
     
     private CrossElementPresFactory _crossElementPresFactory;
     private QuadrantPresFactory _quadrantPresFactory;
@@ -64,7 +65,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         DefineBlaDetailLines();
         _blaCyclesPresFactory = new BlaCyclesPresFactory();
         DefineCycles();
-
+        DefineShortenedCycles();
     }
 
     private void DefineCrossElementCounts(Dictionary<int, int> signCounts, Dictionary<int, int> houseCounts,Dictionary<ChartPoints, int> planetsInHouses, Dictionary<int, int> signOnCusps)
@@ -97,7 +98,12 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         var cycles = _orchestrator.GetCycles();
         _blaCycles = _blaCyclesPresFactory.CreateBlaCycles(cycles);
     }
-    
+
+    private void DefineShortenedCycles()
+    {
+        var shortenedCycles = _orchestrator.GetShortenedCycles();
+        _blaShortenedCycles = _blaCyclesPresFactory.CreateShortenedCycles(shortenedCycles);   
+    }
     
     public List<PresentableCrossElementsCount> GetCrossesCounts()
     {
@@ -128,6 +134,12 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     {
         return _blaCycles;
     }
+
+    public List<PresentableBlaCycle> GetBlaShortenedCycles()
+    {
+        return _blaShortenedCycles;   
+    }
+    
     
     private ChartLongitudes GetChartLongitudes()
     {
