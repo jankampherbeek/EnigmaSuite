@@ -138,12 +138,12 @@
                 <Border Grid.Row="0" Grid.Column="0" BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
-                        Margin="6,6,6,16"
-                        Padding="6,6,6,16">
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Elements"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                   Margin="0,0,0,8" />
+                                   Margin="0,0,0,0" />
                         <DataGrid
                             AutoGenerateColumns="False"
                             Background="#F0F8FF"
@@ -186,12 +186,12 @@
                 <Border Grid.Row="1" Grid.Column="0" BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
-                        Margin="6,6,6,16"
-                        Padding="6,6,6,16">
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Crosses"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                   Margin="0,0,0,8" />
+                                   Margin="0,0,0,0" />
                         <DataGrid
                             AutoGenerateColumns="False"
                             Background="#F0F8FF"
@@ -235,12 +235,12 @@
                 <Border Grid.Row="2" Grid.Column="0" BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
-                        Margin="6,6,6,16"
-                        Padding="6,6,6,16">
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Quadrants"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                   Margin="0,0,0,8" />
+                                   Margin="0,0,0,0" />
 
                         <DataGrid ItemsSource="{Binding QuadrantCounts}"
                                   AutoGenerateColumns="False"
@@ -269,13 +269,13 @@
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
-                        Margin="6,6,6,16"
-                        Padding="6,6,6,16"
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8"
                         HorizontalAlignment="Left">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Dispositors"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                   Margin="0,0,0,8" />
+                                   Margin="0,0,0,0" />
 
                         <DataGrid
                             ItemsSource="{Binding DispositorCounts}"
@@ -340,8 +340,8 @@
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
                         Width="Auto"
-                        Margin="6,6,6,16"
-                        Padding="6,6,6,16">
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Details"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -353,6 +353,7 @@
                             Background="#F0F8FF"
                             Height="Auto"
                             Margin="0,0,8,0"
+                            ColumnHeaderHeight="0"
                             Style="{StaticResource MaterialDesignDataGrid}"
                             HorizontalAlignment="Left">
                             <DataGrid.Columns>
@@ -379,18 +380,19 @@
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
                         Width="Auto"
-                        Margin="6,6,6,16"
-                        Padding="6,6,6,16">
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
                     <StackPanel Margin="0,0,8,0">
                         <TextBlock Text="Cycles"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                   Margin="0,0,0,8" />
+                                   Margin="0,0,0,0" />
                         <DataGrid
                             ItemsSource="{Binding BlaCycles}"
                             AutoGenerateColumns="False"
                             Background="#F0F8FF"
                             Height="Auto"
                             Margin="0,0,8,0"
+                            ColumnHeaderHeight="0"
                             Style="{StaticResource MaterialDesignDataGrid}"
                             HorizontalAlignment="Left">
                             <DataGrid.Columns>
@@ -413,18 +415,19 @@
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
                         Width="Auto"
-                        Margin="6,6,6,16"
-                        Padding="6,6,6,16">
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
 
                     <StackPanel Grid.Column="0" Margin="0,0,8,0">
                         <TextBlock Text="Shortened cycles"
                                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                                   Margin="0,0,0,8" />
+                                   Margin="0,0,0,0" />
                         <DataGrid AutoGenerateColumns="False"
                                   ItemsSource="{Binding ShortenedCycles}"
                                   Background="#F0F8FF"
                                   Height="Auto"
                                   Margin="0,0,8,0"
+                                  ColumnHeaderHeight="0"
                                   Style="{StaticResource MaterialDesignDataGrid}"
                                   HorizontalAlignment="Left">
                             <DataGrid.Columns>
@@ -441,6 +444,216 @@
                     </StackPanel>
                 </Border>
                 
+                <!-- Factors in own signs -->
+                <Border Grid.Row="6" Grid.Column="0" 
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        Background="#F0F8FF"
+                        BorderThickness="0,0,0,1"
+                        Width="Auto"
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
+
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock Text="In own sign"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,0" />
+                        <DataGrid AutoGenerateColumns="False"
+                                  ItemsSource="{Binding FactorsInOwnSigns}"
+                                  Background="#F0F8FF"
+                                  Height="Auto"
+                                  Margin="0,0,8,0"
+                                  ColumnHeaderHeight="0"
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  HorizontalAlignment="Left">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Descr}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding PositionGlyph}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+                
+                 <!-- Factors in own houses -->
+                <Border Grid.Row="6" Grid.Column="1" 
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        Background="#F0F8FF"
+                        BorderThickness="0,0,0,1"
+                        Width="Auto"
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
+
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock Text="In own house"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,0" />
+                        <DataGrid AutoGenerateColumns="False"
+                                  ItemsSource="{Binding FactorsInOwnHouses}"
+                                  Background="#F0F8FF"
+                                  Height="Auto"
+                                  Margin="0,0,8,0"
+                                  ColumnHeaderHeight="0"   
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  HorizontalAlignment="Left">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Descr}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Position}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NumberColumnStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+                
+                 <!-- Factors in own mundane houses -->
+                <Border Grid.Row="7" Grid.Column="0" 
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        Background="#F0F8FF"
+                        BorderThickness="0,0,0,1"
+                        Width="Auto"
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
+
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock Text="In own mundane house"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,0" />
+                        <DataGrid AutoGenerateColumns="False"
+                                  ItemsSource="{Binding FactorsInOwnMundaneHouses}"
+                                  Background="#F0F8FF"
+                                  Height="Auto"
+                                  Margin="0,0,8,0"
+                                  ColumnHeaderHeight="0"   
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  HorizontalAlignment="Left">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Descr}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Position}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NumberColumnStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>                
+                
+                <!-- House lords in analog signs -->
+                <Border Grid.Row="7" Grid.Column="1" 
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        Background="#F0F8FF"
+                        BorderThickness="0,0,0,1"
+                        Width="Auto"
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
+
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock Text="House lord in own analog sign"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,0" />
+                        <DataGrid AutoGenerateColumns="False"
+                                  ItemsSource="{Binding HouseLordsInAnalogSigns}"
+                                  Background="#F0F8FF"
+                                  Height="Auto"
+                                  Margin="0,0,8,0"
+                                  ColumnHeaderHeight="0"   
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  HorizontalAlignment="Left">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Descr}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding PositionGlyph}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>         
+                
+                <!-- Pairs in analog houses and signs -->
+                <Border Grid.Row="8" Grid.Column="0" 
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        Background="#F0F8FF"
+                        BorderThickness="0,0,0,1"
+                        Width="Auto"
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
+
+                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                        <TextBlock Text="Pairs with analog sign and house"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,0" />
+                        <DataGrid AutoGenerateColumns="False"
+                                  ItemsSource="{Binding PairAnalogHouseSigns}"
+                                  Background="#F0F8FF"
+                                  Height="Auto"
+                                  Margin="0,0,8,0"
+                                  ColumnHeaderHeight="0"   
+                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                  HorizontalAlignment="Left">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor1}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Plus1}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor2}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding EqualSign}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding House}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NumberColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Plus2}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NameColumnStyle}" />
+                                <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Sign}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource GlyphColumnStyle}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>         
             </Grid>
 
         </ScrollViewer>

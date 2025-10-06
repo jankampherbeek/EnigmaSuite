@@ -36,7 +36,11 @@ public partial class BlaSchemaViewModel : ObservableObject
     [ObservableProperty] private List<PresentableBlaDetails> _blaDetails = new();
     [ObservableProperty] private List<PresentableBlaCycle> _blaCycles = new();
     [ObservableProperty] private List<PresentableBlaCycle> _shortenedCycles = new();
-    
+    [ObservableProperty] private List<PresenTableReinforcementFactor> _factorsInOwnSigns = new();
+    [ObservableProperty] private List<PresenTableReinforcementFactor> _factorsInOwnHouses = new();
+    [ObservableProperty] private List<PresenTableReinforcementFactor> _factorsInOwnMundaneHouses = new();
+    [ObservableProperty] private List<PresenTableReinforcementFactor> _houseLordsInAnalogSigns = new();
+    [ObservableProperty] private List<PresentablePairAnalogHouseSign> _pairAnalogHouseSigns = new();
     
     // ScottPlot histogram data
     public double[] HistogramDispositorValues { get; private set; } = new double[0];
@@ -58,7 +62,12 @@ public partial class BlaSchemaViewModel : ObservableObject
         BlaDetails = _schemaModel.GetBlaDetails();
         BlaCycles = _schemaModel.GetBlaCycles();
         ShortenedCycles = _schemaModel.GetBlaShortenedCycles();
-
+        FactorsInOwnSigns = _schemaModel.GetBlaFactorsInOwnSigns();
+        FactorsInOwnHouses = _schemaModel.GetBlaFactorsInOwnHouses();
+        FactorsInOwnMundaneHouses = _schemaModel.GetBlaFactorsInOwnMundaneHouses();
+        HouseLordsInAnalogSigns = _schemaModel.GetBlaHouseLordsInAnalogSigns();
+        PairAnalogHouseSigns = _schemaModel.GetBlaPairsAnalogHouseSigns();
+        
         UpdateHistogramData();
 
     }

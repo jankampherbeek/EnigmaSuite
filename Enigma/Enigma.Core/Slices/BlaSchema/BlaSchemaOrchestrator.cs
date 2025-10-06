@@ -128,7 +128,7 @@ public class BlaSchemaOrchestrator
         return ReinforcementCalc.FindRulerInHouseAsSign(_signsOnCusps, _planetsInSigns);        
     }
 
-    public List<FactorPairAnalogHouseSign> GetFactorPairs()
+    public List<FactorPairAnalogHouseSign> GetFactorPairsAnalogHouseSigns()
     {
         return ReinforcementCalc.FindFactorPairs(_planetsInSigns, _planetsInHouses);
     }

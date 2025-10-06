@@ -36,12 +36,18 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     private BlaDetailsData _blaDetailsData;
     private List<PresentableBlaCycle> _blaCycles;
     private List<PresentableBlaCycle> _blaShortenedCycles;
+    private List<PresenTableReinforcementFactor> _blaFactorsInOwnSigns;
+    private List<PresenTableReinforcementFactor> _blaFactorsInOwnHouses;
+    private List<PresenTableReinforcementFactor> _blaFactorsInOwnMundaneHouses;
+    private List<PresenTableReinforcementFactor> _blaHouseLordsInAnalogSigns;
+    private List<PresentablePairAnalogHouseSign> _blaPairsAnalogHouseSigns;
     
     private CrossElementPresFactory _crossElementPresFactory;
     private QuadrantPresFactory _quadrantPresFactory;
     private DispositorPresFactory _dispositorPresFactory;
     private BlaDetailsPresFactory _blaDetailsPresFactory;
     private BlaCyclesPresFactory _blaCyclesPresFactory;
+    private BlaReinforcementsPresFactory _blaReinforcementsPresFactory;
     
     public void CreateDataForBla(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
     {
@@ -66,6 +72,12 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         _blaCyclesPresFactory = new BlaCyclesPresFactory();
         DefineCycles();
         DefineShortenedCycles();
+        _blaReinforcementsPresFactory = new BlaReinforcementsPresFactory();
+        DefineFactorsInOwnSigns();
+        DefineFactorsInOwnHouses();
+        DefineFactorsInOwnMundaneHouses();
+        DefineHouseLordsInAnalogSigns();
+        DefinePairsAnalogHouseSign();
     }
 
     private void DefineCrossElementCounts(Dictionary<int, int> signCounts, Dictionary<int, int> houseCounts,Dictionary<ChartPoints, int> planetsInHouses, Dictionary<int, int> signOnCusps)
@@ -104,6 +116,37 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         var shortenedCycles = _orchestrator.GetShortenedCycles();
         _blaShortenedCycles = _blaCyclesPresFactory.CreateShortenedCycles(shortenedCycles);   
     }
+
+    private void DefineFactorsInOwnSigns()
+    {
+        var factors = _orchestrator.GetPointsInOwnSign();
+        _blaFactorsInOwnSigns = _blaReinforcementsPresFactory.CreateReinforcementFactors(factors);
+    }
+
+    private void DefineFactorsInOwnHouses()
+    {
+        var factors = _orchestrator.GetPointsInOwnHouse();
+        _blaFactorsInOwnHouses = _blaReinforcementsPresFactory.CreateReinforcementFactors(factors);   
+    }
+
+    private void DefineFactorsInOwnMundaneHouses()
+    {
+        var factors = _orchestrator.GetPointsInOwnMundaneHouse();
+        _blaFactorsInOwnMundaneHouses = _blaReinforcementsPresFactory.CreateReinforcementFactors(factors);  
+    }
+
+    private void DefineHouseLordsInAnalogSigns()
+    {
+        var factors = _orchestrator.GetRulersInHouseAsSign();
+        _blaHouseLordsInAnalogSigns = _blaReinforcementsPresFactory.CreateReinforcementFactors(factors); 
+    }
+
+    private void DefinePairsAnalogHouseSign()
+    {
+        var pairs = _orchestrator.GetFactorPairsAnalogHouseSigns();
+        _blaPairsAnalogHouseSigns = _blaReinforcementsPresFactory.CreatePairsWithAnalogHouseSigns(pairs);
+    }
+    
     
     public List<PresentableCrossElementsCount> GetCrossesCounts()
     {
@@ -139,7 +182,31 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     {
         return _blaShortenedCycles;   
     }
+
+    public List<PresenTableReinforcementFactor> GetBlaFactorsInOwnSigns()
+    {
+        return _blaFactorsInOwnSigns;  
+    }
     
+    public List<PresenTableReinforcementFactor> GetBlaFactorsInOwnHouses()
+    {
+        return _blaFactorsInOwnHouses;  
+    }
+
+    public List<PresenTableReinforcementFactor> GetBlaFactorsInOwnMundaneHouses()
+    {
+        return _blaFactorsInOwnMundaneHouses; 
+    }
+
+    public List<PresenTableReinforcementFactor> GetBlaHouseLordsInAnalogSigns()
+    {
+        return _blaHouseLordsInAnalogSigns;
+    }
+
+    public List<PresentablePairAnalogHouseSign> GetBlaPairsAnalogHouseSigns()
+    {
+        return _blaPairsAnalogHouseSigns;
+    }
     
     private ChartLongitudes GetChartLongitudes()
     {

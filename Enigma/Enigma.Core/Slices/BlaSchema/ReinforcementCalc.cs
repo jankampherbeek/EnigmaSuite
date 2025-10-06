@@ -37,8 +37,7 @@ public static class ReinforcementCalc
         {
             foreach (var planet in planetsInSigns)
             {
-                if ((planet.Key == mainRuler || planet.Key == subRuler) &&
-                    (planet.Value == signMain || planet.Value == signMain))
+                if ((planet.Key == mainRuler || planet.Key == subRuler) && planet.Value == signMain)
                 {
                     pointsInOwnSign.Add(planet.Key, planet.Value);
                 }
