@@ -41,6 +41,9 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     private List<PresenTableReinforcementFactor> _blaFactorsInOwnMundaneHouses;
     private List<PresenTableReinforcementFactor> _blaHouseLordsInAnalogSigns;
     private List<PresentablePairAnalogHouseSign> _blaPairsAnalogHouseSigns;
+    private List<PresentableReception> _receptionsInSigns;
+    private List<PresentableReception> _receptionsInHouses;
+    private List<PresentableReception> _receptionsInMundaneHouses;
     
     private CrossElementPresFactory _crossElementPresFactory;
     private QuadrantPresFactory _quadrantPresFactory;
@@ -48,6 +51,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     private BlaDetailsPresFactory _blaDetailsPresFactory;
     private BlaCyclesPresFactory _blaCyclesPresFactory;
     private BlaReinforcementsPresFactory _blaReinforcementsPresFactory;
+    private BlaReceptionsPresFactory _blaReceptionsPresFactory;
     
     public void CreateDataForBla(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
     {
@@ -78,6 +82,10 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         DefineFactorsInOwnMundaneHouses();
         DefineHouseLordsInAnalogSigns();
         DefinePairsAnalogHouseSign();
+        _blaReceptionsPresFactory = new BlaReceptionsPresFactory();
+        DefineReceptionsInSigns();
+        DefineReceptionsInHouses();
+        DefineReceptionInMundaneHouses();
     }
 
     private void DefineCrossElementCounts(Dictionary<int, int> signCounts, Dictionary<int, int> houseCounts,Dictionary<ChartPoints, int> planetsInHouses, Dictionary<int, int> signOnCusps)
@@ -146,6 +154,25 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         var pairs = _orchestrator.GetFactorPairsAnalogHouseSigns();
         _blaPairsAnalogHouseSigns = _blaReinforcementsPresFactory.CreatePairsWithAnalogHouseSigns(pairs);
     }
+
+    private void DefineReceptionsInSigns()
+    {
+        var rec = _orchestrator.GetReceptionsInSigns();
+        _receptionsInSigns = _blaReceptionsPresFactory.CreateReceptionsInSigns(rec);
+    }
+
+
+    private void DefineReceptionsInHouses()
+    {
+        var rec = _orchestrator.GetReceptionsInHouses();
+        _receptionsInHouses = _blaReceptionsPresFactory.CreateReceptionsInHouses(rec);   
+    }
+
+    private void DefineReceptionInMundaneHouses()
+    {
+        var rec = _orchestrator.GetReceptionsInMundaneHouses();
+        _receptionsInMundaneHouses = _blaReceptionsPresFactory.CreateReceptionsInHouses(rec);
+    }
     
     
     public List<PresentableCrossElementsCount> GetCrossesCounts()
@@ -207,6 +234,23 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     {
         return _blaPairsAnalogHouseSigns;
     }
+
+    public List<PresentableReception> GetReceptionsInSigns()
+    {
+        return _receptionsInSigns;
+    }
+
+    public List<PresentableReception> GetReceptionsInHouses()
+    {
+        return _receptionsInHouses;
+    }
+
+    public List<PresentableReception> GetReceptionsInMundaneHouses()
+    {
+        return _receptionsInMundaneHouses;
+    }
+    
+    
     
     private ChartLongitudes GetChartLongitudes()
     {

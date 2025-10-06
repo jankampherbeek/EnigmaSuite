@@ -41,7 +41,9 @@ public partial class BlaSchemaViewModel : ObservableObject
     [ObservableProperty] private List<PresenTableReinforcementFactor> _factorsInOwnMundaneHouses = new();
     [ObservableProperty] private List<PresenTableReinforcementFactor> _houseLordsInAnalogSigns = new();
     [ObservableProperty] private List<PresentablePairAnalogHouseSign> _pairAnalogHouseSigns = new();
-    
+    [ObservableProperty] private List<PresentableReception> _receptionsInSigns = new();
+    [ObservableProperty] private List<PresentableReception> _receptionsInHouses = new();
+    [ObservableProperty] private List<PresentableReception> _receptionsInMundaneHouses = new();
     // ScottPlot histogram data
     public double[] HistogramDispositorValues { get; private set; } = new double[0];
     public string[] HistogramDispositorLabels { get; private set; } = new string[7];
@@ -67,6 +69,9 @@ public partial class BlaSchemaViewModel : ObservableObject
         FactorsInOwnMundaneHouses = _schemaModel.GetBlaFactorsInOwnMundaneHouses();
         HouseLordsInAnalogSigns = _schemaModel.GetBlaHouseLordsInAnalogSigns();
         PairAnalogHouseSigns = _schemaModel.GetBlaPairsAnalogHouseSigns();
+        ReceptionsInSigns = _schemaModel.GetReceptionsInSigns();
+        ReceptionsInHouses = _schemaModel.GetReceptionsInHouses();
+        ReceptionsInMundaneHouses = _schemaModel.GetReceptionsInMundaneHouses();
         
         UpdateHistogramData();
 
