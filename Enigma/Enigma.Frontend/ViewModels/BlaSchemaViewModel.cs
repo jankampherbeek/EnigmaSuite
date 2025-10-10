@@ -3,15 +3,13 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Presentables;
-using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.PresentationFactories;
@@ -26,7 +24,14 @@ public partial class BlaSchemaViewModel : ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.BLA_SCHEMA;
     private BlaSchemaModel _schemaModel = App.ServiceProvider.GetRequiredService<BlaSchemaModel>();
-    
+
+    [ObservableProperty] private List<string> _houseSystemNames;
+    [ObservableProperty] private List<string> _apogeeTypeNames;
+    [ObservableProperty] private int _houseSystemIndex = 4;
+    [ObservableProperty] private int _apogeeIndex = 1;
+    private bool _useChiron;
+    private bool _useEris;
+    private bool _useTrueNode;
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _crossesCounts = new();
@@ -44,19 +49,24 @@ public partial class BlaSchemaViewModel : ObservableObject
     [ObservableProperty] private List<PresentableReception> _receptionsInSigns = new();
     [ObservableProperty] private List<PresentableReception> _receptionsInHouses = new();
     [ObservableProperty] private List<PresentableReception> _receptionsInMundaneHouses = new();
+    
+    
     // ScottPlot histogram data
     public double[] HistogramDispositorValues { get; private set; } = new double[0];
     public string[] HistogramDispositorLabels { get; private set; } = new string[7];
 
+    public void SetUpBlaSchema()
+    {
+        _schemaModel.PrepareBlaSchema();
+        Populate();
+    }
+    
     public void Populate()
     {
-        // TODO find correct values for Housesystem, Chiron and Eris 
-        // TODO check for true or mean node
-        var houseSystem = HouseSystems.Placidus;
-        var useChiron = false;
-        var useEris = false;
-        
-        _schemaModel.CreateDataForBla(houseSystem, useChiron, useEris);
+        _schemaModel.CreateBlaSchema(_useChiron, _useEris, _useTrueNode);
+        HouseSystemNames = _schemaModel.GetHouseSystemNames();
+        ApogeeTypeNames = _schemaModel.GetApogeeTypeNames();
+        BlaPositions = _schemaModel.GetBlaPositions();
         CrossesCounts = _schemaModel.GetCrossesCounts();
         ElementsCounts = _schemaModel.GetElementsCounts();
         QuadrantCounts = _schemaModel.GetQuadrantCounts();
@@ -76,9 +86,25 @@ public partial class BlaSchemaViewModel : ObservableObject
         UpdateHistogramData();
 
     }
+
+
+    public void UpdateChiron()
+    {
+        _useChiron = !_useChiron;
+        Populate();
+    }
     
+    public void UpdateEris()
+    {
+        _useEris = !_useEris;
+        Populate();       
+    }
     
-    
+    public void UpdateTrueNode()
+    {
+        _useTrueNode = !_useTrueNode;
+        Populate();
+    }
     
     
     [RelayCommand]
@@ -93,11 +119,6 @@ public partial class BlaSchemaViewModel : ObservableObject
     {
         Log.Information("BlaSchemaViewModel.Close(): send CloseMessage");
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
-    }
-
-    public BlaSchemaViewModel()
-    {
-        // Initialize data here when needed
     }
     
     private void UpdateHistogramData()

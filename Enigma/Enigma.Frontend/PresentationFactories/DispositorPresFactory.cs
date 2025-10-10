@@ -11,7 +11,20 @@ using Enigma.Frontend.Ui.Support;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
-public record PresentableDispositorCounts(String Rulers, string SignSplitted, int SignMain, int SignSub, int SignSum, int HouseMain, int HouseSub, int HouseSum, int Total);
+/// <summary>
+/// Presentable dispositor counts for BLA schema  
+/// </summary>
+/// <param name="Rulers">Contains both both rulers</param>
+/// <param name="SignSplitted">Counts for each ruler (string with two numbers)</param>
+/// <param name="SignMain">Counts in signs (sum of both values in SignSplitted</param>
+/// <param name="SignIndirect">Indirect counts for signs</param>
+/// <param name="SignSum">Sum of SignMain and SignIndirect</param>
+/// <param name="HouseMain">Counts in houses</param>
+/// <param name="HouseIndirect">Indirect counts in houses</param>
+/// <param name="HouseSum">Sum of HouseMain and HouseIndirect</param>
+/// <param name="Total">Total of SignSum and HouseSum</param>
+public record PresentableDispositorCounts(string Rulers, string SignSplitted, int SignMain, int SignIndirect, int SignSum, 
+    int HouseMain, int HouseIndirect, int HouseSum, int Total);
 
 public class DispositorPresFactory
 {
@@ -19,45 +32,43 @@ public class DispositorPresFactory
     {
         const string separator = "/";
         const string space = " ";
+        var mainRulerGlyph = "";
+        var subRulerGlyph = "";
         var presDispositorCounts = new List<PresentableDispositorCounts>();
         foreach (var dLine in dispositorLines)
         {
-            var mainRulerGlyph = GlyphsForChartPoints.FindGlyph(dLine.MainRuler);
-            var subRulerGlyph = GlyphsForChartPoints.FindGlyph(dLine.SubRuler);
+            foreach (var rulerPair in BlaDomain.RulerPairs())
+            {
+                if (rulerPair.MainRuler == dLine.MainRuler)
+                {
+                    mainRulerGlyph = DefineGlyph(rulerPair.SignIndex);
+                }
+
+                if (rulerPair.SubRuler == dLine.MainRuler)
+                {
+                    subRulerGlyph = DefineGlyph(rulerPair.SignIndex);
+                }
+            }
+
             var rulerGlyphs = mainRulerGlyph + space + subRulerGlyph;
             var signSplitted = dLine.MainRulerSignCount + separator + dLine.SubRulerSignCount;
-
-
+            
             presDispositorCounts.Add(new PresentableDispositorCounts(rulerGlyphs, signSplitted,
-                dLine.MainRulerSignCount,
-                dLine.SubRulerSignCount, dLine.SumRulerSignCount, dLine.DirectRulerHouseCount,
+                dLine.SumRulerSignCount, 
+                dLine.IndirectRulerSignCount, 
+                dLine.TotalRulerSignCount,
+                dLine.DirectRulerHouseCount,
                 dLine.IndirectRulerHouseCount,
-                dLine.SumRulerHouseCount, dLine.Total));
+                dLine.SumRulerHouseCount, 
+                dLine.Total));
         }
-        return presDispositorCounts;   
+    return presDispositorCounts;   
     }
     
-    
-    // private static string CreateRulerGlyph(ChartPoints ruler)
-    // {
-    //     switch (ruler)
-    //     {
-    //         case ChartPoints.Sun: return "a";
-    //         case ChartPoints.Moon: return "b";
-    //         case ChartPoints.Mercury: return "c";
-    //         case ChartPoints.Venus: return "d";
-    //         case ChartPoints.Mars: return "f";
-    //         case ChartPoints.Jupiter: return "g";
-    //         case ChartPoints.Saturn: return "h";
-    //         case ChartPoints.Uranus: return "i";
-    //         case ChartPoints.Neptune: return "j";
-    //         case ChartPoints.Pluto: return "k";
-    //         case ChartPoints.ApogeeMean: return ",";    
-    //         case ChartPoints.Priapus: return "\\";
-    //         case ChartPoints.PersephoneCarteret: return "à";
-    //         case ChartPoints.VulcanusCarteret: return "Ï";            
-    //     }
-    //     return "";
-    // }
+    private string DefineGlyph(int sign)
+    {
+        string[] glyphs = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="];
+        return glyphs[sign-1];
+    }
     
 }

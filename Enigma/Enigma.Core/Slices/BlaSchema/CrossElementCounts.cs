@@ -36,11 +36,6 @@ public static class CrossElementCounts
         List<BlaHouseDetails> houseDetails)
     {
         var countLines = new Dictionary<int, BlaSignHouseCountLine>();
-        foreach (var hd in houseDetails)
-        {
-            Console.WriteLine($"House detail {hd.HouseNr} has {hd.PointsInHouse.Count} points");
-        }
-        
         
         foreach (var (signIndex, signCount) in signCounts)
         {

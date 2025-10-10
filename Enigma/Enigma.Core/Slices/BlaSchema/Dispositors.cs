@@ -27,11 +27,13 @@ public static class Dispositors
     {  
         var dispositors = new List<BlaDispositorLine>();
 
-        foreach (var rulerPair in BlaDomain.RulerPairs())
+        
+        foreach (var rulerPair in RulerPairsForDispositors())
         {
             // find mainRuler and subRuler
             var mainRuler = rulerPair.MainRuler;
             var subRuler = rulerPair.SubRuler;
+            
             var (signMainRuler, signSubRuler) = FindSignsRuledBy(mainRuler);;
             // define number of point in signs ruled by mainRuler and subRuler
             var signMainRulerCount = SignCounts[signMainRuler];
@@ -47,31 +49,31 @@ public static class Dispositors
                 if (point.Key == mainRuler || point.Key == subRuler || !IsRuler(point.Key)) continue;
                 if (point.Value == signMainRuler || point.Value == signSubRuler)
                 {
-                    indirectSignCount += SignCounts[point.Value];
+                    var signs = FindSignsRuledBy(point.Key);
+                    indirectSignCount += SignCounts[signs.Item1];
+                    indirectSignCount += SignCounts[signs.Item2];
                 }
             }
-            // define the total of directSignCount and indirectSignCount --> totalSignCount
             var totalSignCount = directSignCount + indirectSignCount;
+            
             
             // find number of points in houses ruled by mainRuler and subRuler  --> directHouseCount
             var directHouseCount = 0;
             var housesRuledByMainRuler = FindCuspsRuledBy(mainRuler, SignsOnHouseCusps);
             var housesRuledBySubRuler = FindCuspsRuledBy(subRuler, SignsOnHouseCusps);
+            
+            // only count for mainRuler to prevent double counting
             foreach (var house in housesRuledByMainRuler)
             {
                 var nrOfPoints = HouseCounts[house];
                 directHouseCount += nrOfPoints;   
             }
-            foreach (var house in housesRuledBySubRuler)
-            {
-                var nrOfPoints = HouseCounts[house];
-                directHouseCount += nrOfPoints;  
-            }
+
             
             
             // for mainRuler and subRuler, define points in the houses they rule
             //      for each point, if it is a ruler and not the same as the mainRuler or subRuler
-            //          define the house these points rule and count the numer of points in these houses --> indirectHouseCount
+            //          define the house these points rule and count the number of points in these houses --> indirectHouseCount
             var indirectHouseCount = 0;
     
             var pointsInHousesForIndirectRulership = new List<ChartPoints>();
@@ -86,19 +88,24 @@ public static class Dispositors
                     }
                 }
             }
-            foreach (var house in housesRuledBySubRuler)
+            // remove points from same rulerPair
+            var uniquePoints = new List<ChartPoints>();
+            foreach (var pair in BlaDomain.RulerPairs())
             {
-                foreach (var point in PlanetsInHouses)
+                var mRuler = pair.MainRuler;
+                var sRuler = pair.SubRuler;
+                var handledPairs = new List<RulerPair>();
+                foreach (var point in pointsInHousesForIndirectRulership)
                 {
-                    if (point.Key == mainRuler || point.Key == subRuler || !IsRuler(point.Key)) continue;
-                    if (point.Value == house && !pointsInHousesForIndirectRulership.Contains(point.Key))
-                    {
-                        pointsInHousesForIndirectRulership.Add(point.Key);
-                    }
+                    if (point != mRuler && point != sRuler) continue;
+                    if (handledPairs.Contains(pair)) continue;      // do not use both points from same ruler pair
+                    handledPairs.Add(pair);
+                    if (uniquePoints.Contains(point)) continue;
+                    uniquePoints.Add(point);
                 }
             }
-
-            foreach (var point in pointsInHousesForIndirectRulership)
+            
+            foreach (var point in uniquePoints)
             {
                 var house = FindCuspsRuledBy(point, SignsOnHouseCusps);
                 foreach (var h in house)
@@ -107,8 +114,8 @@ public static class Dispositors
                 }
             }
             var totalHouseCount = directHouseCount + indirectHouseCount;
-            var totalCount = directSignCount + directHouseCount;
-            
+            var totalCount = totalSignCount + totalHouseCount;
+             
             dispositors.Add(new BlaDispositorLine(mainRuler, subRuler, signMainRulerCount, signSubRulerCount, directSignCount, indirectSignCount, totalSignCount, directHouseCount, indirectHouseCount, totalHouseCount, totalCount));
         }
         return dispositors;
@@ -117,18 +124,9 @@ public static class Dispositors
 
     private static bool IsRuler(ChartPoints chartPoint)
     {
-        return chartPoint == ChartPoints.Sun || 
-               chartPoint == ChartPoints.Moon || 
-               chartPoint == ChartPoints.Mercury || 
-               chartPoint == ChartPoints.Venus || 
-               chartPoint == ChartPoints.Mars || 
-               chartPoint == ChartPoints.Jupiter || 
-               chartPoint == ChartPoints.Neptune || 
-               chartPoint == ChartPoints.Pluto || 
-               chartPoint == ChartPoints.ApogeeMean || 
-               chartPoint == ChartPoints.Priapus || 
-               chartPoint == ChartPoints.PersephoneCarteret || 
-               chartPoint == ChartPoints.VulcanusCarteret;
+        return chartPoint is ChartPoints.Sun or ChartPoints.Moon or ChartPoints.Mercury or ChartPoints.Venus 
+            or ChartPoints.Mars or ChartPoints.Jupiter or ChartPoints.Neptune or ChartPoints.Pluto 
+            or ChartPoints.ApogeeMean or ChartPoints.Priapus or ChartPoints.PersephoneCarteret or ChartPoints.VulcanusCarteret;
         
     }
     
@@ -173,7 +171,7 @@ public static class Dispositors
     {
         var (signMainRuler, signSubRuler) = FindSignsRuledBy(ruler);
         var cusps = new List<int>();
-        foreach (var (sign, house) in signsOnCusps)
+        foreach (var (house, sign) in signsOnCusps)
         {
             if (sign == signMainRuler || sign == signSubRuler)
             {

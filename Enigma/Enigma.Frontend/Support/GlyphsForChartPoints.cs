@@ -63,6 +63,7 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
             ChartPoints.Astraea => 'Ã',
             ChartPoints.ApogeeMean => ',',
             ChartPoints.ApogeeCorrected => '.',
+            ChartPoints.ApogeeInterpolated => '.',
             ChartPoints.Dragon => 'è',
             ChartPoints.Beast => ';',
             ChartPoints.BlackSun => '[',

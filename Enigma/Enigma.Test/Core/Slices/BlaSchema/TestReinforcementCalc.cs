@@ -282,11 +282,6 @@ public class TestReinforcementCalc
         var planetsInHouses = CreatePlanetsInHouses();
         var planetsInSigns = CreatePlanetsInSigns();
         var result = ReinforcementCalc.FindRulerInHouseAsSign(signsOnCusp, planetsInSigns);
-        foreach (var resultItem in result)
-        {
-            Console.WriteLine($"{resultItem.Key} = {resultItem.Value}");       
-        }
-        
         
         Assert.Multiple(() =>
         {

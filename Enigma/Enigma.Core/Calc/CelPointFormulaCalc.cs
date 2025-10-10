@@ -44,7 +44,8 @@ public sealed class CelPointFormulaCalc: ICelPointFormulaCalc
 
     private static double CalcCarteretHypPlanet(double jdUt, double startPoint, double yearlySpeed)
     {
-        return startPoint + ((jdUt - JD1900) * (yearlySpeed / EnigmaConstants.TROPICAL_YEAR_IN_DAYS));
+        var positions = startPoint + ((jdUt - JD1900) * (yearlySpeed / EnigmaConstants.TROPICAL_YEAR_IN_DAYS));
+        return RangeUtil.ValueToRange(positions, 0.0, 360.0);
     }
     
     private double CalcApogeeDuval(double jdUt)

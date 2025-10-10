@@ -344,11 +344,6 @@ public static class ReinforcementCalc
                 }
             }            
         }
-
-        foreach (var reception in receptions)
-        {
-            Console.WriteLine(reception);
-        }
         return receptions;
     }
     

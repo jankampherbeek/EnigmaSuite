@@ -30,7 +30,7 @@ public partial class BlaSchemaWindow
         // Trigger initial population when window loads
         if (DataContext is BlaSchemaViewModel viewModel)
         {
-            viewModel.Populate();
+            viewModel.SetUpBlaSchema();
             UpdateHistograms();
         }
     }
@@ -93,7 +93,7 @@ public partial class BlaSchemaWindow
         // Trigger population when Include Chiron checkbox changes
         if (DataContext is BlaSchemaViewModel viewModel)
         {
-            viewModel.Populate();
+            viewModel.UpdateChiron();
             UpdateHistograms();
         }
     }
@@ -103,7 +103,7 @@ public partial class BlaSchemaWindow
         // Trigger population when Include Eris checkbox changes
         if (DataContext is BlaSchemaViewModel viewModel)
         {
-            viewModel.Populate();
+            viewModel.UpdateEris();
             UpdateHistograms();
         }
     }
@@ -113,7 +113,7 @@ public partial class BlaSchemaWindow
         // Trigger population when Use True node checkbox changes
         if (DataContext is BlaSchemaViewModel viewModel)
         {
-            viewModel.Populate();
+            viewModel.UpdateTrueNode();
             UpdateHistograms();
         }
     }
@@ -127,7 +127,7 @@ public partial class BlaSchemaWindow
         
         try
         {
-    // update dispositor plot
+            // update dispositor plot
             if (viewModel.HistogramDispositorValues.Length > 0)
             {
                 UpdateSingleHistogram(DispositorsPlot, viewModel.HistogramDispositorValues, viewModel.HistogramDispositorLabels, "Dispositors", "EnigmaAstrologyBLA2");

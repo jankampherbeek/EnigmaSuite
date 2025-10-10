@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using Enigma.Api.Calc;
 using Enigma.Api.Configuration;
-using Enigma.Api.Slices;
 using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
@@ -15,6 +14,7 @@ using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
+using PresentableBlaPosition = Enigma.Frontend.Ui.PresentationFactories.PresentableBlaPosition;
 using PresentableDispositorCounts = Enigma.Frontend.Ui.PresentationFactories.PresentableDispositorCounts;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -24,7 +24,12 @@ namespace Enigma.Frontend.Ui.Models;
 /// </summary>
 public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi chartsApi)
 {
-
+    public int HouseIndex { get; }
+    public int ApogeeIndex { get; }
+    private List<HouseSystems> _houseSystems;
+    private List<string> _houseSystemNames;
+    private List<ApogeeTypes> _apogeeTypes;
+    private List<string> _apogeeTypeNames;
     private ChartLongitudes _chart;
     private Dictionary<ChartPoints, FullPointPos> ? _blaPositions;
     private BlaSchemaOrchestrator _orchestrator;
@@ -44,6 +49,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     private List<PresentableReception> _receptionsInSigns;
     private List<PresentableReception> _receptionsInHouses;
     private List<PresentableReception> _receptionsInMundaneHouses;
+    private List<PresentableBlaPosition> _blaPositionsForPresentation;
     
     private CrossElementPresFactory _crossElementPresFactory;
     private QuadrantPresFactory _quadrantPresFactory;
@@ -52,10 +58,27 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     private BlaCyclesPresFactory _blaCyclesPresFactory;
     private BlaReinforcementsPresFactory _blaReinforcementsPresFactory;
     private BlaReceptionsPresFactory _blaReceptionsPresFactory;
-    
-    public void CreateDataForBla(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
+    private BlaPositionsPresFactory _blaPositionsPresFactory;
+
+    public void PrepareBlaSchema()
     {
-        var cpRequest = CreateCelPointsRequest(selectedHouseSystem, useChiron, useEris);
+        _blaPositionsPresFactory = new BlaPositionsPresFactory();
+        _crossElementPresFactory = new CrossElementPresFactory();
+        _quadrantPresFactory = new QuadrantPresFactory();
+        _dispositorPresFactory = new DispositorPresFactory();
+        _blaDetailsPresFactory = new BlaDetailsPresFactory();
+        _blaCyclesPresFactory = new BlaCyclesPresFactory();        
+        _blaReinforcementsPresFactory = new BlaReinforcementsPresFactory();
+        _blaReceptionsPresFactory = new BlaReceptionsPresFactory();        
+        
+        CreateHouseSystems();
+        CreateApogeeTypes();
+    }
+    
+    public void CreateBlaSchema(bool useChiron, bool useEris, bool useTrueNode)
+    {
+        var selectedHouseSystem = _houseSystems[HouseIndex];
+        var cpRequest = CreateCelPointsRequest(selectedHouseSystem, useChiron, useEris, useTrueNode);
         _blaPositions = chartsApi.GetChart(cpRequest);
         _chart = GetChartLongitudes();
         _orchestrator = new BlaSchemaOrchestrator(_chart);
@@ -63,31 +86,31 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         var houseCounts = _orchestrator.GetHouseCounts();
         var planetsInHouses = _orchestrator.GetPlanetsInHouses();
         var signOnCusps = _orchestrator.GetSignsOnCusps();
-      //  var dispositorLines = _orchestrator.GetDispositors();
         
-        _crossElementPresFactory = new CrossElementPresFactory();
+
+        DefineBlaPositions();
         DefineCrossElementCounts(signCounts, houseCounts, planetsInHouses, signOnCusps);
-        _quadrantPresFactory = new QuadrantPresFactory();
         DefineQuadrantCounts(houseCounts);
-        _dispositorPresFactory = new DispositorPresFactory();
         DefineDispositorLines();
-        _blaDetailsPresFactory = new BlaDetailsPresFactory();
         DefineBlaDetailLines();
-        _blaCyclesPresFactory = new BlaCyclesPresFactory();
         DefineCycles();
         DefineShortenedCycles();
-        _blaReinforcementsPresFactory = new BlaReinforcementsPresFactory();
         DefineFactorsInOwnSigns();
         DefineFactorsInOwnHouses();
         DefineFactorsInOwnMundaneHouses();
         DefineHouseLordsInAnalogSigns();
         DefinePairsAnalogHouseSign();
-        _blaReceptionsPresFactory = new BlaReceptionsPresFactory();
         DefineReceptionsInSigns();
         DefineReceptionsInHouses();
         DefineReceptionInMundaneHouses();
     }
 
+    private void DefineBlaPositions()
+    {
+        var pointDetails = _orchestrator.GetPointDetails();
+        _blaPositionsForPresentation = _blaPositionsPresFactory.GetBlaPositions(pointDetails);
+    }
+    
     private void DefineCrossElementCounts(Dictionary<int, int> signCounts, Dictionary<int, int> houseCounts,Dictionary<ChartPoints, int> planetsInHouses, Dictionary<int, int> signOnCusps)
     {
         var ceCounts = _orchestrator.GetCrossELementCounts();
@@ -173,6 +196,21 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         var rec = _orchestrator.GetReceptionsInMundaneHouses();
         _receptionsInMundaneHouses = _blaReceptionsPresFactory.CreateReceptionsInHouses(rec);
     }
+
+    public List<string> GetHouseSystemNames()
+    {
+        return _houseSystemNames;
+    }
+
+    public List<string> GetApogeeTypeNames()
+    {
+        return _apogeeTypeNames;
+    }
+    
+    public List<PresentableBlaPosition> GetBlaPositions()
+    {
+        return _blaPositionsForPresentation;   
+    }
     
     
     public List<PresentableCrossElementsCount> GetCrossesCounts()
@@ -249,8 +287,49 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     {
         return _receptionsInMundaneHouses;
     }
-    
-    
+
+
+    private void CreateHouseSystems()
+    {
+        _houseSystems =
+        [
+            HouseSystems.Alcabitius,
+            HouseSystems.Campanus,
+            HouseSystems.Koch,
+            HouseSystems.Krusinski,
+            HouseSystems.Placidus,
+            HouseSystems.Porphyri,
+            HouseSystems.Regiomontanus,
+            HouseSystems.TopoCentric
+        ];
+        _houseSystemNames =
+        [
+            "Alcabitius",
+            "Campanus",
+            "Koch",
+            "Krusinski",
+            "Placidus",
+            "Porphyri",
+            "Regiomontanus",
+            "Topo-centric"
+        ];
+    }
+
+    private void CreateApogeeTypes()
+    {
+        _apogeeTypes =
+        [
+            ApogeeTypes.Corrected,
+            ApogeeTypes.Duval,
+            ApogeeTypes.Interpolated
+        ];
+        _apogeeTypeNames =
+        [
+            "Corrected SE",
+            "Corrected Duval",
+            "Interpolated"
+        ];
+    }
     
     private ChartLongitudes GetChartLongitudes()
     {
@@ -274,31 +353,32 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         return new ChartLongitudes(pointLongitudes, houseLongitudes);
     }
 
-    private CelPointsRequest CreateCelPointsRequest(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
+    private CelPointsRequest CreateCelPointsRequest(HouseSystems selectedHouseSystem, bool useChiron, bool useEris, bool useTrueNode)
     {
-        var calcPrefs = DefineCalcPrefs(selectedHouseSystem, useChiron, useEris);
+        var calcPrefs = DefineCalcPrefs(selectedHouseSystem, useChiron, useEris, useTrueNode);
         var chart = DataVaultCharts.Instance.GetCurrentChart() ?? throw new InvalidOperationException();
         var request = new CelPointsRequest(chart.InputtedChartData.FullDateTime.JulianDayForEt, chart.InputtedChartData.Location, calcPrefs);
         return request;
     }
     
-    private CalculationPreferences DefineCalcPrefs(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
+    private CalculationPreferences DefineCalcPrefs(HouseSystems selectedHouseSystem, bool useChiron, bool useEris, bool useTrueNode)
     {
         var config = configApi.GetCurrentConfiguration();
-        var chartPoints = DefineChartPoints(useChiron, useEris);
+        var chartPoints = DefineChartPoints(useChiron, useEris, useTrueNode);
         const ZodiacTypes zodiacType = ZodiacTypes.Tropical;
         const Ayanamshas ayanamsha = Ayanamshas.None;
         const CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
         var observerPos = config.ObserverPosition;
         const ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
+        
         var apogeeType = config.ApogeeType;
-        var oscillate = config.OscillateNodes;
+        var oscillate = useTrueNode;
         CalculationPreferences calcPrefs = new(chartPoints, zodiacType, ayanamsha, coordSystem, observerPos, projectionType,selectedHouseSystem, apogeeType, oscillate);
         return calcPrefs;
     }
 
 
-    private static List<ChartPoints> DefineChartPoints(bool useChiron, bool useEris)
+    private static List<ChartPoints> DefineChartPoints(bool useChiron, bool useEris, bool useTrueNode)
     {
         var points = new List<ChartPoints>();
         points.Add(ChartPoints.Sun);
@@ -311,7 +391,9 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         points.Add(ChartPoints.Uranus);
         points.Add(ChartPoints.Neptune);
         points.Add(ChartPoints.Pluto);
-        points.Add(ChartPoints.NorthNode);     // TODO add support for true north and south node
+        var node = ChartPoints.NorthNode;
+        if (useTrueNode) node = ChartPoints.TrueNode;
+        points.Add(node);
         points.Add(ChartPoints.SouthNode);
         points.Add(ChartPoints.PersephoneCarteret);
         points.Add(ChartPoints.VulcanusCarteret);

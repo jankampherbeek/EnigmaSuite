@@ -45,6 +45,11 @@ public class BlaSchemaOrchestrator
         _signsOnCusps = SignsOnCusps. DefineSignsOnCusps(_chart.Cusps);           
     }
 
+    public List<BlaPointDetails> GetPointDetails()
+    {
+        return _pointDetails;
+    }
+    
 
     public Dictionary<int, int> GetSignCounts()
     {

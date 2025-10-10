@@ -34,8 +34,8 @@ public class BlaReceptionsPresFactory
         {
             var f1Glyph = GlyphsForChartPoints.FindGlyph(rec.Point1);
             var f2Glyph = GlyphsForChartPoints.FindGlyph(rec.Point2);
-            var pos1 = rec.SignOrHouse1.ToString();
-            var pos2 = rec.SignOrHouse2.ToString();
+            var pos1 = DefineGlyph(rec.SignOrHouse1);
+            var pos2 = DefineGlyph(rec.SignOrHouse2);
             presReceptions.Add(new PresentableReception(f1Glyph, PLUS, f2Glyph, EQUAL, pos1, PLUS, pos2));
         }
         return presReceptions;

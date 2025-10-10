@@ -67,6 +67,7 @@ public sealed class CelPointsHandler(
         var commonPoints = new Dictionary<ChartPoints, FullPointPos>();
         foreach (var celPoint in celPoints)
         {
+            
             var calculationCat = celPoint.GetDetails().CalculationCat;
             if (celPoint == ChartPoints.ApogeeCorrected && prefs.ApogeeType == ApogeeTypes.Duval)
             {
@@ -78,6 +79,10 @@ public sealed class CelPointsHandler(
                 case CalculationCats.CommonSe:
                 {
                     var actCelPoint = celPoint;
+                    if (celPoint == ChartPoints.ApogeeCorrected && prefs.ApogeeType == ApogeeTypes.Interpolated)
+                    {
+                        actCelPoint = ChartPoints.ApogeeInterpolated;
+                    }
                     if (celPoint == ChartPoints.NorthNode && prefs.Oscillate) actCelPoint = ChartPoints.TrueNode;
                     KeyValuePair<ChartPoints, FullPointPos> fullPointPos =
                         CreatePosForSePoint(actCelPoint, jdUt, location, flagsEcliptical, flagsEquatorial);
