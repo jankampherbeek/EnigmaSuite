@@ -23,23 +23,38 @@ public static class Dispositors
         Dictionary<int,int> HouseCounts,
         Dictionary<int,int> SignsOnHouseCusps,
         Dictionary<ChartPoints,int> PlanetsInSign,
-        Dictionary<ChartPoints,int> PlanetsInHouses)
+        Dictionary<ChartPoints,int> PlanetsInHouses,
+        Dictionary<ChartPoints,int> PlanetsInDecanates,
+        bool useDecanates)
     {  
         var dispositors = new List<BlaDispositorLine>();
-
+        var decanateCounts = new Dictionary<int, int>
+        {
+            {1,0},
+            {2,0},
+            {3,0},
+            {4,0},
+            {5,0},
+            {6,0},
+            {7,0},
+        };
+        foreach (var planetDec in PlanetsInDecanates)
+        {
+            var decanate = planetDec.Value;
+            decanateCounts[decanate]++;       
+        }
         
         foreach (var rulerPair in RulerPairsForDispositors())
         {
-            // find mainRuler and subRuler
             var mainRuler = rulerPair.MainRuler;
             var subRuler = rulerPair.SubRuler;
-            
+            // define direct sign count
             var (signMainRuler, signSubRuler) = FindSignsRuledBy(mainRuler);;
-            // define number of point in signs ruled by mainRuler and subRuler
             var signMainRulerCount = SignCounts[signMainRuler];
             var signSubRulerCount = SignCounts[signSubRuler];
             // define the sum of the results above  --> directSignCount
             var directSignCount = signMainRulerCount + signSubRulerCount;
+            
             // for mainRuler and subRuler, define points in the signs they rule
             //      for each point, if it is a ruler and not the same as the mainRuler or subRuler
             //          define the sign these points rule and count the number of points in these signs --> indirectSignCount
@@ -56,6 +71,35 @@ public static class Dispositors
             }
             var totalSignCount = directSignCount + indirectSignCount;
             
+            // define direct decanate count
+            var directDecanateCount = 0;
+            if (useDecanates)
+            {
+                Console.WriteLine($"Decanates: mainRuler {mainRuler}, subruler {subRuler}");
+                foreach (var decanateRuler in BlaDomain.DecanateRulers())
+                {
+                    var decanate = decanateRuler.Decan;
+                    if (decanateRuler.Ruler == mainRuler || decanateRuler.Ruler == subRuler)
+                    {
+                        Console.WriteLine($"Decanate ruler {decanateRuler.Ruler}");
+                        foreach (var planetDec in PlanetsInDecanates)
+                        {
+                            if (planetDec.Key == decanateRuler.Ruler)
+                            {
+                                var count = decanateCounts[decanate];
+                                directDecanateCount+= count;
+                                Console.WriteLine($"Match {planetDec.Key}, decanate {planetDec.Value}, adding {count}");
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            var indirectDecanateCount = 0;
+            
+            
+    
+            var totalDecanateCount = directDecanateCount + indirectDecanateCount;
             
             // find number of points in houses ruled by mainRuler and subRuler  --> directHouseCount
             var directHouseCount = 0;
@@ -114,9 +158,11 @@ public static class Dispositors
                 }
             }
             var totalHouseCount = directHouseCount + indirectHouseCount;
-            var totalCount = totalSignCount + totalHouseCount;
+            var totalCount = totalSignCount + totalHouseCount + totalDecanateCount;
              
-            dispositors.Add(new BlaDispositorLine(mainRuler, subRuler, signMainRulerCount, signSubRulerCount, directSignCount, indirectSignCount, totalSignCount, directHouseCount, indirectHouseCount, totalHouseCount, totalCount));
+            dispositors.Add(new BlaDispositorLine(mainRuler, subRuler, signMainRulerCount, signSubRulerCount, 
+                directSignCount, indirectSignCount, totalSignCount, directHouseCount, indirectHouseCount, totalHouseCount, 
+                directDecanateCount, indirectDecanateCount, totalDecanateCount, totalCount));
         }
         return dispositors;
         

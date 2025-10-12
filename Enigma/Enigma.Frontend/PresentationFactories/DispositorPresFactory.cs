@@ -3,10 +3,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
 using System.Collections.Generic;
 using Enigma.Core.Slices.BlaSchema;
-using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
@@ -22,9 +20,12 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 /// <param name="HouseMain">Counts in houses</param>
 /// <param name="HouseIndirect">Indirect counts in houses</param>
 /// <param name="HouseSum">Sum of HouseMain and HouseIndirect</param>
-/// <param name="Total">Total of SignSum and HouseSum</param>
+/// <param name="DecanateDirect">Counts in direct decanates</param>
+/// <param name="DecanateIndirect">Indirect counts in decanates</param>
+/// <param name="DecanateSum">Sum of DecanateDirect and DecanateIndirect</param>
+/// <param name="Total">Total of SignSum, HouseSum and DecanateSum</param>
 public record PresentableDispositorCounts(string Rulers, string SignSplitted, int SignMain, int SignIndirect, int SignSum, 
-    int HouseMain, int HouseIndirect, int HouseSum, int Total);
+    int HouseMain, int HouseIndirect, int HouseSum, int DecanateDirect, int DecanateIndirect, int DecanateSum, int Total);
 
 public class DispositorPresFactory
 {
@@ -56,6 +57,9 @@ public class DispositorPresFactory
                 dLine.DirectRulerHouseCount,
                 dLine.IndirectRulerHouseCount,
                 dLine.SumRulerHouseCount, 
+                dLine.DirectRulerDecanataCount, 
+                dLine.IndirectRulerDecanataCount, 
+                dLine.SumRulerDecanataCount,
                 dLine.Total));
         }
         return presDispositorCounts;   

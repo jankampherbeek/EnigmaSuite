@@ -320,7 +320,7 @@
                                                     IsReadOnly="True"
                                                     HeaderStyle="{StaticResource HeaderRightAlignStyle}"
                                                     CellStyle="{StaticResource NumberColumnStyle}" />
-                                <DataGridTextColumn Header="Houses " Width="Auto" Binding="{Binding HouseMain, Mode=TwoWay}"
+                                <DataGridTextColumn Header="H'ses " Width="Auto" Binding="{Binding HouseMain, Mode=TwoWay}"
                                                     IsReadOnly="True"
                                                     HeaderStyle="{StaticResource HeaderRightAlignStyle}"
                                                     CellStyle="{StaticResource NumberColumnStyle}" />
@@ -332,7 +332,18 @@
                                                     IsReadOnly="True"
                                                     HeaderStyle="{StaticResource HeaderRightAlignStyle}"
                                                     CellStyle="{StaticResource NumberColumnStyle}" />
-                                
+                                <DataGridTextColumn Header="Dec. " Width="Auto" Binding="{Binding DecanateDirect, Mode=TwoWay}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NumberColumnStyle}" />
+                                <DataGridTextColumn Header="Ind " Width="Auto" Binding="{Binding DecanateIndirect, Mode=TwoWay}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NumberColumnStyle}" />
+                                <DataGridTextColumn Header="Sum " Width="Auto" Binding="{Binding DecanateSum, Mode=TwoWay}"
+                                                    IsReadOnly="True"
+                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
+                                                    CellStyle="{StaticResource NumberColumnStyle}" />
                                 <DataGridTextColumn Header="Total " Width="Auto" Binding="{Binding Total, Mode=TwoWay}"
                                                     IsReadOnly="True"
                                                     HeaderStyle="{StaticResource HeaderRightAlignStyle}"

@@ -22,18 +22,28 @@ public class BlaSchemaOrchestrator
     private Dictionary<int, int> _houseCounts;
     private Dictionary<int, int> _signCounts;
     private Dictionary<ChartPoints, int> _planetsInSigns;
+    private Dictionary<ChartPoints, int> _planetsInDecanates;
     private Dictionary<ChartPoints, int> _planetsInHouses;
     private Dictionary<int, int> _signsOnCusps;
     
-    public BlaSchemaOrchestrator(ChartLongitudes chart)
+    public BlaSchemaOrchestrator(ChartLongitudes chart, bool useDecanates)
     {
         _chart = chart;
-        _pointDetails = new List<BlaPointDetails>();
+        _pointDetails = [];
         foreach (var point in _chart.Points)
         {
             _pointDetails.Add(BlaDetailsFactory.CreateBlaPointDetails(point.Key, _chart));
         }
-        _houseDetails = new List<BlaHouseDetails>();
+        _planetsInDecanates = new Dictionary<ChartPoints, int>();
+
+        if (useDecanates)
+        {
+            foreach (var point in _pointDetails)
+            {
+                _planetsInDecanates.Add(point.Point, point.Decanate);           
+            }            
+        }
+        _houseDetails = [];
         for (var i = 1; i < 13; i++)
         {
             _houseDetails.Add(BlaDetailsFactory.CreateBlaHouseDetails(i, _chart));
@@ -91,7 +101,8 @@ public class BlaSchemaOrchestrator
         // TODO add calculated decanates if useDecantates is true
         
         
-        return Dispositors.CreateDispositors(_chart, _signCounts, _houseCounts, _signsOnCusps, _planetsInSigns, _planetsInHouses);  
+        return Dispositors.CreateDispositors(_chart, _signCounts, _houseCounts, _signsOnCusps, _planetsInSigns, 
+            _planetsInHouses, _planetsInDecanates, useDecanates);  
     }
 
 

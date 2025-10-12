@@ -81,7 +81,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         var cpRequest = CreateCelPointsRequest(useChiron, useCeres, useTrueNode, houseSystemIndex, apogeeIndex);
         _blaPositions = chartsApi.GetChart(cpRequest);
         _chart = GetChartLongitudes();
-        _orchestrator = new BlaSchemaOrchestrator(_chart);
+        _orchestrator = new BlaSchemaOrchestrator(_chart, useDecanates);
         var signCounts = _orchestrator.GetSignCounts();
         var houseCounts = _orchestrator.GetHouseCounts();
         var planetsInHouses = _orchestrator.GetPlanetsInHouses();

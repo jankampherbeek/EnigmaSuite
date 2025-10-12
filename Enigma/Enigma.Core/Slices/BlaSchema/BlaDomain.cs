@@ -132,6 +132,9 @@ public record BlaSignHouseCountLine(int Sign, int House, int Sum, int HCusp, int
 /// <param name="DirectRulerHouseCount">Count of points in a house ruler by main ruler</param>
 /// <param name="IndirectRulerHouseCount">Count of unique points in houses via indirect rulership</param>
 /// <param name="SumRulerHouseCount">Sum of SumRulerHouseCount and IndirectRulerHoouseCount</param>
+/// <param name="DirectRulerDecanataCount">Count of points in a decanate ruler by main ruler</param>
+/// <param name="IndirectRulerDecanataCount">Count of unique points in decanates via indirect rulership</param>
+/// <param name="SumRulerDecanataCount">Sum of DirectRulerDecanataCount and IndirectRulerDecanataCount</param>   
 /// <param name="Total">Sum of TotalRulerSignCount and TotalRulerHouseCount</param>
 public record BlaDispositorLine(
     ChartPoints MainRuler,
@@ -144,6 +147,9 @@ public record BlaDispositorLine(
     int DirectRulerHouseCount,
     int IndirectRulerHouseCount,
     int SumRulerHouseCount,
+    int DirectRulerDecanataCount,
+    int IndirectRulerDecanataCount,
+    int SumRulerDecanataCount,   
     int Total
 );
 
@@ -294,6 +300,22 @@ public static class BlaDomain
         };
         return pairs;
     }
- 
+
     
+    public record DecanateRuler(ChartPoints Ruler, int Decan);
+    
+    public static List<DecanateRuler> DecanateRulers()
+    {
+        var decRulers = new List<DecanateRuler>
+        {
+            { new(ChartPoints.Mars, 1) },
+            { new(ChartPoints.Sun, 2) },
+            { new(ChartPoints.Venus, 3) },
+            { new(ChartPoints.Mercury, 4) },
+            { new(ChartPoints.Moon, 5) },
+            { new(ChartPoints.Saturn, 6) },
+            { new(ChartPoints.Jupiter, 7) },
+        };
+        return decRulers;   
+    }
 }

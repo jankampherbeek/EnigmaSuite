@@ -41,13 +41,13 @@ public class BlaPositionsPresFactory
         var glyph = ' ';
         switch (number)
         {
-            case 1: glyph = 'a'; break;     // Sun
-            case 2: glyph = 'b'; break;     // Moon
-            case 3: glyph = 'c'; break;     // Mercury
-            case 4: glyph = 'd'; break;     // Venus
-            case 5: glyph = 'f'; break;     // Mars
-            case 6: glyph = 'g'; break;     // Jupiter
-            case 7: glyph = 'h'; break;     // Sturn
+            case 1: glyph = 'f'; break;     // Mars
+            case 2: glyph = 'a'; break;     // Sun
+            case 3: glyph = 'd'; break;     // Venus           
+            case 4: glyph = 'c'; break;     // Mercury
+            case 5: glyph = 'b'; break;     // Moon
+            case 6: glyph = 'h'; break;     // Saturn 
+            case 7: glyph = 'g'; break;     // Jupiter
             default: break;
         }
         return glyph;
