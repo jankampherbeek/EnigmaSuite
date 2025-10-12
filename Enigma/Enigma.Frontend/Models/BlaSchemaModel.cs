@@ -26,6 +26,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
 {
     public int HouseIndex { get; }
     public int ApogeeIndex { get; }
+    public string ChartName { get; set; }
     private List<HouseSystems> _houseSystems;
     private List<string> _houseSystemNames;
     private List<ApogeeTypes> _apogeeTypes;
@@ -357,6 +358,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     {
         var calcPrefs = DefineCalcPrefs( useChiron, useCeres, useTrueNode, houseSystemIndex, apogeeIndex);
         var chart = DataVaultCharts.Instance.GetCurrentChart() ?? throw new InvalidOperationException();
+        ChartName = chart.InputtedChartData.MetaData.Name;
         var request = new CelPointsRequest(chart.InputtedChartData.FullDateTime.JulianDayForEt, chart.InputtedChartData.Location, calcPrefs);
         return request;
     }

@@ -4,10 +4,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Enigma.Domain.Constants;
 using Enigma.Frontend.Ui.ViewModels;
 using ScottPlot;
 using ScottPlot.Plottables;
@@ -20,6 +22,7 @@ public partial class BlaSchemaWindow
     public BlaSchemaWindow()
     {
         InitializeComponent();
+        DefineColors();
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -187,5 +190,11 @@ public partial class BlaSchemaWindow
         
         // Refresh the plot
         plot.Refresh();
+    }
+    
+    [SuppressMessage("Performance", "CA1822:Mark members as static")]
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
     }
 }

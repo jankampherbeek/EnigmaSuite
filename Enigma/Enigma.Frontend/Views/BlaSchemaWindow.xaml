@@ -32,6 +32,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -39,7 +40,7 @@
         <!-- Header -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="12,0,0,6"
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="BLA Schema" Name="Header"
+                   Text="Black Lights Astrology Schema" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    FontWeight="Bold" />
         <!-- Chart Name -->
@@ -125,8 +126,22 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+                <!-- Explanation -->
+                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        Background="#F0F8FF"
+                        BorderThickness="0,0,0,1"
+                        Margin="6,6,6,8"
+                        Padding="6,6,6,8">
+                    <TextBlock Margin="0,0,0,0" TextWrapping="Wrap">
+                        This schema is originally developed by the Dutch researcher/astrologer Cees Jansen. It is based on the 
+                        'Black Lights Astrology' as defined by the Dutch astrologer George Bode. You should be familiar
+                        with this approach to use this schema. In the user manual, you will find more information on this 
+                        technique.
+                        </TextBlock>
+                </Border>
+                
                 <!-- Elements -->
-                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
                         Margin="6,6,6,8"
@@ -174,7 +189,7 @@
                 </Border>
 
                 <!-- Crosses -->
-                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
+                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
                         Margin="6,6,6,8"
@@ -223,7 +238,7 @@
                 </Border>
 
                 <!-- Quadrants -->
-                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
+                <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
                         Margin="6,6,6,8"
@@ -256,7 +271,7 @@
                 </Border>
 
                 <!-- Dispositors -->
-                <Border Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                <Border Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -319,7 +334,7 @@
                     </StackPanel>
                 </Border>
 
-                <Border Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
+                <Border Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         BorderThickness="1"
                         Margin="8,0,8,0"
@@ -369,7 +384,7 @@
                 </Border>
 
                 <!-- Cycles -->
-                <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -404,7 +419,7 @@
                 </Border>
 
                 <!-- Shortened cycles -->
-                <Border Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" 
+                <Border Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -439,7 +454,7 @@
                 </Border>
                 
                 <!-- Factors in own signs -->
-                <Border Grid.Row="4" Grid.Column="0" 
+                <Border Grid.Row="5" Grid.Column="0" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -478,7 +493,7 @@
                 </Border>
                 
                  <!-- Factors in own houses -->
-                <Border Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" 
+                <Border Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -517,7 +532,7 @@
                 </Border>
                 
                  <!-- Factors in own mundane houses -->
-                <Border Grid.Row="4" Grid.Column="3" 
+                <Border Grid.Row="5" Grid.Column="3" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -556,7 +571,7 @@
                 </Border>                
                 
                 <!-- House lords in analog signs -->
-                <Border Grid.Row="5" Grid.Column="0" 
+                <Border Grid.Row="6" Grid.Column="0" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -595,7 +610,7 @@
                 </Border>         
                 
                 <!-- Pairs in analog houses and signs -->
-                <Border Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" 
+                <Border Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -650,7 +665,7 @@
                 </Border>
                 
                 <!-- Receptions title -->
-                <Border Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4"
+                <Border Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -664,7 +679,7 @@
                 </Border>
                 
                 <!-- Receptions in signs -->
-                <Border Grid.Row="7" Grid.Column="0" 
+                <Border Grid.Row="8" Grid.Column="0" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -719,7 +734,7 @@
                 </Border>
                         
                 <!-- Receptions in houses -->
-                <Border Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" 
+                <Border Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"
@@ -774,7 +789,7 @@
                 </Border>
                 
                 <!-- Receptions in mundane houses -->
-                <Border Grid.Row="7" Grid.Column="3" 
+                <Border Grid.Row="8" Grid.Column="3" 
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"

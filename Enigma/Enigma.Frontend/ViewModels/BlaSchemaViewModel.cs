@@ -32,7 +32,7 @@ public partial class BlaSchemaViewModel : ObservableObject
     private bool _useChiron;
     private bool _useCeres;
     private bool _useTrueNode;
-    [ObservableProperty] private string _chartName = "Chart Name";
+    [ObservableProperty] private string _chartName;
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _crossesCounts = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _elementsCounts = new();
@@ -74,6 +74,7 @@ public partial class BlaSchemaViewModel : ObservableObject
     public void Populate()
     {
         _schemaModel.CreateBlaSchema(_useChiron, _useCeres, _useTrueNode, _houseSystemIndex, _apogeeIndex);
+        ChartName = _schemaModel.ChartName;
         HouseSystemNames = _schemaModel.GetHouseSystemNames();
         ApogeeTypeNames = _schemaModel.GetApogeeTypeNames();
         BlaPositions = _schemaModel.GetBlaPositions();
