@@ -26,14 +26,14 @@ public static class BlaDetails
     {
         
         var asc = signsOnCusps[1];
-        var ascRulers = BlaDomain.RulerPairs()[asc];
+        var ascRulers = BlaDomain.RulerPairs()[asc-1];
         var sisterRulerAsc = ascRulers.SubRuler;
         var sisterSignAsc = (int)Math.Truncate(chart.Points[sisterRulerAsc] / 30.0) + 1;
         var clampedHouses = InterceptedClamped.DefineClampedHouses(chart);
         var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
-        var groundNote = new List<int>();
-        groundNote.Add(asc);
-        var mundaneHouseAsc = (int)Math.Truncate(asc / 30.0) + 1;
+        var groundNote = new List<int>();  // Groundnote: asc, mundaneHouseAsc,
+        groundNote.Add(1); // start with ascendant as cusp
+        var mundaneHouseAsc = asc;  // house that is analog to sign on ascendant
         groundNote.Add(mundaneHouseAsc);
         var sisterSignCusp = 0;
         foreach (var rulerPair in BlaDomain.RulerPairs())
@@ -43,7 +43,7 @@ public static class BlaDetails
                 sisterSignCusp = rulerPair.SignIndex;
             }
         }
-        groundNote.Add(sisterSignCusp);
+        groundNote.Add(sisterSignCusp);     // house that is ruled by sistensign of ascendant
         foreach (var cuspSign in signsOnCusps)
         {
             if (cuspSign.Value == asc && cuspSign.Key != 1)

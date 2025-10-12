@@ -30,7 +30,7 @@ public partial class BlaSchemaViewModel : ObservableObject
     [ObservableProperty] private int _houseSystemIndex = 4;
     [ObservableProperty] private int _apogeeIndex = 1;
     private bool _useChiron;
-    private bool _useEris;
+    private bool _useCeres;
     private bool _useTrueNode;
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
@@ -61,9 +61,19 @@ public partial class BlaSchemaViewModel : ObservableObject
         Populate();
     }
     
+    partial void OnHouseSystemIndexChanged(int value)
+    {
+        Populate();
+    }
+    
+    partial void OnApogeeIndexChanged(int value)
+    {
+        Populate();
+    }
+    
     public void Populate()
     {
-        _schemaModel.CreateBlaSchema(_useChiron, _useEris, _useTrueNode);
+        _schemaModel.CreateBlaSchema(_useChiron, _useCeres, _useTrueNode, _houseSystemIndex, _apogeeIndex);
         HouseSystemNames = _schemaModel.GetHouseSystemNames();
         ApogeeTypeNames = _schemaModel.GetApogeeTypeNames();
         BlaPositions = _schemaModel.GetBlaPositions();
@@ -94,9 +104,9 @@ public partial class BlaSchemaViewModel : ObservableObject
         Populate();
     }
     
-    public void UpdateEris()
+    public void UpdateCeres()
     {
-        _useEris = !_useEris;
+        _useCeres = !_useCeres;
         Populate();       
     }
     

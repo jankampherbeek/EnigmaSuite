@@ -75,10 +75,9 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         CreateApogeeTypes();
     }
     
-    public void CreateBlaSchema(bool useChiron, bool useEris, bool useTrueNode)
+    public void CreateBlaSchema(bool useChiron, bool useCeres, bool useTrueNode, int houseSystemIndex, int apogeeIndex)
     {
-        var selectedHouseSystem = _houseSystems[HouseIndex];
-        var cpRequest = CreateCelPointsRequest(selectedHouseSystem, useChiron, useEris, useTrueNode);
+        var cpRequest = CreateCelPointsRequest(useChiron, useCeres, useTrueNode, houseSystemIndex, apogeeIndex);
         _blaPositions = chartsApi.GetChart(cpRequest);
         _chart = GetChartLongitudes();
         _orchestrator = new BlaSchemaOrchestrator(_chart);
@@ -353,32 +352,35 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         return new ChartLongitudes(pointLongitudes, houseLongitudes);
     }
 
-    private CelPointsRequest CreateCelPointsRequest(HouseSystems selectedHouseSystem, bool useChiron, bool useEris, bool useTrueNode)
+    private CelPointsRequest CreateCelPointsRequest(bool useChiron, bool useCeres, 
+        bool useTrueNode, int houseSystemIndex, int apogeeIndex)
     {
-        var calcPrefs = DefineCalcPrefs(selectedHouseSystem, useChiron, useEris, useTrueNode);
+        var calcPrefs = DefineCalcPrefs( useChiron, useCeres, useTrueNode, houseSystemIndex, apogeeIndex);
         var chart = DataVaultCharts.Instance.GetCurrentChart() ?? throw new InvalidOperationException();
         var request = new CelPointsRequest(chart.InputtedChartData.FullDateTime.JulianDayForEt, chart.InputtedChartData.Location, calcPrefs);
         return request;
     }
     
-    private CalculationPreferences DefineCalcPrefs(HouseSystems selectedHouseSystem, bool useChiron, bool useEris, bool useTrueNode)
+    private CalculationPreferences DefineCalcPrefs(bool useChiron, bool useCeres, 
+        bool useTrueNode, int houseSystemIndex, int apogeeIndex)
     {
+        var selectedHouseSystem = _houseSystems[houseSystemIndex];
         var config = configApi.GetCurrentConfiguration();
-        var chartPoints = DefineChartPoints(useChiron, useEris, useTrueNode);
+        var chartPoints = DefineChartPoints(useChiron, useCeres, useTrueNode);
         const ZodiacTypes zodiacType = ZodiacTypes.Tropical;
         const Ayanamshas ayanamsha = Ayanamshas.None;
         const CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
         var observerPos = config.ObserverPosition;
         const ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
         
-        var apogeeType = config.ApogeeType;
+        var apogeeType = _apogeeTypes[apogeeIndex];
         var oscillate = useTrueNode;
         CalculationPreferences calcPrefs = new(chartPoints, zodiacType, ayanamsha, coordSystem, observerPos, projectionType,selectedHouseSystem, apogeeType, oscillate);
         return calcPrefs;
     }
 
 
-    private static List<ChartPoints> DefineChartPoints(bool useChiron, bool useEris, bool useTrueNode)
+    private static List<ChartPoints> DefineChartPoints(bool useChiron, bool useCeres, bool useTrueNode)
     {
         var points = new List<ChartPoints>();
         points.Add(ChartPoints.Sun);
@@ -407,7 +409,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         points.Add(ChartPoints.Beast);
         points.Add(ChartPoints.FortunaNoSect);
         if (useChiron) points.Add(ChartPoints.Chiron);
-        if (useEris) points.Add(ChartPoints.Eris);
+        if (useCeres) points.Add(ChartPoints.Ceres);
         
         return points;
     }

@@ -76,12 +76,12 @@
                       Style="{StaticResource MaterialDesignCheckBox}"
                       Checked="IncludeChironCheckBox_Changed"
                       Unchecked="IncludeChironCheckBox_Changed" />
-            <!-- Select inclusion of Eris -->
-            <CheckBox VerticalAlignment="Center" Content="Include Eris"
+            <!-- Select inclusion of Ceres -->
+            <CheckBox VerticalAlignment="Center" Content="Include Ceres"
                       Margin="12,0"
                       Style="{StaticResource MaterialDesignCheckBox}"
-                      Checked="IncludeErisCheckBox_Changed"
-                      Unchecked="IncludeErisCheckBox_Changed" />
+                      Checked="IncludeCeresCheckBox_Changed"
+                      Unchecked="IncludeCeresCheckBox_Changed" />
             <!-- Spacer -->
             <Rectangle Grid.Row="4" Height="8" Fill="Transparent" />
             <!-- Positions DataGrid -->

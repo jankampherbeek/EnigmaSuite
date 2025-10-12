@@ -98,12 +98,12 @@ public partial class BlaSchemaWindow
         }
     }
 
-    private void IncludeErisCheckBox_Changed(object sender, RoutedEventArgs e)
+    private void IncludeCeresCheckBox_Changed(object sender, RoutedEventArgs e)
     {
         // Trigger population when Include Eris checkbox changes
         if (DataContext is BlaSchemaViewModel viewModel)
         {
-            viewModel.UpdateEris();
+            viewModel.UpdateCeres();
             UpdateHistograms();
         }
     }
