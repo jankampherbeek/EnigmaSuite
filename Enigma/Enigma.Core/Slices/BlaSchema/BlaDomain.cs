@@ -182,12 +182,14 @@ public record BlaPositions(ChartPoints Point, double Longitude, int Sign, int De
 /// <param name="Point">The chart point</param>
 /// <param name="Longitude">Longitude in degrees </param>
 /// <param name="Sign">Index for the ecliptical sign: 1..12</param>
+/// <param name="Decanate">Index for the decanate: 1..7</param>
 /// <param name="House">Index for the house 1..12</param>
 /// <param name="MainRuledSign">Sign that is ruled by the chart point as a main ruler</param>
 /// <param name="SubRuledSign">Sign that is ruled by the chart point as a sub ruler</param>
 /// <param name="MainRuledHouses">List with houses that are ruled by the chart point as main ruler</param>
 /// <param name="SubRuledHouses">List with houses that are ruled by the chart point as sub ruler</param>
-public record BlaPointDetails(ChartPoints Point, double Longitude, int Sign, int House, int MainRuledSign, int SubRuledSign, List<int> MainRuledHouses, List<int> SubRuledHouses);
+public record BlaPointDetails(ChartPoints Point, double Longitude, int Sign, int Decanate, int House, int MainRuledSign, 
+    int SubRuledSign, List<int> MainRuledHouses, List<int> SubRuledHouses);
 
 /// <summary>
 /// Details for a house that are relevant for the BLA schema calculations

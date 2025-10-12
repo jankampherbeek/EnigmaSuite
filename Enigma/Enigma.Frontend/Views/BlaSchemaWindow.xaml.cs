@@ -103,13 +103,22 @@ public partial class BlaSchemaWindow
 
     private void IncludeCeresCheckBox_Changed(object sender, RoutedEventArgs e)
     {
-        // Trigger population when Include Eris checkbox changes
         if (DataContext is BlaSchemaViewModel viewModel)
         {
             viewModel.UpdateCeres();
             UpdateHistograms();
         }
     }
+
+    private void UseDecanatesCheckBox_Changed(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is BlaSchemaViewModel viewModel)
+        {
+            viewModel.UpdateDecanates();
+            UpdateHistograms();
+        }
+    }
+    
 
     private void UseTrueNodeCheckBox_Changed(object sender, RoutedEventArgs e)
     {

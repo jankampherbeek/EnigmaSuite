@@ -29,10 +29,12 @@ public static class BlaDetailsFactory
         }
 
         var sign = (int)Math.Truncate(longitude / 30.0) + 1;
+        var decanate = (int)Math.Truncate(longitude / 10.0) + 1;
+        while (decanate > 7) decanate -= 7;
         var house = HousePositions.FindSingleHousePosition(chart, longitude);
         var (mainRuledSign, subRuledSign) = FindSignsForRuler(point);
         var (mainRuledHouses, subRuledHouses) = FindHousesForRuler(mainRuledSign, subRuledSign, chart.Cusps);
-        return new BlaPointDetails(point, longitude, sign, house, mainRuledSign, subRuledSign, mainRuledHouses,
+        return new BlaPointDetails(point, longitude, sign, decanate, house, mainRuledSign, subRuledSign, mainRuledHouses,
             subRuledHouses);
     }
 

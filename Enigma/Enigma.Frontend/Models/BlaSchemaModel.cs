@@ -76,7 +76,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         CreateApogeeTypes();
     }
     
-    public void CreateBlaSchema(bool useChiron, bool useCeres, bool useTrueNode, int houseSystemIndex, int apogeeIndex)
+    public void CreateBlaSchema(bool useChiron, bool useCeres, bool useTrueNode, bool useDecanates, int houseSystemIndex, int apogeeIndex)
     {
         var cpRequest = CreateCelPointsRequest(useChiron, useCeres, useTrueNode, houseSystemIndex, apogeeIndex);
         _blaPositions = chartsApi.GetChart(cpRequest);
@@ -91,7 +91,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         DefineBlaPositions();
         DefineCrossElementCounts(signCounts, houseCounts, planetsInHouses, signOnCusps);
         DefineQuadrantCounts(houseCounts);
-        DefineDispositorLines();
+        DefineDispositorLines(useDecanates);
         DefineBlaDetailLines();
         DefineCycles();
         DefineShortenedCycles();
@@ -124,9 +124,9 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         _quadrantCounts = _quadrantPresFactory.CreateQuadrantCounts(qCounts);
     }
 
-    private void DefineDispositorLines()
+    private void DefineDispositorLines(bool useDecanates)
     {
-        var dLines = _orchestrator.GetDispositors();
+        var dLines = _orchestrator.GetDispositors(useDecanates);
         _dispositors = _dispositorPresFactory.CreatePresDispositorCounts(dLines);
     }
 

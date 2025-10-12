@@ -44,11 +44,6 @@ public class DispositorPresFactory
                     mainRulerGlyph = GlyphsForChartPoints.FindGlyph(rulerPair.MainRuler);
                     subRulerGlyph = GlyphsForChartPoints.FindGlyph(rulerPair.SubRuler);
                 }
-
-                // if (rulerPair.SubRuler == dLine.MainRuler)
-                // {
-                //     subRulerGlyph = GlyphsForChartPoints.FindGlyph(rulerPair.SubRuler);
-                // }
             }
 
             var rulerGlyphs = mainRulerGlyph + space + subRulerGlyph;
@@ -66,5 +61,7 @@ public class DispositorPresFactory
         return presDispositorCounts;   
     }
 
+    
+    
     
 }

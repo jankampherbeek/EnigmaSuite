@@ -85,8 +85,12 @@ public class BlaSchemaOrchestrator
         return QuadrantPositions.DefineQuadrants(_houseDetails);
     }
     
-    public List<BlaDispositorLine> GetDispositors()
+    public List<BlaDispositorLine> GetDispositors(bool useDecanates)
     {
+        
+        // TODO add calculated decanates if useDecantates is true
+        
+        
         return Dispositors.CreateDispositors(_chart, _signCounts, _houseCounts, _signsOnCusps, _planetsInSigns, _planetsInHouses);  
     }
 

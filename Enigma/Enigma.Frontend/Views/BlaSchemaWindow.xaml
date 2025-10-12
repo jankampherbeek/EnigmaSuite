@@ -83,6 +83,12 @@
                       Style="{StaticResource MaterialDesignCheckBox}"
                       Checked="IncludeCeresCheckBox_Changed"
                       Unchecked="IncludeCeresCheckBox_Changed" />
+            <!-- Select use of decanates for dispostiors -->
+            <CheckBox VerticalAlignment="Center" Content="Use decanates in dispositors"
+                      Margin="12,0"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      Checked="UseDecanatesCheckBox_Changed"
+                      Unchecked="UseDecanatesCheckBox_Changed" />
             <!-- Spacer -->
             <Rectangle Grid.Row="4" Height="8" Fill="Transparent" />
             <!-- Positions DataGrid -->
@@ -103,6 +109,8 @@
                                         IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
                     <DataGridTextColumn Header="House" Width="Auto" Binding="{Binding House, Mode=TwoWay}"
                                         IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
+                    <DataGridTextColumn Header="Dec." Width="Auto" Binding="{Binding Decanate, Mode=TwoWay}"
+                                        IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
