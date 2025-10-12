@@ -345,7 +345,7 @@
                 </Border>
 
                 <!-- BLA details -->
-                <Border Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
+                <Border Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
                         BorderBrush="{DynamicResource MaterialDesignDivider}"
                         Background="#F0F8FF"
                         BorderThickness="0,0,0,1"

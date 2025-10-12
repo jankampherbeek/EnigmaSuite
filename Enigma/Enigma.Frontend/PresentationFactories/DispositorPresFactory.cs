@@ -32,8 +32,8 @@ public class DispositorPresFactory
     {
         const string separator = "/";
         const string space = " ";
-        var mainRulerGlyph = "";
-        var subRulerGlyph = "";
+        var mainRulerGlyph = ' ';
+        var subRulerGlyph = ' ';
         var presDispositorCounts = new List<PresentableDispositorCounts>();
         foreach (var dLine in dispositorLines)
         {
@@ -41,13 +41,14 @@ public class DispositorPresFactory
             {
                 if (rulerPair.MainRuler == dLine.MainRuler)
                 {
-                    mainRulerGlyph = DefineGlyph(rulerPair.SignIndex);
+                    mainRulerGlyph = GlyphsForChartPoints.FindGlyph(rulerPair.MainRuler);
+                    subRulerGlyph = GlyphsForChartPoints.FindGlyph(rulerPair.SubRuler);
                 }
 
-                if (rulerPair.SubRuler == dLine.MainRuler)
-                {
-                    subRulerGlyph = DefineGlyph(rulerPair.SignIndex);
-                }
+                // if (rulerPair.SubRuler == dLine.MainRuler)
+                // {
+                //     subRulerGlyph = GlyphsForChartPoints.FindGlyph(rulerPair.SubRuler);
+                // }
             }
 
             var rulerGlyphs = mainRulerGlyph + space + subRulerGlyph;
@@ -62,13 +63,8 @@ public class DispositorPresFactory
                 dLine.SumRulerHouseCount, 
                 dLine.Total));
         }
-    return presDispositorCounts;   
+        return presDispositorCounts;   
     }
-    
-    private string DefineGlyph(int sign)
-    {
-        string[] glyphs = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="];
-        return glyphs[sign-1];
-    }
+
     
 }
