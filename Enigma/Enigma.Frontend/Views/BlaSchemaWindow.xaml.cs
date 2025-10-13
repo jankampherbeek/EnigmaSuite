@@ -242,46 +242,183 @@ public partial class BlaSchemaWindow
         mainGrid.UpdateLayout();
         this.UpdateLayout();
         
-        // Calculate the size of the content we want to export
-        var bounds = VisualTreeHelper.GetDescendantBounds(mainGrid);
-        var size = new Size(bounds.Width, bounds.Height);
+        // Find the scroll viewers
+        var leftScrollViewer = mainGrid.Children.OfType<ScrollViewer>().FirstOrDefault();
+        var rightScrollViewer = mainGrid.Children.OfType<ScrollViewer>().Skip(1).FirstOrDefault();
         
-        // Create render target bitmap with high DPI for better quality
-        const double dpiScale = 2.0;
-        var pixelWidth = (int)(size.Width * dpiScale);
-        var pixelHeight = (int)(size.Height * dpiScale);
+        UIElement leftContent = null;
+        UIElement rightContent = null;
         
-        var rtb = new RenderTargetBitmap(
-            pixelWidth,
-            pixelHeight,
-            96 * dpiScale,
-            96 * dpiScale,
-            PixelFormats.Pbgra32
-        );
-        
-        // Create a drawing visual with white background
-        var dv = new DrawingVisual();
-        using (var dc = dv.RenderOpen())
+        // Store original content and temporarily remove scroll viewers
+        if (leftScrollViewer != null)
         {
-            // Fill with white background first
-            dc.DrawRectangle(Brushes.White, null, new Rect(0, 0, size.Width, size.Height));
+            leftContent = leftScrollViewer.Content as UIElement;
+            leftScrollViewer.Content = null;
+            mainGrid.Children.Remove(leftScrollViewer);
+        }
+        
+        if (rightScrollViewer != null)
+        {
+            rightContent = rightScrollViewer.Content as UIElement;
+            rightScrollViewer.Content = null;
+            mainGrid.Children.Remove(rightScrollViewer);
+        }
+        
+        try
+        {
+            // Add content directly to the grid without scroll viewers
+            if (leftContent != null)
+            {
+                Grid.SetRow(leftContent, 2);
+                Grid.SetColumn(leftContent, 0);
+                mainGrid.Children.Add(leftContent);
+            }
             
-            // Render the main grid on top of the white background
-            var vb = new VisualBrush(mainGrid);
-            vb.Stretch = Stretch.None;
-            dc.DrawRectangle(vb, null, new Rect(0, 0, size.Width, size.Height));
+            if (rightContent != null)
+            {
+                Grid.SetRow(rightContent, 2);
+                Grid.SetColumn(rightContent, 1);
+                mainGrid.Children.Add(rightContent);
+            }
+            
+            // Remove height constraints to allow full content to be visible
+            var originalHeight = this.Height;
+            var originalMaxHeight = this.MaxHeight;
+            this.Height = double.NaN; // Auto size
+            this.MaxHeight = double.PositiveInfinity; // No max height limit
+            
+            // Force layout update with new constraints
+            this.UpdateLayout();
+            mainGrid.UpdateLayout();
+            
+            // Calculate the size of the content we want to export
+            var bounds = VisualTreeHelper.GetDescendantBounds(mainGrid);
+            var size = new Size(Math.Max(1200, bounds.Width), Math.Max(800, bounds.Height));
+            
+            // Create render target bitmap with high DPI for better quality
+            const double dpiScale = 2.0;
+            var pixelWidth = Math.Max(1, (int)(size.Width * dpiScale));
+            var pixelHeight = Math.Max(1, (int)(size.Height * dpiScale));
+            
+            var rtb = new RenderTargetBitmap(
+                pixelWidth,
+                pixelHeight,
+                96 * dpiScale,
+                96 * dpiScale,
+                PixelFormats.Pbgra32
+            );
+            
+            // Create a drawing visual with white background
+            var dv = new DrawingVisual();
+            using (var dc = dv.RenderOpen())
+            {
+                // Fill with white background first
+                dc.DrawRectangle(Brushes.White, null, new Rect(0, 0, size.Width, size.Height));
+                
+                // Render the main grid on top of the white background
+                var vb = new VisualBrush(mainGrid);
+                vb.Stretch = Stretch.None;
+                dc.DrawRectangle(vb, null, new Rect(0, 0, size.Width, size.Height));
+            }
+            
+            // Render the drawing visual
+            rtb.Render(dv);
+            
+            // Save as PNG
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(rtb));
+            
+            using (var fs = new FileStream(filePath, FileMode.Create))
+            {
+                encoder.Save(fs);
+            }
+            
+            // Restore window constraints
+            this.Height = originalHeight;
+            this.MaxHeight = originalMaxHeight;
         }
-        
-        // Render the drawing visual
-        rtb.Render(dv);
-        
-        // Save as PNG
-        var encoder = new PngBitmapEncoder();
-        encoder.Frames.Add(BitmapFrame.Create(rtb));
-        
-        using (var fs = new FileStream(filePath, FileMode.Create))
+        finally
         {
-            encoder.Save(fs);
+            // Remove content from grid
+            if (leftContent != null)
+            {
+                mainGrid.Children.Remove(leftContent);
+            }
+            
+            if (rightContent != null)
+            {
+                mainGrid.Children.Remove(rightContent);
+            }
+            
+            // Restore scroll viewers
+            if (leftScrollViewer != null && leftContent != null)
+            {
+                leftScrollViewer.Content = leftContent;
+                Grid.SetRow(leftScrollViewer, 2);
+                Grid.SetColumn(leftScrollViewer, 0);
+                mainGrid.Children.Add(leftScrollViewer);
+            }
+            
+            if (rightScrollViewer != null && rightContent != null)
+            {
+                rightScrollViewer.Content = rightContent;
+                Grid.SetRow(rightScrollViewer, 2);
+                Grid.SetColumn(rightScrollViewer, 1);
+                mainGrid.Children.Add(rightScrollViewer);
+            }
+            
+            // Force layout update to restore original state
+            this.UpdateLayout();
         }
+    }
+    
+    private T FindChild<T>(DependencyObject parent, string name) where T : DependencyObject
+    {
+        if (parent == null) return null;
+        
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+            
+            if (child is T target && (name == null || (child is FrameworkElement fe && fe.Name == name)))
+            {
+                return target;
+            }
+            
+            var result = FindChild<T>(child, name);
+            if (result != null) return result;
+        }
+        
+        return null;
+    }
+    
+    private UIElement CloneElement(UIElement original)
+    {
+        // For now, we'll use a simple approach - create a VisualBrush of the original element
+        // This is a simplified cloning approach that works for most UI elements
+        var container = new Border();
+        var brush = new VisualBrush(original);
+        brush.Stretch = Stretch.None;
+        container.Background = brush;
+        
+        // Ensure we have valid dimensions
+        var width = original.RenderSize.Width;
+        var height = original.RenderSize.Height;
+        
+        // If RenderSize is empty, try to get DesiredSize
+        if (width <= 0 || height <= 0)
+        {
+            if (original is FrameworkElement fe)
+            {
+                width = Math.Max(width, fe.DesiredSize.Width);
+                height = Math.Max(height, fe.DesiredSize.Height);
+            }
+        }
+        
+        // Set minimum dimensions if still invalid
+        container.Width = Math.Max(100, width);
+        container.Height = Math.Max(100, height);
+        
+        return container;
     }
 }

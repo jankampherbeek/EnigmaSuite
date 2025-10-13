@@ -15,10 +15,10 @@
         mc:Ignorable="d"
         WindowStartupLocation="Manual"
         Title="Enigma - BLA Schema"
-        Height="1000" Width="1100"
-        MinHeight="800" MinWidth="500"
+        Height="800" Width="1100"
+        MinHeight="600" MinWidth="500"
         MaxWidth="{x:Static SystemParameters.PrimaryScreenWidth}"
-        SizeToContent="Height"
+        MaxHeight="{x:Static SystemParameters.PrimaryScreenHeight}"
         WindowState="Normal"
         Loaded="Window_Loaded">
     <Window.DataContext>
@@ -30,7 +30,6 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -49,7 +48,8 @@
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                    FontWeight="Bold" />
         <!-- left column -->
-        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical">
+        <ScrollViewer Grid.Row="2" Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical">
             <!-- Select correction for Black Moon -->
             <ComboBox Margin="12 0 " VerticalAlignment="Center"
                       IsEditable="True" IsReadOnly="True"
@@ -135,7 +135,8 @@
                 </DataGrid.Columns>
             </DataGrid>
             
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
 
         <!-- Right column with the countings -->
         <ScrollViewer Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Auto">
