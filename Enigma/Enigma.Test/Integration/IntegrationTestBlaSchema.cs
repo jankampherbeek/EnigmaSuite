@@ -16,7 +16,7 @@ public class IntegrationTestBlaSchema: IntegrationTestBase
     public void TestSignCounts()
     {
         ChartLongitudes chart = CreateChart();
-        var orchestrator = new BlaSchemaOrchestrator(chart);
+        var orchestrator = new BlaSchemaOrchestrator(chart, false);
         var result = orchestrator.GetSignCounts();
         Assert.Multiple(() =>
         {
@@ -42,7 +42,7 @@ public class IntegrationTestBlaSchema: IntegrationTestBase
     public void TestHouseCounts()
     {
         ChartLongitudes chart = CreateChart();
-        var orchestrator = new BlaSchemaOrchestrator(chart);
+        var orchestrator = new BlaSchemaOrchestrator(chart, false);
         var result = orchestrator.GetHouseCounts();
         Assert.Multiple(() =>
         {
@@ -69,7 +69,7 @@ public class IntegrationTestBlaSchema: IntegrationTestBase
     public void TestElementsAndCrosses()
     {
         ChartLongitudes chart = CreateChart();
-        var orchestrator = new BlaSchemaOrchestrator(chart);
+        var orchestrator = new BlaSchemaOrchestrator(chart, false);
         var (crossCounts, elementCounts) = orchestrator.GetCrossELementCounts();
         Assert.Multiple(() =>
         {

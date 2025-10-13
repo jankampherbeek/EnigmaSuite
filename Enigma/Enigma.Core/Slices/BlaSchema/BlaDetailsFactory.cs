@@ -54,8 +54,11 @@ public static class BlaDetailsFactory
         {
             if (point.Value == houseNr) pointsInHouse.Add(point.Key);
         }
+        var longitude = chart.Cusps[houseNr];
+        var decanate = (int)Math.Truncate(longitude / 10.0) + 1;
+        while (decanate > 7) decanate -= 7;
 
-        return new BlaHouseDetails(houseNr, signOnCusp, mainRuler, subRuler, pointsInHouse);
+        return new BlaHouseDetails(houseNr, signOnCusp, decanate, longitude, mainRuler, subRuler, pointsInHouse);
     }
 
 

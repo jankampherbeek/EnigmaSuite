@@ -2,7 +2,25 @@
 
 
 
-## Release 0.7.2 beta - Augusts 12, 2025
+## Release 0.8.0 beta - December 31 2025
+
+Adding Venus Star Point, Schema for Black Lights Astrology, Prenatal technique (Eg Sneek), Progressive calendar and shifting the startpoint of the zodiac.
+
+
+
+
+
+### Bugfixes
+
+- The calculation of the position for the Interpolated Black Moon is now correct. It showed the Mean Black Moon instead.
+
+
+
+
+
+
+
+## Release 0.7.2 beta - August 12, 2025
 
 Bugfix
 

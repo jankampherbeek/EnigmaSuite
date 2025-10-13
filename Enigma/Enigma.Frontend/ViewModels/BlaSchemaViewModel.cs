@@ -35,6 +35,7 @@ public partial class BlaSchemaViewModel : ObservableObject
     private bool _useDecanates;
     [ObservableProperty] private string _chartName;
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
+    [ObservableProperty] private List<PresentableHousePosition> _housePositions = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _crossesCounts = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _elementsCounts = new();
     [ObservableProperty] private List<PresentableQuadrantCount> _quadrantCounts = new();
@@ -79,6 +80,7 @@ public partial class BlaSchemaViewModel : ObservableObject
         HouseSystemNames = _schemaModel.GetHouseSystemNames();
         ApogeeTypeNames = _schemaModel.GetApogeeTypeNames();
         BlaPositions = _schemaModel.GetBlaPositions();
+        HousePositions = _schemaModel.GetHousePositions();
         CrossesCounts = _schemaModel.GetCrossesCounts();
         ElementsCounts = _schemaModel.GetElementsCounts();
         QuadrantCounts = _schemaModel.GetQuadrantCounts();

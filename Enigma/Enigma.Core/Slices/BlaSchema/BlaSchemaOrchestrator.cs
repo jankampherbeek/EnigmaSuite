@@ -34,6 +34,7 @@ public class BlaSchemaOrchestrator
         {
             _pointDetails.Add(BlaDetailsFactory.CreateBlaPointDetails(point.Key, _chart));
         }
+        
         _planetsInDecanates = new Dictionary<ChartPoints, int>();
 
         if (useDecanates)
@@ -59,7 +60,11 @@ public class BlaSchemaOrchestrator
     {
         return _pointDetails;
     }
-    
+
+    public List<BlaHouseDetails> GetHouseDetails()
+    {
+        return _houseDetails;   
+    }
 
     public Dictionary<int, int> GetSignCounts()
     {
@@ -97,10 +102,6 @@ public class BlaSchemaOrchestrator
     
     public List<BlaDispositorLine> GetDispositors(bool useDecanates)
     {
-        
-        // TODO add calculated decanates if useDecantates is true
-        
-        
         return Dispositors.CreateDispositors(_chart, _signCounts, _houseCounts, _signsOnCusps, _planetsInSigns, 
             _planetsInHouses, _planetsInDecanates, useDecanates);  
     }

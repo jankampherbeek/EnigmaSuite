@@ -51,6 +51,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     private List<PresentableReception> _receptionsInHouses;
     private List<PresentableReception> _receptionsInMundaneHouses;
     private List<PresentableBlaPosition> _blaPositionsForPresentation;
+    private List<PresentableHousePosition> _housePositionsForPresentation;
     
     private CrossElementPresFactory _crossElementPresFactory;
     private QuadrantPresFactory _quadrantPresFactory;
@@ -89,6 +90,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
         
 
         DefineBlaPositions();
+        DefineHousePositions();
         DefineCrossElementCounts(signCounts, houseCounts, planetsInHouses, signOnCusps);
         DefineQuadrantCounts(houseCounts);
         DefineDispositorLines(useDecanates);
@@ -109,6 +111,12 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     {
         var pointDetails = _orchestrator.GetPointDetails();
         _blaPositionsForPresentation = _blaPositionsPresFactory.GetBlaPositions(pointDetails);
+    }
+
+    private void DefineHousePositions()
+    {
+        var houseDetails = _orchestrator.GetHouseDetails();
+        _housePositionsForPresentation = _blaPositionsPresFactory.GetHousePositions(houseDetails);   
     }
     
     private void DefineCrossElementCounts(Dictionary<int, int> signCounts, Dictionary<int, int> houseCounts,Dictionary<ChartPoints, int> planetsInHouses, Dictionary<int, int> signOnCusps)
@@ -211,7 +219,11 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     {
         return _blaPositionsForPresentation;   
     }
-    
+
+    public List<PresentableHousePosition> GetHousePositions()
+    {
+        return _housePositionsForPresentation;  
+    }
     
     public List<PresentableCrossElementsCount> GetCrossesCounts()
     {

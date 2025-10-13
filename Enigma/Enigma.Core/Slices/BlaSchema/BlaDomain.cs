@@ -202,10 +202,12 @@ public record BlaPointDetails(ChartPoints Point, double Longitude, int Sign, int
 /// </summary>
 /// <param name="HouseNr">Index for the house 1..12</param>
 /// <param name="SignOnCusp">Index for the sign on the cusp 1..12</param>
+/// <param name="Decanate">Index for the decanate: 1..7</param>
+/// <param name="Longitude">Longitude in degrees</param>
 /// <param name="MainRuler">Main ruler of the house</param>
 /// <param name="SubRuler">Sub ruler of the house</param>
 /// <param name="PointsInHouse">Chart points that are positioned in the house</param>
-public record BlaHouseDetails(int HouseNr, int SignOnCusp, ChartPoints MainRuler, ChartPoints SubRuler, List<ChartPoints> PointsInHouse );
+public record BlaHouseDetails(int HouseNr, int SignOnCusp, int Decanate, double Longitude, ChartPoints MainRuler, ChartPoints SubRuler, List<ChartPoints> PointsInHouse );
 
 
 /// <summary>

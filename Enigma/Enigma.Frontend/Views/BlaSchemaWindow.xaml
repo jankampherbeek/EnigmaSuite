@@ -113,6 +113,28 @@
                                         IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}"/>
                 </DataGrid.Columns>
             </DataGrid>
+            
+            <!-- Positions DataGrid -->
+            <DataGrid Grid.Row="6" x:Name="HousesDataGrid"
+                      AutoGenerateColumns="False"
+                      Height="Auto"
+                      Margin="12,0"
+                      Style="{StaticResource MaterialDesignDataGrid}"
+                      Background="#F0F8FF"
+                      ItemsSource="{Binding HousePositions, Mode=TwoWay}"
+                      VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Number, Mode=TwoWay}"
+                                        IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
+                    <DataGridTextColumn Header="Position" Width="Auto" Binding="{Binding Position, Mode=TwoWay}"
+                                        IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
+                    <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Sign, Mode=TwoWay}"
+                                        IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                    <DataGridTextColumn Header="Dec." Width="Auto" Binding="{Binding Decanate, Mode=TwoWay}"
+                                        IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
         </StackPanel>
 
         <!-- Right column with the countings -->

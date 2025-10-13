@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using Enigma.Core.Slices.BlaSchema;
+using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.Support.Conversions;
 
@@ -12,6 +13,8 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 
 
 public record PresentableBlaPosition(char Factor, string Position, char Sign, string House, char Decanate);
+
+public record PresentableHousePosition(int Number, string Position, char Sign, char Decanate);
 
 /// <summary>
 /// Factory for presentable planetary positions 
@@ -35,6 +38,21 @@ public class BlaPositionsPresFactory
         return positions;
     }
 
+    public List<PresentableHousePosition> GetHousePositions(List<BlaHouseDetails> housePositions)
+    {
+        DoubleToDmsConversions _doubleToDmsConversions = new();
+        var positions = new List<PresentableHousePosition>();
+        foreach (var hp in housePositions)
+        {
+            var name = hp.HouseNr;
+            var posText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(hp.Longitude).longTxt;
+            char longGlyph = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(hp.Longitude).glyph;
+            var decanateGlyph = DefineGlyphForDecanate(hp.Decanate);
+            positions.Add(new PresentableHousePosition(name, posText, longGlyph, decanateGlyph));
+        }
+        return positions;
+    }
+    
 
     private char DefineGlyphForDecanate(int number)
     {
