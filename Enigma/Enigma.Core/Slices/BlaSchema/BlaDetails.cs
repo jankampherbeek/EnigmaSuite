@@ -33,24 +33,23 @@ public static class BlaDetails
         var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
         var groundNote = new List<int>();  // Groundnote: asc, mundaneHouseAsc,
         groundNote.Add(1); // start with ascendant as cusp
-        var mundaneHouseAsc = asc;  // house that is analog to sign on ascendant
-        groundNote.Add(mundaneHouseAsc);
-        var sisterSignCusp = 0;
+        groundNote.Add(asc);    // number of sign on ascendant
+        // check sister signs   
         foreach (var rulerPair in BlaDomain.RulerPairs())
         {
             if (rulerPair.MainRuler == sisterRulerAsc)
             {
-                sisterSignCusp = rulerPair.SignIndex;
+                var signIndex = rulerPair.SignIndex;
+                foreach (var cuspSign in signsOnCusps)
+                {
+                    if (cuspSign.Value == signIndex)
+                    {
+                       groundNote.Add(cuspSign.Key);
+                    }
+                }
             }
         }
-        groundNote.Add(sisterSignCusp);     // house that is ruled by sistensign of ascendant
-        foreach (var cuspSign in signsOnCusps)
-        {
-            if (cuspSign.Value == asc && cuspSign.Key != 1)
-            {
-                groundNote.Add(cuspSign.Key);
-            }
-        }
+
         var lordAscInHouses = new List<int>
         {
             planetsInHouses[ascRulers.MainRuler],
