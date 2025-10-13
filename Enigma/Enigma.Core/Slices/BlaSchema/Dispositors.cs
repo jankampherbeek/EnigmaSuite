@@ -27,6 +27,9 @@ public static class Dispositors
         Dictionary<ChartPoints,int> PlanetsInDecanates,
         bool useDecanates)
     {  
+        
+        // preparation
+        
         var dispositors = new List<BlaDispositorLine>();
         var decanateCounts = new Dictionary<int, int>
         {
@@ -43,12 +46,30 @@ public static class Dispositors
             var decanate = planetDec.Value;
             decanateCounts[decanate]++;       
         }
+
+        var decansWithFactors = new Dictionary<int, List<ChartPoints>>()
+        {
+            { 1, [] },
+            { 2, [] },
+            { 3, [] },
+            { 4, [] },
+            { 5, [] },
+            { 6, [] },
+            { 7, [] }
+        };
+
+        foreach (var factor in PlanetsInDecanates)
+        {
+            decansWithFactors[factor.Value].Add(factor.Key);      
+        }
         
         foreach (var rulerPair in RulerPairsForDispositors())
         {
             var mainRuler = rulerPair.MainRuler;
             var subRuler = rulerPair.SubRuler;
-            // define direct sign count
+            
+            // rulers in signs
+            
             var (signMainRuler, signSubRuler) = FindSignsRuledBy(mainRuler);;
             var signMainRulerCount = SignCounts[signMainRuler];
             var signSubRulerCount = SignCounts[signSubRuler];
@@ -71,35 +92,46 @@ public static class Dispositors
             }
             var totalSignCount = directSignCount + indirectSignCount;
             
-            // define direct decanate count
+            // rulers in decanates
+
             var directDecanateCount = 0;
+            var indirectDecanateCount = 0;
+            
             if (useDecanates)
             {
-                Console.WriteLine($"Decanates: mainRuler {mainRuler}, subruler {subRuler}");
                 foreach (var decanateRuler in BlaDomain.DecanateRulers())
                 {
                     var decanate = decanateRuler.Decan;
                     if (decanateRuler.Ruler == mainRuler || decanateRuler.Ruler == subRuler)
                     {
-                        Console.WriteLine($"Decanate ruler {decanateRuler.Ruler}");
-                        foreach (var planetDec in PlanetsInDecanates)
+                        foreach (var df in decansWithFactors)
                         {
-                            if (planetDec.Key == decanateRuler.Ruler)
+                            if (df.Key != decanate) continue;
+                            directDecanateCount = df.Value.Count;
+                            foreach (var factor in df.Value)
                             {
-                                var count = decanateCounts[decanate];
-                                directDecanateCount+= count;
-                                Console.WriteLine($"Match {planetDec.Key}, decanate {planetDec.Value}, adding {count}");
-                                
+                                if (factor == decanateRuler.Ruler) continue;
+                                if (factor is not (ChartPoints.Sun or ChartPoints.Moon or ChartPoints.Mercury or ChartPoints.Venus or ChartPoints.Mars or ChartPoints.Jupiter)) continue;
+                                var indirectDecanate = 0;
+                                foreach (var dr in BlaDomain.DecanateRulers())
+                                {
+                                    if (dr.Ruler == factor) indirectDecanate = dr.Decan;  
+                                }
+                                if (indirectDecanate > 0)
+                                {
+                                    indirectDecanateCount+= decanateCounts[indirectDecanate];
+                                    Console.WriteLine($"{factor} {indirectDecanate} adding {decanateCounts[indirectDecanate]}");
+                                }  
                             }
                         }
                     }
                 }
             }
-            var indirectDecanateCount = 0;
-            
             
     
             var totalDecanateCount = directDecanateCount + indirectDecanateCount;
+            
+            // rulers in houses
             
             // find number of points in houses ruled by mainRuler and subRuler  --> directHouseCount
             var directHouseCount = 0;
