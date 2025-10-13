@@ -4,13 +4,17 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Enigma.Domain.Constants;
 using Enigma.Frontend.Ui.ViewModels;
+using Microsoft.Win32;
 using ScottPlot;
 using ScottPlot.Plottables;
 
@@ -205,5 +209,79 @@ public partial class BlaSchemaWindow
     private void DefineColors()
     {
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+    }
+    
+    private void ExportClick(object sender, RoutedEventArgs e)
+    {
+        var saveDialog = new SaveFileDialog()
+        {
+            Filter = "PNG Files (*.png)|*.png",
+            DefaultExt = ".png",
+            FileName = $"BLA_Schema_{DateTime.Now:yyyyMMdd_HHmmss}.png"
+        };
+
+        if (saveDialog.ShowDialog() != true) return;
+        
+        try
+        {
+            ExportWindowToPng(saveDialog.FileName);
+            MessageBox.Show("Export complete!", "Export", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Export failed: {ex.Message}", "Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    
+    private void ExportWindowToPng(string filePath)
+    {
+        // Get the main grid that contains all the content
+        var mainGrid = (Grid)this.Content;
+        
+        // Force layout update to ensure all elements are properly sized
+        mainGrid.UpdateLayout();
+        this.UpdateLayout();
+        
+        // Calculate the size of the content we want to export
+        var bounds = VisualTreeHelper.GetDescendantBounds(mainGrid);
+        var size = new Size(bounds.Width, bounds.Height);
+        
+        // Create render target bitmap with high DPI for better quality
+        const double dpiScale = 2.0;
+        var pixelWidth = (int)(size.Width * dpiScale);
+        var pixelHeight = (int)(size.Height * dpiScale);
+        
+        var rtb = new RenderTargetBitmap(
+            pixelWidth,
+            pixelHeight,
+            96 * dpiScale,
+            96 * dpiScale,
+            PixelFormats.Pbgra32
+        );
+        
+        // Create a drawing visual with white background
+        var dv = new DrawingVisual();
+        using (var dc = dv.RenderOpen())
+        {
+            // Fill with white background first
+            dc.DrawRectangle(Brushes.White, null, new Rect(0, 0, size.Width, size.Height));
+            
+            // Render the main grid on top of the white background
+            var vb = new VisualBrush(mainGrid);
+            vb.Stretch = Stretch.None;
+            dc.DrawRectangle(vb, null, new Rect(0, 0, size.Width, size.Height));
+        }
+        
+        // Render the drawing visual
+        rtb.Render(dv);
+        
+        // Save as PNG
+        var encoder = new PngBitmapEncoder();
+        encoder.Frames.Add(BitmapFrame.Create(rtb));
+        
+        using (var fs = new FileStream(filePath, FileMode.Create))
+        {
+            encoder.Save(fs);
+        }
     }
 }

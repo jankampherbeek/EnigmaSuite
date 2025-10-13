@@ -44,9 +44,26 @@ public class BlaCyclesPresFactory
     {
         var descr = "";
         var sep = "";
+        var doublesCycles = new List<(int, int)>();
+        for (int i = 0; i < cycles.Count; i++)
+        {
+            for (int j = i + 1; j < cycles.Count; j++)
+            {
+                if (cycles[i] == cycles[j]) doublesCycles.Add(cycles[i]);
+            }
+        }
+        
+        var doublesCyclesHandled = new List<(int, int)>();
         foreach (var cycle in cycles)
         {
-            descr += sep + cycle.Item1 + ">>" + cycle.Item2;
+            var asteriskForDouble = "";
+            if (doublesCycles.Contains(cycle))
+            {
+                if (doublesCyclesHandled.Contains(cycle)) continue;
+                asteriskForDouble = "*";
+                doublesCyclesHandled.Add(cycle);
+            };
+            descr += sep + cycle.Item1 + ">>" + cycle.Item2 + asteriskForDouble;
             sep = ", ";
         }
         return new PresentableBlaCycle(cat, descr);

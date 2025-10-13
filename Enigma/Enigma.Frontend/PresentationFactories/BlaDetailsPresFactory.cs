@@ -66,7 +66,7 @@ public class BlaDetailsPresFactory
             if (gt != "") gt += " - ";
             gt += gTone.ToString();
         }
-        return new PresentableBlaDetails("Groundnote", gt, "");
+        return new PresentableBlaDetails("Ground tone", gt, "");
     }
 
     private PresentableBlaDetails HandleLordAscInHouses(List<int> lords)

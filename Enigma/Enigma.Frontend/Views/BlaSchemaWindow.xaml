@@ -124,7 +124,7 @@
                       ItemsSource="{Binding HousePositions, Mode=TwoWay}"
                       VerticalAlignment="Top">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Number, Mode=TwoWay}"
+                    <DataGridTextColumn Header="Cusp" Width="Auto" Binding="{Binding Number, Mode=TwoWay}"
                                         IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
                     <DataGridTextColumn Header="Position" Width="Auto" Binding="{Binding Position, Mode=TwoWay}"
                                         IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
@@ -892,6 +892,7 @@
 
         <!-- Bottom buttons -->
         <StackPanel Grid.Row="3" Grid.Column="1" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6 6 0 6" Content="Export" Click="ExportClick" />
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}" />
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>
