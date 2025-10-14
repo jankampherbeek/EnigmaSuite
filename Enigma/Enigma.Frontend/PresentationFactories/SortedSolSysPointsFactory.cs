@@ -51,10 +51,14 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
                 if (actDistance < minDistance)
                 {
                     pos.PlotPos += minDistance - actDistance;
-                    if (pos.PlotPos >= 360.0) pos.PlotPos -= 360.0;
                 }
             }
             lastPos = pos;
+        }
+
+        foreach (var pos in graphPositions)
+        {
+            if (pos.PlotPos >= 360.0) pos.PlotPos -= 360.0; 
         }
         return graphPositions;
     }
