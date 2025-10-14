@@ -192,16 +192,6 @@
                         <Image Source="/Images/prenatal.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Profections" Command="{Binding ProfectionsCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/profections.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Firdaria" Command="{Binding FirdariaCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/firdaria.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About Enigma Charts" Command="{Binding AboutCommand}">
