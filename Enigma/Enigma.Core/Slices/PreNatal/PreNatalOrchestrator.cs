@@ -3,18 +3,25 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.References;
+
 namespace Enigma.Core.Slices.PreNatal;
 
 public static class PreNatalOrchestrator
 {
 
 
-    public static List<PreNatalParent> ConstructPreNatalMoments(double jdStart, double jdEnd)
+    public static List<PreNatalParent> ConstructPreNatalMoments(List<ChartPoints> factors, 
+        List<AspectTypes> aspects,
+        double jdStart, double jdEnd)
     {
         var preNatalMoments = new List<PreNatalParent>();
         var eclipses = EclipseMoments.FindEclipses(jdStart, jdEnd);
-        preNatalMoments.AddRange(eclipses);
+        var ingresses = IngressMoments.FindIngressMoments(factors, jdStart, jdEnd);
         
+        
+        preNatalMoments.AddRange(eclipses);
+        preNatalMoments.AddRange(ingresses);
         
         
         return preNatalMoments;
