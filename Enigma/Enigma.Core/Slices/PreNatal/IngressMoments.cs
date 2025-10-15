@@ -1,0 +1,45 @@
+// Enigma Astrology Research.
+// Copyright (c) 2025 Jan Kampherbeek.
+// Enigma is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Domain.References;
+using Enigma.Facades.Se;
+
+namespace Enigma.Core.Slices.PreNatal;
+
+public static class IngressMoments
+{
+    private static readonly CalcUtFacade CalcUtFacade = new CalcUtFacade();
+    
+    public static List<Ingress> FindIngressMoments(List<ChartPoints> factors, double startJd, double endJd)
+    {
+        var ingresses = new List<Ingress>();
+        foreach (var factor in factors)
+        {
+            var ingressesForFactor = FindIngressesForFactors(factor, startJd, endJd);
+            ingresses.AddRange(ingressesForFactor);
+        }
+        return ingresses;
+    }
+
+    private static List<Ingress> FindIngressesForFactors(ChartPoints factor, double startJd, double endJd)
+    {
+        var currentJd = startJd;
+        var ingresses = new List<Ingress>();
+        while (currentJd <= endJd)
+        {
+            
+        }        
+        return ingresses;
+    }
+    
+    
+    private static double CalcLongitude(ChartPoints factor, double jd)
+    {
+        var seId = factor.GetDetails().CalcId;
+        var flags = 2;      // Use SE, no speed
+        var positions = CalcUtFacade.PositionFromSe(jd, seId, flags);
+        return positions[0];
+    }
+}

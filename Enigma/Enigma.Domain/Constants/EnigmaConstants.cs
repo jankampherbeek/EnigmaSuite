@@ -15,6 +15,13 @@ public static class EnigmaConstants
     /// <summary>SE id to identify obliquity and nutation.</summary>
     public const int SE_ECL_NUT = -1;
    
+
+    public const int SE_ECL_CENTRAL = 1;    
+    public const int SE_ECL_NONCENTRAL = 2;
+    public const int SE_ECL_TOTAL = 4;
+    public const int SE_ECL_ANNULAR = 8;
+    public const int SE_ECL_PARTIAL = 16;
+    public const int SE_ECL_ANNULAR_TOTAL = 32;
     
     // CommonSE flags
     /// <summary>Flag: indication to use the Swiss Ephemeris.</summary>
