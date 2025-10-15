@@ -36,7 +36,7 @@ public static class IngressMoments
 
     /* Prompt: Scan for the moment that a celestial body (factor) has an ingress (enters a new sign). 
      * If the longitude can exactly be divided by 30, there is an ingress.
-     * The accuracy should be better than a second of arc.
+     * The accuracy should be better than 0.1 second of arc.
      * Uses a bisection algorithm to find the exact moment of ingress.
      */
     private static List<Ingress> FindIngressesForFactors(ChartPoints factor, double startJd, double endJd)

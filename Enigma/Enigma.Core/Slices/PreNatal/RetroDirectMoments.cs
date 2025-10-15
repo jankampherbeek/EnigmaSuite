@@ -26,7 +26,7 @@ public class RetroDirectMoments
 
     /* Prompt: Scan for the moment that a celestial body (factor) changes direction: becomes either direct or retrograde.
      * The method CalcLongitudeAndSpeed() can be used to calculate the longitude and speed of a celestial point at a given jd.
-     * The accuracy should be better than a second of arc.
+     * The accuracy should be better than 0.1 second of arc.
      * Uses a bisection algorithm to find the exact moment when speed becomes zero.
      */
     private static List<RetroDirect> FindRetroDirectMomentsForFactor(ChartPoints factor, double startJd,

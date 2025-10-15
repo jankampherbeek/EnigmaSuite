@@ -10,7 +10,6 @@ namespace Enigma.Core.Slices.PreNatal;
 public static class PreNatalOrchestrator
 {
 
-
     public static List<PreNatalParent> ConstructPreNatalMoments(List<ChartPoints> factors, 
         List<AspectTypes> aspects,
         double jdStart, double jdEnd)
@@ -18,12 +17,14 @@ public static class PreNatalOrchestrator
         var preNatalMoments = new List<PreNatalParent>();
         var eclipses = EclipseMoments.FindEclipses(jdStart, jdEnd);
         var ingresses = IngressMoments.FindIngressMoments(factors, jdStart, jdEnd);
-        
+        var retroDirects = RetroDirectMoments.FindRetroDirectMoments(factors, jdStart, jdEnd);
         
         preNatalMoments.AddRange(eclipses);
         preNatalMoments.AddRange(ingresses);
+        preNatalMoments.AddRange(retroDirects);
         
         
+        preNatalMoments.Sort();
         return preNatalMoments;
     }
 
