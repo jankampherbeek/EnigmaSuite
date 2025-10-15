@@ -18,11 +18,12 @@ public static class PreNatalOrchestrator
         var eclipses = EclipseMoments.FindEclipses(jdStart, jdEnd);
         var ingresses = IngressMoments.FindIngressMoments(factors, jdStart, jdEnd);
         var retroDirects = RetroDirectMoments.FindRetroDirectMoments(factors, jdStart, jdEnd);
+        var mutualAspects = MutualAspectMoments.FindMutualAspectMoments(factors, aspects, jdStart, jdEnd);
         
         preNatalMoments.AddRange(eclipses);
         preNatalMoments.AddRange(ingresses);
         preNatalMoments.AddRange(retroDirects);
-        
+        preNatalMoments.AddRange(mutualAspects);
         
         preNatalMoments.Sort();
         return preNatalMoments;

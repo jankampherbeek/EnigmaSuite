@@ -20,9 +20,10 @@ public record Eclipse(double Jd, double Longitude, char LunarSolar): PreNatalPar
 /// Change from direct to retrograde movement, or the other way around, to be used in PreNatal calculations
 /// </summary>
 /// <param name="Jd">Julian day number the change in movement occurred</param>
+/// <param name="Factor">The celestial point that changes direction</param>
 /// <param name="Longitude">Longitude of the change</param>
 /// <param name="Direction">For direct 'D', for retrograde 'R'</param>
-public record RetroDirect(double Jd, double Longitude, char Direction): PreNatalParent(Jd);
+public record RetroDirect(double Jd, ChartPoints Factor, double Longitude, char Direction): PreNatalParent(Jd);
 
 
 /// <summary>

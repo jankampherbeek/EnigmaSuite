@@ -8,7 +8,7 @@ using Enigma.Facades.Se;
 
 namespace Enigma.Core.Slices.PreNatal;
 
-public class RetroDirectMoments
+public static class RetroDirectMoments
 {
     private static readonly CalcUtFacade CalcUtFacade = new CalcUtFacade();
     
@@ -77,7 +77,7 @@ public class RetroDirectMoments
             if (Math.Abs(speedMid) < tolerance * 0.001) // Very close to zero
             {
                 var (lonAtChange, _) = CalcLongitudeAndSpeed(factor, mid);
-                return new RetroDirect(mid, lonAtChange, becomingDirect ? 'D' : 'R');
+                return new RetroDirect(mid, factor, lonAtChange, becomingDirect ? 'D' : 'R');
             }
             
             // If speed has same sign as low, move low up; otherwise move high down
@@ -94,7 +94,7 @@ public class RetroDirectMoments
         
         var finalJd = (low + high) / 2.0;
         var (finalLon, _) = CalcLongitudeAndSpeed(factor, finalJd);
-        return new RetroDirect(finalJd, finalLon, becomingDirect ? 'D' : 'R');
+        return new RetroDirect(finalJd, factor, finalLon, becomingDirect ? 'D' : 'R');
     }
     
     /// <summary>

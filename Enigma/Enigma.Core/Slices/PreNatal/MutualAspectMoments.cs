@@ -19,9 +19,9 @@ public static class MutualAspectMoments
         double startJd, double endJd)
     {
         var mutualAspectMoments = new List<MutualAspect>();
-        for (int i = 0; i < factors.Count; i++)
+        for (var i = 0; i < factors.Count; i++)
         {
-            for (int j = i+1; j < factors.Count; j++)
+            for (var j = i+1; j < factors.Count; j++)
             {
                 var factor1 = factors[i];
                 var factor2 = factors[j];
