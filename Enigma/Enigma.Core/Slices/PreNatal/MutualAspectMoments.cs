@@ -95,6 +95,56 @@ public static class MutualAspectMoments
                         }
                     }
                 }
+                else if (Math.Abs(aspectAngle - 180.0) < 0.01) // Opposition (180 degrees)
+                {
+                    // For opposition, we have two detection methods:
+                    // 1. Peak detection (for slower-moving planets)
+                    // 2. Proximity detection (if distance is very close to 180 between two measurements)
+                    
+                    double dist1 = measurements[i].dist;
+                    double dist2 = measurements[i + 1].dist;
+                    
+                    // Method 1: Peak detection at position i
+                    bool peakDetected = false;
+                    if (i > 0 && i < measurements.Count - 1)
+                    {
+                        double beforeDist = measurements[i - 1].dist;
+                        double currentDist = measurements[i].dist;
+                        double nextDist = measurements[i + 1].dist;
+                        
+                        // Peak detected: before < current > next
+                        const double peakThreshold = 0.01; // degrees
+                        peakDetected = (currentDist - beforeDist > peakThreshold) && 
+                                      (currentDist - nextDist > peakThreshold) && 
+                                      currentDist > 170.0;
+                        
+                        if (peakDetected)
+                        {
+                            crossed = true;
+                            searchStartJd = measurements[i - 1].jd;
+                            searchEndJd = measurements[i + 1].jd;
+                        }
+                    }
+                    
+                    // Method 2: Proximity detection - if both measurements are close to 180
+                    // This catches cases where the peak occurs between sampling points
+                    if (!peakDetected)
+                    {
+                        const double proximityThreshold = 3.0; // degrees from 180
+                        bool bothClose = (Math.Abs(dist1 - 180.0) < proximityThreshold) && 
+                                        (Math.Abs(dist2 - 180.0) < proximityThreshold);
+                        
+                        // Also check if we're in the "peak region" - both distances should be relatively high
+                        bool inPeakRegion = dist1 > 177.0 && dist2 > 177.0;
+                        
+                        if (bothClose || inPeakRegion)
+                        {
+                            crossed = true;
+                            searchStartJd = measurements[i].jd;
+                            searchEndJd = measurements[i + 1].jd;
+                        }
+                    }
+                }
                 else
                 {
                     // For other aspects, check if crossed between measurements[i] and measurements[i+1]
@@ -245,6 +295,47 @@ public static class MutualAspectMoments
                 else
                 {
                     // Minimum is in the upper half
+                    low = mid;
+                }
+            }
+            // For opposition (aspectAngle = 180), find the maximum distance
+            else if (Math.Abs(aspectAngle - 180.0) < 0.01)
+            {
+                // Use ternary search logic to find maximum
+                // If mid is greater than both endpoints, we're getting close
+                if (distanceMid > distanceLow && distanceMid > distanceHigh)
+                {
+                    // Mid is the best so far, but we need to determine which side to search
+                    // Calculate a point slightly to the left and right to determine slope
+                    var quarter1 = (low + mid) / 2.0;
+                    var quarter3 = (mid + high) / 2.0;
+                    
+                    var lon1Q1 = CalcLongitude(factor1, quarter1);
+                    var lon2Q1 = CalcLongitude(factor2, quarter1);
+                    var distanceQ1 = CalculateAngularDistance(lon1Q1, lon2Q1);
+                    
+                    var lon1Q3 = CalcLongitude(factor1, quarter3);
+                    var lon2Q3 = CalcLongitude(factor2, quarter3);
+                    var distanceQ3 = CalculateAngularDistance(lon1Q3, lon2Q3);
+                    
+                    // Search the side with the larger distance
+                    if (distanceQ1 > distanceQ3)
+                    {
+                        high = mid;
+                    }
+                    else
+                    {
+                        low = mid;
+                    }
+                }
+                else if (distanceLow > distanceHigh)
+                {
+                    // Maximum is in the lower half
+                    high = mid;
+                }
+                else
+                {
+                    // Maximum is in the upper half
                     low = mid;
                 }
             }
