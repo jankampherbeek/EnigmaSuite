@@ -3,11 +3,15 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Messaging;
+using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.WindowsFlow;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -17,8 +21,12 @@ public partial class PrenatalViewModel : ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.PRENATAL;
 
-    [ObservableProperty] private string _chartName = "Chart Name";
+    private PreNatalModel _preNatalModel = App.ServiceProvider.GetRequiredService<PreNatalModel>();
 
+    [ObservableProperty] private string _chartName = "Chart Name";
+    [ObservableProperty] private List<PresentablePreNatalMoment> _preNatalMoments = new();
+    [ObservableProperty] private List<PresentablePreNatalEvent> _preNatalEvents = new();
+    
     [RelayCommand]
     private void Help()
     {
@@ -35,6 +43,7 @@ public partial class PrenatalViewModel : ObservableObject
 
     public PrenatalViewModel()
     {
-        // Initialize data here when needed
+        PreNatalMoments = _preNatalModel.GetPrenatalMoments();
+        PreNatalEvents = _preNatalModel.GetPrenatalEvents();            
     }
 }

@@ -20,7 +20,7 @@ public static class RetroDirectMoments
             var rdsForFactor = FindRetroDirectMomentsForFactor(factor, startJd, endJd);
             retroDirectMoments.AddRange(rdsForFactor);
         }
-        retroDirectMoments.Sort();
+      //  retroDirectMoments.Sort();
         return retroDirectMoments;
     }
 
@@ -39,7 +39,7 @@ public static class RetroDirectMoments
         var currentJd = startJd;
         var (_, currentSpeed) = CalcLongitudeAndSpeed(factor, currentJd);
         
-        while (currentJd <= endJd)
+        while (currentJd < endJd)
         {
             var nextJd = Math.Min(currentJd + stepSize, endJd);
             var (_, nextSpeed) = CalcLongitudeAndSpeed(factor, nextJd);
@@ -69,8 +69,11 @@ public static class RetroDirectMoments
         var becomingDirect = speedLow < 0;
         
         // Use bisection to find when speed = 0
-        while (high - low > tolerance / 360.0)
+        const int maxIterations = 1000;
+        var iterations = 0;
+        while (high - low > tolerance / 360.0 && iterations < maxIterations)
         {
+            iterations++;
             var mid = (low + high) / 2.0;
             var (_, speedMid) = CalcLongitudeAndSpeed(factor, mid);
             

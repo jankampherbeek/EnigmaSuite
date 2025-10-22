@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Prenatal" Height="600" Width="800">
+        Title="Enigma - Prenatal" Height="900" Width="1200">
     <Window.DataContext>
         <viewModels:PrenatalViewModel/>
     </Window.DataContext>
@@ -38,12 +38,63 @@
                    FontWeight="Bold"/>
         
         <!-- Main Content Area -->
-        <Grid Grid.Row="2" Margin="6">
-            <TextBlock Text="Prenatal content will be implemented here." 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
-                       Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Grid Margin="6">
+                   <TextBlock Text="factors and aspects"/>              
+                   
+            </Grid>
+            <Border Margin="6">
+                <DataGrid Grid.Row="5" x:Name="EventsDataGrid"
+                          AutoGenerateColumns="False"
+                          Height="Auto"
+                          Margin="12,0"
+                          Style="{StaticResource MaterialDesignDataGrid}"
+                          Background="#F0F8FF"
+                          ItemsSource="{Binding PreNatalEvents, Mode=TwoWay}"
+                          VerticalAlignment="Top">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Description" Width="Auto" Binding="{Binding Description, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                        <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding DateTime, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                    </DataGrid.Columns>
+                </DataGrid>              
+            </Border>
+            <Border Margin="6">
+                <DataGrid Grid.Row="5" x:Name="MomentsDataGrid"
+                          AutoGenerateColumns="False"
+                          Height="Auto"
+                          Margin="12,0"
+                          Style="{StaticResource MaterialDesignDataGrid}"
+                          Background="#F0F8FF"
+                          ItemsSource="{Binding PreNatalMoments, Mode=TwoWay}"
+                          VerticalAlignment="Top">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding RealDateTime, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                        <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding TypeGlyph, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
+                        <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor1Glyph, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
+                        <DataGridTextColumn Header="Longitude" Width="Auto" Binding="{Binding Position1, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
+                        <DataGridTextColumn Header="" Width="Auto" Binding="{Binding SignGlyph1, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                        <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor2Glyph, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
+                        <DataGridTextColumn Header="Longitude" Width="Auto" Binding="{Binding Position2, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
+                        <DataGridTextColumn Header="" Width="Auto" Binding="{Binding SignGlyph2, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                        <DataGridTextColumn Header="Prenatal date/time" Width="Auto" Binding="{Binding PreNatalDateTime, Mode=TwoWay}"
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                    </DataGrid.Columns>
+                </DataGrid>         
+                                 
+            </Border>
+            
+        </StackPanel>
+        
 
         <!-- Bottom buttons -->
         <StackPanel Grid.Row="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">

@@ -12,6 +12,7 @@ using Serilog;
 using System.Windows;
 using Enigma.Api.Calc;
 using Enigma.Api.Persistency;
+using Enigma.Core.Calc;
 using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Charts.Prog.PrimDir;
@@ -75,6 +76,7 @@ public partial class App
         serviceCollection.AddSingleton<IDataInputConverter, DataInputConverter>();
         serviceCollection.AddTransient<IDateInputParser, DateInputParser>();
         serviceCollection.AddSingleton<IDataNameForPresentationFactory, DataNameForPresentationFactory>();
+        serviceCollection.AddTransient<IDateTimeCalc, DateTimeCalc>();
         serviceCollection.AddSingleton<IDateValidator, DateValidator>();
         serviceCollection.AddTransient<DeclDiagramCanvasController>();
         serviceCollection.AddTransient<DeclDiagramMetrics>();
@@ -102,6 +104,8 @@ public partial class App
         serviceCollection.AddSingleton<IOobEventForDataGridFactory, OobEventForDataGridFactory>();
         serviceCollection.AddSingleton<IParallelsForDataGridFactory, ParallelsForDataGridFactory>();
         serviceCollection.AddSingleton<IPointsExclusionManager, PointsExclusionManager>();
+        serviceCollection.AddTransient<PreNatalModel>();
+        serviceCollection.AddTransient<PreNatalPresFactory>();
         serviceCollection.AddSingleton<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();
         serviceCollection.AddSingleton<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
         serviceCollection.AddTransient<PrimDirInputModel>();

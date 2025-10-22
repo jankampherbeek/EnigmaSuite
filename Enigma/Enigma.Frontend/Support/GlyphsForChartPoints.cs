@@ -9,7 +9,7 @@ namespace Enigma.Frontend.Ui.Support;
 
 /// <summary>Returns default glyph for a given chart point.</summary>
 /// <remarks>A temporary solution, ultimately the glyphs should be retrieved from the current configuration.</remarks>
-public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this solution with a configuration based solution.
+public sealed class GlyphsForChartPoints           
 {
     private const char EMPTY_GLYPH = ' ';
 

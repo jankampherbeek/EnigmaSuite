@@ -26,7 +26,7 @@ public static class EclipseMoments
     {
         var eclipseMoments = new List<Eclipse>();
         var runningJd = startJd;
-        while (runningJd <= endJd)
+        while (runningJd < endJd)
         {
             var newJdd = EclipseFacade.NextSolarEclipse(runningJd);
             runningJd = newJdd;
@@ -37,17 +37,16 @@ public static class EclipseMoments
             }
         }
         runningJd = startJd;
-        while (runningJd <= endJd)
+        while (runningJd < endJd)
         {
             var newJdd = EclipseFacade.NextLunarEclipse(runningJd);
             runningJd = newJdd;
             if (runningJd <= endJd)
             {
                 var longitude = CalcLongitude(ChartPoints.Sun, runningJd);
-                eclipseMoments.Add(new Eclipse(runningJd, longitude, 'S'));
+                eclipseMoments.Add(new Eclipse(runningJd, longitude, 'L'));
             }
         }
-        eclipseMoments.Sort();
         return eclipseMoments;
     }
 

@@ -29,7 +29,6 @@ public static class MutualAspectMoments
                 mutualAspectMoments.AddRange(aspectsFound);
             }
         }
-        mutualAspectMoments.Sort();
         return mutualAspectMoments;
     }
     
@@ -54,7 +53,7 @@ public static class MutualAspectMoments
         var lon2Current = CalcLongitude(factor2, currentJd);
         var currentDistance = CalculateAngularDistance(lon1Current, lon2Current);
         
-        while (currentJd <= endJd)
+        while (currentJd < endJd)
         {
             var nextJd = Math.Min(currentJd + stepSize, endJd);
             var lon1Next = CalcLongitude(factor1, nextJd);
@@ -126,8 +125,11 @@ public static class MutualAspectMoments
             }
         }
         
-        while (high - low > tolerance / 360.0)
+        const int maxIterations = 1000;
+        var iterations = 0;
+        while (high - low > tolerance / 360.0 && iterations < maxIterations)
         {
+            iterations++;
             var mid = (low + high) / 2.0;
             var lon1Mid = CalcLongitude(factor1, mid);
             var lon2Mid = CalcLongitude(factor2, mid);

@@ -30,7 +30,7 @@ public static class IngressMoments
             var ingressesForFactor = FindIngressesForFactors(factor, startJd, endJd);
             ingresses.AddRange(ingressesForFactor);
         }
-        ingresses.Sort();
+        //ingresses.Sort();
         return ingresses;
     }
 
@@ -47,8 +47,7 @@ public static class IngressMoments
         
         var currentJd = startJd;
         var currentLon = CalcLongitude(factor, currentJd);
-        
-        while (currentJd <= endJd)
+        while (currentJd < endJd)
         {
             var nextJd = Math.Min(currentJd + stepSize, endJd);
             var nextLon = CalcLongitude(factor, nextJd);
@@ -133,8 +132,11 @@ public static class IngressMoments
         var low = jd1;
         var high = jd2;
         
-        while (high - low > tolerance / 360.0) // Convert arcsecond tolerance to JD tolerance
+        const int maxIterations = 1000;
+        var iterations = 0;
+        while (high - low > tolerance / 360.0 && iterations < maxIterations) // Convert arcsecond tolerance to JD tolerance
         {
+            iterations++;
             var mid = (low + high) / 2.0;
             var midLon = CalcLongitude(factor, mid);
             

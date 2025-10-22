@@ -43,7 +43,7 @@ public sealed class DateTimeApi(IDateTimeHandler dateTimeHandler) : IDateTimeApi
     public DateTimeResponse GetDateTime(DateTimeRequest request)
     {
         Guard.Against.Null(request);
-        Log.Information("DateTimeApi.GetDateTime() using julian day {Jd}", request.JulDay);
+        Log.Information("DateTimeApi.GetDateTime() using julian day {PreNatalJd}", request.JulDay);
         return dateTimeHandler.CalcDateTime(request);
     }
 

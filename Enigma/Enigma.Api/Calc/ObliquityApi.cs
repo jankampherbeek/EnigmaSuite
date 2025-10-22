@@ -32,7 +32,7 @@ public sealed class ObliquityApi : IObliquityApi
     public double GetObliquity(ObliquityRequest request)
     {
         Guard.Against.Null(request);
-        Log.Information("ObliquityApi.GetObliquity() for julian day UT {Jd}", request.JdUt);
+        Log.Information("ObliquityApi.GetObliquity() for julian day UT {PreNatalJd}", request.JdUt);
         return _obliquityHandler.CalcObliquity(request);
     }
 
