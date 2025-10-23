@@ -124,7 +124,7 @@ public static class BlaCycles
                 foreach (var rulerPair in BlaDomain.RulerPairs())
                 {
                     if ((rulerPair.MainRuler != rulers[i].Item1 || rulerPair.SubRuler != rulers[j].Item1) &&
-                        (rulerPair.MainRuler != rulers[j].Item1 || rulerPair.SubRuler != rulers[1].Item1)) continue;
+                        (rulerPair.MainRuler != rulers[j].Item1 || rulerPair.SubRuler != rulers[i].Item1)) continue;
                     if (rulers[i].Item2 == rulers[j].Item2) continue;
                     if (!houses.Contains(rulers[i].Item2) || !houses.Contains(rulers[j].Item2)) continue;
                     if (!cycles.Contains((rulers[i].Item2, rulers[j].Item2)))
