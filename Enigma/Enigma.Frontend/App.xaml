@@ -71,6 +71,11 @@
                 <Setter Property="FontFamily" Value="DejaVu Sans Mono" />
                 <Setter Property="HorizontalAlignment" Value="Right" />
             </Style>
+            <Style x:Key="GlyphTextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="EnigmaAstrologyBLA2" />
+                <Setter Property="HorizontalAlignment" Value="Left" />                
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

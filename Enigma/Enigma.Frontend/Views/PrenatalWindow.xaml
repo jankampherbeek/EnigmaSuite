@@ -20,6 +20,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -36,13 +38,46 @@
                    Text="{Binding ChartName}" Name="ChartNameText"
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    FontWeight="Bold"/>
+        <!-- base selections -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <CheckBox Content="Eclipses"  
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseEclipses}" />
+            <CheckBox Content="Ingresses"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseIngresses}" />
+            <CheckBox Content="Retrograde/Direct"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseRetrogradeDirect}" />
+            <CheckBox Content="Aspects"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseAspects}" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <TextBlock Margin="6" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Selected points" />
+            <TextBlock Margin="6" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="{Binding SelectedPoints}"
+                       Style="{StaticResource GlyphTextBlockStyle}"/>
+            <Button Margin="6" Content="Change points" Command="{Binding ChangePointsCommand}"/>
+            <TextBlock Margin="6" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Selected aspects" />
+            <TextBlock Margin="6" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="{Binding SelectedAspects}"
+                       Style="{StaticResource GlyphTextBlockStyle}"/>
+            <Button Margin="6" Content="Change aspects" Command="{Binding ChangeAspectsCommand}"/>
+        </StackPanel>
         
         <!-- Main Content Area -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Grid Margin="6">
-                   <TextBlock Text="factors and aspects"/>              
-                   
-            </Grid>
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
             <Border Margin="6">
                 <DataGrid Grid.Row="5" x:Name="EventsDataGrid"
                           AutoGenerateColumns="False"
@@ -72,7 +107,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding RealDateTime, Mode=TwoWay}"
                                             IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
-                        <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding TypeGlyph, Mode=TwoWay}"
+                        <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding TypeGlyphs, Mode=TwoWay}"
                                             IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
                         <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor1Glyph, Mode=TwoWay}"
                                             IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
@@ -97,7 +132,7 @@
         
 
         <!-- Bottom buttons -->
-        <StackPanel Grid.Row="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="5" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>

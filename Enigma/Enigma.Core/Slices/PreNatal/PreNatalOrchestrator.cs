@@ -20,9 +20,9 @@ public static class PreNatalOrchestrator
         var retroDirects = RetroDirectMoments.FindRetroDirectMoments(factors, jdStart, jdEnd);
         var mutualAspects = MutualAspectMoments.FindMutualAspectMoments(factors, aspects, jdStart, jdEnd);
         
-        // preNatalMoments.AddRange(eclipses);
-        // preNatalMoments.AddRange(ingresses);
-        // preNatalMoments.AddRange(retroDirects);
+        preNatalMoments.AddRange(eclipses);
+        preNatalMoments.AddRange(ingresses);
+        preNatalMoments.AddRange(retroDirects);
         preNatalMoments.AddRange(mutualAspects);
         
         preNatalMoments = preNatalMoments.OrderBy(x => x.PreNatalJd).ToList();

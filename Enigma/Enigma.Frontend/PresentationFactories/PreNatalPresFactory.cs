@@ -21,7 +21,7 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 /// </summary>
 /// <param name="RealDateTime">Actual date and time, in the format yyyy/mm/dd hh:mi:ss</param>
 /// <param name="PreNatalDateTime">Pre Natal date and time, in the format yyyy/mm/dd hh:mi:ss</param>   
-/// <param name="TypeGlyph">Glyph for the type, either eclipse, ingress, retrodirect or mutual aspect</param>
+/// <param name="TypeGlyphs">Glyph for the type, either eclipse, ingress, retrodirect or mutual aspect</param>
 /// <param name="Factor1Glyph">Glyph for the first factor</param>
 /// <param name="Position1">Position of the first factor, without the sign</param>
 /// <param name="SignGlyph1">Glyph for the sign of the first factor</param>
@@ -31,7 +31,7 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public record PresentablePreNatalMoment(
     string RealDateTime,
     string PreNatalDateTime,
-    char TypeGlyph,
+    string TypeGlyphs,
     char Factor1Glyph,
     string Position1,
     char SignGlyph1,
@@ -97,17 +97,17 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         var preNatalDateTimeTxt = JdToDateTimeString(eclipse.PreNatalJd, cal);
         var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, eclipse.PreNatalJd);
         var actualDateTimeTxt = JdToDateString(actualDateTime, cal);
-        var typeGlyph = ' ';
+        var typeGlyph = "";
         var factor1Glyph = ' ';
         if (eclipse.LunarSolar == 'S')
         {
             factor1Glyph = GlyphsForChartPoints.FindGlyph(ChartPoints.Sun);
-            typeGlyph = '[';     // use glyph for Black Sun for solar eclipse
+            typeGlyph = "[";     // use glyph for Black Sun for solar eclipse
         }
         else
         {
             factor1Glyph = GlyphsForChartPoints.FindGlyph(ChartPoints.Moon);
-            typeGlyph = ',';    // use glyph for Black Moon for lunar eclipse
+            typeGlyph = ",";    // use glyph for Black Moon for lunar eclipse
         }
         var position1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(eclipse.Longitude).longTxt;
         var signGlyph1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(eclipse.Longitude).glyph;
@@ -124,14 +124,15 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         var preNatalDateTimeTxt = JdToDateTimeString(ingress.PreNatalJd, cal);
         var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, ingress.PreNatalJd);
         var actualDateTimeTxt = JdToDateString(actualDateTime, cal);
-        var typeGlyph = GlyphsForChartPoints.FindGlyph(ingress.Factor);
-        var position1 = "00" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
         var signGlyph1 = GlyphsForSigns.FindGlyph(ingress.Sign);
         var factor1Glyph = signGlyph1;
+        var typeGlyphs = GlyphsForChartPoints.FindGlyph(ingress.Factor) + " " + signGlyph1;
+        var position1 = "00" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
+
         const char factor2Glyph = ' ';
         const string position2 = "";
         const char signGlyph2 = ' ';
-        return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyph, factor1Glyph, position1, 
+        return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyphs, factor1Glyph, position1, 
             signGlyph1, factor2Glyph, position2, signGlyph2);
     }
 
@@ -140,14 +141,16 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         var preNatalDateTimeTxt = JdToDateTimeString(retroDirect.PreNatalJd, cal);
         var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, retroDirect.PreNatalJd);
         var actualDateTimeTxt = JdToDateString(actualDateTime, cal);
-        var typeGlyph = retroDirect.Direction == 'R' ? 'R' : 'Ô';   // use  retrograde glyph and glyph for decile aspect for direct movement
+        var factor1Glyph = GlyphsForChartPoints.FindGlyph(retroDirect.Factor);
+        var rdGlyph = retroDirect.Direction == 'R' ? 'R' : 'Ô';
+        var typeGlyphs = factor1Glyph + " " + rdGlyph;   
         var position1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(retroDirect.Longitude).longTxt;
         var signGlyph1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(retroDirect.Longitude).glyph;
-        var factor1Glyph = GlyphsForChartPoints.FindGlyph(retroDirect.Factor);
+
         const char factor2Glyph = ' ';
         const string position2 = "";
         const char signGlyph2 = ' ';
-        return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyph, factor1Glyph, position1, 
+        return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyphs, factor1Glyph, position1, 
             signGlyph1, factor2Glyph, position2, signGlyph2);
     }
 
@@ -156,14 +159,14 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         var preNatalDateTimeTxt = JdToDateTimeString(mutualAspect.PreNatalJd, cal);
         var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, mutualAspect.PreNatalJd);
         var actualDateTimeTxt = JdToDateString(actualDateTime, cal);
-        var typeGlyph = mutualAspect.Aspect.GetDetails().Glyph;
         var position1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(mutualAspect.Position1).longTxt;
-        var signGlyph1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(mutualAspect.Position2).glyph;
+        var signGlyph1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(mutualAspect.Position1).glyph;
         var factor1Glyph = GlyphsForChartPoints.FindGlyph(mutualAspect.Factor1);
         var position2 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(mutualAspect.Position2).longTxt;
         var signGlyph2 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(mutualAspect.Position2).glyph;
         var factor2Glyph = GlyphsForChartPoints.FindGlyph(mutualAspect.Factor2);
-        return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyph, factor1Glyph, position1, 
+        var typeGlyphs = "" + factor1Glyph + mutualAspect.Aspect.GetDetails().Glyph + factor2Glyph;
+        return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyphs, factor1Glyph, position1, 
             signGlyph1, factor2Glyph, position2, signGlyph2);
     }
     
