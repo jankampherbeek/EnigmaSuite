@@ -95,7 +95,7 @@ public static class Dispositors
             // rulers in decanates
 
             var directDecanateCount = 0;
-            var indirectDecanateCount = 0;
+  //          var indirectDecanateCount = 0;
             
             if (useDecanates)
             {
@@ -108,28 +108,11 @@ public static class Dispositors
                         {
                             if (df.Key != decanate) continue;
                             directDecanateCount = df.Value.Count;
-                            foreach (var factor in df.Value)
-                            {
-                                if (factor == decanateRuler.Ruler) continue;
-                                if (factor is not (ChartPoints.Sun or ChartPoints.Moon or ChartPoints.Mercury or ChartPoints.Venus or ChartPoints.Mars or ChartPoints.Jupiter)) continue;
-                                var indirectDecanate = 0;
-                                foreach (var dr in BlaDomain.DecanateRulers())
-                                {
-                                    if (dr.Ruler == factor) indirectDecanate = dr.Decan;  
-                                }
-                                if (indirectDecanate > 0)
-                                {
-                                    indirectDecanateCount+= decanateCounts[indirectDecanate];
-                                    Console.WriteLine($"{factor} {indirectDecanate} adding {decanateCounts[indirectDecanate]}");
-                                }  
-                            }
                         }
                     }
                 }
             }
             
-    
-            var totalDecanateCount = directDecanateCount + indirectDecanateCount;
             
             // rulers in houses
             
@@ -190,11 +173,11 @@ public static class Dispositors
                 }
             }
             var totalHouseCount = directHouseCount + indirectHouseCount;
-            var totalCount = totalSignCount + totalHouseCount + totalDecanateCount;
+            var totalCount = totalSignCount + totalHouseCount + directDecanateCount;
              
             dispositors.Add(new BlaDispositorLine(mainRuler, subRuler, signMainRulerCount, signSubRulerCount, 
                 directSignCount, indirectSignCount, totalSignCount, directHouseCount, indirectHouseCount, totalHouseCount, 
-                directDecanateCount, indirectDecanateCount, totalDecanateCount, totalCount));
+                directDecanateCount, totalCount));
         }
         return dispositors;
         

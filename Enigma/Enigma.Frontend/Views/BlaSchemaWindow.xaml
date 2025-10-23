@@ -359,15 +359,7 @@
                                                     IsReadOnly="True"
                                                     HeaderStyle="{StaticResource HeaderRightAlignStyle}"
                                                     CellStyle="{StaticResource NumberColumnStyle}" />
-                                <DataGridTextColumn Header="Ind " Width="Auto" Binding="{Binding DecanateIndirect, Mode=TwoWay}"
-                                                    IsReadOnly="True"
-                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
-                                                    CellStyle="{StaticResource NumberColumnStyle}" />
-                                <DataGridTextColumn Header="Sum " Width="Auto" Binding="{Binding DecanateSum, Mode=TwoWay}"
-                                                    IsReadOnly="True"
-                                                    HeaderStyle="{StaticResource HeaderRightAlignStyle}"
-                                                    CellStyle="{StaticResource NumberColumnStyle}" />
-                                <DataGridTextColumn Header="Total " Width="Auto" Binding="{Binding Total, Mode=TwoWay}"
+                               <DataGridTextColumn Header="Total " Width="Auto" Binding="{Binding Total, Mode=TwoWay}"
                                                     IsReadOnly="True"
                                                     HeaderStyle="{StaticResource HeaderRightAlignStyle}"
                                                     CellStyle="{StaticResource NumberColumnStyle}" />

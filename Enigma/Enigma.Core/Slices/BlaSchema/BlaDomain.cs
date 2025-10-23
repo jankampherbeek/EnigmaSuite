@@ -133,8 +133,6 @@ public record BlaSignHouseCountLine(int Sign, int House, int Sum, int HCusp, int
 /// <param name="IndirectRulerHouseCount">Count of unique points in houses via indirect rulership</param>
 /// <param name="SumRulerHouseCount">Sum of SumRulerHouseCount and IndirectRulerHoouseCount</param>
 /// <param name="DirectRulerDecanataCount">Count of points in a decanate ruler by main ruler</param>
-/// <param name="IndirectRulerDecanataCount">Count of unique points in decanates via indirect rulership</param>
-/// <param name="SumRulerDecanataCount">Sum of DirectRulerDecanataCount and IndirectRulerDecanataCount</param>   
 /// <param name="Total">Sum of TotalRulerSignCount and TotalRulerHouseCount</param>
 public record BlaDispositorLine(
     ChartPoints MainRuler,
@@ -148,8 +146,6 @@ public record BlaDispositorLine(
     int IndirectRulerHouseCount,
     int SumRulerHouseCount,
     int DirectRulerDecanataCount,
-    int IndirectRulerDecanataCount,
-    int SumRulerDecanataCount,   
     int Total
 );
 

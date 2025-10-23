@@ -21,11 +21,9 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 /// <param name="HouseIndirect">Indirect counts in houses</param>
 /// <param name="HouseSum">Sum of HouseMain and HouseIndirect</param>
 /// <param name="DecanateDirect">Counts in direct decanates</param>
-/// <param name="DecanateIndirect">Indirect counts in decanates</param>
-/// <param name="DecanateSum">Sum of DecanateDirect and DecanateIndirect</param>
 /// <param name="Total">Total of SignSum, HouseSum and DecanateSum</param>
 public record PresentableDispositorCounts(string Rulers, string SignSplitted, int SignMain, int SignIndirect, int SignSum, 
-    int HouseMain, int HouseIndirect, int HouseSum, int DecanateDirect, int DecanateIndirect, int DecanateSum, int Total);
+    int HouseMain, int HouseIndirect, int HouseSum, int DecanateDirect, int Total);
 
 public class DispositorPresFactory
 {
@@ -58,14 +56,9 @@ public class DispositorPresFactory
                 dLine.IndirectRulerHouseCount,
                 dLine.SumRulerHouseCount, 
                 dLine.DirectRulerDecanataCount, 
-                dLine.IndirectRulerDecanataCount, 
-                dLine.SumRulerDecanataCount,
                 dLine.Total));
         }
         return presDispositorCounts;   
     }
-
-    
-    
     
 }
