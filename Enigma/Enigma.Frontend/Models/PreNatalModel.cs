@@ -48,7 +48,7 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
         var factors = new List<ChartPoints>  // TODO use selected factors
         {
             ChartPoints.Sun,
-            ChartPoints.Moon,
+       //     ChartPoints.Moon,
             ChartPoints.Mercury,
             ChartPoints.Venus,
             ChartPoints.Mars,

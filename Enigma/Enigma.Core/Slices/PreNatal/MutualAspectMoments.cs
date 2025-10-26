@@ -15,402 +15,120 @@ public static class MutualAspectMoments
 {
     private static readonly CalcUtFacade CalcUtFacade = new CalcUtFacade();
 
+    /// <summary>
+    /// Find all mutual aspects for a given period.
+    /// </summary>
+    /// <param name="factors">All factors to include</param>
+    /// <param name="aspects">All aspects to include</param>
+    /// <param name="startJd">Julian day to start with</param>
+    /// <param name="endJd">Julian day for end of period</param>
+    /// <returns>List of aspects found</returns>
     public static List<MutualAspect> FindMutualAspectMoments(List<ChartPoints> factors, List<AspectTypes> aspects,
         double startJd, double endJd)
     {
         var mutualAspectMoments = new List<MutualAspect>();
+ 
         for (var i = 0; i < factors.Count; i++)
         {
             for (var j = i+1; j < factors.Count; j++)
             {
                 var factor1 = factors[i];
                 var factor2 = factors[j];
-                var aspectsFound = FindMutualAspectMomentsForFactors(factor1, factor2, aspects, startJd, endJd);
+                var aspectsFound = FindAspectsForFactors(factor1, factor2, aspects, startJd, endJd);
                 mutualAspectMoments.AddRange(aspectsFound);
             }
         }
         return mutualAspectMoments;
     }
-    
-    /* Prompt: Scan for the moment that an exact aspect is formed between two celestial points (factor1 and factor2).
-     * The angle of the aspects is defined by the AspectTypes.
-     * The method CalcLongitude() can be used to calculate the longitude of a celestial point at a given jd.
-     * The accuracy should be better than 0.1 second of arc.
-     * Uses a bisection algorithm to find the exact moment when the aspect is exact.
-     */
-    private static List<MutualAspect> FindMutualAspectMomentsForFactors(ChartPoints factor1, ChartPoints factor2,
-        List<AspectTypes> aspects, double startJd, double endJd)
+
+
+    private static List<MutualAspect> FindAspectsForFactors(ChartPoints factor1, ChartPoints factor2, List<AspectTypes> aspects,
+        double startJd, double endJd)
     {
         var aspectsFound = new List<MutualAspect>();
-        const double stepSize = 1.0; // 1 day step for initial scan
-        const double tolerance = 1.0 / 3600.0 / 10.0; // 0.1 arcsecond in degrees
-        const double duplicateThreshold = 0.6; // Within ~14.4 hours - should be same aspect
-        
-        // Get all aspect angles we're looking for
-        var aspectAngles = aspects.Select(a => a.GetDetails().Angle).Distinct().ToList();
-        
-        // Build a list of all distance measurements first
-        var measurements = new List<(double jd, double dist)>();
-        for (double jd = startJd; jd <= endJd; jd += stepSize)
+        var initialStepSize = DefineInitialStepSize(factor1, factor2);
+        foreach (var aspect in aspects)
         {
-            double lon1 = CalcLongitude(factor1, jd);
-            double lon2 = CalcLongitude(factor2, jd);
-            double dist = CalculateAngularDistance(lon1, lon2);
-            measurements.Add((jd, dist));
+            var newAspectsFound = BinarySearchForAspect(factor1, factor2, aspect, startJd, endJd, initialStepSize);
+            aspectsFound.AddRange(newAspectsFound);
         }
-        
-        // Now scan for aspect crossings
-        for (int i = 0; i < measurements.Count - 1; i++)
+        return aspectsFound;
+    }
+
+
+    private static List<MutualAspect> BinarySearchForAspect(ChartPoints factor1, ChartPoints factor2, AspectTypes aspect,
+        double jdStart, double jdEnd, double stepSize)
+    {
+        const double marginForJd = 0.000001;            // better than 0.1 second of time
+        var newAspects = new List<MutualAspect>();
+        var angle = (aspect.GetDetails().Angle);
+        var jdCurrent = jdStart - stepSize;       // start early to be able to check the first step
+        while (jdCurrent <= jdEnd)
         {
-            foreach (var aspectAngle in aspectAngles)
+            if (jdCurrent >= jdStart)
             {
-                bool crossed = false;
-                double searchStartJd = measurements[i].jd;
-                double searchEndJd = measurements[i + 1].jd;
-                
-                if (Math.Abs(aspectAngle) < 0.01) // Conjunction (0 degrees)
+                var jdNew = jdCurrent + stepSize;
+                var longFactor1Current = CalcLongitude(factor1, jdCurrent);
+                var longFactor2Current = CalcLongitude(factor2, jdCurrent);
+                var distanceCurrent = DefineDistance(longFactor1Current, longFactor2Current);
+                var longFactor1New = CalcLongitude(factor1, jdNew);
+                var longFactor2New = CalcLongitude(factor2, jdNew);
+                var distanceNew = DefineDistance(longFactor1New, longFactor2New);
+                if (distanceCurrent <= angle && distanceNew >= angle ||         // take retrogradation into account
+                    distanceNew <= angle && distanceCurrent >= angle)
                 {
-                    // For conjunction, detect local minimum (valley) at position i
-                    // Need i-1, i, and i+1 to confirm a valley
-                    // Only detect at the TRUE minimum to avoid duplicates
-                    if (i > 0 && i < measurements.Count - 1)
+                    Console.WriteLine($"Found aspect {aspect} between {factor1} and {factor2} at {jdCurrent}");
+                    if (Math.Abs(jdNew - jdCurrent) < marginForJd)
                     {
-                        double beforeDist = measurements[i - 1].dist;
-                        double currentDist = measurements[i].dist;
-                        double nextDist = measurements[i + 1].dist;
-                        
-                        // Valley detected: before > current < next with clear differences
-                        // Use a threshold to ensure it's a real valley, not noise
-                        const double valleyThreshold = 0.05; // degrees
-                        bool isValley = (beforeDist - currentDist > valleyThreshold) && 
-                                       (nextDist - currentDist > valleyThreshold) && 
-                                       currentDist < 5.0;
-                        
-                        if (isValley)
-                        {
-                            crossed = true;
-                            // Search around the valley: from before to next
-                            searchStartJd = measurements[i - 1].jd;
-                            searchEndJd = measurements[i + 1].jd;
-                        }
+                        newAspects.Add(new MutualAspect(jdCurrent, factor1, factor2, longFactor1Current, longFactor2Current, aspect));
+                        // no return yet, as more aspects can be found, especially when the Moon is involved or in the case of retrogradation
                     }
-                }
-                else if (Math.Abs(aspectAngle - 180.0) < 0.01) // Opposition (180 degrees)
-                {
-                    // For opposition, we have two detection methods:
-                    // 1. Peak detection (for slower-moving planets)
-                    // 2. Proximity detection (if distance is very close to 180 between two measurements)
-                    
-                    double dist1 = measurements[i].dist;
-                    double dist2 = measurements[i + 1].dist;
-                    
-                    // Method 1: Peak detection at position i
-                    bool peakDetected = false;
-                    if (i > 0 && i < measurements.Count - 1)
+                    else
                     {
-                        double beforeDist = measurements[i - 1].dist;
-                        double currentDist = measurements[i].dist;
-                        double nextDist = measurements[i + 1].dist;
-                        
-                        // Peak detected: before < current > next
-                        const double peakThreshold = 0.01; // degrees
-                        peakDetected = (currentDist - beforeDist > peakThreshold) && 
-                                      (currentDist - nextDist > peakThreshold) && 
-                                      currentDist > 170.0;
-                        
-                        if (peakDetected)
-                        {
-                            crossed = true;
-                            searchStartJd = measurements[i - 1].jd;
-                            searchEndJd = measurements[i + 1].jd;
-                        }
-                    }
-                    
-                    // Method 2: Proximity detection - if both measurements are close to 180
-                    // This catches cases where the peak occurs between sampling points
-                    if (!peakDetected)
-                    {
-                        const double proximityThreshold = 3.0; // degrees from 180
-                        bool bothClose = (Math.Abs(dist1 - 180.0) < proximityThreshold) && 
-                                        (Math.Abs(dist2 - 180.0) < proximityThreshold);
-                        
-                        // Also check if we're in the "peak region" - both distances should be relatively high
-                        bool inPeakRegion = dist1 > 177.0 && dist2 > 177.0;
-                        
-                        if (bothClose || inPeakRegion)
-                        {
-                            crossed = true;
-                            searchStartJd = measurements[i].jd;
-                            searchEndJd = measurements[i + 1].jd;
-                        }
-                    }
-                }
-                else
-                {
-                    // For other aspects, check if crossed between measurements[i] and measurements[i+1]
-                    double dist1 = measurements[i].dist;
-                    double dist2 = measurements[i + 1].dist;
-                    double minDist = Math.Min(dist1, dist2);
-                    double maxDist = Math.Max(dist1, dist2);
-                    
-                    // Aspect is crossed if it lies between the two measurements
-                    if (aspectAngle >= minDist - 0.001 && aspectAngle <= maxDist + 0.001)
-                    {
-                        // Make sure there's actual movement (not just noise)
-                        if (Math.Abs(maxDist - minDist) > 0.01)
-                        {
-                            crossed = true;
-                            searchStartJd = measurements[i].jd;
-                            searchEndJd = measurements[i + 1].jd;
-                        }
-                    }
-                }
-                
-                if (crossed)
-                {
-                    // Find the exact moment using bisection
-                    var exactMoment = FindExactAspectMoment(factor1, factor2, aspectAngle, searchStartJd, searchEndJd, tolerance);
-                    
-                    // Check for duplicates - aspects within duplicateThreshold days with same type
-                    bool isDuplicate = aspectsFound.Any(a => 
-                        Math.Abs(a.PreNatalJd - exactMoment.PreNatalJd) < duplicateThreshold && 
-                        a.Aspect == exactMoment.Aspect &&
-                        a.Factor1 == exactMoment.Factor1 &&
-                        a.Factor2 == exactMoment.Factor2);
-                    
-                    if (!isDuplicate)
-                    {
-                        aspectsFound.Add(exactMoment);
+                        newAspects.AddRange(BinarySearchForAspect(factor1, factor2, aspect, jdCurrent, jdNew, stepSize/10.0));
                     }
                 }
             }
+            jdCurrent += stepSize;
         }
-        
-        return aspectsFound;
+        return newAspects;
     }
-    
-    private static double CalculateAngularDistance(double lon1, double lon2)
+
+    /// <summary>
+    /// Define intial stepsize based on ChartPoints involved
+    /// </summary>
+    /// <param name="factor1">The first factor</param>
+    /// <param name="factor2">The second factor</param>
+    /// <returns>A stepsize of 0.1 is the Moon is involved, else 1.0 if Sun, Mercury, Venus or Mars are involved, else 2.0</returns>
+    private static double DefineInitialStepSize(ChartPoints factor1, ChartPoints factor2)
     {
-        var distance = Math.Abs(lon2 - lon1);
-        // Normalize to 0-360
-        while (distance >= 360.0) distance -= 360.0;
-        // Take the shortest arc
+        var fastFactors = new List<ChartPoints>
+        {
+            ChartPoints.Sun,
+            ChartPoints.Mercury,
+            ChartPoints.Venus,
+            ChartPoints.Mars
+        };
+        
+        if (factor1 == ChartPoints.Moon || factor2 == ChartPoints.Moon) return 0.1;
+        if (fastFactors.Contains(factor1) || fastFactors.Contains(factor2)) return 1.0;
+        return 2.0;
+    }
+
+    /// <summary>
+    /// Define distance for aspects.
+    /// </summary>
+    /// <param name="longitude1">Longitudeof first factor</param>
+    /// <param name="longitude2">Longitude of second factor</param>
+    /// <returns>The absolute shortest distance between the given longitudes</returns>
+    private static double DefineDistance(double longitude1, double longitude2)
+    {
+        var distance = Math.Abs(longitude1 - longitude2);
+        if (distance > 360.0) distance -= 360.0;
         if (distance > 180.0) distance = 360.0 - distance;
         return distance;
     }
-    
-    private static bool AspectCrossed(double distance1, double distance2, double aspectAngle)
-    {
-        // Check if the aspect angle was crossed between the two time points
-        // The aspect is crossed if it lies between the two distance measurements
-        
-        var min = Math.Min(distance1, distance2);
-        var max = Math.Max(distance1, distance2);
-        
-        // The aspect was crossed if the aspect angle is between the two distances
-        // We also check that we're not exactly at the aspect angle at both points (avoid edge cases)
-        return (aspectAngle >= min && aspectAngle <= max) && (distance1 != distance2);
-    }
-    
-    private static MutualAspect FindExactAspectMoment(ChartPoints factor1, ChartPoints factor2, 
-        double aspectAngle, double jd1, double jd2, double tolerance)
-    {
-        var low = jd1;
-        var high = jd2;
-        AspectTypes aspectType = AspectTypes.Conjunction;
-        
-        // Find the aspect type from the angle
-        foreach (AspectTypes asp in Enum.GetValues(typeof(AspectTypes)))
-        {
-            if (Math.Abs(asp.GetDetails().Angle - aspectAngle) < 0.001)
-            {
-                aspectType = asp;
-                break;
-            }
-        }
-        
-        const int maxIterations = 100;
-        var iterations = 0;
-        const double minTimeStep = 0.00001; // About 0.86 seconds in JD
-        
-        while (high - low > minTimeStep && iterations < maxIterations)
-        {
-            iterations++;
-            
-            // Calculate distances at the three points
-            var lon1Low = CalcLongitude(factor1, low);
-            var lon2Low = CalcLongitude(factor2, low);
-            var distanceLow = CalculateAngularDistance(lon1Low, lon2Low);
-            
-            var mid = (low + high) / 2.0;
-            var lon1Mid = CalcLongitude(factor1, mid);
-            var lon2Mid = CalcLongitude(factor2, mid);
-            var distanceMid = CalculateAngularDistance(lon1Mid, lon2Mid);
-            
-            var lon1High = CalcLongitude(factor1, high);
-            var lon2High = CalcLongitude(factor2, high);
-            var distanceHigh = CalculateAngularDistance(lon1High, lon2High);
-            
-            // Check if we're close enough to the exact aspect at mid
-            if (Math.Abs(distanceMid - aspectAngle) < tolerance)
-            {
-                return new MutualAspect(mid, factor1, factor2, lon1Mid, lon2Mid, aspectType);
-            }
-            
-            // For conjunction (aspectAngle = 0), find the minimum distance
-            if (Math.Abs(aspectAngle) < 0.01)
-            {
-                // Use ternary search logic to find minimum
-                // If mid is less than both endpoints, we're getting close
-                if (distanceMid < distanceLow && distanceMid < distanceHigh)
-                {
-                    // Mid is the best so far, but we need to determine which side to search
-                    // Calculate a point slightly to the left and right to determine slope
-                    var quarter1 = (low + mid) / 2.0;
-                    var quarter3 = (mid + high) / 2.0;
-                    
-                    var lon1Q1 = CalcLongitude(factor1, quarter1);
-                    var lon2Q1 = CalcLongitude(factor2, quarter1);
-                    var distanceQ1 = CalculateAngularDistance(lon1Q1, lon2Q1);
-                    
-                    var lon1Q3 = CalcLongitude(factor1, quarter3);
-                    var lon2Q3 = CalcLongitude(factor2, quarter3);
-                    var distanceQ3 = CalculateAngularDistance(lon1Q3, lon2Q3);
-                    
-                    // Search the side with the smaller distance
-                    if (distanceQ1 < distanceQ3)
-                    {
-                        high = mid;
-                    }
-                    else
-                    {
-                        low = mid;
-                    }
-                }
-                else if (distanceLow < distanceHigh)
-                {
-                    // Minimum is in the lower half
-                    high = mid;
-                }
-                else
-                {
-                    // Minimum is in the upper half
-                    low = mid;
-                }
-            }
-            // For opposition (aspectAngle = 180), find the maximum distance
-            else if (Math.Abs(aspectAngle - 180.0) < 0.01)
-            {
-                // Use ternary search logic to find maximum
-                // If mid is greater than both endpoints, we're getting close
-                if (distanceMid > distanceLow && distanceMid > distanceHigh)
-                {
-                    // Mid is the best so far, but we need to determine which side to search
-                    // Calculate a point slightly to the left and right to determine slope
-                    var quarter1 = (low + mid) / 2.0;
-                    var quarter3 = (mid + high) / 2.0;
-                    
-                    var lon1Q1 = CalcLongitude(factor1, quarter1);
-                    var lon2Q1 = CalcLongitude(factor2, quarter1);
-                    var distanceQ1 = CalculateAngularDistance(lon1Q1, lon2Q1);
-                    
-                    var lon1Q3 = CalcLongitude(factor1, quarter3);
-                    var lon2Q3 = CalcLongitude(factor2, quarter3);
-                    var distanceQ3 = CalculateAngularDistance(lon1Q3, lon2Q3);
-                    
-                    // Search the side with the larger distance
-                    if (distanceQ1 > distanceQ3)
-                    {
-                        high = mid;
-                    }
-                    else
-                    {
-                        low = mid;
-                    }
-                }
-                else if (distanceLow > distanceHigh)
-                {
-                    // Maximum is in the lower half
-                    high = mid;
-                }
-                else
-                {
-                    // Maximum is in the upper half
-                    low = mid;
-                }
-            }
-            else
-            {
-                // For other aspects, find where the aspect angle is crossed
-                // Determine which half contains the aspect angle
-                var deltaLow = Math.Abs(distanceLow - aspectAngle);
-                var deltaMid = Math.Abs(distanceMid - aspectAngle);
-                var deltaHigh = Math.Abs(distanceHigh - aspectAngle);
-                
-                // The aspect angle should be between low and mid, or between mid and high
-                bool inLowerHalf = (aspectAngle >= Math.Min(distanceLow, distanceMid) && 
-                                   aspectAngle <= Math.Max(distanceLow, distanceMid));
-                bool inUpperHalf = (aspectAngle >= Math.Min(distanceMid, distanceHigh) && 
-                                   aspectAngle <= Math.Max(distanceMid, distanceHigh));
-                
-                if (inLowerHalf && !inUpperHalf)
-                {
-                    high = mid;
-                }
-                else if (inUpperHalf && !inLowerHalf)
-                {
-                    low = mid;
-                }
-                else
-                {
-                    // If ambiguous, use the half with smaller error
-                    if (deltaLow + deltaMid < deltaMid + deltaHigh)
-                    {
-                        high = mid;
-                    }
-                    else
-                    {
-                        low = mid;
-                    }
-                }
-            }
-        }
-        
-        // Final calculation - use the best point among low, mid, high
-        var finalMid = (low + high) / 2.0;
-        
-        var finalLon1Low = CalcLongitude(factor1, low);
-        var finalLon2Low = CalcLongitude(factor2, low);
-        var finalDistanceLow = CalculateAngularDistance(finalLon1Low, finalLon2Low);
-        
-        var finalLon1Mid = CalcLongitude(factor1, finalMid);
-        var finalLon2Mid = CalcLongitude(factor2, finalMid);
-        var finalDistanceMid = CalculateAngularDistance(finalLon1Mid, finalLon2Mid);
-        
-        var finalLon1High = CalcLongitude(factor1, high);
-        var finalLon2High = CalcLongitude(factor2, high);
-        var finalDistanceHigh = CalculateAngularDistance(finalLon1High, finalLon2High);
-        
-        // Choose the point closest to the aspect angle
-        var errorLow = Math.Abs(finalDistanceLow - aspectAngle);
-        var errorMid = Math.Abs(finalDistanceMid - aspectAngle);
-        var errorHigh = Math.Abs(finalDistanceHigh - aspectAngle);
-        
-        if (errorLow <= errorMid && errorLow <= errorHigh)
-        {
-            return new MutualAspect(low, factor1, factor2, finalLon1Low, finalLon2Low, aspectType);
-        }
-        else if (errorMid <= errorHigh)
-        {
-            return new MutualAspect(finalMid, factor1, factor2, finalLon1Mid, finalLon2Mid, aspectType);
-        }
-        else
-        {
-            return new MutualAspect(high, factor1, factor2, finalLon1High, finalLon2High, aspectType);
-        }
-    }
-    
-    
+      
     
     private static double CalcLongitude(ChartPoints factor, double jd)
     {
