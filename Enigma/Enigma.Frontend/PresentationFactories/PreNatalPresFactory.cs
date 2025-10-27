@@ -187,7 +187,7 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         var hour = (int)ut;
         var remaining = ut - hour;
         var minute = (int)(remaining * 60);
-        remaining -= minute / 60.0;
+        remaining = minute / 60.0;
         var second = (int)(remaining * 60);
         var hourTxt = hour > 9 ? hour.ToString() : "0" + hour;
         var minuteTxt = minute > 9 ? minute.ToString() : "0" + minute;

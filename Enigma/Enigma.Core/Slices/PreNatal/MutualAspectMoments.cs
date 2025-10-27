@@ -62,19 +62,6 @@ public static class MutualAspectMoments
     {
         const double marginForJd = 0.000001;            // better than 0.1 second of time
         var newAspects = new List<MutualAspect>();
-        // if (aspect == AspectTypes.Conjunction)
-        // {
-        //     // return Math.Abs(distanceCurrent - distanceNew) < margin;
-        //     var factors = new[] {factor1, factor2};
-        //     newAspects.AddRange(mConOpp.FindAspects(factors, jdStart, jdEnd, aspect));
-        // }
-        // else if (aspect == AspectTypes.Opposition)
-        // {
-        //     var factors = new[] {factor1, factor2};
-        //     newAspects.AddRange(mConOpp.FindAspects(factors, jdStart, jdEnd, aspect));
-        // }
-        // else
-        // {
             var angle = (aspect.GetDetails().Angle);
             var jdCurrent = jdStart - stepSize; // start early to be able to check the first step
             while (jdCurrent <= jdEnd)
@@ -84,10 +71,8 @@ public static class MutualAspectMoments
                     var jdNew = jdCurrent + stepSize;
                     var longFactor1Current = LongitudeCalculator.CalcLongitude(factor1, jdCurrent);
                     var longFactor2Current = LongitudeCalculator.CalcLongitude(factor2, jdCurrent);
-                    // var distanceCurrent = DefineDistance(longFactor1Current, longFactor2Current);
                     var longFactor1New = LongitudeCalculator.CalcLongitude(factor1, jdNew);
                     var longFactor2New = LongitudeCalculator.CalcLongitude(factor2, jdNew);
-                    // var distanceNew = DefineDistance(longFactor1New, longFactor2New);
                     var factors1 = new[] { longFactor1Current, longFactor1New };
                     var factors2 = new[] { longFactor2Current, longFactor2New };
                     var aspectDetected = false;
@@ -122,7 +107,6 @@ public static class MutualAspectMoments
 
                 jdCurrent += stepSize;
             }
-     //   }
         return newAspects;
     }
 
