@@ -48,7 +48,7 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
         var factors = new List<ChartPoints>  // TODO use selected factors
         {
             ChartPoints.Sun,
-       //     ChartPoints.Moon,
+            ChartPoints.Moon,
             ChartPoints.Mercury,
             ChartPoints.Venus,
             ChartPoints.Mars,
@@ -60,12 +60,13 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
         };
         var aspects = new List<AspectTypes>    // TODO use selected aspects
         {
+            // TODO exclude points thar are always in aspect
             AspectTypes.Conjunction,
-            AspectTypes.Sextile,
-            AspectTypes.Square,
-            AspectTypes.Triangle,
+             AspectTypes.Sextile,
+             AspectTypes.Square,
+            // AspectTypes.Triangle,
             AspectTypes.Opposition,
-            AspectTypes.Inconjunct
+            // AspectTypes.Inconjunct
         };
         var moments = PreNatalOrchestrator.ConstructPreNatalMoments(factors, aspects, _baseConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
         _presPreNatalMoments = preNatalPresFactory.GetPreNatalMoments(moments, _baseConceptionJd, _calendar);

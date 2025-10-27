@@ -13,7 +13,8 @@ namespace Enigma.Core.Slices.PreNatal;
 /// </summary>
 public static class MutualAspectMoments
 {
-    private static readonly CalcUtFacade CalcUtFacade = new CalcUtFacade();
+   
+  //  private static MutualConjunctionsOppositions mConOpp = new MutualConjunctionsOppositions();
 
     /// <summary>
     /// Find all mutual aspects for a given period.
@@ -61,36 +62,67 @@ public static class MutualAspectMoments
     {
         const double marginForJd = 0.000001;            // better than 0.1 second of time
         var newAspects = new List<MutualAspect>();
-        var angle = (aspect.GetDetails().Angle);
-        var jdCurrent = jdStart - stepSize;       // start early to be able to check the first step
-        while (jdCurrent <= jdEnd)
-        {
-            if (jdCurrent >= jdStart)
+        // if (aspect == AspectTypes.Conjunction)
+        // {
+        //     // return Math.Abs(distanceCurrent - distanceNew) < margin;
+        //     var factors = new[] {factor1, factor2};
+        //     newAspects.AddRange(mConOpp.FindAspects(factors, jdStart, jdEnd, aspect));
+        // }
+        // else if (aspect == AspectTypes.Opposition)
+        // {
+        //     var factors = new[] {factor1, factor2};
+        //     newAspects.AddRange(mConOpp.FindAspects(factors, jdStart, jdEnd, aspect));
+        // }
+        // else
+        // {
+            var angle = (aspect.GetDetails().Angle);
+            var jdCurrent = jdStart - stepSize; // start early to be able to check the first step
+            while (jdCurrent <= jdEnd)
             {
-                var jdNew = jdCurrent + stepSize;
-                var longFactor1Current = CalcLongitude(factor1, jdCurrent);
-                var longFactor2Current = CalcLongitude(factor2, jdCurrent);
-                var distanceCurrent = DefineDistance(longFactor1Current, longFactor2Current);
-                var longFactor1New = CalcLongitude(factor1, jdNew);
-                var longFactor2New = CalcLongitude(factor2, jdNew);
-                var distanceNew = DefineDistance(longFactor1New, longFactor2New);
-                if (distanceCurrent <= angle && distanceNew >= angle ||         // take retrogradation into account
-                    distanceNew <= angle && distanceCurrent >= angle)
+                if (jdCurrent >= jdStart)
                 {
-                    Console.WriteLine($"Found aspect {aspect} between {factor1} and {factor2} at {jdCurrent}");
-                    if (Math.Abs(jdNew - jdCurrent) < marginForJd)
+                    var jdNew = jdCurrent + stepSize;
+                    var longFactor1Current = LongitudeCalculator.CalcLongitude(factor1, jdCurrent);
+                    var longFactor2Current = LongitudeCalculator.CalcLongitude(factor2, jdCurrent);
+                    // var distanceCurrent = DefineDistance(longFactor1Current, longFactor2Current);
+                    var longFactor1New = LongitudeCalculator.CalcLongitude(factor1, jdNew);
+                    var longFactor2New = LongitudeCalculator.CalcLongitude(factor2, jdNew);
+                    // var distanceNew = DefineDistance(longFactor1New, longFactor2New);
+                    var factors1 = new[] { longFactor1Current, longFactor1New };
+                    var factors2 = new[] { longFactor2Current, longFactor2New };
+                    var aspectDetected = false;
+                    if (aspect == AspectTypes.Conjunction)
                     {
-                        newAspects.Add(new MutualAspect(jdCurrent, factor1, factor2, longFactor1Current, longFactor2Current, aspect));
-                        // no return yet, as more aspects can be found, especially when the Moon is involved or in the case of retrogradation
+                        aspectDetected = CheckForConjunction(factors1, factors2);
+                    }
+                    else if (aspect == AspectTypes.Opposition)
+                    {
+                        aspectDetected = CheckForOpposition(factors1, factors2);
                     }
                     else
                     {
-                        newAspects.AddRange(BinarySearchForAspect(factor1, factor2, aspect, jdCurrent, jdNew, stepSize/10.0));
+                        aspectDetected = CheckForAspect(aspect, factors1, factors2, marginForJd);
+                    }
+
+                    if (aspectDetected)
+                    {
+                        if (Math.Abs(jdNew - jdCurrent) < marginForJd)
+                        {
+                            newAspects.Add(new MutualAspect(jdCurrent, factor1, factor2, longFactor1Current,
+                                longFactor2Current, aspect));
+                            // no return yet, as more aspects can be found, especially when the Moon is involved or in the case of retrogradation
+                        }
+                        else
+                        {
+                            newAspects.AddRange(BinarySearchForAspect(factor1, factor2, aspect, jdCurrent, jdNew,
+                                stepSize / 10.0));
+                        }
                     }
                 }
+
+                jdCurrent += stepSize;
             }
-            jdCurrent += stepSize;
-        }
+     //   }
         return newAspects;
     }
 
@@ -110,9 +142,9 @@ public static class MutualAspectMoments
             ChartPoints.Mars
         };
         
-        if (factor1 == ChartPoints.Moon || factor2 == ChartPoints.Moon) return 0.1;
-        if (fastFactors.Contains(factor1) || fastFactors.Contains(factor2)) return 1.0;
-        return 2.0;
+        if (factor1 == ChartPoints.Moon || factor2 == ChartPoints.Moon) return 0.2;
+        if (fastFactors.Contains(factor1) || fastFactors.Contains(factor2)) return 2.0;
+        return 4.0;
     }
 
     /// <summary>
@@ -128,14 +160,46 @@ public static class MutualAspectMoments
         if (distance > 180.0) distance = 360.0 - distance;
         return distance;
     }
-      
-    
-    private static double CalcLongitude(ChartPoints factor, double jd)
+
+    private static bool CheckForAspect(AspectTypes aspect, double[] positionsFactor1, double[] positionsFactor2, double margin)
     {
-        var seId = factor.GetDetails().CalcId;
-        var flags = 2;      // Use SE, no speed
-        var positions = CalcUtFacade.PositionFromSe(jd, seId, flags);
-        return positions[0];
+        var angle = (aspect.GetDetails().Angle);
+        var distanceCurrent = DefineDistance(positionsFactor1[0], positionsFactor2[0]);
+        var distanceNew = DefineDistance(positionsFactor1[1], positionsFactor2[1]);
+        return (Math.Abs(distanceCurrent) < angle && Math.Abs(distanceNew) > angle) ||
+               (Math.Abs(distanceCurrent) > angle && Math.Abs(distanceNew) < angle);
+
+    }
+
+    private static bool CheckForConjunction(double[] positionsFactor1, double[] positionsFactor2)
+    {
+        if (Math.Abs(positionsFactor1[0] - positionsFactor2[0]) > 4.0) return false;
+        var distanceCurrent = positionsFactor1[0] -  positionsFactor2[0];
+        var distanceNew = positionsFactor1[1] - positionsFactor2[1];
+        switch (distanceCurrent)
+        {
+            case < 0.0 when distanceNew > 0.0:
+            case > 0.0 when distanceNew < 0.0:
+                return true;
+            default:
+                return false;
+        }
+    }
+ 
+    private static bool CheckForOpposition(double[] positionsFactor1, double[] positionsFactor2)
+    {
+        if (Math.Abs(positionsFactor1[0] - positionsFactor2[0]) > 184.0) return false;
+        if (Math.Abs(positionsFactor1[0] - positionsFactor2[0]) < 176.0) return false;
+        var distanceCurrent = positionsFactor1[0] -  positionsFactor2[0];
+        var distanceNew = positionsFactor1[1] - positionsFactor2[1];
+        switch (distanceCurrent)
+        {
+            case < 180.0 when distanceNew > 180.0:
+            case > 1800.0 when distanceNew < 180.0:
+                return true;
+            default:
+                return false;
+        }
     }
     
 }
