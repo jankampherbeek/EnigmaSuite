@@ -47,12 +47,16 @@ public static class IngressMoments
                     var jdNew = jdCurrent + stepSize;
                     var longitude1 = LongitudeCalculator.CalcLongitude(factor, jdCurrent);
                     var longitude2 = LongitudeCalculator.CalcLongitude(factor, jdNew);
-                    var sign1 = (int)longitude1 / 30 + 1;
-                    var sign2 = (int)longitude2 / 30 + 1;
+                    var sign1 = (int)(longitude1 / 30) + 1;
+                    var sign2 = (int)(longitude2 / 30) + 1;
                     if (sign1 != sign2)
                     {
-                        var newSign = longitude1 < longitude2 ? sign2 : sign1;  // check for retrogradation
-                        if (stepSize < margin)
+                     //   var newSign = longitude1 < longitude2 ? sign2 : sign1;  // check for retrogradation
+                     var newSign = sign2; 
+                     if (sign1 > sign2 && !(sign1 == 12 && sign2 ==1)) newSign = sign1;
+                     
+                     
+                     if (stepSize < margin)
                         {
                             newIngresses.Add(new Ingress(jdCurrent, factor, newSign));
                         }
