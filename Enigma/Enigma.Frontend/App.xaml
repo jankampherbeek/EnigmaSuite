@@ -66,6 +66,11 @@
                 <Setter Property="FontFamily" Value="EnigmaAstrologyBLA2" />
                 <Setter Property="HorizontalAlignment" Value="Right" />
             </Style>
+            <Style x:Key="GlyphColumnStyleCenterAligned" TargetType="{x:Type DataGridCell}">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="EnigmaAstrologyBLA2" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+            </Style>
             <Style x:Key="NumberTextBlockStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="FontSize" Value="12" />
                 <Setter Property="FontFamily" Value="DejaVu Sans Mono" />

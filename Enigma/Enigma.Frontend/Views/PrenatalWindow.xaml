@@ -108,7 +108,7 @@
                         <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding RealDateTime, Mode=TwoWay}"
                                             IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
                         <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding TypeGlyphs, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleCenterAligned}" />
                         <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor1Glyph, Mode=TwoWay}"
                                             IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
                         <DataGridTextColumn Header="Longitude" Width="Auto" Binding="{Binding Position1, Mode=TwoWay}"
