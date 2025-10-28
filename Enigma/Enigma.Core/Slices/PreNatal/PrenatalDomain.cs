@@ -46,3 +46,13 @@ public record Ingress(double PreNatalJd, ChartPoints Factor, int Sign): PreNatal
 /// <param name="Aspect">The aspect that is formed</param>
 public record MutualAspect(double PreNatalJd, ChartPoints Factor1, ChartPoints Factor2, double Position1, double Position2, 
     AspectTypes Aspect): PreNatalParent(PreNatalJd);
+    
+    
+/// <summary>
+/// Settings for the types of moments that can be used in PreNatal calculations
+/// </summary>
+/// <param name="UseAspects">True if aspects should be used</param>
+/// <param name="UseEclipses">True if eclipses shoould be used</param>
+/// <param name="UseIngresses">True if ingresses should be used</param>
+/// <param name="UseRetrogradeDirect">True if retrograde/direct should be used</param>
+public record TypeSettings(bool UseAspects, bool UseEclipses, bool UseIngresses, bool UseRetrogradeDirect);

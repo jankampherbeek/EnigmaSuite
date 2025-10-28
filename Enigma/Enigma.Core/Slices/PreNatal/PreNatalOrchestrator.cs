@@ -11,20 +11,33 @@ public static class PreNatalOrchestrator
 {
 
     public static List<PreNatalParent> ConstructPreNatalMoments(List<ChartPoints> factors, 
-        List<AspectTypes> aspects,
+        List<AspectTypes> aspects, TypeSettings typeSettings,
         double jdStart, double jdEnd)
     {
         var preNatalMoments = new List<PreNatalParent>();
-        var eclipses = EclipseMoments.FindEclipses(jdStart, jdEnd);
-        var ingresses = IngressMoments.FindIngressMoments(factors, jdStart, jdEnd);
-        var retroDirects = RetroDirectMoments.FindRetroDirectMoments(factors, jdStart, jdEnd);
-        var mutualAspects = MutualAspectMoments.FindMutualAspectMoments(factors, aspects, jdStart, jdEnd);
-        
-        preNatalMoments.AddRange(eclipses);
-        preNatalMoments.AddRange(ingresses);
-        preNatalMoments.AddRange(retroDirects);
-        preNatalMoments.AddRange(mutualAspects);
-        
+        if (typeSettings.UseEclipses)
+        {
+            var eclipses = EclipseMoments.FindEclipses(jdStart, jdEnd);            
+            preNatalMoments.AddRange(eclipses);
+        }
+
+        if (typeSettings.UseIngresses)
+        {
+            var ingresses = IngressMoments.FindIngressMoments(factors, jdStart, jdEnd);   
+            preNatalMoments.AddRange(ingresses);
+        }
+
+        if (typeSettings.UseRetrogradeDirect)
+        {
+            var retroDirects = RetroDirectMoments.FindRetroDirectMoments(factors, jdStart, jdEnd);  
+            preNatalMoments.AddRange(retroDirects);
+        }
+
+        if (typeSettings.UseAspects)
+        {
+            var mutualAspects = MutualAspectMoments.FindMutualAspectMoments(factors, aspects, jdStart, jdEnd);
+            preNatalMoments.AddRange(mutualAspects);
+        }
         preNatalMoments = preNatalMoments.OrderBy(x => x.PreNatalJd).ToList();
 
         return preNatalMoments;

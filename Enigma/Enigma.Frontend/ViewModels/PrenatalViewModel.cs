@@ -24,6 +24,10 @@ public partial class PrenatalViewModel : ObservableObject
     private PreNatalModel _preNatalModel = App.ServiceProvider.GetRequiredService<PreNatalModel>();
 
     [ObservableProperty] private string _chartName = "Chart Name";
+    [ObservableProperty] private bool _useAspects;
+    [ObservableProperty] private bool _useEclipses;
+    [ObservableProperty] private bool _useIngresses;
+    [ObservableProperty] private bool _useRetrogradeDirect;
     [ObservableProperty] private List<PresentablePreNatalMoment> _preNatalMoments = new();
     [ObservableProperty] private List<PresentablePreNatalEvent> _preNatalEvents = new();
     
@@ -43,7 +47,46 @@ public partial class PrenatalViewModel : ObservableObject
 
     public PrenatalViewModel()
     {
-        PreNatalMoments = _preNatalModel.GetPrenatalMoments();
-        PreNatalEvents = _preNatalModel.GetPrenatalEvents();            
+        UseAspects = true;
+        UseEclipses = true;
+        UseIngresses = false;
+        UseRetrogradeDirect = false;
+        
+      
     }
+
+    public void Populate()
+    {
+        _preNatalModel.useAspects = UseAspects;
+        _preNatalModel.useEclipses = UseEclipses;
+        _preNatalModel.useIngresses = UseIngresses;
+        _preNatalModel.useRetrogradeDirect = UseRetrogradeDirect;
+        PreNatalMoments = _preNatalModel.GetPrenatalMoments();
+        PreNatalEvents = _preNatalModel.GetPrenatalEvents();              
+    }
+    
+    public void UpdateAspects(bool useIt)
+    {
+        _useAspects = useIt;
+        Populate();
+    }
+    
+    public void UpdateEclipses(bool useIt)
+    {
+        _useEclipses = useIt;
+        Populate();
+    }
+    
+    public void UpdateRetrogradeDirect(bool useIt)
+    {
+        _useRetrogradeDirect = useIt;
+        Populate();
+    }
+    
+    public void UpdateIngresses(bool useIt)
+    {
+        _useIngresses = useIt;
+        Populate();
+    }
+    
 }

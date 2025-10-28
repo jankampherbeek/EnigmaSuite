@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Prenatal" Height="900" Width="1200">
+        Title="Enigma - Prenatal" Height="900" Width="1200" >
     <Window.DataContext>
         <viewModels:PrenatalViewModel/>
     </Window.DataContext>
@@ -40,22 +40,30 @@
                    FontWeight="Bold"/>
         <!-- base selections -->
         <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <CheckBox Content="Eclipses"  
-                      Margin="6"
-                      Style="{StaticResource MaterialDesignCheckBox}"
-                      IsChecked="{Binding UseEclipses}" />
-            <CheckBox Content="Ingresses"
-                      Margin="6"
-                      Style="{StaticResource MaterialDesignCheckBox}"
-                      IsChecked="{Binding UseIngresses}" />
-            <CheckBox Content="Retrograde/Direct"
-                      Margin="6"
-                      Style="{StaticResource MaterialDesignCheckBox}"
-                      IsChecked="{Binding UseRetrogradeDirect}" />
             <CheckBox Content="Aspects"
                       Margin="6"
                       Style="{StaticResource MaterialDesignCheckBox}"
-                      IsChecked="{Binding UseAspects}" />
+                      IsChecked="{Binding UseAspects}" 
+                      Checked="UseAspectsCheckBox_Checked"
+                      Unchecked="UseAspectsCheckBox_UnChecked" />
+            <CheckBox Content="Eclipses"  
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseEclipses}" 
+                      Checked="UseEclipsesCheckBox_Checked"
+                      Unchecked="UseEclipsesCheckBox_UnChecked"/>
+            <CheckBox Content="Ingresses"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseIngresses}"
+                      Checked="UseIngressesCheckBox_Checked"
+                      Unchecked="UseIngressesCheckBox_UnChecked"/>
+            <CheckBox Content="Retrograde/Direct"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseRetrogradeDirect}"
+                      Checked="UseRetrogradeDirectCheckBox_Checked"
+                      Unchecked="UseRetrogradeDirectCheckBox_UnChecked"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal">
             <TextBlock Margin="6" 

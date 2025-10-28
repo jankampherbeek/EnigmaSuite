@@ -41,7 +41,6 @@ public static class IngressMoments
             var jdCurrent = jdStart - stepSize; // start early to be able to check the first step
             while (jdCurrent <= jdEnd)
             {
-                Console.WriteLine(jdCurrent);
                 if (jdCurrent >= jdStart)
                 {
                     var jdNew = jdCurrent + stepSize;

@@ -22,6 +22,10 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
     private double _radixJd;
     private double _endOfPeriodJd;
     private Calendars _calendar;
+    public bool useAspects {get; set; }
+    public bool useEclipses { get; set; }
+    public bool useIngresses {get; set; }
+    public bool useRetrogradeDirect{get; set;}
     private const double CONCEPTION_PERIOD = 273.217;
     private const double MAX_LIFETIME_IN_DAYS = 390.31;  // corresponds to 100 years
     private const double MARGIN_BEFORE_CONCEPTION = 30.0;
@@ -68,7 +72,9 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
            // AspectTypes.Opposition,
             // AspectTypes.Inconjunct
         };
-        var moments = PreNatalOrchestrator.ConstructPreNatalMoments(factors, aspects, _baseConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
+        var typeSettings = new TypeSettings(useAspects, useEclipses, useIngresses, useRetrogradeDirect);
+        
+        var moments = PreNatalOrchestrator.ConstructPreNatalMoments(factors, aspects, typeSettings, _baseConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
         _presPreNatalMoments = preNatalPresFactory.GetPreNatalMoments(moments, _baseConceptionJd, _radixJd, _calendar);
         return _presPreNatalMoments;
 

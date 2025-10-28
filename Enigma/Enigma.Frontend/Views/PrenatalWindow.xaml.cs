@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Windows;
+using Enigma.Frontend.Ui.ViewModels;
 
 namespace Enigma.Frontend.Ui.Views;
 
@@ -14,4 +15,69 @@ public partial class PrenatalWindow
     {
         InitializeComponent();
     }
+    
+    private void UseAspectsCheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is PrenatalViewModel viewModel)
+        {
+            viewModel.UpdateAspects(true);
+        }
+    }
+    
+    private void UseAspectsCheckBox_UnChecked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is PrenatalViewModel viewModel)
+        {
+            viewModel.UpdateAspects(false);
+        }
+    }
+    
+    private void UseEclipsesCheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is PrenatalViewModel viewModel)
+        {
+            viewModel.UpdateEclipses(true);
+        }
+    }
+    
+    private void UseEclipsesCheckBox_UnChecked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is PrenatalViewModel viewModel)
+        {
+            viewModel.UpdateEclipses(false);
+        }
+    }
+    
+    private void UseRetrogradeDirectCheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is PrenatalViewModel viewModel)
+        {
+            viewModel.UpdateRetrogradeDirect(true);
+        }
+    }
+    
+    private void UseRetrogradeDirectCheckBox_UnChecked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is PrenatalViewModel viewModel)
+        {
+            viewModel.UpdateRetrogradeDirect(false);
+        }
+    }
+    
+    private void UseIngressesCheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is PrenatalViewModel viewModel)
+        {
+            viewModel.UpdateIngresses(true);
+        }
+    }
+    
+    private void UseIngressesCheckBox_UnChecked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is PrenatalViewModel viewModel)
+        {
+            viewModel.UpdateIngresses(false);
+        }
+    }
+    
 }
