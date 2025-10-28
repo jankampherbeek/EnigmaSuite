@@ -20,19 +20,19 @@ public static class PreNatalOrchestrator
         var retroDirects = RetroDirectMoments.FindRetroDirectMoments(factors, jdStart, jdEnd);
         var mutualAspects = MutualAspectMoments.FindMutualAspectMoments(factors, aspects, jdStart, jdEnd);
         
-     //   preNatalMoments.AddRange(eclipses);
+        preNatalMoments.AddRange(eclipses);
         preNatalMoments.AddRange(ingresses);
-     //   preNatalMoments.AddRange(retroDirects);
-     //   preNatalMoments.AddRange(mutualAspects);
+        preNatalMoments.AddRange(retroDirects);
+        preNatalMoments.AddRange(mutualAspects);
         
         preNatalMoments = preNatalMoments.OrderBy(x => x.PreNatalJd).ToList();
 
         return preNatalMoments;
     }
 
-    public static double JdPreNatalToActual(double jdConception, double preNatalJd)
+    public static double JdPreNatalToActual(double jdConception, double preNatalJd, double jdRadix)
     {
-        var convertedDateTime = PreNatalToActualTimeConversion.ConvertToActualTime(preNatalJd, jdConception);
+        var convertedDateTime = PreNatalToActualTimeConversion.ConvertToActualTime(preNatalJd, jdConception, jdRadix);
         return convertedDateTime;
     }
 

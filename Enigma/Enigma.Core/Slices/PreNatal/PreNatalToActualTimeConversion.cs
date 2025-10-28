@@ -7,11 +7,13 @@ namespace Enigma.Core.Slices.PreNatal;
 
 public static class PreNatalToActualTimeConversion
 {
-    public static double ConvertToActualTime(double preNatalJd, double conceptionJd)
+    public static double ConvertToActualTime(double preNatalJd, double conceptionJd, double radixJd)
     {
-        const double conversionFactor = 365.2421 * (70.0/273.0);
+        const double conversionFactor = 365.2421 * (70.0/273.217);
         var dateTimeSpan = preNatalJd - conceptionJd;
-        var actualTime = dateTimeSpan * conversionFactor + conceptionJd;
+        var actualTime = dateTimeSpan * conversionFactor + radixJd;
+         
+        
         return actualTime ;
     }
     

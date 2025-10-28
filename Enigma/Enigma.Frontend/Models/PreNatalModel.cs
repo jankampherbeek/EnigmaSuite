@@ -69,7 +69,7 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
             // AspectTypes.Inconjunct
         };
         var moments = PreNatalOrchestrator.ConstructPreNatalMoments(factors, aspects, _baseConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
-        _presPreNatalMoments = preNatalPresFactory.GetPreNatalMoments(moments, _baseConceptionJd, _calendar);
+        _presPreNatalMoments = preNatalPresFactory.GetPreNatalMoments(moments, _baseConceptionJd, _radixJd, _calendar);
         return _presPreNatalMoments;
 
     }

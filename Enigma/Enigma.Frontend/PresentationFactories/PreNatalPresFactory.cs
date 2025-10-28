@@ -55,7 +55,7 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
     
     private DoubleToDmsConversions _doubleToDmsConversions = new();
 
-    public List<PresentablePreNatalMoment> GetPreNatalMoments(List<PreNatalParent> moments, double jdConception, Calendars cal)
+    public List<PresentablePreNatalMoment> GetPreNatalMoments(List<PreNatalParent> moments, double jdConception, double jdRadix, Calendars cal)
     {
         var presMoments = new List<PresentablePreNatalMoment>();
         foreach (var moment in moments)
@@ -63,16 +63,16 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
             switch (moment)
             {
                 case Eclipse eclipse:
-                    presMoments.Add(HandleEclipse(eclipse, jdConception, cal));
+                    presMoments.Add(HandleEclipse(eclipse, jdConception, jdRadix, cal));
                     break;
                 case Ingress ingress:
-                    presMoments.Add(HandleIngress(ingress, jdConception, cal));
+                    presMoments.Add(HandleIngress(ingress, jdConception, jdRadix, cal));
                     break;
                 case RetroDirect retroDirect:
-                    presMoments.Add(HandleRetrodirect(retroDirect, jdConception, cal));   
+                    presMoments.Add(HandleRetrodirect(retroDirect, jdConception, jdRadix, cal));   
                     break;
                 case MutualAspect mutualAspect:
-                    presMoments.Add(HandleMutualAspect(mutualAspect, jdConception, cal));   
+                    presMoments.Add(HandleMutualAspect(mutualAspect, jdConception, jdRadix, cal));   
                     break;
             }
         }
@@ -91,11 +91,11 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         return presEvents;
     }
 
-    private PresentablePreNatalMoment HandleEclipse(Eclipse eclipse, double jdConception, Calendars cal)
+    private PresentablePreNatalMoment HandleEclipse(Eclipse eclipse, double jdConception, double jdRadix, Calendars cal)
     {
 
         var preNatalDateTimeTxt = JdToDateTimeString(eclipse.PreNatalJd, cal);
-        var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, eclipse.PreNatalJd);
+        var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, eclipse.PreNatalJd, jdRadix);
         var actualDateTimeTxt = JdToDateString(actualDateTime, cal);
         var typeGlyph = "";
         var factor1Glyph = ' ';
@@ -119,10 +119,10 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         
     }
 
-    private PresentablePreNatalMoment HandleIngress(Ingress ingress, double jdConception, Calendars cal)
+    private PresentablePreNatalMoment HandleIngress(Ingress ingress, double jdConception, double jdRadix,Calendars cal)
     {
         var preNatalDateTimeTxt = JdToDateTimeString(ingress.PreNatalJd, cal);
-        var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, ingress.PreNatalJd);
+        var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, ingress.PreNatalJd, jdRadix);
         var actualDateTimeTxt = JdToDateString(actualDateTime, cal);
         var signGlyph1 = GlyphsForSigns.FindGlyph(ingress.Sign);
         var factor1Glyph = signGlyph1;
@@ -136,10 +136,10 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
             signGlyph1, factor2Glyph, position2, signGlyph2);
     }
 
-    private PresentablePreNatalMoment HandleRetrodirect(RetroDirect retroDirect, double jdConception, Calendars cal)
+    private PresentablePreNatalMoment HandleRetrodirect(RetroDirect retroDirect, double jdConception, double jdRadix, Calendars cal)
     {
         var preNatalDateTimeTxt = JdToDateTimeString(retroDirect.PreNatalJd, cal);
-        var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, retroDirect.PreNatalJd);
+        var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, retroDirect.PreNatalJd, jdRadix);
         var actualDateTimeTxt = JdToDateString(actualDateTime, cal);
         var factor1Glyph = GlyphsForChartPoints.FindGlyph(retroDirect.Factor);
         var rdGlyph = retroDirect.Direction == 'R' ? 'R' : 'Ô';
@@ -154,10 +154,10 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
             signGlyph1, factor2Glyph, position2, signGlyph2);
     }
 
-    private PresentablePreNatalMoment HandleMutualAspect(MutualAspect mutualAspect, double jdConception, Calendars cal)
+    private PresentablePreNatalMoment HandleMutualAspect(MutualAspect mutualAspect, double jdConception, double jdRadix, Calendars cal)
     {
         var preNatalDateTimeTxt = JdToDateTimeString(mutualAspect.PreNatalJd, cal);
-        var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, mutualAspect.PreNatalJd);
+        var actualDateTime = PreNatalOrchestrator.JdPreNatalToActual(jdConception, mutualAspect.PreNatalJd, jdRadix);
         var actualDateTimeTxt = JdToDateString(actualDateTime, cal);
         var position1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(mutualAspect.Position1).longTxt;
         var signGlyph1 = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(mutualAspect.Position1).glyph;
