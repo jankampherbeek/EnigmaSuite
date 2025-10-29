@@ -134,7 +134,7 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             { AspectTypes.Novile, new AspectConfigSpecs(false, 'Ü', 15, true) },            
             { AspectTypes.SemiSquare, new AspectConfigSpecs(false, 'I', 30, true)},
             { AspectTypes.Septile, new AspectConfigSpecs(false, 'N', 30, true) },
-            { AspectTypes.Quintile, new AspectConfigSpecs(false, 'Q', 30, true) },
+            { AspectTypes.Quintile, new AspectConfigSpecs(false, 'K', 30, true) },
             { AspectTypes.BiNovile, new AspectConfigSpecs(false, 'Ñ', 15, true) },
             { AspectTypes.Centile, new AspectConfigSpecs(false, 'Ç', 15, true) },
             { AspectTypes.BiSeptile, new AspectConfigSpecs(false, 'Ú', 15, true) },            

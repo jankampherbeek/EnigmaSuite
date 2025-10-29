@@ -14,6 +14,7 @@ Adding Venus Star Point, Schema for Black Lights Astrology, Prenatal technique (
 
 - The calculation of the position for the Interpolated Black Moon is now correct. It showed the Mean Black Moon instead.
 - Symbols for planets in the chart wheel could, in rare circumstances, overlap. This has been finished.
+- An incorrect symbol was shown for the Quintile aspect.
 
 
 

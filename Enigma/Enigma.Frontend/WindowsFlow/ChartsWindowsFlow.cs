@@ -31,7 +31,9 @@ public class ChartsWindowsFlow:
     public const string CHARTS_PROG_PRIMDIR_INPUT = "PrimDirInput";
     public const string SOLAR_INPUT = "SolarInput";
     public const string SOLAR_RESULTS = "SolarResults";
-
+    public const string PRENATAL_ASPECT_SELECTION = "PrenatalAspectSelectionWindow";
+    public const string PRENATAL_FACTOR_SELECTION = "PreNatalFactorSelectionWindow";
+    
     private PrimDirInputWindow? _primDirInputWindow;
     private SolarInputWindow? _solarInputWindow;
     private SolarResultsWindow? _solarResultsWindow; 
@@ -93,6 +95,8 @@ public class ChartsWindowsFlow:
     private StartZodWindow? _startZodWindow;
     private ProgCalWindow? _progCalWindow;
     private PrenatalWindow? _prenatalWindow;
+    private PreNatalAspectSelectionWindow? _preNatalAspectSelectionWindow;
+    private PreNatalFactorSelectionWindow? _preNatalFactorSelectionWindow;
     private ProfectionsWindow? _profectionsWindow;
     private FirdariaWindow? _firdariaWindow;
     
@@ -154,6 +158,12 @@ public class ChartsWindowsFlow:
             case PRENATAL:
                 _prenatalWindow?.Close();
                 break;
+            case PRENATAL_FACTOR_SELECTION:
+                _preNatalFactorSelectionWindow?.Close();
+                break;
+            case PRENATAL_ASPECT_SELECTION:
+                _preNatalAspectSelectionWindow?.Close();
+                break;
             case PROFECTIONS:
                 _profectionsWindow?.Close();
                 break;
@@ -186,6 +196,14 @@ public class ChartsWindowsFlow:
             case SOLAR_INPUT:
                 _solarInputWindow = new SolarInputWindow();
                 _solarInputWindow.ShowDialog();
+                break;
+            case PRENATAL_FACTOR_SELECTION:
+                _preNatalFactorSelectionWindow = new PreNatalFactorSelectionWindow();
+                _preNatalFactorSelectionWindow.ShowDialog();
+                break;
+            case PRENATAL_ASPECT_SELECTION:
+                _preNatalAspectSelectionWindow = new PreNatalAspectSelectionWindow();
+                _preNatalAspectSelectionWindow.ShowDialog();
                 break;
             // case SOLAR_RESULTS:
             //     _solarResultsWindow = new SolarResultsWindow();

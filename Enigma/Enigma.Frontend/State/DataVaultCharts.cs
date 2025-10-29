@@ -7,6 +7,7 @@ using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
 
 namespace Enigma.Frontend.Ui.State;
 
@@ -17,6 +18,8 @@ public sealed class DataVaultCharts
 {
 
     public int LastWindowId { get; set; }
+    public List<ChartPoints>? CurrentPointsSelection { get; set; }
+    public List<AspectTypes>? CurrentAspectsSelection { get; set; }
     private static readonly DataVaultCharts instance = new();
 
     private readonly List<CalculatedChart> _allCharts = new();

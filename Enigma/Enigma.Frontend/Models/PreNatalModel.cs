@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Enigma.Api.Persistency;
 using Enigma.Core.Slices.PreNatal;
 using Enigma.Domain.Dtos;
@@ -26,6 +27,11 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
     public bool useEclipses { get; set; }
     public bool useIngresses {get; set; }
     public bool useRetrogradeDirect{get; set;}
+    public List<ChartPoints> selectedFactors {get; set;}
+    public List<AspectTypes> selectedAspects {get; set;}
+
+  //  public FactorSelection? CurrentFactorSelection { get; set; }
+    
     private const double CONCEPTION_PERIOD = 273.217;
     private const double MAX_LIFETIME_IN_DAYS = 390.31;  // corresponds to 100 years
     private const double MARGIN_BEFORE_CONCEPTION = 30.0;
@@ -49,32 +55,12 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
     {
         
         DefineBaseConceptionJd();
-        var factors = new List<ChartPoints>  // TODO use selected factors
-        {
-            ChartPoints.Sun,
-         //   ChartPoints.Moon,
-            ChartPoints.Mercury,
-            ChartPoints.Venus,
-            ChartPoints.Mars,
-            ChartPoints.Jupiter,
-            ChartPoints.Saturn,
-            ChartPoints.Uranus,
-            ChartPoints.Neptune,
-            ChartPoints.Pluto
-        };
-        var aspects = new List<AspectTypes>    // TODO use selected aspects
-        {
+       
             // TODO exclude points thar are always in aspect
-            AspectTypes.Conjunction,
-           //  AspectTypes.Sextile,
-           //  AspectTypes.Square,
-            // AspectTypes.Triangle,
-           // AspectTypes.Opposition,
-            // AspectTypes.Inconjunct
-        };
+
         var typeSettings = new TypeSettings(useAspects, useEclipses, useIngresses, useRetrogradeDirect);
         
-        var moments = PreNatalOrchestrator.ConstructPreNatalMoments(factors, aspects, typeSettings, _baseConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
+        var moments = PreNatalOrchestrator.ConstructPreNatalMoments(selectedFactors, selectedAspects, typeSettings, _baseConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
         _presPreNatalMoments = preNatalPresFactory.GetPreNatalMoments(moments, _baseConceptionJd, _radixJd, _calendar);
         return _presPreNatalMoments;
 
@@ -93,7 +79,31 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
         _presPreNatalEvents = preNatalPresFactory.GetPreNatalEvents(events, _calendar);
         return _presPreNatalEvents;
     }
-    
+
+
+    public string GetSelectedFactorsGlyphs()
+    {
+        var sbGlyphs = new StringBuilder();
+        foreach (var factor in selectedFactors)
+        {
+            var glyph = GlyphsForChartPoints.FindGlyph(factor);
+            sbGlyphs.Append(glyph);
+            sbGlyphs.Append(' ');
+        }
+        return sbGlyphs.ToString();
+    }
+
+    public string GetSelectedAspectsGlyphs()
+    {
+        var sbGlyphs = new StringBuilder();
+        foreach (var aspect in selectedAspects)
+        {
+            var glyph = aspect.GetDetails().Glyph;
+            sbGlyphs.Append(glyph);
+            sbGlyphs.Append(' ');
+        }
+        return sbGlyphs.ToString();
+    }
     
     private void DefineBaseConceptionJd()
     {

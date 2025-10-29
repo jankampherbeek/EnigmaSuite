@@ -14,3 +14,11 @@ public class SelectableChartPointDetails
     public string? Name { get; set; }
     public bool Selected { get; set; }
 }
+
+public class SelectableAspectDetails
+{
+    public AspectTypes Aspect { get; init; }
+    public char? Glyph { get; set; }
+    public string? Name { get; set; }
+    public bool Selected { get; set; }   
+}

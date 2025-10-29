@@ -71,7 +71,7 @@
                        Text="Selected points" />
             <TextBlock Margin="6" 
                        VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="{Binding SelectedPoints}"
+                       Text="{Binding SelectedFactors}"
                        Style="{StaticResource GlyphTextBlockStyle}"/>
             <Button Margin="6" Content="Change points" Command="{Binding ChangePointsCommand}"/>
             <TextBlock Margin="6" 

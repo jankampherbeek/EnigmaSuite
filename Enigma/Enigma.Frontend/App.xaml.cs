@@ -105,6 +105,8 @@ public partial class App
         serviceCollection.AddSingleton<IParallelsForDataGridFactory, ParallelsForDataGridFactory>();
         serviceCollection.AddSingleton<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<PreNatalModel>();
+        serviceCollection.AddTransient<PreNatalAspectSelectionModel>();
+        serviceCollection.AddTransient<PreNatalFactorSelectionModel>();
         serviceCollection.AddTransient<PreNatalPresFactory>();
         serviceCollection.AddSingleton<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();
         serviceCollection.AddSingleton<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
