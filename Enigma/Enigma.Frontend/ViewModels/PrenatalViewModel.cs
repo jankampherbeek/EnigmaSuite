@@ -38,6 +38,8 @@ public partial class PrenatalViewModel : ObservableObject
     [ObservableProperty] private string _selectedAspects;
     [ObservableProperty] private string _standardConception;
     [ObservableProperty] private string _actualConception;
+    [ObservableProperty] private PresentablePreNatalMoment? _selectedMoment;
+    [ObservableProperty] private PresentablePreNatalEvent? _selectedEvent;
     
     [RelayCommand]
     private void Help()
@@ -54,9 +56,19 @@ public partial class PrenatalViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public void CorrectConception()
+    private void CorrectConception()
     {
-        // TODO: implement
+        if (SelectedMoment == null || SelectedEvent == null)
+        {
+            MessageBox.Show("Please select both a moment and an event to combine.");
+            return;
+        }
+        
+        Log.Information($"PrenatalViewModel.CorrectConception(): Combining moment {SelectedMoment.RealDateTime} with event {SelectedEvent.Description}");
+        
+        // TODO: implement actual conception correction logic
+        // For now, we have the selected moment and event available
+        MessageBox.Show($"Combining:\nMoment: {SelectedMoment.RealDateTime}\nEvent: {SelectedEvent.Description} ({SelectedEvent.DateTime})");
     }
     
     

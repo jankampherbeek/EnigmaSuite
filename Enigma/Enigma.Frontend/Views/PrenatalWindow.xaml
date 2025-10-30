@@ -114,6 +114,8 @@
                           Style="{StaticResource MaterialDesignDataGrid}"
                           Background="#F0F8FF"
                           ItemsSource="{Binding PreNatalEvents, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
+                          SelectionMode="Single"
                           VerticalAlignment="Top">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Description" Width="Auto" Binding="{Binding Description, Mode=TwoWay}"
@@ -131,6 +133,8 @@
                           Style="{StaticResource MaterialDesignDataGrid}"
                           Background="#F0F8FF"
                           ItemsSource="{Binding PreNatalMoments, Mode=TwoWay}"
+                          SelectedItem="{Binding SelectedMoment, Mode=TwoWay}"
+                          SelectionMode="Single"
                           VerticalAlignment="Top">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding RealDateTime, Mode=TwoWay}"
@@ -161,6 +165,7 @@
 
         <!-- Bottom buttons -->
         <StackPanel Grid.Row="6" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6 6 0 6" Content="Combine" Command="{Binding CorrectConceptionCommand}"/>
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>
