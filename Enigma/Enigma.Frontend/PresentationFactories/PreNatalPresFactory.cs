@@ -178,7 +178,7 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         return new PresentablePreNatalEvent(description, dateTxt);
     }
     
-    private string JdToDateTimeString(double jd, Calendars cal)
+    public string JdToDateTimeString(double jd, Calendars cal)
     {
         var request = new DateTimeRequest(jd, true, cal);
         var (yearTxt, month, day, ut, _) = dateTimeCalc.CalcDateTime(request.JulDay, request.Calendar);

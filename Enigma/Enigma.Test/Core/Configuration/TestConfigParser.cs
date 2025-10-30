@@ -37,7 +37,7 @@ public class TestConfigParser
             { "HouseSystem", "7" },
             { "CP_11", "y||65||{||y\\" },
             { "CP_12", "n||65||{||y\\" },
-            { "AT_6", "y||30||Q||y\\" },
+            { "AT_6", "y||30||K||y\\" },
             { "AT_10", "y||30||L||y\\" }
         };
     }

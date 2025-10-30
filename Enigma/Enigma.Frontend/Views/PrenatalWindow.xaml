@@ -22,6 +22,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -65,7 +66,24 @@
                       Checked="UseRetrogradeDirectCheckBox_Checked"
                       Unchecked="UseRetrogradeDirectCheckBox_UnChecked"/>
         </StackPanel>
+        <!-- date/time for conception  -->
         <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <TextBlock Margin="6" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Standard conception" />
+            <TextBlock Margin="6" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="{Binding StandardConception}"/> 
+            <TextBlock Margin="6" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Actual conception" />
+            <TextBlock Margin="6" 
+                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="{Binding ActualConeption}"/> 
+        </StackPanel>
+        
+        <!-- Points and aspects -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
             <TextBlock Margin="6" 
                        VerticalAlignment="Center" HorizontalAlignment="Left"
                        Text="Selected points" />
@@ -83,9 +101,11 @@
                        Style="{StaticResource GlyphTextBlockStyle}"/>
             <Button Margin="6" Content="Change aspects" Command="{Binding ChangeAspectsCommand}"/>
         </StackPanel>
+
+
         
         <!-- Main Content Area -->
-        <StackPanel Grid.Row="4" Orientation="Horizontal">
+        <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Border Margin="6">
                 <DataGrid Grid.Row="5" x:Name="EventsDataGrid"
                           AutoGenerateColumns="False"
@@ -140,7 +160,7 @@
         
 
         <!-- Bottom buttons -->
-        <StackPanel Grid.Row="5" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="6" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>

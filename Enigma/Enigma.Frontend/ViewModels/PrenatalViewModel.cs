@@ -36,6 +36,8 @@ public partial class PrenatalViewModel : ObservableObject
     [ObservableProperty] private List<PresentablePreNatalEvent> _preNatalEvents = new();
     [ObservableProperty] private string _selectedFactors;
     [ObservableProperty] private string _selectedAspects;
+    [ObservableProperty] private string _standardConception;
+    [ObservableProperty] private string _actualConception;
     
     [RelayCommand]
     private void Help()
@@ -51,6 +53,13 @@ public partial class PrenatalViewModel : ObservableObject
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 
+    [RelayCommand]
+    public void CorrectConception()
+    {
+        // TODO: implement
+    }
+    
+    
     public PrenatalViewModel()
     {
         UseAspects = true;
@@ -128,6 +137,7 @@ public partial class PrenatalViewModel : ObservableObject
         PreNatalEvents = _preNatalModel.GetPrenatalEvents();  
         SelectedFactors = _preNatalModel.GetSelectedFactorsGlyphs();
         SelectedAspects = _preNatalModel.GetSelectedAspectsGlyphs();
+        StandardConception = _preNatalModel.standardConception;
     }
     
     public void UpdateAspects(bool useIt)

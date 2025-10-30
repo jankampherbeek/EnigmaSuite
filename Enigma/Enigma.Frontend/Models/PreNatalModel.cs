@@ -29,6 +29,8 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
     public bool useRetrogradeDirect{get; set;}
     public List<ChartPoints> selectedFactors {get; set;}
     public List<AspectTypes> selectedAspects {get; set;}
+    public string standardConception {get; set;}
+    public string actualConception {get; set;}
 
   //  public FactorSelection? CurrentFactorSelection { get; set; }
     
@@ -109,6 +111,7 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
     {
         _radixJd = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
         _baseConceptionJd = _radixJd - CONCEPTION_PERIOD;
+        standardConception = preNatalPresFactory.JdToDateTimeString(_baseConceptionJd, _calendar);
         _endOfPeriodJd = _baseConceptionJd + MAX_LIFETIME_IN_DAYS;
         _calendar = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.DateText.Contains("[g]")? Calendars.Gregorian: Calendars.Julian ;
     }
