@@ -102,8 +102,12 @@ public partial class PrenatalViewModel : ObservableObject
         Log.Information($"PrenatalViewModel.CorrectConception(): Combining moment {SelectedMoment.RealDateTime} with event {SelectedEvent.Description}");
         Populate();       
     }
-    
-    
+
+    [RelayCommand]
+    private void NewEvent()
+    {
+        if (_preNatalModel.CreateNewEvent()) Populate();
+    }
 
 
     private void DefineFactors()

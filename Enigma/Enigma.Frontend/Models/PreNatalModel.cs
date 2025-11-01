@@ -7,39 +7,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Api.Persistency;
 using Enigma.Core.Slices.PreNatal;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Views;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
-public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEventDataPersistencyApi eventDataPersistencyApi, IEventDataConverter eventDataConverter)
+public sealed class PreNatalModel(
+    PreNatalPresFactory preNatalPresFactory,
+    IEventDataPersistencyApi eventDataPersistencyApi,
+    IEventDataConverter eventDataConverter) : IRecipient<CloseProgEventViewMessage>
 {
     private double _baseConceptionJd;
     private double _actualConceptionJd;
     private double _radixJd;
     private double _endOfPeriodJd;
+    private ProgEventWindow? _progEventWindow;
+    private ProgEvent _currentEvent;
     private Calendars _calendar;
-    public bool useAspects {get; set; }
+    public bool useAspects { get; set; }
     public bool useEclipses { get; set; }
-    public bool useIngresses {get; set; }
-    public bool useRetrogradeDirect{get; set;}
-    public List<ChartPoints> selectedFactors {get; set;}
-    public List<AspectTypes> selectedAspects {get; set;}
-    public string standardConception {get; set;}
-    public string actualConception {get; set;}
+    public bool useIngresses { get; set; }
+    public bool useRetrogradeDirect { get; set; }
+    public List<ChartPoints> selectedFactors { get; set; }
+    public List<AspectTypes> selectedAspects { get; set; }
+    public string standardConception { get; set; }
+    public string actualConception { get; set; }
 
-  //  public FactorSelection? CurrentFactorSelection { get; set; }
+    //  public FactorSelection? CurrentFactorSelection { get; set; }
     
+
     private const double CONCEPTION_PERIOD = 273.217;
-    private const double MAX_LIFETIME_IN_DAYS = 390.31;  // corresponds to 100 years
+    private const double MAX_LIFETIME_IN_DAYS = 390.31; // corresponds to 100 years
     private const double MARGIN_BEFORE_CONCEPTION = 30.0;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
-    
+
     private List<PresentablePreNatalMoment> _presPreNatalMoments;
     private List<PresentablePreNatalEvent> _presPreNatalEvents;
 
@@ -57,18 +68,19 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
     {
         DefineBaseConceptionJd();
     }
-   
-    
+
+
     public List<PresentablePreNatalMoment> GetPrenatalMoments()
     {
-            // TODO exclude points thar are always in aspect
+        // TODO exclude points thar are always in aspect
 
         var typeSettings = new TypeSettings(useAspects, useEclipses, useIngresses, useRetrogradeDirect);
-        
-        var moments = PreNatalOrchestrator.ConstructPreNatalMoments(selectedFactors, selectedAspects, typeSettings, _actualConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
-        _presPreNatalMoments = preNatalPresFactory.GetPreNatalMoments(moments, _actualConceptionJd, _radixJd, _calendar);
-        return _presPreNatalMoments;
 
+        var moments = PreNatalOrchestrator.ConstructPreNatalMoments(selectedFactors, selectedAspects, typeSettings,
+            _actualConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
+        _presPreNatalMoments =
+            preNatalPresFactory.GetPreNatalMoments(moments, _actualConceptionJd, _radixJd, _calendar);
+        return _presPreNatalMoments;
     }
 
     public List<PresentablePreNatalEvent> GetPrenatalEvents()
@@ -77,10 +89,12 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
         var currentChart = _dataVaultCharts.GetCurrentChart();
         long chartId = currentChart.InputtedChartData.Id;
         var persistableEventData = eventDataPersistencyApi.SearchEventData(chartId);
-        foreach (ProgEvent? progEventData in persistableEventData.Select(item => eventDataConverter.FromPersistableEventData(item)))
+        foreach (ProgEvent? progEventData in persistableEventData.Select(item =>
+                     eventDataConverter.FromPersistableEventData(item)))
         {
             events.Add(progEventData);
         }
+
         _presPreNatalEvents = preNatalPresFactory.GetPreNatalEvents(events, _calendar);
         return _presPreNatalEvents;
     }
@@ -95,6 +109,7 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
             sbGlyphs.Append(glyph);
             sbGlyphs.Append(' ');
         }
+
         return sbGlyphs.ToString();
     }
 
@@ -107,9 +122,10 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
             sbGlyphs.Append(glyph);
             sbGlyphs.Append(' ');
         }
+
         return sbGlyphs.ToString();
     }
-    
+
     private void DefineBaseConceptionJd()
     {
         _radixJd = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
@@ -118,7 +134,9 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
         standardConception = preNatalPresFactory.JdToDateTimeString(_baseConceptionJd, _calendar);
         actualConception = standardConception;
         _endOfPeriodJd = _baseConceptionJd + MAX_LIFETIME_IN_DAYS;
-        _calendar = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.DateText.Contains("[g]")? Calendars.Gregorian: Calendars.Julian ;
+        _calendar = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.DateText.Contains("[g]")
+            ? Calendars.Gregorian
+            : Calendars.Julian;
     }
 
     public void DefineActualConceptionJd(double eventJd, double momentJd)
@@ -126,5 +144,36 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
         var actConcJd = PreNatalOrchestrator.ActualFromBaseConceptionDate(_baseConceptionJd, eventJd, momentJd);
         _actualConceptionJd = actConcJd;
         actualConception = preNatalPresFactory.JdToDateTimeString(_actualConceptionJd, _calendar);
+    }
+
+    public bool CreateNewEvent()
+    {
+        WeakReferenceMessenger.Default.Register<CloseProgEventViewMessage>(this);
+        _progEventWindow = new();
+        _progEventWindow.ShowDialog();
+        WeakReferenceMessenger.Default.Unregister<CloseProgEventViewMessage>(this);
+
+        if (DataVaultProg.Instance.CurrentProgEvent is null) return false;
+        SaveCurrentEvent();
+        return true;
+    }
+
+    public long SaveCurrentEvent()
+    {
+        long newIndex = -1;
+        _currentEvent = DataVaultProg.Instance.CurrentProgEvent;
+        if (_currentEvent == null) return newIndex;
+        var currentChart = _dataVaultCharts.GetCurrentChart();
+        if (currentChart == null) return newIndex;
+        long chartId = currentChart.InputtedChartData.Id;
+        Log.Information("PreNatalModel.SaveCurrentEvent(): Requesting PersitableEventData to save event");
+        PersistableEventData persEvent = eventDataConverter.ToPersistableEventData(_currentEvent);
+        newIndex = eventDataPersistencyApi.AddEventData(persEvent, chartId);
+        return newIndex;
+    }
+
+    public void Receive(CloseProgEventViewMessage message)
+    {
+        _progEventWindow?.Close();
     }
 }

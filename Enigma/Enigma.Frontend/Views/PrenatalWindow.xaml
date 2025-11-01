@@ -165,6 +165,7 @@
 
         <!-- Bottom buttons -->
         <StackPanel Grid.Row="6" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6 6 0 6" Content="New event" Command="{Binding NewEventCommand}"/>
             <Button Margin="6 6 0 6" Content="Combine" Command="{Binding CorrectConceptionCommand}"/>
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
