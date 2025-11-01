@@ -45,8 +45,15 @@ public static class PreNatalOrchestrator
 
     public static double JdPreNatalToActual(double jdConception, double preNatalJd, double jdRadix)
     {
-        var convertedDateTime = PreNatalToActualTimeConversion.ConvertToActualTime(preNatalJd, jdConception, jdRadix);
+        var convertedDateTime = PreNatalTimeConversion.ConvertToActualTime(preNatalJd, jdConception, jdRadix);
         return convertedDateTime;
     }
 
+    public static double ActualFromBaseConceptionDate(double baseConceptionJd, double eventJd, double momentJd)
+    {
+        var correctedConceptionJd = PreNatalTimeConversion.FindCorrectedConceptionJd(baseConceptionJd, eventJd, momentJd);
+        return correctedConceptionJd;
+    }
+
+    
 }

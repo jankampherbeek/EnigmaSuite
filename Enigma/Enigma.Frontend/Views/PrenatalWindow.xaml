@@ -79,7 +79,7 @@
                        Text="Actual conception" />
             <TextBlock Margin="6" 
                        VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="{Binding ActualConeption}"/> 
+                       Text="{Binding ActualConception, Mode=TwoWay}" /> 
         </StackPanel>
         
         <!-- Points and aspects -->

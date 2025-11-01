@@ -28,6 +28,7 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 /// <param name="Factor2Glyph">Optional: glyph for the second factor</param>
 /// <param name="Position2">Optional: the position of the second factor, without the sign</param>
 /// <param name="SignGlyph2">Optional: glyph fr the sign of the second factor</param>
+/// <param name="Jd">Julian day for the moment</param>   
 public record PresentablePreNatalMoment(
     string RealDateTime,
     string PreNatalDateTime,
@@ -37,14 +38,16 @@ public record PresentablePreNatalMoment(
     char SignGlyph1,
     char Factor2Glyph,
     string Position2,
-    char SignGlyph2);
+    char SignGlyph2,
+    double Jd);
 
 /// <summary>
 /// Presentable event for PreNatal
 /// </summary>
 /// <param name="Description">Description of event</param>
 /// <param name="DateTime">Date and time of the event, in the format yyyy/mm/dd hh:mi:ss</param>
-public record PresentablePreNatalEvent(string Description, string DateTime);
+/// <param name="Jd">Julian day for the event</param>  
+public record PresentablePreNatalEvent(string Description, string DateTime, double Jd);
 
 
 
@@ -115,7 +118,7 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         const string position2 = "";
         const char signGlyph2 = ' ';
         return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyph, factor1Glyph, position1, 
-            signGlyph1, factor2Glyph, position2, signGlyph2);    
+            signGlyph1, factor2Glyph, position2, signGlyph2, actualDateTime);    
         
     }
 
@@ -133,7 +136,7 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         const string position2 = "";
         const char signGlyph2 = ' ';
         return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyphs, factor1Glyph, position1, 
-            signGlyph1, factor2Glyph, position2, signGlyph2);
+            signGlyph1, factor2Glyph, position2, signGlyph2, actualDateTime);
     }
 
     private PresentablePreNatalMoment HandleRetrodirect(RetroDirect retroDirect, double jdConception, double jdRadix, Calendars cal)
@@ -151,7 +154,7 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         const string position2 = "";
         const char signGlyph2 = ' ';
         return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyphs, factor1Glyph, position1, 
-            signGlyph1, factor2Glyph, position2, signGlyph2);
+            signGlyph1, factor2Glyph, position2, signGlyph2, actualDateTime);
     }
 
     private PresentablePreNatalMoment HandleMutualAspect(MutualAspect mutualAspect, double jdConception, double jdRadix, Calendars cal)
@@ -167,7 +170,7 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         var factor2Glyph = GlyphsForChartPoints.FindGlyph(mutualAspect.Factor2);
         var typeGlyphs = "" + factor1Glyph + mutualAspect.Aspect.GetDetails().Glyph + factor2Glyph;
         return new PresentablePreNatalMoment(actualDateTimeTxt, preNatalDateTimeTxt, typeGlyphs, factor1Glyph, position1, 
-            signGlyph1, factor2Glyph, position2, signGlyph2);
+            signGlyph1, factor2Glyph, position2, signGlyph2, actualDateTime);
     }
     
     
@@ -175,7 +178,7 @@ public class PreNatalPresFactory(IDateTimeCalc dateTimeCalc) {
         var description = progEvent.Description;
         var jd = progEvent.DateTime.JulianDayForEt;
         var dateTxt = JdToDateString(jd, cal);   
-        return new PresentablePreNatalEvent(description, dateTxt);
+        return new PresentablePreNatalEvent(description, dateTxt, jd);
     }
     
     public string JdToDateTimeString(double jd, Calendars cal)

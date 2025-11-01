@@ -8,6 +8,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Core.Slices.PreNatal;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
@@ -41,37 +42,6 @@ public partial class PrenatalViewModel : ObservableObject
     [ObservableProperty] private PresentablePreNatalMoment? _selectedMoment;
     [ObservableProperty] private PresentablePreNatalEvent? _selectedEvent;
     
-    [RelayCommand]
-    private void Help()
-    {
-        Log.Information("PrenatalViewModel.Help(): send HelpMessage");
-        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
-    }
-
-    [RelayCommand]
-    private void Close()
-    {
-        Log.Information("PrenatalViewModel.Close(): send CloseMessage");
-        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
-    }
-
-    [RelayCommand]
-    private void CorrectConception()
-    {
-        if (SelectedMoment == null || SelectedEvent == null)
-        {
-            MessageBox.Show("Please select both a moment and an event to combine.");
-            return;
-        }
-        
-        Log.Information($"PrenatalViewModel.CorrectConception(): Combining moment {SelectedMoment.RealDateTime} with event {SelectedEvent.Description}");
-        
-        // TODO: implement actual conception correction logic
-        // For now, we have the selected moment and event available
-        MessageBox.Show($"Combining:\nMoment: {SelectedMoment.RealDateTime}\nEvent: {SelectedEvent.Description} ({SelectedEvent.DateTime})");
-    }
-    
-    
     public PrenatalViewModel()
     {
         UseAspects = true;
@@ -98,7 +68,43 @@ public partial class PrenatalViewModel : ObservableObject
         DataVaultCharts.Instance.CurrentPointsSelection = selectedFactors;
         _preNatalModel.selectedAspects = selectedAspects;
         DataVaultCharts.Instance.CurrentAspectsSelection = selectedAspects;
+        _preNatalModel.SetInitialConception();
     }
+    
+    
+    
+    
+    [RelayCommand]
+    private void Help()
+    {
+        Log.Information("PrenatalViewModel.Help(): send HelpMessage");
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
+    }
+
+    [RelayCommand]
+    private void Close()
+    {
+        Log.Information("PrenatalViewModel.Close(): send CloseMessage");
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+    }
+
+    [RelayCommand]
+    private void CorrectConception()
+    {
+        if (SelectedMoment == null || SelectedEvent == null)
+        {
+            MessageBox.Show("Please select both a moment and an event to combine.");
+            return;
+        }
+        var eventJd = SelectedEvent.Jd;
+        var momentJd = SelectedMoment.Jd;
+        _preNatalModel.DefineActualConceptionJd(eventJd, momentJd);
+        Log.Information($"PrenatalViewModel.CorrectConception(): Combining moment {SelectedMoment.RealDateTime} with event {SelectedEvent.Description}");
+        Populate();       
+    }
+    
+    
+
 
     private void DefineFactors()
     {
@@ -150,6 +156,7 @@ public partial class PrenatalViewModel : ObservableObject
         SelectedFactors = _preNatalModel.GetSelectedFactorsGlyphs();
         SelectedAspects = _preNatalModel.GetSelectedAspectsGlyphs();
         StandardConception = _preNatalModel.standardConception;
+        ActualConception = _preNatalModel.actualConception;
     }
     
     public void UpdateAspects(bool useIt)

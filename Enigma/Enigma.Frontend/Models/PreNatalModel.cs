@@ -20,6 +20,7 @@ namespace Enigma.Frontend.Ui.Models;
 public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEventDataPersistencyApi eventDataPersistencyApi, IEventDataConverter eventDataConverter)
 {
     private double _baseConceptionJd;
+    private double _actualConceptionJd;
     private double _radixJd;
     private double _endOfPeriodJd;
     private Calendars _calendar;
@@ -51,19 +52,21 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
         var currentChart = _dataVaultCharts.GetCurrentChart();
         return currentChart?.InputtedChartData.MetaData.Name ?? "";
     }
- 
 
+    public void SetInitialConception()
+    {
+        DefineBaseConceptionJd();
+    }
+   
+    
     public List<PresentablePreNatalMoment> GetPrenatalMoments()
     {
-        
-        DefineBaseConceptionJd();
-       
             // TODO exclude points thar are always in aspect
 
         var typeSettings = new TypeSettings(useAspects, useEclipses, useIngresses, useRetrogradeDirect);
         
-        var moments = PreNatalOrchestrator.ConstructPreNatalMoments(selectedFactors, selectedAspects, typeSettings, _baseConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
-        _presPreNatalMoments = preNatalPresFactory.GetPreNatalMoments(moments, _baseConceptionJd, _radixJd, _calendar);
+        var moments = PreNatalOrchestrator.ConstructPreNatalMoments(selectedFactors, selectedAspects, typeSettings, _actualConceptionJd - MARGIN_BEFORE_CONCEPTION, _endOfPeriodJd);
+        _presPreNatalMoments = preNatalPresFactory.GetPreNatalMoments(moments, _actualConceptionJd, _radixJd, _calendar);
         return _presPreNatalMoments;
 
     }
@@ -111,9 +114,17 @@ public sealed class PreNatalModel(PreNatalPresFactory preNatalPresFactory, IEven
     {
         _radixJd = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
         _baseConceptionJd = _radixJd - CONCEPTION_PERIOD;
+        _actualConceptionJd = _baseConceptionJd;
         standardConception = preNatalPresFactory.JdToDateTimeString(_baseConceptionJd, _calendar);
+        actualConception = standardConception;
         _endOfPeriodJd = _baseConceptionJd + MAX_LIFETIME_IN_DAYS;
         _calendar = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.DateText.Contains("[g]")? Calendars.Gregorian: Calendars.Julian ;
     }
-    
+
+    public void DefineActualConceptionJd(double eventJd, double momentJd)
+    {
+        var actConcJd = PreNatalOrchestrator.ActualFromBaseConceptionDate(_baseConceptionJd, eventJd, momentJd);
+        _actualConceptionJd = actConcJd;
+        actualConception = preNatalPresFactory.JdToDateTimeString(_actualConceptionJd, _calendar);
+    }
 }
