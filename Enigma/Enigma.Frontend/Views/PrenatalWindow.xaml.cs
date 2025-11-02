@@ -4,6 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Windows;
+using System.Windows.Media;
+using Enigma.Domain.Constants;
 using Enigma.Frontend.Ui.ViewModels;
 
 namespace Enigma.Frontend.Ui.Views;
@@ -14,7 +16,15 @@ public partial class PrenatalWindow
     public PrenatalWindow()
     {
         InitializeComponent();
+        DefineColors();
     }
+    
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+        ChartNameText.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+    }
+
     
     private void UseAspectsCheckBox_Checked(object sender, RoutedEventArgs e)
     {

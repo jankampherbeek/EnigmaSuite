@@ -151,6 +151,7 @@ public partial class PrenatalViewModel : ObservableObject
     
     public void Populate()
     {
+        ChartName = DataVaultCharts.Instance.GetCurrentChart().InputtedChartData.MetaData.Name;
         _preNatalModel.useAspects = UseAspects;
         _preNatalModel.useEclipses = UseEclipses;
         _preNatalModel.useIngresses = UseIngresses;
