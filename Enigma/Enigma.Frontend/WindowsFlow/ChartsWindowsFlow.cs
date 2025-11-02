@@ -31,8 +31,8 @@ public class ChartsWindowsFlow:
     public const string CHARTS_PROG_PRIMDIR_INPUT = "PrimDirInput";
     public const string SOLAR_INPUT = "SolarInput";
     public const string SOLAR_RESULTS = "SolarResults";
-    public const string PRENATAL_ASPECT_SELECTION = "PrenatalAspectSelectionWindow";
-    public const string PRENATAL_FACTOR_SELECTION = "PreNatalFactorSelectionWindow";
+    public const string PRENATAL_ASPECT_SELECTION = "PrenatalAspectSelection";
+    public const string PRENATAL_FACTOR_SELECTION = "PreNatalFactorSelection";
     
     private PrimDirInputWindow? _primDirInputWindow;
     private SolarInputWindow? _solarInputWindow;
