@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BLA Schema</title>
+</head>
+<body>
+<h1>Black Lights Astrology Schema</h1>
+<p><i>Black Lights Astrology</i> (BLA) is a specialized form of astrology developed by the Dutch astrologer George Bode. 
+    BLA uses multiple celestial points in the chart that are unknown in other forms of astrology. 
+    It is important to know that the rulership of the signs differs significantly from what is customary. 
+    In the user manual, you will find a brief summary of BLA.</p>
+<p>This schema contains counts of various factors in the chart.</p>
+
+<h2>Settings</h2>
+<p>For the calculation of this schema, you can choose different settings.</p> 
+<p>For the corrected Black Moon, you will see <i>Corrected Duval</i> by default, but you can also 
+    choose <i>Corrected SE</i> or <i>Interpolated</i>.</p>
+<p>For the house system, you see the default selection <i>Placidus</i>. 
+    You can change this to another system. 
+    The choice is limited to quadrant systems (with the Ascendant equal to cusp 1 and the MC equal to cusp 10).</p>
+<p>The four checkboxes offer you the following choices:</p>
+<ul>
+<li>Use the True Node instead of the Mean Node.</li>
+<li>Include Chiron in the calculations.</li>
+<li>Include Ceres in the calculations.</li>
+<li>Use decanates in the counts for dispositors.</li>
+</ul>
+<p>If you change any of the options, Enigma will automatically recalculate the schema.</p>
+
+<h2>Positions</h2>
+<p>In the left column, you see the positions of the planets and the cusps. 
+    Next to the longitude, you see the house and the decanate. 
+    Enigma does not take into account the choices you made in the configuration. 
+    The celestial points included are predetermined; you can only indicate whether you want to include Chiron and Ceres.</p>
+<h2>Elements</h2>
+<p>Under <i>Elements</i>, you will find the counts of celestial points in fire, earth, air, and water signs. 
+    Additionally, the counts in the analogous houses, and then the sum of these two values. 
+    Under <i>Hcusp</i> are the totals of celestial points in houses whose cusp is in a sign of the indicated element.</p>
+<h2>Crosses</h2>
+<p>Under Crosses (modalities), Enigma shows the crosses: cardinal, fixed, and mutable. The setup is the same as for Elements.</p>
+<h2>Dispositors</h2>
+<p>The Dispositors table shows, on the left, two celestial points that each rule over the same two signs.</p> 
+<p>Under the <i>Comb</i> column, you see the counts of planets in signs that are ruled by the two indicated points.</p> 
+<p>The <i>Signs</i> column shows the totals in signs and is essentially the sum of both numbers in the <i>Comb</i> column.</p> 
+<p>The <i>Ind</i> column shows the totals of the indirect rulerships: the totals of celestial points in signs that are 
+    ruled by points which are in a sign ruled by one of the rulers in the left column. 
+    These two rulers themselves are not counted.</p> 
+<p>Directly after the "Ind" column, you see the "Sum" column containing the addition of the "Signs" and "Ind" columns.</p>
+<p>For houses - the <i>H'ses</i> column - an analogous story applies. 
+    In the second to last column, <i>Dec.</i>, you find the counts for the decans, provided you have selected these in the options. 
+    For decans, only direct rulership applies; there is no <i>Ind</i> column. 
+    Finally, you see the <i>Total</i> of the two <i>Sum</i> columns and the decans.</p>
+<p>Underneath the table with dispositors, Enigma shows a histogram with the totals of all dispositors.</p>
+
+<h2>Quadrants</h2>
+<p>Under <i>Quadrants</i>, you will find the number of points located in one of the quadrants: 
+quadrant 1 (houses 1,2,3), quadrant 2 (houses 4,5,6), quadrant 3 (houses 7,8,9), and quadrant 4 (houses 10,11,12).</p>
+
+<h2>Details</h2>
+<p>The <i>Details</i> table contains multiple, self-contained, specific features.</p>
+<ul>
+<li><i>Sister Sign Asc.</i> shows the number and symbol of the sign that is ruled by the same sign pair as the sign on the ascendant.</li>
+<li><i>Clamped Houses</i> contains the clamped houses; houses that begin and end in the same sign.</li>
+<li><i>Intercepted Signs</i> shows the numbers and symbols of intercepted signs.</li>
+<li><i>Ground note</i> displays successively the following houses: the ascendant, the house that is analogous to the 
+    sign on the ascendant, the house with the sister sign on the cusp, and any second house with the same sign as the 
+    ascendant on the cusp.</li>
+<li><i>Lords Asc.</i> in houses shows the houses where the two rulers of the ascendant are located.</li>
+<li><i>Moon in house</i> shows, you guessed it, the house where the Moon is located.</li>
+</ul>
+
+<h2>Cycles</h2>
+<p>For each cross and each element, you will find here the rulers that, within that cross or element, are in each other's signs.</p>
+
+<h2>Shortened Cycles</h2>
+<p>As <i>Cycles</i>, but now for rulers of the same ruler pair.</p>
+    
+<h2>In own sign</h2>
+<p>Points that are in their own sign.</p>
+
+<h2>In own house</h2>
+<p>Points that are in the house they rule.</p>
+
+<h2>In own mundane house</h2>
+<p>Points that are in the house they rule mundanely (the house that is analogous to the sign the point rules).</p>
+
+<h2>Receptions</h2>
+<p>There are three types of receptions: in signs, in houses, and in mundane houses.</p>
+<ul>
+    <li>A reception in sign applies when two points are each in a sign that is ruled by the other point.</li>
+    <li>For houses, it applies when two points are each in a house that is ruled by the other point.</li>
+    <li>Receptions in mundane houses are seen when two planets are each in a house that is ruled mundanely by the other point.</li>    
+</ul>
+</body>
+</html>
