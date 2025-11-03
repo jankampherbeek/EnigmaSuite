@@ -19,6 +19,7 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
     private const double MIN_VENUS_PERIOD = 583.0;
     private const Calendars CAL = Calendars.Gregorian;
     private const double JD_TOLERANCE = 0.1; // Tolerance for considering Julian Days as approximately the same (about 2.4 hours)
+    private const int REPEAT_CALCULATION = 14;
     
     public List<Tuple<double, VenusPhenomena>> JdRange(double birthJd, bool prenatal)
     {
@@ -26,10 +27,10 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
         
         
         // calculate all occurrences from starting with 584 days before birthJd, and remember the value for VenusPhenomena
-        var lastJdInferior= birthJd - MAX_VENUS_PERIOD;
+        var lastJdInferior= birthJd - 2 * MAX_VENUS_PERIOD;
         var lastJdSuperior = lastJdInferior;        // start JD for inferior and superior conjunctions is the same
         // calculate inferior conjunctiopns
-        for (var i = 0; i < 7; i++)
+        for (var i = 0; i < REPEAT_CALCULATION; i++)
         {
             var year = julDayFacade.DateTimeFromJd(lastJdInferior + MIN_VENUS_PERIOD, CAL).Year;
             var jdNewYear = julDayFacade.JdFromSe(new SimpleDateTime(year, 1, 1, 0, CAL));
@@ -39,7 +40,7 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
             jdsFound.Add(jdPhenonomenon);
         }
         // calculate superior conjunctions
-        for (var i = 0; i < 7; i++)
+        for (var i = 0; i < REPEAT_CALCULATION; i++)
         {
             var year = julDayFacade.DateTimeFromJd(lastJdSuperior + MIN_VENUS_PERIOD, CAL).Year;
             var jdNewYear = julDayFacade.JdFromSe(new SimpleDateTime(year, 1, 1, 0, CAL));
@@ -97,8 +98,8 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
         if (jdsList.Count == 0)
             return jdsList;
             
-        if (prenatal)
-        {
+        // if (prenatal)
+        // {
             // Find the last JD before birth
             var lastBeforeBirthIndex = -1;
             for (var i = 0; i < jdsList.Count; i++)
@@ -120,31 +121,31 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
             }
             
             // Start from the last JD before birth and include up to 5 items total
-            var startIndex = Math.Max(0, lastBeforeBirthIndex);
+            var startIndex = Math.Max(0, lastBeforeBirthIndex - 2);
             var endIndex = Math.Min(jdsList.Count, startIndex + 5);
             return jdsList.GetRange(startIndex, endIndex - startIndex);
-        }
-        else
-        {
-            // Find the first JD after birth
-            var firstAfterBirthIndex = -1;
-            for (var i = 0; i < jdsList.Count; i++)
-            {
-                if (!(jdsList[i].Item1 > birthJd)) continue;
-                firstAfterBirthIndex = i;
-                break;
-            }
-            
-            if (firstAfterBirthIndex == -1)
-            {
-                // No JDs after birth, return empty list or last 5 items
-                return jdsList.Count > 0 ? jdsList.TakeLast(5).ToList() : jdsList;
-            }
-            
-            // Start from the first JD after birth and include up to 5 items
-            var endIndex = Math.Min(jdsList.Count, firstAfterBirthIndex + 5);
-            return jdsList.GetRange(firstAfterBirthIndex, endIndex - firstAfterBirthIndex);
-        }
+        // }
+        // else
+        // {
+        //     // Find the first JD after birth
+        //     var firstAfterBirthIndex = -1;
+        //     for (var i = 0; i < jdsList.Count; i++)
+        //     {
+        //         if (!(jdsList[i].Item1 > birthJd)) continue;
+        //         firstAfterBirthIndex = i;
+        //         break;
+        //     }
+        //     
+        //     if (firstAfterBirthIndex == -1)
+        //     {
+        //         // No JDs after birth, return empty list or last 5 items
+        //         return jdsList.Count > 0 ? jdsList.TakeLast(5).ToList() : jdsList;
+        //     }
+        //     
+        //     // Start from the first JD after birth and include up to 5 items
+        //     var endIndex = Math.Min(jdsList.Count, firstAfterBirthIndex + 5);
+        //     return jdsList.GetRange(firstAfterBirthIndex, endIndex - firstAfterBirthIndex);
+        // }
     }
     
     private Tuple<double, VenusPhenomena> DefineJdPhenomenon(double yearFraction, VenusPhenomena phenomenon)
