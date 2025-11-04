@@ -43,7 +43,7 @@ public partial class VspWindow
         {
             if (viewModel.VspPositions != null && viewModel.VspPositions.Count > 0)
             {
-                var lap = viewModel.VspPositions[2].Longitude - 90.0;
+                var lap = viewModel.VspPositions[2].Longitude + 90.0;
                 if (lap < 0.0) lap += 360.0;
                 leftAnchorPoint = lap;
                 _canvasController.LeftAnchorPoint = lap;
@@ -185,7 +185,7 @@ public partial class VspWindow
         foreach (var vspPosition in vspPositions)
         {
             // Calculate the angle for positioning
-            double angle = vspPosition.Longitude - leftAnchorPoint - 90.0;
+            double angle = vspPosition.Longitude - leftAnchorPoint + 90.0;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
             
@@ -220,7 +220,7 @@ public partial class VspWindow
         foreach (var vspPosition in vspPositions)
         {
             // Calculate the angle for positioning
-            double angle = vspPosition.Longitude - leftAnchorPoint - 90.0;
+            double angle = vspPosition.Longitude - leftAnchorPoint + 90.0;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
             
@@ -285,11 +285,11 @@ public partial class VspWindow
             if (currentVsp != null && nextVsp != null)
             {
                 // Calculate angles for both points
-                double angle1 = currentVsp.Longitude - leftAnchorPoint - 90.0;
+                double angle1 = currentVsp.Longitude - leftAnchorPoint + 90.0;
                 if (angle1 < 0.0) angle1 += 360.0;
                 if (angle1 >= 360.0) angle1 -= 360.0;
                 
-                double angle2 = nextVsp.Longitude - leftAnchorPoint - 90.0;
+                double angle2 = nextVsp.Longitude - leftAnchorPoint + 90.0;
                 if (angle2 < 0.0) angle2 += 360.0;
                 if (angle2 >= 360.0) angle2 -= 360.0;
                 
