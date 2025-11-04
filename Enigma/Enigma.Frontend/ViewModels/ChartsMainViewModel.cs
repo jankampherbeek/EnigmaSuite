@@ -54,8 +54,6 @@ public partial class ChartsMainViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(StartZodCommand))]
     [NotifyCanExecuteChangedFor(nameof(ProgCalCommand))]
     [NotifyCanExecuteChangedFor(nameof(PrenatalCommand))]
-    [NotifyCanExecuteChangedFor(nameof(ProfectionsCommand))]
-    [NotifyCanExecuteChangedFor(nameof(FirdariaCommand))]
     [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
     [ObservableProperty] private string _nrOfChartsInDatabase = string.Empty;
@@ -305,21 +303,7 @@ public partial class ChartsMainViewModel: ObservableObject,
         Log.Information("ChartsMainViewModel.Prenatal(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PRENATAL));
     }
-    
-    [RelayCommand(CanExecute = nameof(IsChartSelected))]
-    private void Profections()
-    {
-        Log.Information("ChartsMainViewModel.Profections(): send OpenMessage");
-        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROFECTIONS));
-    }
-    
-    [RelayCommand(CanExecute = nameof(IsChartSelected))]
-    private void Firdaria()
-    {
-        Log.Information("ChartsMainViewModel.Firdaria(): send OpenMessage");
-        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.FIRDARIA));
-    }
-    
+   
     [RelayCommand]
     private static void About()
     {

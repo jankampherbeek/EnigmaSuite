@@ -67,8 +67,6 @@ public class ChartsWindowsFlow:
     public const string START_ZOD = "StartZod";
     public const string PROG_CAL = "ProgCal";
     public const string PRENATAL = "Prenatal";
-    public const string PROFECTIONS = "Profections";
-    public const string FIRDARIA = "Firdaria";
 
     
     private RadixDataInputWindow? _radixDataInputWindow;
@@ -97,8 +95,6 @@ public class ChartsWindowsFlow:
     private PrenatalWindow? _prenatalWindow;
     private PreNatalAspectSelectionWindow? _preNatalAspectSelectionWindow;
     private PreNatalFactorSelectionWindow? _preNatalFactorSelectionWindow;
-    private ProfectionsWindow? _profectionsWindow;
-    private FirdariaWindow? _firdariaWindow;
     
     // The tuple contains the id for window, the current window and the textid for the parent window.
     private readonly List<Tuple<int, Window, string>> _openWindows = new();
@@ -163,12 +159,6 @@ public class ChartsWindowsFlow:
                 break;
             case PRENATAL_ASPECT_SELECTION:
                 _preNatalAspectSelectionWindow?.Close();
-                break;
-            case PROFECTIONS:
-                _profectionsWindow?.Close();
-                break;
-            case FIRDARIA:
-                _firdariaWindow?.Close();
                 break;
         }
     }
@@ -339,16 +329,6 @@ public class ChartsWindowsFlow:
                 _prenatalWindow = new PrenatalWindow();
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _prenatalWindow, parentView));
                 _prenatalWindow.Show();
-                break;
-            case PROFECTIONS:
-                _profectionsWindow = new ProfectionsWindow();
-                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _profectionsWindow, parentView));
-                _profectionsWindow.Show();
-                break;
-            case FIRDARIA:
-                _firdariaWindow = new FirdariaWindow();
-                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _firdariaWindow, parentView));
-                _firdariaWindow.Show();
                 break;
         }
     }
