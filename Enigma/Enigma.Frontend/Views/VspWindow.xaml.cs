@@ -30,12 +30,27 @@ public partial class VspWindow
 {
     private ChartsWheelCanvasController _canvasController;
 
+    private double leftAnchorPoint = 0.0;
     public VspWindow()
     {
         InitializeComponent();
         DefineColors();
         _canvasController = App.ServiceProvider.GetRequiredService<ChartsWheelCanvasController>();
         _canvasController.AllPositions = DataVaultCharts.Instance.GetCurrentChart().Positions;
+        var viewModel = DataContext as VspViewModel;
+
+        if (viewModel != null)
+        {
+            if (viewModel.VspPositions != null && viewModel.VspPositions.Count > 0)
+            {
+                var lap = viewModel.VspPositions[2].Longitude - 90.0;
+                if (lap < 0.0) lap += 360.0;
+                leftAnchorPoint = lap;
+                _canvasController.LeftAnchorPoint = lap;
+            }
+
+        }
+
         // Set up property change handling for the ViewModel
         DataContextChanged += OnDataContextChanged;
         
@@ -44,12 +59,9 @@ public partial class VspWindow
 
     private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine($"OnDataContextChanged called. NewValue: {e.NewValue?.GetType().Name ?? "null"}");
         
         if (e.NewValue is VspViewModel viewModel)
         {
-            System.Diagnostics.Debug.WriteLine("VspViewModel detected, setting up and populating");
-            
             // Sync the controller with the ViewModel
             _canvasController.ShowSignBackgroundColors = viewModel.ShowSignBackgroundColors;
             
@@ -67,7 +79,6 @@ public partial class VspWindow
     
     private void OnViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine($"OnViewModelPropertyChanged: PropertyName = {e.PropertyName}");
         
         if (e.PropertyName == nameof(VspViewModel.ShowSignBackgroundColors))
         {
@@ -78,18 +89,14 @@ public partial class VspWindow
         else if (e.PropertyName == nameof(VspViewModel.VspPositions))
         {
             // When VspPositions changes (e.g., when Prenatal checkbox is toggled), refresh the chart wheel
-            System.Diagnostics.Debug.WriteLine("Calling Populate() for VspPositions change");
             Populate();
         }
     }
     
     public void Populate()
     {
-        System.Diagnostics.Debug.WriteLine("=== Populate() called ===");
-        
         // Check if ViewModel is properly set
         var viewModel = DataContext as VspViewModel;
-        System.Diagnostics.Debug.WriteLine($"Populate: ViewModel is {viewModel != null}");
         
         WheelCanvas.Children.Clear();
         
@@ -104,10 +111,7 @@ public partial class VspWindow
         DrawChartFrame();
         DrawCusps();
         DrawCelPoints();
-        System.Diagnostics.Debug.WriteLine("About to call DrawVspPoints()");
         DrawVspPoints();
-        System.Diagnostics.Debug.WriteLine("DrawVspPoints() completed");
-        System.Diagnostics.Debug.WriteLine($"Total children in WheelCanvas: {WheelCanvas.Children.Count}");
     }
     
 
@@ -138,31 +142,22 @@ public partial class VspWindow
     
     private void DrawVspPoints()
     {
-        System.Diagnostics.Debug.WriteLine("=== DrawVspPoints() called ===");
         var viewModel = DataContext as VspViewModel;
-        System.Diagnostics.Debug.WriteLine($"ViewModel: {viewModel != null}");
         
         if (viewModel != null)
         {
-            System.Diagnostics.Debug.WriteLine($"VspPositions: {viewModel.VspPositions != null}, Count: {viewModel.VspPositions?.Count ?? 0}");
-            
             if (viewModel.VspPositions != null && viewModel.VspPositions.Count > 0)
             {
-                System.Diagnostics.Debug.WriteLine($"VSP Positions count: {viewModel.VspPositions.Count}");
-                
                 // First, create and add VSP connection lines (drawn first, behind everything)
                 var vspLines = CreateVspConnectionLines(viewModel.VspPositions);
-                System.Diagnostics.Debug.WriteLine($"VSP Lines created: {vspLines.Count}");
                 AddToWheel(vspLines);
                 
                 // Then, create and add VSP background circles (drawn second, behind text)
                 var vspCircles = CreateVspCircles(viewModel.VspPositions);
-                System.Diagnostics.Debug.WriteLine($"VSP Circles created: {vspCircles.Count}");
                 AddToWheel(vspCircles);
                 
                 // Finally, create and add VSP text (drawn last, on top)
                 var vspTexts = CreateVspTexts(viewModel.VspPositions);
-                System.Diagnostics.Debug.WriteLine($"VSP Texts created: {vspTexts.Count}");
                 AddToWheel(vspTexts);
             }
             else
@@ -185,13 +180,12 @@ public partial class VspWindow
     {
         var vspCircles = new List<UIElement>();
         var centerPoint = new Point(_canvasController.CanvasSize / 2, _canvasController.CanvasSize / 2);
-        var ascendantLongitude = _canvasController.NoTime ? 0.0 : 
-            DataVaultCharts.Instance.GetCurrentChart()?.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position ?? 0.0;
-        
+        // var ascendantLongitude = _canvasController.NoTime ? 0.0 : 
+        //     DataVaultCharts.Instance.GetCurrentChart()?.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position ?? 0.0;
         foreach (var vspPosition in vspPositions)
         {
             // Calculate the angle for positioning
-            double angle = vspPosition.Longitude - ascendantLongitude + 90.0;
+            double angle = vspPosition.Longitude - leftAnchorPoint - 90.0;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
             
@@ -221,13 +215,12 @@ public partial class VspWindow
     {
         var vspTexts = new List<UIElement>();
         var centerPoint = new Point(_canvasController.CanvasSize / 2, _canvasController.CanvasSize / 2);
-        var ascendantLongitude = _canvasController.NoTime ? 0.0 : 
-            DataVaultCharts.Instance.GetCurrentChart()?.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position ?? 0.0;
-        
+        // var ascendantLongitude = _canvasController.NoTime ? 0.0 : 
+        //     DataVaultCharts.Instance.GetCurrentChart()?.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position ?? 0.0;
         foreach (var vspPosition in vspPositions)
         {
             // Calculate the angle for positioning
-            double angle = vspPosition.Longitude - ascendantLongitude + 90.0;
+            double angle = vspPosition.Longitude - leftAnchorPoint - 90.0;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
             
@@ -266,9 +259,8 @@ public partial class VspWindow
     {
         var vspLines = new List<UIElement>();
         var centerPoint = new Point(_canvasController.CanvasSize / 2, _canvasController.CanvasSize / 2);
-        var ascendantLongitude = _canvasController.NoTime ? 0.0 : 
-            DataVaultCharts.Instance.GetCurrentChart()?.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position ?? 0.0;
-        
+        // var ascendantLongitude = _canvasController.NoTime ? 0.0 : 
+        //     DataVaultCharts.Instance.GetCurrentChart()?.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position ?? 0.0;
         // Sort VSP positions by sequence ID to ensure correct order (1, 2, 3, 4, 5)
         var sortedVspPositions = vspPositions.OrderBy(vsp => vsp.SequenceId).ToList();
         
@@ -293,11 +285,11 @@ public partial class VspWindow
             if (currentVsp != null && nextVsp != null)
             {
                 // Calculate angles for both points
-                double angle1 = currentVsp.Longitude - ascendantLongitude + 90.0;
+                double angle1 = currentVsp.Longitude - leftAnchorPoint - 90.0;
                 if (angle1 < 0.0) angle1 += 360.0;
                 if (angle1 >= 360.0) angle1 -= 360.0;
                 
-                double angle2 = nextVsp.Longitude - ascendantLongitude + 90.0;
+                double angle2 = nextVsp.Longitude - leftAnchorPoint - 90.0;
                 if (angle2 < 0.0) angle2 += 360.0;
                 if (angle2 >= 360.0) angle2 -= 360.0;
                 
@@ -371,14 +363,11 @@ public partial class VspWindow
     
     private void Prenatal_Checked(object sender, RoutedEventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine("Prenatal_Checked called");
         var viewModel = DataContext as VspViewModel;
         if (viewModel != null)
         {
-            System.Diagnostics.Debug.WriteLine("Calling UpdatePrenatal(true)");
             viewModel.UpdatePrenatal(true);
             // Also force a chart wheel refresh
-            System.Diagnostics.Debug.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(true)");
             Populate();
         }
         else
@@ -389,14 +378,11 @@ public partial class VspWindow
     
     private void Prenatal_Unchecked(object sender, RoutedEventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine("Prenatal_Unchecked called");
         var viewModel = DataContext as VspViewModel;
         if (viewModel != null)
         {
-            System.Diagnostics.Debug.WriteLine("Calling UpdatePrenatal(false)");
             viewModel.UpdatePrenatal(false);
             // Also force a chart wheel refresh
-            System.Diagnostics.Debug.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(false)");
             Populate();
         }
         else

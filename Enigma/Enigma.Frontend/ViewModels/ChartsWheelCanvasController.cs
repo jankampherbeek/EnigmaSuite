@@ -43,7 +43,9 @@ public class ChartsWheelCanvasController(
     public List<Ellipse> WheelCircles { get; private set; } = new();
     public List<Line> DegreeLines { get; private set; } = new();
     public List<Line> AspectLines { get; private set; } = new();
-    public Dictionary<ChartPoints, FullPointPos>? AllPositions { get; set; }  
+    public Dictionary<ChartPoints, FullPointPos>? AllPositions { get; set; }
+
+    public double LeftAnchorPoint { get; set; } = -1.0;
     
     public double CanvasSize { get; private set; }
     public ChartsWheelMetrics Metrics => metrics;
@@ -58,11 +60,12 @@ public class ChartsWheelCanvasController(
 
     private void HandleSigns()
     {
-        SignSeparators = chartsWheelSigns.CreateSignSeparators(metrics, _centerPoint, GetAscendantLongitude());
-        SignGlyphs = chartsWheelSigns.CreateSignGlyphs(metrics, _centerPoint, GetAscendantLongitude());
+        var leftStartPoint = GetLeftStartPoint();
+        SignSeparators = chartsWheelSigns.CreateSignSeparators(metrics, _centerPoint, leftStartPoint);
+        SignGlyphs = chartsWheelSigns.CreateSignGlyphs(metrics, _centerPoint, leftStartPoint);
         if (ShowSignBackgroundColors)
         {
-            SignBackgroundSectors = chartsWheelSigns.CreateSignBackgroundSectors(metrics, _centerPoint, GetAscendantLongitude());
+            SignBackgroundSectors = chartsWheelSigns.CreateSignBackgroundSectors(metrics, _centerPoint, leftStartPoint);
         }
         else
         {
@@ -72,6 +75,7 @@ public class ChartsWheelCanvasController(
 
     private void HandleCusps()
     {
+        var leftStartPoint = GetLeftStartPoint();
         if (NoTime)
         {
             CuspLines.Clear();
@@ -81,24 +85,25 @@ public class ChartsWheelCanvasController(
             return;
         }
         CuspLines = chartsWheelCusps.CreateCuspLines(metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
-            GetAscendantLongitude());
+            leftStartPoint);
         CuspCardinalLines =
-            chartsWheelCusps.CreateCardinalLines(metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
+            chartsWheelCusps.CreateCardinalLines(metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude(), LeftAnchorPoint);
         CuspCardinalIndicators =
             chartsWheelCusps.CreateCardinalIndicators(metrics, _centerPoint, GetAscendantLongitude(),
-                GetMcLongitude());
+                GetMcLongitude(), LeftAnchorPoint);
         CuspTexts = chartsWheelCusps.CreateCuspTexts(metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
-            GetAscendantLongitude());
+            leftStartPoint);
 
     }
 
     private void HandleCelPoints()
     {
         var points = GetCommonPointsCurrentChart();
-        var al = GetAscendantLongitude();
-        CelPointGlyphs = graphicCelPoints.CreateCelPointGlyphsForWheel(metrics, points, _centerPoint, al);
-        CelPointConnectLines = graphicCelPoints.CreateCelPointConnectLines(metrics, points, _centerPoint, al);
-        CelPointTexts = graphicCelPoints.CreateCelPointTextsForWheel(metrics, points, _centerPoint, al);
+        var leftStartPoint = GetLeftStartPoint();
+        // var al = GetAscendantLongitude();
+        CelPointGlyphs = graphicCelPoints.CreateCelPointGlyphsForWheel(metrics, points, _centerPoint, leftStartPoint);
+        CelPointConnectLines = graphicCelPoints.CreateCelPointConnectLines(metrics, points, _centerPoint, leftStartPoint);
+        CelPointTexts = graphicCelPoints.CreateCelPointTextsForWheel(metrics, points, _centerPoint, leftStartPoint);
     }
 
     private void HandleVspPoints()
@@ -162,4 +167,10 @@ public class ChartsWheelCanvasController(
         HandleAspects();
     }
 
+    private double GetLeftStartPoint()
+    {
+        var ascLongitude = GetAscendantLongitude();
+        var leftStartPoint = LeftAnchorPoint < 0.0 ? ascLongitude : LeftAnchorPoint;
+        return leftStartPoint;
+    }
 }

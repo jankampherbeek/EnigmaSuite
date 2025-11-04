@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,9 +16,9 @@ namespace Enigma.Frontend.Ui.Graphics;
 public interface IChartsWheelCusps
 {
     public List<Line> CreateCuspLines(ChartsWheelMetrics metrics, Point centerPoint, List<double> housePositions, double longAscendant);
-    public List<Line> CreateCardinalLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc);
+    public List<Line> CreateCardinalLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc, double leftAnchorPoint);
     public List<TextBlock> CreateCuspTexts(ChartsWheelMetrics metrics, Point centerPoint, List<double> housePositions, double longAscendant);
-    public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc);
+    public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc, double leftAnchorPoint);
 }
 
 public sealed class ChartsWheelCusps : IChartsWheelCusps
@@ -44,17 +45,19 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
         return cuspLines;
     }
 
-    public List<Line> CreateCardinalLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc)
+    public List<Line> CreateCardinalLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc, double leftAnchorPoint)
     {
         List<Line> cardinalLines = new();
-        double angle = 90.0;
+        double angle = leftAnchorPoint < 0.0 ? 90.0 : longAscendant - leftAnchorPoint + 90.0;
+        if (angle < 0.0) angle += 360.0;
+        if (angle >= 360.0) angle -= 360.0;
         double hypothenusa1 = metrics.OuterSignRadius;
         double hypothenusa2 = metrics.OuterRadius;
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
         angle += 180.0;
         if (angle >= 360.0) angle -= 360.0;
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
-        angle = longMc - longAscendant + 90.0;
+        angle = longMc - leftAnchorPoint + 90.0;
         if (angle < 0.0) angle += 360.0;
         if (angle >= 360.0) angle -= 360.0;
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
@@ -72,7 +75,7 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
         return DimLine.CreateLine(point1, point2, strokeSize, metrics.CuspLineColor, metrics.CuspLineOpacity);
     }
 
-    public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc)
+    public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc, double leftAnchorPoint)
     {
         DimPoint dimPoint = new(centerPoint);
         DimTextBlock cuspsDimTextBlock = new(metrics.PositionTextsFontFamily, metrics.CardinalFontSize, metrics.CuspTextOpacity, metrics.CuspTextColor);
@@ -81,7 +84,9 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
         double yOffset = metrics.CardinalFontSize / 1.8;
 
         // Asc
-        double angle = 90.0;
+        double angle = leftAnchorPoint < 0.0 ? 90.0 : longAscendant - leftAnchorPoint + 90.0;
+        if (angle < 0.0) angle += 360.0;
+        if (angle >= 360.0) angle -= 360.0;
         string text = "A";
         Point posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
         cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
@@ -92,7 +97,7 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
         posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
         cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
         // MC
-        angle = longMc - longAscendant + 90.0;
+        angle = longMc - leftAnchorPoint + 90.0;
         if (angle < 0.0) angle += 360.0;
         if (angle >= 360.0) angle -= 360.0;
         text = "M";
