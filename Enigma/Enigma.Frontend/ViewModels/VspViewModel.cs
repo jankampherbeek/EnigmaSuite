@@ -29,7 +29,7 @@ public partial class VspViewModel : ObservableObject
     [ObservableProperty] private string _chartName;
     [ObservableProperty] private bool _showSignBackgroundColors = true;
     [ObservableProperty] private List<PresentableVspPosition> _vspPositions;
-    [ObservableProperty] private bool _isPrenatal = false;
+    [ObservableProperty] private string _explanationText;
 
     [RelayCommand]
     private void Help()
@@ -50,27 +50,12 @@ public partial class VspViewModel : ObservableObject
         _model = App.ServiceProvider.GetRequiredService<VspModel>();
         
         // Initialize data
+        ExplanationText = "The current representation of the Venus Star Point (VSP) was established in close consultation with Arielle Guttman, who discovered and described this principle.\nPlease see the user manual for more information.";
         ChartName = _model.GetCurrentChartName();
         System.Diagnostics.Debug.WriteLine($"VspViewModel: ChartName = {ChartName}");
-        VspPositions = _model.GetVspPositions(IsPrenatal);
+        VspPositions = _model.GetVspPositions();
         System.Diagnostics.Debug.WriteLine($"VspViewModel: VspPositions count = {VspPositions?.Count ?? 0}");
     }
-
-    /// <summary>Update the prenatal setting and recalculate VSP positions</summary>
-    /// <param name="isPrenatal">Whether to include prenatal positions</param>
-    public void UpdatePrenatal(bool isPrenatal)
-    {
-        System.Diagnostics.Debug.WriteLine($"UpdatePrenatal called with isPrenatal = {isPrenatal}");
-        
-        IsPrenatal = isPrenatal;
-        var newPositions = _model.GetVspPositions(IsPrenatal);
-        
-        System.Diagnostics.Debug.WriteLine($"Old VspPositions count: {VspPositions?.Count ?? 0}, New count: {newPositions?.Count ?? 0}");
-        
-        VspPositions = newPositions;
-        
-        System.Diagnostics.Debug.WriteLine("VspPositions updated - PropertyChanged should fire");
-    }
-
+    
    
 }

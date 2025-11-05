@@ -45,7 +45,7 @@ public class VspModel
     /// </summary>
     /// <param name="isPrenatal">Whether to include prenatal positions</param>
     /// <returns>List of presentable VSP positions</returns>
-    public List<PresentableVspPosition> GetVspPositions(bool isPrenatal)
+    public List<PresentableVspPosition> GetVspPositions()
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null)
@@ -58,9 +58,9 @@ public class VspModel
         {
             var birthJd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
             var ayanamsha = GetAyanamshaFromConfiguration();
-            Log.Information($"VspModel.GetVspPositions: Birth JD: {birthJd}, Ayanamsha: {ayanamsha}, Prenatal: {isPrenatal}");
+            Log.Information($"VspModel.GetVspPositions: Birth JD: {birthJd}, Ayanamsha: {ayanamsha}");
             
-            var request = new VenusStarPointRequest(birthJd, isPrenatal, ayanamsha);
+            var request = new VenusStarPointRequest(birthJd, ayanamsha);
             var vspPositions = _venusStarPointService.VenusStarPointCalculation(request);
             
             Log.Information($"VspModel.GetVspPositions: Calculated {vspPositions.Count} VSP positions");

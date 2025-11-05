@@ -194,11 +194,21 @@ public partial class VspWindow
             var point = dimPoint.CreatePoint(angle, _canvasController.Metrics.VspRadius);
             
             // Create the light blue background circle
+            var enLargeFactor = 1.8;
+            var fillColor = new SolidColorBrush(Color.FromRgb(173, 216, 230)); // Light blue color
+            if (vspPosition == vspPositions[2]) fillColor = new SolidColorBrush(Color.FromRgb(255, 153, 153));
+            //
+            //
+            // if (vspPosition == vspPositions[2])
+            // {
+            //     enLargeFactor = 3.6;
+            // }
             var backgroundCircle = new Ellipse
             {
-                Width = _canvasController.Metrics.VspTextSize * 1.8,
-                Height = _canvasController.Metrics.VspTextSize * 1.8,
-                Fill = new SolidColorBrush(Color.FromRgb(173, 216, 230)) // Light blue color
+
+                Width = _canvasController.Metrics.VspTextSize * enLargeFactor,
+                Height = _canvasController.Metrics.VspTextSize * enLargeFactor,
+                Fill = fillColor
             };
             
             // Position the circle on the canvas
@@ -234,12 +244,15 @@ public partial class VspWindow
             int minutes = (int)((longitudeInSign - degrees) * 60.0);
             
             // Create the text block for the VSP number and longitude (original format)
+            var textSize = 0.8;
+            var textColor = Colors.Red;
+            if (vspPosition == vspPositions[2]) textColor = Colors.Blue;
             var textBlock = new TextBlock
             {
                 Text = $"{vspPosition.SequenceId}\n{degrees}°{minutes:D2}'",
                 FontFamily = _canvasController.Metrics.PositionTextsFontFamily,
-                FontSize = _canvasController.Metrics.VspTextSize * 0.8, // Slightly smaller to fit both lines
-                Foreground = new SolidColorBrush(Colors.Red), // Make it red for visibility
+                FontSize = _canvasController.Metrics.VspTextSize * textSize, // Slightly smaller to fit both lines
+                Foreground =   new SolidColorBrush(textColor), // Make it red for visibility
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 TextAlignment = TextAlignment.Center
@@ -360,36 +373,7 @@ public partial class VspWindow
         _canvasController.ShowSignBackgroundColors = true;
         Populate();
     }
-    
-    private void Prenatal_Checked(object sender, RoutedEventArgs e)
-    {
-        var viewModel = DataContext as VspViewModel;
-        if (viewModel != null)
-        {
-            viewModel.UpdatePrenatal(true);
-            // Also force a chart wheel refresh
-            Populate();
-        }
-        else
-        {
-            System.Diagnostics.Debug.WriteLine("ViewModel is null in Prenatal_Checked");
-        }
-    }
-    
-    private void Prenatal_Unchecked(object sender, RoutedEventArgs e)
-    {
-        var viewModel = DataContext as VspViewModel;
-        if (viewModel != null)
-        {
-            viewModel.UpdatePrenatal(false);
-            // Also force a chart wheel refresh
-            Populate();
-        }
-        else
-        {
-            System.Diagnostics.Debug.WriteLine("ViewModel is null in Prenatal_Unchecked");
-        }
-    }
+ 
     
     private void ExportClick(object sender, RoutedEventArgs e)
     {
@@ -400,5 +384,6 @@ public partial class VspWindow
     {
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
         ChartNameText.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+        ExplanationText.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.DESCRIPTION_BLOCK_COLOR)!;
      }
 }

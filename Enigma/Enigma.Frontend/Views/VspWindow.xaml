@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Venus Star Point" Height="900" Width="1200">
+        Title="Enigma - Venus Star Point" Height="900" Width="1240">
     <Window.DataContext>
         <viewModels:VspViewModel/>
     </Window.DataContext>
@@ -78,13 +78,11 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Controls -->
-            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
-                <CheckBox Content="PreNatal" Margin="6,0" 
-                          Style="{StaticResource MaterialDesignCheckBox}"
-                          IsChecked="{Binding IsPrenatal}"
-                          Checked="Prenatal_Checked" Unchecked="Prenatal_Unchecked"/>
-            </StackPanel>
+            <!-- Explanation -->
+            <materialDesign:Card Padding="8" Margin="6"
+                                 Name="ExplanationText" UniformCornerRadius="6">
+                <TextBlock Text="{Binding ExplanationText}" TextWrapping="Wrap" />
+            </materialDesign:Card>
 
             <!-- Venus Star Point Positions List -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -101,8 +99,17 @@
                           AlternatingRowBackground="LightBlue"
                           RowBackground="White">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Name" 
+                                            IsReadOnly="True" Width="50">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource NameColumnStyle}">
+                                    <Setter Property="Padding" Value="12,6,12,6"/>
+                                    <Setter Property="Margin" Value="2,0,2,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding SequenceId}" Header="Sequence" 
-                                            IsReadOnly="True" Width="80">
+                                            IsReadOnly="True" Width="70">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell" BasedOn="{StaticResource NumberColumnStyle}">
                                     <Setter Property="Padding" Value="12,6,12,6"/>
@@ -120,7 +127,7 @@
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding PhenomenonText}" Header="Conjunction" 
-                                            IsReadOnly="True" Width="100">
+                                            IsReadOnly="True" Width="90">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell" BasedOn="{StaticResource NameColumnStyle}">
                                     <Setter Property="Padding" Value="12,6,12,6"/>
@@ -129,7 +136,7 @@
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding LongitudeText}" Header="Longitude" 
-                                            IsReadOnly="True" Width="120">
+                                            IsReadOnly="True" Width="100">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell" BasedOn="{StaticResource NumberColumnStyle}">
                                     <Setter Property="Padding" Value="12,6,12,6"/>

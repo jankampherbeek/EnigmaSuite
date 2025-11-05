@@ -49,7 +49,7 @@ public class IntegrationTestVenusStarPointService
     public void TestVenusStarPointCalculation_Tropical_HappyFlow()
     {
         // Arrange
-        var request = new VenusStarPointRequest(2459580.5, false, Ayanamshas.None); // 2022-01-01, postnatal, tropical
+        var request = new VenusStarPointRequest(2459580.5, Ayanamshas.None); // 2022-01-01, postnatal, tropical
 
         // Act
         var result = _service.VenusStarPointCalculation(request);
@@ -77,34 +77,7 @@ public class IntegrationTestVenusStarPointService
     public void TestVenusStarPointCalculation_Sidereal_HappyFlow()
     {
         // Arrange
-        var request = new VenusStarPointRequest(2459580.5, false, Ayanamshas.Lahiri); // 2022-01-01, postnatal, sidereal
-
-        // Act
-        var result = _service.VenusStarPointCalculation(request);
-
-        // Assert
-        Assert.Multiple(() =>
-        {
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.GreaterThan(0));
-            Assert.That(result, Has.Count.LessThanOrEqualTo(5));
-            
-            foreach (var position in result)
-            {
-                Assert.That(position.SequenceId, Is.GreaterThanOrEqualTo(0));
-                Assert.That(position.Jd, Is.GreaterThan(0));
-                Assert.That(position.Longitude, Is.GreaterThanOrEqualTo(0.0));
-                Assert.That(position.Longitude, Is.LessThan(360.0));
-                Assert.That(position.Phenomenon, Is.AnyOf(VenusPhenomena.InferiorConjunction, VenusPhenomena.SuperiorConjunction));
-            }
-        });
-    }
-
-    [Test]
-    public void TestVenusStarPointCalculation_Prenatal_HappyFlow()
-    {
-        // Arrange
-        var request = new VenusStarPointRequest(2459580.5, true, Ayanamshas.None); // 2022-01-01, prenatal, tropical
+        var request = new VenusStarPointRequest(2459580.5, Ayanamshas.Lahiri); // 2022-01-01, postnatal, sidereal
 
         // Act
         var result = _service.VenusStarPointCalculation(request);
@@ -141,7 +114,7 @@ public class IntegrationTestVenusStarPointService
 
         foreach (var jd in dates)
         {
-            var request = new VenusStarPointRequest(jd, false, Ayanamshas.None);
+            var request = new VenusStarPointRequest(jd, Ayanamshas.None);
 
             // Act
             var result = _service.VenusStarPointCalculation(request);
@@ -179,7 +152,7 @@ public class IntegrationTestVenusStarPointService
 
         foreach (var ayanamsha in ayanamshas)
         {
-            var request = new VenusStarPointRequest(2459580.5, false, ayanamsha);
+            var request = new VenusStarPointRequest(2459580.5, ayanamsha);
 
             // Act
             var result = _service.VenusStarPointCalculation(request);
@@ -207,7 +180,7 @@ public class IntegrationTestVenusStarPointService
     public void TestVenusStarPointCalculation_HistoricalDate()
     {
         // Arrange
-        var request = new VenusStarPointRequest(2440000.5, false, Ayanamshas.None); // 1968-05-01
+        var request = new VenusStarPointRequest(2440000.5, Ayanamshas.None); // 1968-05-01
 
         // Act
         var result = _service.VenusStarPointCalculation(request);
@@ -234,7 +207,7 @@ public class IntegrationTestVenusStarPointService
     public void TestVenusStarPointCalculation_FutureDate()
     {
         // Arrange
-        var request = new VenusStarPointRequest(2480000.5, false, Ayanamshas.None); // 2050-01-01
+        var request = new VenusStarPointRequest(2480000.5, Ayanamshas.None); // 2050-01-01
 
         // Act
         var result = _service.VenusStarPointCalculation(request);
@@ -261,7 +234,7 @@ public class IntegrationTestVenusStarPointService
     public void TestVenusStarPointCalculation_ContainsBothPhenomena()
     {
         // Arrange
-        var request = new VenusStarPointRequest(2459580.5, false, Ayanamshas.None);
+        var request = new VenusStarPointRequest(2459580.5, Ayanamshas.None);
 
         // Act
         var result = _service.VenusStarPointCalculation(request);
@@ -282,7 +255,7 @@ public class IntegrationTestVenusStarPointService
     public void TestVenusStarPointCalculation_ChronologicalOrder()
     {
         // Arrange
-        var request = new VenusStarPointRequest(2459580.5, false, Ayanamshas.None);
+        var request = new VenusStarPointRequest(2459580.5, Ayanamshas.None);
 
         // Act
         var result = _service.VenusStarPointCalculation(request);
@@ -317,7 +290,7 @@ public class IntegrationTestVenusStarPointService
     public void TestVenusStarPointCalculation_ConsistencyCheck()
     {
         // Arrange
-        var request = new VenusStarPointRequest(2459580.5, false, Ayanamshas.None);
+        var request = new VenusStarPointRequest(2459580.5, Ayanamshas.None);
 
         // Act
         var result1 = _service.VenusStarPointCalculation(request);

@@ -15,6 +15,7 @@ namespace Enigma.Frontend.Ui.Models;
 public class PresentableVspPosition
 {
     public int SequenceId { get; }
+    public string Name { get; }
     public string DateTimeText { get; }
     public string PhenomenonText { get; }
     public string LongitudeText { get; }
@@ -28,6 +29,7 @@ public class PresentableVspPosition
     public PresentableVspPosition(VenusStarPointPosition position, IJulianDayApi julianDayApi)
     {
         SequenceId = position.SequenceId;
+        Name = GetName(position.SequenceId);
         Jd = position.Jd;
         Phenomenon = position.Phenomenon;
         Longitude = position.Longitude;
@@ -62,6 +64,19 @@ public class PresentableVspPosition
         {
             VenusPhenomena.InferiorConjunction => "Inferior",
             VenusPhenomena.SuperiorConjunction => "Superior",
+            _ => "Unknown"
+        };
+    }
+
+    private static string GetName(int id)
+    {
+        return id switch
+        {
+            1 => "Leg",
+            2 => "Arm",
+            3 => "Head",
+            4 => "Arm",
+            5 => "Leg",
             _ => "Unknown"
         };
     }

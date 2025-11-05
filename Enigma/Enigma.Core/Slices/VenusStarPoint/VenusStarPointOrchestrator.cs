@@ -31,7 +31,7 @@ public class VenusStarPointOrchestrator(DefineJdRange defineJdRange, ICalcUtFaca
             SeInitializer.SetAyanamsha(request.Ayanamsha.GetDetails().SeId);  // prepare SE for selected Ayanamsha
         }
         // Calculate the exact JDs for the two pehnomena: Superior conjunction and Inferior conjunction
-        var allPhenJds = defineJdRange.JdRange(request.Jd, request.Prenatal);
+        var allPhenJds = defineJdRange.JdRange(request.Jd);
         var sequence = 1;
         return allPhenJds.Select(phenJd => CalcPosition(sequence++, phenJd, flags)).ToList();    
     }

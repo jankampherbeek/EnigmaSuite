@@ -11,6 +11,5 @@ namespace Enigma.Core.Slices.VenusStarPoint;
 /// Request for the calculation of a Venus Star Point
 /// </summary>
 /// <param name="Jd">Julian day of birth</param>
-/// <param name="Prenatal">True to include one prenatal occurrence, otherwise false</param>
 /// <param name="Ayanamsha">Ayanamsha, 'None' for tropical</param>
-public record VenusStarPointRequest(double Jd, bool Prenatal, Ayanamshas Ayanamsha);
+public record VenusStarPointRequest(double Jd, Ayanamshas Ayanamsha);
