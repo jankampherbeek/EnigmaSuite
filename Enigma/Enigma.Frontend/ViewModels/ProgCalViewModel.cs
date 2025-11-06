@@ -7,7 +7,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Messaging;
+using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.WindowsFlow;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -17,6 +19,8 @@ public partial class ProgCalViewModel : ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.PROG_CAL;
 
+    private ProgCalModel _model = App.ServiceProvider.GetRequiredService<ProgCalModel>();
+    
     [ObservableProperty] private string _chartName = "Chart Name";
 
     [RelayCommand]
@@ -35,6 +39,7 @@ public partial class ProgCalViewModel : ObservableObject
 
     public ProgCalViewModel()
     {
+        _model.TestAspects();
         // Initialize data here when needed
     }
 }
