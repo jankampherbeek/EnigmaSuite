@@ -52,7 +52,8 @@ public record ProgCalAspectPoint(ChartPoints ChartPoint, AspectTypes Aspect, dou
 /// <param name="RadixPoint">Radix chartpoint</param>
 /// <param name="ProgLongitude">Longitude of ProgPoint</param>
 /// <param name="RadixLongitude">Longitude of RadixPoint</param>
-/// /// <param name="Aspect">Type of aspect</param>
+/// <param name="Aspect">Type of aspect</param>
+/// <param name="ProgType">Progression type</param>
 /// <param name="Jd">Julian day when the aspect is exact</param>
 public record ProgCalAspectMatch(
     ChartPoints ProgPoint,
@@ -60,6 +61,7 @@ public record ProgCalAspectMatch(
     double ProgLongitude,
     double RadixLongitude,
     AspectTypes Aspect,
+    ProgressionTypes ProgType,
     double Jd);
 
 /// <summary>
@@ -98,7 +100,7 @@ public record ProgCalDeclinationParallelMatch(
 /// <param name="StartJd">First julian day number</param>
 /// <param name="EndJd">Last julian day number</param>
 /// <param name="CalcChart">Chart with calculated positions</param>
-/// <param name="ProgType">Progression type</param>
+/// <param name="ProgTypes">Progression type</param>
 /// <param name="ProgPoints">Progressive chartpoints to include</param>
 /// <param name="RadixPoints">Radix chartpoints to include</param>
 /// <param name="Aspects">Aspects to include</param>
@@ -108,7 +110,7 @@ public record ProgCalRequest(
     double StartJd,
     double EndJd,
     CalculatedChart CalcChart,
-    ProgressionTypes ProgType,
+    List<ProgressionTypes> ProgTypes,
     List<ChartPoints> ProgPoints,
     List<ChartPoints> RadixPoints,
     List<AspectTypes> Aspects,

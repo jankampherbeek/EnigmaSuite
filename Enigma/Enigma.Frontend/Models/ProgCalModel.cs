@@ -21,10 +21,9 @@ public class ProgCalModel(IJulianDayApi jdApi)
     {
         var startDate = new SimpleDateTime(2025, 11, 1, 0.0, Calendars.Gregorian);
         var startJd = jdApi.GetJulianDay(startDate).JulDayEt;
-        var endDate = new SimpleDateTime(2025, 12, 1, 0.0, Calendars.Gregorian);
+        var endDate = new SimpleDateTime(2026, 11, 1, 0.0, Calendars.Gregorian);
         var endJd = jdApi.GetJulianDay(endDate).JulDayEt;
         var calcChart = DataVaultCharts.Instance.GetCurrentChart();
-        var progType = ProgressionTypes.Transit;
         var progPoints = new List<ChartPoints>()
         {
             ChartPoints.Sun,
@@ -57,12 +56,13 @@ public class ProgCalModel(IJulianDayApi jdApi)
         };
         var declEvents = new List<DeclinationEvents>();
         var declParallels = new List<DeclinationParallels>();
-        var request = new ProgCalRequest(startJd, endJd, calcChart, progType, progPoints, radixPoints, aspects,
+        var progTypes = new List<ProgressionTypes>() { ProgressionTypes.Transit, ProgressionTypes.Secundary };
+        var request = new ProgCalRequest(startJd, endJd, calcChart, progTypes, progPoints, radixPoints, aspects,
             declEvents, declParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);
         foreach (var aspect in response.Aspects)
         {
-            Console.WriteLine($@"Aspect: jd: {aspect.Jd}, radixPoint: {aspect.RadixPoint}, progPoint: {aspect.ProgPoint}, aspect: {aspect.Aspect}, longitude prog: {aspect.ProgLongitude}");
+            Console.WriteLine($@"Aspect: type: {aspect.ProgType}, jd: {aspect.Jd}, radixPoint: {aspect.RadixPoint}, progPoint: {aspect.ProgPoint}, aspect: {aspect.Aspect}, longitude prog: {aspect.ProgLongitude}");
         }
     }
     

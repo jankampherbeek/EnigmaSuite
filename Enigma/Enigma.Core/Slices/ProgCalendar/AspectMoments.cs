@@ -17,7 +17,7 @@ public static class AspectMoments
 
     private static readonly CalcUtFacade CalcUtFacade = new CalcUtFacade();
     
-    public static List<ProgCalAspectMatch> FindAspectMoments(CalculatedChart calcChart,
+    public static List<ProgCalAspectMatch> FindAspectMoments(ProgressionTypes progType, CalculatedChart calcChart,
         List<ProgCalAspectPoint> aspectPoints, List<ChartPoints> progPoints, double jdStart, double jdEnd)
     {
         var aspectMoments = new List<ProgCalAspectMatch>();
@@ -28,7 +28,7 @@ public static class AspectMoments
             foreach (var aspectPoint in aspectPoints)
             {
                 var radixLongitude = FindRadixLongitude(aspectPoint.ChartPoint, calcChart);
-                var newAspectsFound = BinarySearchForAspectMoment(progPoint, aspectPoint, radixLongitude, 
+                var newAspectsFound = BinarySearchForAspectMoment(progType, progPoint, aspectPoint, radixLongitude, 
                     jdStart, jdEnd, initialStepSize);
                 aspectMoments.AddRange(newAspectsFound);
             }
@@ -36,7 +36,7 @@ public static class AspectMoments
         
         return aspectMoments;
     }
-    private static List<ProgCalAspectMatch> BinarySearchForAspectMoment(ChartPoints progPoint, 
+    private static List<ProgCalAspectMatch> BinarySearchForAspectMoment(ProgressionTypes progType, ChartPoints progPoint, 
         ProgCalAspectPoint aspectPoint, double radixLongitude, double jdStart, double jdEnd, double stepSize)
     {
         const double marginForJd = 0.000001;  // better than 0.1 second of time
@@ -64,12 +64,13 @@ public static class AspectMoments
                             longProgCurrent,
                             radixLongitude,
                             aspectPoint.Aspect,
+                            progType,
                             jdCurrent));
                         // no return yet, as more aspects can be found, especially with Moon or retrograde motion
                     }
                     else
                     {
-                        newAspects.AddRange(BinarySearchForAspectMoment(progPoint, aspectPoint, radixLongitude,
+                        newAspects.AddRange(BinarySearchForAspectMoment(progType, progPoint, aspectPoint, radixLongitude,
                             jdCurrent, jdNew, stepSize / 10.0));
                     }
                 }
