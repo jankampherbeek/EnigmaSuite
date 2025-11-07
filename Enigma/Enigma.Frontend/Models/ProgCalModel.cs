@@ -60,9 +60,9 @@ public class ProgCalModel(IJulianDayApi jdApi)
         var request = new ProgCalRequest(startJd, endJd, calcChart, progTypes, progPoints, radixPoints, aspects,
             declEvents, declParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);
-        foreach (var aspect in response.Aspects)
+        foreach (var result in response)
         {
-            Console.WriteLine($@"Aspect: type: {aspect.ProgType}, jd: {aspect.Jd}, radixPoint: {aspect.RadixPoint}, progPoint: {aspect.ProgPoint}, aspect: {aspect.Aspect}, longitude prog: {aspect.ProgLongitude}");
+            Console.WriteLine($@"Aspect: jd: {result.Jd}, position prog: {result.ProgPosition}");
         }
     }
     

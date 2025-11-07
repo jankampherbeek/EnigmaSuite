@@ -12,8 +12,9 @@ namespace Enigma.Core.Slices.ProgCalendar;
 
 public static class ProgCalOrchestrator
 {
-    public static ProgCalResponse DefineProgressiveCalendar(ProgCalRequest request)
+    public static List<ProgCalMatch> DefineProgressiveCalendar(ProgCalRequest request)
     {
+        var allMatches = new List<ProgCalMatch>();
         var sortedAspPoints =
             ProgCalSortAspectPoints.CreateSortedAspectPoints(request.CalcChart, request.ProgPoints, request.Aspects);
         var transitAspects = new List<ProgCalAspectMatch>();
@@ -36,8 +37,11 @@ public static class ProgCalOrchestrator
             FindDeclionationEvents(request.ProgPoints, request.DeclEvents, request.StartJd, request.EndJd);
         var declinationParallels = FindDeclionationParallel(request.ProgPoints, request.RadixPoints,
             request.DeclParallels, request.StartJd, request.EndJd);
-
-        return new ProgCalResponse(aspects, declinationEvents, declinationParallels);
+        allMatches.AddRange(aspects);
+        allMatches.AddRange(declinationEvents);
+        allMatches.AddRange(declinationParallels);
+        allMatches = allMatches.OrderBy(x => x.Jd).ToList();
+        return allMatches;
     }
 
     private static List<ProgCalAspectMatch> FindTransitAspects(ProgressionTypes progType,
@@ -63,7 +67,7 @@ public static class ProgCalOrchestrator
         foreach (var match in secAspectsFound)
         {
             var realJd = DefineRealJdFromSecundary(jdRadix, match.Jd);
-            realAspectsFound.Add(new ProgCalAspectMatch( match.ProgPoint, match.RadixPoint, match.ProgLongitude, match.RadixLongitude, match.Aspect, progType, realJd));       
+            realAspectsFound.Add(new ProgCalAspectMatch( match.ProgPoint, match.RadixPoint, match.ProgPosition, match.RadixLongitude, match.Aspect, progType, realJd));       
         }
         return realAspectsFound;
     }

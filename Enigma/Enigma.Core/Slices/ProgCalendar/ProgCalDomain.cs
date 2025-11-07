@@ -8,6 +8,8 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.ProgCalendar;
 
+public record ProgCalMatch(double Jd, double ProgPosition);
+
 public enum DeclinationEvents
 {
     ZeroDeclination = 0,
@@ -50,19 +52,19 @@ public record ProgCalAspectPoint(ChartPoints ChartPoint, AspectTypes Aspect, dou
 /// </summary>
 /// <param name="ProgPoint">Progressive chartpoint</param>
 /// <param name="RadixPoint">Radix chartpoint</param>
-/// <param name="ProgLongitude">Longitude of ProgPoint</param>
+/// <param name="ProgPosition">Longitude of ProgPoint</param>
 /// <param name="RadixLongitude">Longitude of RadixPoint</param>
 /// <param name="Aspect">Type of aspect</param>
 /// <param name="ProgType">Progression type</param>
 /// <param name="Jd">Julian day when the aspect is exact</param>
-public record ProgCalAspectMatch(
+public record ProgCalAspectMatch (
     ChartPoints ProgPoint,
     ChartPoints RadixPoint,
-    double ProgLongitude,
+    double ProgPosition,
     double RadixLongitude,
     AspectTypes Aspect,
     ProgressionTypes ProgType,
-    double Jd);
+    double Jd): ProgCalMatch(Jd, ProgPosition);
 
 /// <summary>
 /// An actually formed declination event
@@ -75,7 +77,7 @@ public record ProgCalDeclinationEventMatch(
     ChartPoints ChartPoint,
     double Declination,
     DeclinationEvents DeclEvent,
-    double Jd);
+    double Jd): ProgCalMatch(Jd, Declination);
 
 /// <summary>
 /// An acually formed declination parallel or contra parallel
@@ -92,7 +94,7 @@ public record ProgCalDeclinationParallelMatch(
     double ProgDeclination,
     double RadixDeclination,
     DeclinationParallels DeclParallel,
-    double Jd);
+    double Jd): ProgCalMatch(Jd, ProgDeclination);
 
 /// <summary>
 /// Request for progressive calendar
@@ -117,13 +119,4 @@ public record ProgCalRequest(
     List<DeclinationEvents> DeclEvents,
     List<DeclinationParallels> DeclParallels);
 
-/// <summary>
-/// Response for progressive calendar
-/// </summary>
-/// <param name="Aspects">Aspects found</param>
-/// <param name="DeclEvents">DeclEvents found</param>
-/// <param name="DeclParallels">DeclParallels found</param>
-public record ProgCalResponse(
-    List<ProgCalAspectMatch> Aspects,
-    List<ProgCalDeclinationEventMatch> DeclEvents,
-    List<ProgCalDeclinationParallelMatch> DeclParallels);    
+  
