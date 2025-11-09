@@ -55,7 +55,11 @@ public class ProgCalModel(IJulianDayApi jdApi)
             AspectTypes.Sextile
         };
         var declEvents = new List<DeclinationEvents>();
-        var declParallels = new List<DeclinationParallels>();
+        var declParallels = new List<DeclinationParallels>
+        {
+            DeclinationParallels.ContraParallel,
+            DeclinationParallels.Parallel
+        }; 
         var progTypes = new List<ProgressionTypes>() { ProgressionTypes.Transit, ProgressionTypes.Secundary };
         var request = new ProgCalRequest(startJd, endJd, calcChart, progTypes, progPoints, radixPoints, aspects,
             declEvents, declParallels);

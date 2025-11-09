@@ -35,8 +35,8 @@ public static class ProgCalOrchestrator
         aspects = aspects.OrderBy(asp => asp.Jd).ToList();
         var declinationEvents =
             FindDeclionationEvents(request.ProgPoints, request.DeclEvents, request.StartJd, request.EndJd);
-        var declinationParallels = FindDeclionationParallel(request.ProgPoints, request.RadixPoints,
-            request.DeclParallels, request.StartJd, request.EndJd);
+        var declinationParallels =
+            FindDeclionationParallel(request.ProgPoints, request.CalcChart, request.StartJd, request.EndJd);
         allMatches.AddRange(aspects);
         allMatches.AddRange(declinationEvents);
         allMatches.AddRange(declinationParallels);
@@ -48,7 +48,8 @@ public static class ProgCalOrchestrator
         List<ProgCalAspectPoint> sortedAspPoints, CalculatedChart calcChart, List<ChartPoints> progPoints,
         double jdStart, double jdEnd)
     {
-        var aspectsFound = AspectMoments.FindAspectMoments(progType, calcChart, sortedAspPoints, progPoints, jdStart, jdEnd);
+        var aspectsFound =
+            AspectMoments.FindAspectMoments(progType, calcChart, sortedAspPoints, progPoints, jdStart, jdEnd);
         return aspectsFound;
     }
 
@@ -61,14 +62,17 @@ public static class ProgCalOrchestrator
         var jdStartSec = DefineSecundaryJd(jdRadix, jdStart);
         var jdEndSec = DefineSecundaryJd(jdRadix, jdEnd);
         // call AspectMoments.FindAspectMoments
-        var secAspectsFound = AspectMoments.FindAspectMoments(progType, calcChart, sortedAspPoints, progPoints, jdStartSec, jdEndSec);
+        var secAspectsFound =
+            AspectMoments.FindAspectMoments(progType, calcChart, sortedAspPoints, progPoints, jdStartSec, jdEndSec);
         // convert jd's for matches to jd in lifetime
         var realAspectsFound = new List<ProgCalAspectMatch>();
         foreach (var match in secAspectsFound)
         {
             var realJd = DefineRealJdFromSecundary(jdRadix, match.Jd);
-            realAspectsFound.Add(new ProgCalAspectMatch( match.ProgPoint, match.RadixPoint, match.ProgPosition, match.RadixLongitude, match.Aspect, progType, realJd));       
+            realAspectsFound.Add(new ProgCalAspectMatch(match.ProgPoint, match.RadixPoint, match.ProgPosition,
+                match.RadixLongitude, match.Aspect, progType, realJd));
         }
+
         return realAspectsFound;
     }
 
@@ -84,15 +88,13 @@ public static class ProgCalOrchestrator
     }
 
     private static List<ProgCalDeclinationParallelMatch> FindDeclionationParallel(List<ChartPoints> progPoints,
-        List<ChartPoints> radixPoints, List<DeclinationParallels> parallel, double jdStart, double jdEnd)
+        CalculatedChart calcChart, double jdStart, double jdEnd)
     {
-        var declParallelsFound = new List<ProgCalDeclinationParallelMatch>();
-
-        // todo find parallels
-
+        var declParallelsFound =
+            ParallelMoments.FindParallelMoments(ProgressionTypes.Transit, calcChart, progPoints, jdStart, jdEnd);
         return declParallelsFound;
     }
-    
+
     private static double DefineSecundaryJd(double jdRadix, double jdProg)
     {
         var lengthInDays = jdProg - jdRadix;

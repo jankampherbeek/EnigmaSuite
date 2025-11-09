@@ -162,21 +162,11 @@
                 </MenuItem>
             </MenuItem>    
             <MenuItem Header="Progressive">
-                <MenuItem Header="Progressive Calendar" Command="{Binding ProgCalCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/prog_cal.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>  
                 <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/primary.png"/>
                     </MenuItem.Icon>
                 </MenuItem>                
-                <MenuItem Header="OOB Calendar" Command="{Binding OobCalendarCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/calendar.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem Header="Transits, sec. dir. and symbolic dir." Command="{Binding ProgressionsCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/event.png"/>
@@ -190,6 +180,16 @@
                 <MenuItem Header="Prenatal" Command="{Binding PrenatalCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/prenatal.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Progressive Calendar" Command="{Binding ProgCalCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/prog_cal.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>  
+                <MenuItem Header="OOB Calendar" Command="{Binding OobCalendarCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/calendar.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
