@@ -17,11 +17,8 @@ namespace Enigma.Core.Slices.ProgCalendar;
 public static class ParallelMoments
 {
 
-    private static readonly CalcUtFacade CalcUtFacade = new CalcUtFacade();
-    private const double MinimumSecondsMargin = 0.00001;
-    private const double MinimumTimeMarginInDays = MinimumSecondsMargin / 86400.0;
-    private const double MinimumIncrementFallback = 1e-12;
-
+    private static readonly ICalcUtFacade CalcUtFacade = new CalcUtFacade();
+    
     public static List<ProgCalDeclinationParallelMatch> FindParallelMoments(ProgressionTypes progType,
         CalculatedChart calcChart, List<ChartPoints> progPoints, double jdStart, double jdEnd)
     {
@@ -72,7 +69,7 @@ public static class ParallelMoments
                             radixDeclination,
                             parallelType,
                             jdCurrent));
-                        // no return yet, as more aspects can be found, especially with Moon or retrograde motion
+                        // no return yet, as more parallels can be found
                     }
                     else
                     {
