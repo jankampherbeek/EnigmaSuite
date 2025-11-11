@@ -81,6 +81,7 @@ public static class ParallelMoments
                             radixDeclination,
                             parallelType,
                             jdCurrent));
+                        Console.WriteLine($"Parallel found for {radixPoint} and {progPoint}: {parallelType}, positions: {declProgCurrent}, {radixDeclination}");
                         // no return yet, as more parallels can be found
                     }
                     else
@@ -121,8 +122,12 @@ public static class ParallelMoments
     /// </summary>
     private static bool CheckForDeclinationCrossing(double declCurrent, double declNew, double targetDecl)
     {
-        var distanceCurrent = DefineDistance(declCurrent, targetDecl);
-        var distanceNew = DefineDistance(declNew, targetDecl);
+        var targetAbs = Math.Abs(targetDecl);
+        var declCurrentAbs = Math.Abs(declCurrent);
+        var declNewAbs = Math.Abs(declNew);
+
+        var distanceCurrent = DefineDistance(declCurrentAbs, targetAbs);
+        var distanceNew = DefineDistance(declNewAbs, targetAbs);
         
         // Check if we crossed the target (distance changed from one side to the other)
         // Need a small margin to detect the crossing
@@ -131,8 +136,8 @@ public static class ParallelMoments
         if (distanceCurrent < detectionMargin || distanceNew < detectionMargin)
         {
             // Very close, check for actual crossing by sign change
-            var diff1 = declCurrent - targetDecl;
-            var diff2 = declNew - targetDecl;
+            var diff1 = declCurrentAbs - targetAbs;
+            var diff2 = declNewAbs - targetAbs;
             
             // If signs differ, we crossed
             if ((diff1 < 0 && diff2 > 0) || (diff1 > 0 && diff2 < 0))
@@ -148,7 +153,7 @@ public static class ParallelMoments
     /// </summary>
     private static double DefineDistance(double decl1, double decl2)
     {
-        var distance = Math.Abs(decl1 - decl2);
+        var distance = Math.Abs(decl1) - Math.Abs(decl2);
         return distance;
     }
 
