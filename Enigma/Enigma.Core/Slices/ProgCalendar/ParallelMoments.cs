@@ -28,6 +28,8 @@ public static class ParallelMoments
         {
             foreach (var radixPoint in calcChart.Positions)
             {
+                if (radixPoint.Key.GetDetails().PointCat != PointCats.Angle && radixPoint.Key.GetDetails().PointCat != PointCats.Common ) continue;
+                
                 var initialStepSize = DefineInitialStepSize(progPoint);
                 var radixDeclination = radixPoint.Value.Equatorial.DeviationPosSpeed.Position;
                 var newParallelsFound = BinarySearchForParallelMoment(progType, progPoint, radixPoint.Key, radixDeclination,
@@ -59,7 +61,10 @@ public static class ParallelMoments
                 if (parallelDetected)
                 {
                     var parallelType = DeclinationParallels.ContraParallel;
-                    if (declProgCurrent > 0.0 && radixDeclination < 0.0 || declProgCurrent < 0.0 && radixDeclination > 0.0 ) parallelType = DeclinationParallels.Parallel;
+                    if ((declProgCurrent > 0.0 && radixDeclination > 0.0) || (declProgCurrent < 0.0 && radixDeclination < 0.0) ) parallelType = DeclinationParallels.Parallel;
+
+                    
+                    
                     if (Math.Abs(jdNew - jdCurrent) < marginForJd)
                     {
                         newParallels.Add(new ProgCalDeclinationParallelMatch(
@@ -75,6 +80,7 @@ public static class ParallelMoments
                     {
                         newParallels.AddRange(BinarySearchForParallelMoment(progType, progPoint, radixPoint, radixDeclination,
                             jdCurrent, jdNew, stepSize / 10.0));
+                                             
                     }
                 }
             }
