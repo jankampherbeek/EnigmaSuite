@@ -227,7 +227,7 @@ public static class Dispositors
         return rulerPairsForHouses;
     }
 
-    // Find the cusps ruled by a ChartPoint, either as main ruler or as sub ruler
+    // Find the cusps ruled by a ProgPoint, either as main ruler or as sub ruler
     private static List<int> FindCuspsRuledBy(ChartPoints ruler, Dictionary<int, int> signsOnCusps)
     {
         var (signMainRuler, signSubRuler) = FindSignsRuledBy(ruler);

@@ -11,10 +11,10 @@ namespace Enigma.Core.Calc;
 /// <summary>Support supported period for ChartPoints.</summary>
 public interface IPeriodSupportChecker
 {
-    /// <summary>Checks if the calculation of a ChartPoint for a specific date is supported.</summary>
+    /// <summary>Checks if the calculation of a ProgPoint for a specific date is supported.</summary>
     /// <param name="chartPoint">The chart point to check.</param>
     /// <param name="jdnr">The julian day number for the given date.</param>
-    /// <returns>True if the ChartPoint can be calculated for the given date, otherwise false.</returns>
+    /// <returns>True if the ProgPoint can be calculated for the given date, otherwise false.</returns>
     public bool IsSupported(ChartPoints chartPoint, double jdnr);
 }
 

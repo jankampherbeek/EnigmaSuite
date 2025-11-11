@@ -34,7 +34,7 @@ public static class ProgCalOrchestrator
         var aspects = transitAspects.Concat(secundaryAspects).ToList();
         aspects = aspects.OrderBy(asp => asp.Jd).ToList();
         var declinationEvents =
-            FindDeclionationEvents(request.ProgPoints, request.DeclEvents, request.StartJd, request.EndJd);
+            FindDeclionationEvents(request.ProgPoints, request.StartJd, request.EndJd);
         var declinationParallels =
             FindDeclionationParallel(request.ProgPoints, request.CalcChart, request.StartJd, request.EndJd);
         allMatches.AddRange(aspects);
@@ -78,11 +78,11 @@ public static class ProgCalOrchestrator
 
 
     private static List<ProgCalDeclinationEventMatch> FindDeclionationEvents(List<ChartPoints> progPoints,
-        List<DeclinationEvents> events, double jdStart, double jdEnd)
+        double jdStart, double jdEnd)
     {
-        var declEventsFound = new List<ProgCalDeclinationEventMatch>();
+        var declEventsFound = DeclinationEventMoments.FindDeclinationEvents(progPoints,  jdStart, jdEnd);
 
-        // todo find declination events
+        
 
         return declEventsFound;
     }

@@ -8,7 +8,7 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.ProgCalendar;
 
-public record ProgCalMatch(double Jd, double ProgPosition);
+public record ProgCalMatch(ChartPoints ProgPoint, double Jd, double ProgPosition);
 
 public enum DeclinationEvents
 {
@@ -41,7 +41,7 @@ public record PointPosition(ChartPoints Point, double Longitude);
 /// <summary>
 /// Point that forms an aspect  
 /// </summary>
-/// <param name="ChartPoint">The ChartPoint that is throwing the aspect</param>
+/// <param name="ChartPoint">The ProgPoint that is throwing the aspect</param>
 /// <param name="Aspect">The type of aspect</param>
 /// <param name="Longitude">The position in ecliptical longitude</param>
 public record ProgCalAspectPoint(ChartPoints ChartPoint, AspectTypes Aspect, double Longitude);
@@ -64,20 +64,20 @@ public record ProgCalAspectMatch (
     double RadixLongitude,
     AspectTypes Aspect,
     ProgressionTypes ProgType,
-    double Jd): ProgCalMatch(Jd, ProgPosition);
+    double Jd): ProgCalMatch(ProgPoint, Jd, ProgPosition);
 
 /// <summary>
 /// An actually formed declination event
 /// </summary>
-/// <param name="ChartPoint">Progresive chartpoint</param>
+/// <param name="ProgPoint">Progresive chartpoint</param>
 /// <param name="Declination">Position in declination</param>
 /// <param name="DeclEvent">Type of declination event</param>
 /// <param name="Jd">Julian day when the declination event is exact</param>
 public record ProgCalDeclinationEventMatch(
-    ChartPoints ChartPoint,
+    ChartPoints ProgPoint,
     double Declination,
     DeclinationEvents DeclEvent,
-    double Jd): ProgCalMatch(Jd, Declination);
+    double Jd): ProgCalMatch(ProgPoint, Jd, Declination);
 
 /// <summary>
 /// An acually formed declination parallel or contra parallel
@@ -94,7 +94,7 @@ public record ProgCalDeclinationParallelMatch(
     double ProgDeclination,
     double RadixDeclination,
     DeclinationParallels DeclParallel,
-    double Jd): ProgCalMatch(Jd, ProgDeclination);
+    double Jd): ProgCalMatch(ProgPoint, Jd, ProgDeclination);
 
 /// <summary>
 /// Request for progressive calendar
@@ -119,4 +119,22 @@ public record ProgCalRequest(
     List<DeclinationEvents> DeclEvents,
     List<DeclinationParallels> DeclParallels);
 
-  
+/// <summary>
+/// Presetable version of a progressive calendar item
+/// </summary>
+/// <param name="DateTime">Date and time</param>
+/// <param name="EventType">Type of event</param>
+/// <param name="ProgPointGlyph">Glyph for the progressive point</param>
+/// <param name="AspectGlyph">Optional glyph for the aspect</param>
+/// <param name="RadixGlyph">Optional glyph for the radix point</param>
+/// <param name="ProgPointPosition">Position, either longitude or declination</param>
+/// <param name="SignGlyph">Optional glyph for the sign</param>
+  public record PresentableProgCalItem(
+      string DateTime,
+      string EventType,
+      char ProgPointGlyph,
+      char AspectGlyph,
+      char RadixGlyph,
+      string ProgPointPosition,
+      char SignGlyph
+      );

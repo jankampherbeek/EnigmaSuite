@@ -14,40 +14,97 @@
         WindowStartupLocation="CenterScreen"
         Title="Enigma - Progressive Calendar" Height="600" Width="800">
     <Window.DataContext>
-        <viewModels:ProgCalViewModel/>
+        <viewModels:ProgCalViewModel />
     </Window.DataContext>
     <Grid Margin="6">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Grid.Row="0" Margin="6,0,0,6" 
+        <TextBlock Grid.Row="0" Margin="6,0,0,6"
                    VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="Progressive Calendar" Name="Header"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    FontWeight="Bold" />
 
         <!-- Chart Name -->
-        <TextBlock Grid.Row="1" Margin="6,12,6,6" 
+        <TextBlock Grid.Row="1" Margin="6,12,6,6"
                    Text="{Binding ChartName}" Name="ChartNameText"
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                   FontWeight="Bold"/>
-        
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   FontWeight="Bold" />
+        <!-- Options -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <CheckBox Content="Aspects"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseAspects}"
+                      Checked="UseAspectsCheckBox_Checked"
+                      Unchecked="UseAspectsCheckBox_UnChecked" />
+            <CheckBox Content="Parallels"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseParallels}"
+                      Checked="UseParallelsCheckBox_Checked"
+                      Unchecked="UseParallelsCheckBox_UnChecked" />
+            <CheckBox Content="Declination events"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseDeclEvents}"
+                      Checked="UseDeclEventsCheckBox_Checked"
+                      Unchecked="UseDeclEventsCheckBox_UnChecked" />
+            <CheckBox Content="Retrograde / direct"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseRetroDirectEvents}"
+                      Checked="UseRetroDirectCheckBox_Checked"
+                      Unchecked="UseRetroDirectCheckBox_UnChecked" />
+        </StackPanel>
         <!-- Main Content Area -->
-        <Grid Grid.Row="2" Margin="6">
-            <TextBlock Text="Progressive Calendar content will be implemented here." 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
-                       Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-        </Grid>
 
+        <TabControl Grid.Row="3">
+            <TabItem Header="List">
+                <Border Margin="6">
+                    <DataGrid Grid.Row="5" x:Name="ProgCalList"
+                              AutoGenerateColumns="False"
+                              Height="Auto"
+                              Margin="12,0"
+                              Style="{StaticResource MaterialDesignDataGrid}"
+                              Background="#F0F8FF"
+                              ItemsSource="{Binding ProgCalItems, Mode=TwoWay}"
+                              VerticalAlignment="Top">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date/time" Width="Auto" Binding="{Binding DateTime, Mode=TwoWay}"
+                                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                            <DataGridTextColumn Header="Event" Width="Auto" Binding="{Binding EventType, Mode=TwoWay}"
+                                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding ProgPointGlyph, Mode=TwoWay}"
+                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding AspectGlyph, Mode=TwoWay}"
+                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding RadixGlyph, Mode=TwoWay}"
+                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                            <DataGridTextColumn Header="Position" Width="Auto" Binding="{Binding ProgPointPosition, Mode=TwoWay}"
+                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
+                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding SignGlyph, Mode=TwoWay}"
+                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                        </DataGrid.Columns>
+                    </DataGrid>              
+                </Border>
+                
+            </TabItem>
+            <TabItem Header="Graph">
+                
+            </TabItem>
+
+        </TabControl>
         <!-- Bottom buttons -->
-        <StackPanel Grid.Row="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
+        <StackPanel Grid.Row="4" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}" />
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>
     </Grid>

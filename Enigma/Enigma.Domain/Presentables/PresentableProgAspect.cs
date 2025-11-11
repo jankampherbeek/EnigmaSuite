@@ -15,3 +15,6 @@ namespace Enigma.Domain.Presentables;
 /// <param name="OrbText">Sexagesimal presentation of orb.</param>
 public record PresentableProgAspect(char RadixGlyph, string RadixName, char AspectGlyph, string AspectName, 
     char ProgGlyph, string ProgName, string OrbText);
+    
+    
+    

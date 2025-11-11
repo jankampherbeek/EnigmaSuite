@@ -87,7 +87,7 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
         {
             if (allPoints[i].Point == point) return i;
         }
-        Log.Error("AspectsCounting.FindIndexForPoint(). Could not find index for ChartPoint : {Point}", point);
+        Log.Error("AspectsCounting.FindIndexForPoint(). Could not find index for ProgPoint : {Point}", point);
         throw new EnigmaException("Wrong chart point index for FindIndexForPoint()");
     }
 

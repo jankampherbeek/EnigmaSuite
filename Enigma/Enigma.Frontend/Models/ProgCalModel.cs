@@ -9,15 +9,17 @@ using Enigma.Api.Calc;
 using Enigma.Core.Slices.ProgCalendar;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
+using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Models;
 
 public class ProgCalModel(IJulianDayApi jdApi)
 {
+    private ProgCalItemPresFactory _progCalItemPresFactory = App.ServiceProvider.GetRequiredService<ProgCalItemPresFactory>();
     
-    
-    public void TestAspects()
+    public List<PresentableProgCalItem> TestProgCal()
     {
         var startDate = new SimpleDateTime(2025, 11, 1, 0.0, Calendars.Gregorian);
         var startJd = jdApi.GetJulianDay(startDate).JulDayEt;
@@ -64,10 +66,10 @@ public class ProgCalModel(IJulianDayApi jdApi)
         var request = new ProgCalRequest(startJd, endJd, calcChart, progTypes, progPoints, radixPoints, aspects,
             declEvents, declParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);
-        foreach (var result in response)
-        {
-            Console.WriteLine($@"Aspect: jd: {result.Jd}, position prog: {result.ProgPosition}");
-        }
+
+        var result = _progCalItemPresFactory.CreatePresProgCalItems(response);
+        Console.WriteLine(result.Count);
+        return result;
     }
     
 }

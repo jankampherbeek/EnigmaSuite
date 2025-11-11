@@ -113,6 +113,7 @@ public partial class App
         serviceCollection.AddTransient<PrimDirInputModel>();
         serviceCollection.AddTransient<PrimDirResultsModel>();
         serviceCollection.AddTransient<IPrimDirForPresentationFactory, PrimDirForPresentationFactory>();
+        serviceCollection.AddTransient<ProgCalItemPresFactory>();
         serviceCollection.AddTransient<ProgCalModel>();
         serviceCollection.AddSingleton<ProgEventModel>();
         serviceCollection.AddTransient<ProgEventResultsModel>();

@@ -14,7 +14,7 @@ namespace Enigma.Core.Slices.ProgCalendar;
 /// <summary>
 /// Find moments that a declination reaches its maximum, becomes zero, becomes OOB or becomes in bounds.
 /// </summary>
-public class DeclinationEventMoments
+public static class DeclinationEventMoments
 {
     
     private static readonly ICalcUtFacade CalcUtFacade = new CalcUtFacade();
@@ -90,7 +90,7 @@ public class DeclinationEventMoments
     }
 
     /// <summary>
-    /// Define initial stepsize based on the ChartPoint involved
+    /// Define initial stepsize based on the ProgPoint involved
     /// </summary>
     /// <param name="factor">The progressive chart point</param>
     /// <returns>Step size: 0.2 for Moon, 2.0 for fast planets, 4.0 for slow planets</returns>

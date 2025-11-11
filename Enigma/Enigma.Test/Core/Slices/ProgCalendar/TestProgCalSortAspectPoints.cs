@@ -553,7 +553,7 @@ public class TestProgCalSortAspectPoints
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Has.Count.EqualTo(2));
             
-            // Both results should preserve the ChartPoint and Aspect
+            // Both results should preserve the ProgPoint and Aspect
             foreach (var point in result)
             {
                 Assert.That(point.ChartPoint, Is.EqualTo(ChartPoints.Venus));

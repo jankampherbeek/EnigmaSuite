@@ -210,8 +210,8 @@ public record BlaHouseDetails(int HouseNr, int SignOnCusp, int Decanate, double 
 /// Combination of ruler and subruler
 /// </summary>
 /// <param name="SignIndex">Index for the sign: 1..12</param>
-/// <param name="MainRuler">ChartPoint for the ruler</param>
-/// <param name="SubRuler">ChartPoint for the subruler</param>
+/// <param name="MainRuler">ProgPoint for the ruler</param>
+/// <param name="SubRuler">ProgPoint for the subruler</param>
 public record RulerPair(int SignIndex, ChartPoints MainRuler, ChartPoints SubRuler);
 
 /// <summary>

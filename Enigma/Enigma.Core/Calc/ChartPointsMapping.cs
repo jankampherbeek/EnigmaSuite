@@ -13,16 +13,16 @@ namespace Enigma.Core.Calc;
 /// <summary>Mapping of additional information to ChartPoints.</summary>
 public interface IChartPointsMapping
 {
-    /// <summary>Find calculation type for a specific ChartPoint.</summary>
-    /// <param name="point">The ChartPoint.</param>
-    /// <returns>The calculationtype for the given ChartPoint.</returns>
+    /// <summary>Find calculation type for a specific ProgPoint.</summary>
+    /// <param name="point">The ProgPoint.</param>
+    /// <returns>The calculationtype for the given ProgPoint.</returns>
     public CalculationCats CalculationTypeForPoint(ChartPoints point);
 
-    /// <summary>Find the SeId (Siwss Ephemeris id) for a specific ChartPoint.</summary>
+    /// <summary>Find the SeId (Siwss Ephemeris id) for a specific ProgPoint.</summary>
     /// <remarks>PRE: the chartpoint.
     /// POST: if the pre-condition is fullfilled the correct SeId is returned, otherwise an exception is thrown.</remarks>
-    /// <param name="point">The ChartPoint, it should be a celestial points that has a CalculationType CommonSE.</param>
-    /// <exception cref="EnigmaException">Is thrown if the ChartPoint is not supported.</exception>
+    /// <param name="point">The ProgPoint, it should be a celestial points that has a CalculationType CommonSE.</param>
+    /// <exception cref="EnigmaException">Is thrown if the ProgPoint is not supported.</exception>
     /// <returns></returns>
     public int SeIdForCelestialPoint(ChartPoints point);
 
@@ -47,8 +47,8 @@ public sealed class ChartPointsMapping : IChartPointsMapping
     {
         int seId = point.GetDetails().CalcId;
         if (seId >= -1) return seId;
-        Log.Error("ChartPointsMapping.SeIdForCelestialPoint() was called with with an unrecognized ChartPoint: {Point}", point);
-        throw new EnigmaException("Wrong ChartPoint");
+        Log.Error("ChartPointsMapping.SeIdForCelestialPoint() was called with with an unrecognized ProgPoint: {Point}", point);
+        throw new EnigmaException("Wrong ProgPoint");
     }
 
 }

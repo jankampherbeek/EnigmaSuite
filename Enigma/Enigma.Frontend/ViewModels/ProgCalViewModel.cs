@@ -3,9 +3,11 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Core.Slices.ProgCalendar;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.WindowsFlow;
@@ -22,7 +24,13 @@ public partial class ProgCalViewModel : ObservableObject
     private ProgCalModel _model = App.ServiceProvider.GetRequiredService<ProgCalModel>();
     
     [ObservableProperty] private string _chartName = "Chart Name";
-
+    [ObservableProperty] private List<PresentableProgCalItem> _progCalItems;
+    [ObservableProperty] private bool _useAspects;
+    [ObservableProperty] private bool _useParallels;
+    [ObservableProperty] private bool _useDeclEvents;
+    [ObservableProperty] private bool _useRetroDirect;
+    
+    
     [RelayCommand]
     private void Help()
     {
@@ -39,7 +47,36 @@ public partial class ProgCalViewModel : ObservableObject
 
     public ProgCalViewModel()
     {
-        _model.TestAspects();
-        // Initialize data here when needed
+        ProgCalItems = _model.TestProgCal();
     }
+
+    private void Populate()
+    {
+        
+    }
+    
+    public void UpdateAspects(bool useIt)
+    {
+        UseAspects = useIt;
+        Populate();
+    }
+    
+    public void UpdateParallels(bool useIt)
+    {
+        UseParallels = useIt;
+        Populate();
+    }
+    
+    public void UpdateDeclEvents(bool useIt)
+    {
+        UseDeclEvents = useIt;
+        Populate();
+    }
+    
+    public void UpdateRetroDirect(bool useIt)
+    {
+        UseRetroDirect = useIt;
+        Populate();
+    }
+    
 }

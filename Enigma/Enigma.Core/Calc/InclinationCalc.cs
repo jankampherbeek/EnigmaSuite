@@ -12,7 +12,7 @@ namespace Enigma.Core.Calc;
 public interface IInclinationCalc
 {
     /// <summary>Calculates the inclination.</summary>
-    /// <param name="point">The ChartPoint for which the inclination is calculated.</param>
+    /// <param name="point">The ProgPoint for which the inclination is calculated.</param>
     /// <param name="jdUt">Julian Day for UT.</param>
     /// <param name="flags">Flags for calculation.</param>
     /// <returns>Value of inclination</returns>
