@@ -28,8 +28,7 @@ public static class ParallelMoments
         {
             foreach (var radixPoint in calcChart.Positions)
             {
-                if (radixPoint.Key.GetDetails().PointCat != PointCats.Angle && radixPoint.Key.GetDetails().PointCat != PointCats.Common ) continue;
-                
+                if (!SupportsDeclination(progPoint) || !SupportsDeclination(radixPoint.Key)) continue;
                 var initialStepSize = DefineInitialStepSize(progPoint);
                 var radixDeclination = radixPoint.Value.Equatorial.DeviationPosSpeed.Position;
                 var newParallelsFound = BinarySearchForParallelMoment(progType, progPoint, radixPoint.Key, radixDeclination,
@@ -40,7 +39,15 @@ public static class ParallelMoments
         return parallelMoments;
     }
 
-
+    private static bool SupportsDeclination(ChartPoints point)
+    {
+        var support = !(point.GetDetails().PointCat != PointCats.Angle && point.GetDetails().PointCat != PointCats.Common);
+        if (point is ChartPoints.VulcanusCarteret or ChartPoints.PersephoneCarteret or ChartPoints.ApogeeCorrected) support = false;
+        return support;
+    }
+    
+    
+    
     private static List<ProgCalDeclinationParallelMatch> BinarySearchForParallelMoment(ProgressionTypes progType, ChartPoints progPoint, 
         ChartPoints radixPoint,double radixDeclination, double jdStart, double jdEnd, double stepSize)
     {

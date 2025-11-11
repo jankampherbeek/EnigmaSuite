@@ -50,9 +50,12 @@ public static class DeclinationEventMoments
     private static List<ProgCalDeclinationEventMatch> BinarySearchForDeclEventMoment(DeclinationEvents eventType, ChartPoints progPoint,
         double jdStart, double jdEnd, double stepSize)
     {
+        
         const double marginForJd = 0.000001; // better than 0.1 second of time
 
         var newEvents = new List<ProgCalDeclinationEventMatch>();
+        if (!SupportsDeclination(progPoint)) return newEvents;
+        
         var jdCurrent = jdStart - stepSize; // start early to be able to check the first step
         var jdPrevious = jdCurrent - stepSize * 2;
         var obliquity = CalcObliquity(jdCurrent);        
@@ -157,4 +160,10 @@ public static class DeclinationEventMoments
         return useTrueObliquity ? positions[0] : positions[1];
     }
     
+    private static bool SupportsDeclination(ChartPoints point)
+    {
+        var support = !(point.GetDetails().PointCat != PointCats.Angle && point.GetDetails().PointCat != PointCats.Common);
+        if (point is ChartPoints.VulcanusCarteret or ChartPoints.PersephoneCarteret or ChartPoints.ApogeeCorrected) support = false;
+        return support;
+    }
 }
