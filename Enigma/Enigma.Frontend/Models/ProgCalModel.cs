@@ -61,10 +61,12 @@ public class ProgCalModel(IJulianDayApi jdApi)
         {
             DeclinationParallels.ContraParallel,
             DeclinationParallels.Parallel
-        }; 
+        };
+        var orbAspects = 1.0;
+        var orbParallels = 0.25;
         var progTypes = new List<ProgressionTypes>() { ProgressionTypes.Transit, ProgressionTypes.Secundary };
         var request = new ProgCalRequest(startJd, endJd, calcChart, progTypes, progPoints, radixPoints, aspects,
-            declEvents, declParallels);
+            declEvents, declParallels, orbAspects, orbParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);
 
         var result = _progCalItemPresFactory.CreatePresProgCalItems(response);

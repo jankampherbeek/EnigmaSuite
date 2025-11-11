@@ -106,8 +106,10 @@ public record ProgCalDeclinationParallelMatch(
 /// <param name="ProgPoints">Progressive chartpoints to include</param>
 /// <param name="RadixPoints">Radix chartpoints to include</param>
 /// <param name="Aspects">Aspects to include</param>
-/// <param name="DeclEvents">DeclEvents to include</param>
-/// <param name="DeclParallels">DeclParallels to include</param>
+/// <param name="DeclEvents">Declination events to include</param>
+/// <param name="DeclParallels">Declination parallels to include</param>
+/// <param name="OrbAspects">Orb for aspects</param>
+/// <param name="OrbParallels">Orb for declination parallels</param>
 public record ProgCalRequest(
     double StartJd,
     double EndJd,
@@ -117,7 +119,9 @@ public record ProgCalRequest(
     List<ChartPoints> RadixPoints,
     List<AspectTypes> Aspects,
     List<DeclinationEvents> DeclEvents,
-    List<DeclinationParallels> DeclParallels);
+    List<DeclinationParallels> DeclParallels,
+    double OrbAspects,
+    double OrbParallels);
 
 /// <summary>
 /// Presetable version of a progressive calendar item
