@@ -81,7 +81,6 @@ public static class ParallelMoments
                             radixDeclination,
                             parallelType,
                             jdCurrent));
-                        Console.WriteLine($"Parallel found for {radixPoint} and {progPoint}: {parallelType}, positions: {declProgCurrent}, {radixDeclination}");
                         // no return yet, as more parallels can be found
                     }
                     else

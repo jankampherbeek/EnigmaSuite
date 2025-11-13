@@ -51,7 +51,8 @@ public static class DeclinationEventMoments
         double jdStart, double jdEnd, double stepSize)
     {
         
-        const double marginForJd = 0.000001; // better than 0.1 second of time
+        const double marginForJd = 0.000001; 
+        const double marginForDeclination = 0.0000001;
 
         var newEvents = new List<ProgCalDeclinationEventMatch>();
         if (!SupportsDeclination(progPoint)) return newEvents;
@@ -73,16 +74,24 @@ public static class DeclinationEventMoments
                 {
                     if (Math.Abs(jdNew - jdCurrent) < marginForJd)
                     {
-                        newEvents.Add(new ProgCalDeclinationEventMatch(
+                        var newEvent = new ProgCalDeclinationEventMatch(
                             progPoint,
                             declProgCurrent,
                             eventType,
-                            jdCurrent));
-                        // no return yet, as more events can be found
+                            jdCurrent);
+                        AddEventIfUnique(newEvents, newEvent, marginForJd, marginForDeclination);
+                        break;
                     }
                     else
                     {
-                        newEvents.AddRange(BinarySearchForDeclEventMoment(eventType, progPoint, jdCurrent, jdNew, stepSize / 10.0));
+                        var refinedEvents = BinarySearchForDeclEventMoment(eventType, progPoint, jdCurrent, jdNew, stepSize / 10.0);
+                        foreach (var refinedEvent in refinedEvents)
+                        {
+                            AddEventIfUnique(newEvents, refinedEvent, marginForJd, marginForDeclination);
+                        }
+                        jdPrevious = jdNew - stepSize;
+                        jdCurrent = jdNew;
+                        continue;
                     }
                 }
             }
@@ -165,5 +174,19 @@ public static class DeclinationEventMoments
         var support = !(point.GetDetails().PointCat != PointCats.Angle && point.GetDetails().PointCat != PointCats.Common);
         if (point is ChartPoints.VulcanusCarteret or ChartPoints.PersephoneCarteret or ChartPoints.ApogeeCorrected) support = false;
         return support;
+    }
+
+    private static void AddEventIfUnique(List<ProgCalDeclinationEventMatch> events, ProgCalDeclinationEventMatch newEvent, double marginForJd, double marginForDeclination)
+    {
+        var duplicate = events.Any(existing =>
+            existing.ProgPoint == newEvent.ProgPoint &&
+            existing.DeclEvent == newEvent.DeclEvent &&
+            Math.Abs(existing.Jd - newEvent.Jd) < marginForJd &&
+            Math.Abs(existing.Declination - newEvent.Declination) < marginForDeclination);
+
+        if (!duplicate)
+        {
+            events.Add(newEvent);
+        }
     }
 }
