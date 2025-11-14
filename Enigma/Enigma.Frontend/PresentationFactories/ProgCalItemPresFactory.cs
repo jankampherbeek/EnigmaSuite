@@ -37,9 +37,6 @@ public class ProgCalItemPresFactory(IDateTimeCalc dateTimeCalc)
                 case ProgCalDeclinationParallelMatch:
                     presEvents.Add(CreateDeclParallel(pcItem, dateTime, progPointGlyph));
                     break;
-                case ProgCalDeclinationEventMatch:
-                    presEvents.Add(CreateDeclEvent(pcItem, dateTime, progPointGlyph));
-                    break;
             }          
         }
         return presEvents;
@@ -52,7 +49,7 @@ public class ProgCalItemPresFactory(IDateTimeCalc dateTimeCalc)
         var aspectGlyph = aspectItem.Aspect.GetDetails().Glyph;
         var radixGlyph = GlyphsForChartPoints.FindGlyph(aspectItem.RadixPoint);
         var (progPointPosition, signGlyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(aspectItem.ProgPosition);
-        var presItem = new PresentableProgCalItem(dateTime, eventType, progPointGlyph, aspectGlyph, radixGlyph,
+        var presItem = new PresentableProgCalItem(dateTime, progPointGlyph, aspectGlyph, radixGlyph,
             progPointPosition, signGlyph);
         return presItem;
     }
@@ -65,30 +62,7 @@ public class ProgCalItemPresFactory(IDateTimeCalc dateTimeCalc)
         var radixGlyph = GlyphsForChartPoints.FindGlyph(parallelItem.RadixPoint);
         var progPointPosition = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(parallelItem.ProgPosition);
         var signGlyph = ' ';
-        var presItem = new PresentableProgCalItem(dateTime, eventType, progPointGlyph, aspectGlyph, radixGlyph,
-            progPointPosition, signGlyph);
-        return presItem;
-    }
-
-    private PresentableProgCalItem CreateDeclEvent(ProgCalMatch pcItem, string dateTime, char progPointGlyph)
-    {
-        var declItem = pcItem as ProgCalDeclinationEventMatch;
-        var eventType = declItem.DeclEvent;
-        var eventTypeTxt = "";
-        switch (eventType)
-        {
-            case DeclinationEvents.MaxDeclination : eventTypeTxt = "Max. decl."; break;
-            case DeclinationEvents.MinDeclination : eventTypeTxt = "Min. decl."; break;
-            case DeclinationEvents.ZeroDeclination : eventTypeTxt = "Zero decl."; break;
-            case DeclinationEvents.Oob : eventTypeTxt = "OOB"; break;
-            case DeclinationEvents.InBounds: eventTypeTxt = "In bounds"; break;
-        }
-
-        var aspectGlyph = ' ';
-        var radixGlyph = ' ';
-        var progPointPosition = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(declItem.ProgPosition);
-        var signGlyph = ' ';
-        var presItem = new PresentableProgCalItem(dateTime, eventTypeTxt, progPointGlyph, aspectGlyph, radixGlyph,
+        var presItem = new PresentableProgCalItem(dateTime, progPointGlyph, aspectGlyph, radixGlyph,
             progPointPosition, signGlyph);
         return presItem;
     }

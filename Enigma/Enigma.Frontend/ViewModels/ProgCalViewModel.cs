@@ -27,7 +27,6 @@ public partial class ProgCalViewModel : ObservableObject
     [ObservableProperty] private List<PresentableProgCalItem> _progCalItems;
     [ObservableProperty] private bool _useAspects;
     [ObservableProperty] private bool _useParallels;
-    [ObservableProperty] private bool _useDeclEvents;
     [ObservableProperty] private bool _useRetroDirect;
     
     
@@ -67,11 +66,6 @@ public partial class ProgCalViewModel : ObservableObject
         Populate();
     }
     
-    public void UpdateDeclEvents(bool useIt)
-    {
-        UseDeclEvents = useIt;
-        Populate();
-    }
     
     public void UpdateRetroDirect(bool useIt)
     {

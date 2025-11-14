@@ -10,15 +10,6 @@ namespace Enigma.Core.Slices.ProgCalendar;
 
 public record ProgCalMatch(ChartPoints ProgPoint, double Jd, double ProgPosition);
 
-public enum DeclinationEvents
-{
-    ZeroDeclination = 0,
-    MaxDeclination = 1,
-    MinDeclination = 2,
-    Oob = 3,
-    InBounds = 4,
-}
-
 public enum DeclinationParallels
 {
     Parallel = 1,
@@ -67,19 +58,6 @@ public record ProgCalAspectMatch (
     double Jd): ProgCalMatch(ProgPoint, Jd, ProgPosition);
 
 /// <summary>
-/// An actually formed declination event
-/// </summary>
-/// <param name="ProgPoint">Progresive chartpoint</param>
-/// <param name="Declination">Position in declination</param>
-/// <param name="DeclEvent">Type of declination event</param>
-/// <param name="Jd">Julian day when the declination event is exact</param>
-public record ProgCalDeclinationEventMatch(
-    ChartPoints ProgPoint,
-    double Declination,
-    DeclinationEvents DeclEvent,
-    double Jd): ProgCalMatch(ProgPoint, Jd, Declination);
-
-/// <summary>
 /// An acually formed declination parallel or contra parallel
 /// </summary>
 /// <param name="ProgPoint">Progressive chartpoint</param>
@@ -118,7 +96,6 @@ public record ProgCalRequest(
     List<ChartPoints> ProgPoints,
     List<ChartPoints> RadixPoints,
     List<AspectTypes> Aspects,
-    List<DeclinationEvents> DeclEvents,
     List<DeclinationParallels> DeclParallels,
     double OrbAspects,
     double OrbParallels);
@@ -127,7 +104,6 @@ public record ProgCalRequest(
 /// Presetable version of a progressive calendar item
 /// </summary>
 /// <param name="DateTime">Date and time</param>
-/// <param name="EventType">Type of event</param>
 /// <param name="ProgPointGlyph">Glyph for the progressive point</param>
 /// <param name="AspectGlyph">Optional glyph for the aspect</param>
 /// <param name="RadixGlyph">Optional glyph for the radix point</param>
@@ -135,7 +111,6 @@ public record ProgCalRequest(
 /// <param name="SignGlyph">Optional glyph for the sign</param>
   public record PresentableProgCalItem(
       string DateTime,
-      string EventType,
       char ProgPointGlyph,
       char AspectGlyph,
       char RadixGlyph,

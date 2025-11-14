@@ -51,18 +51,6 @@
                       IsChecked="{Binding UseParallels}"
                       Checked="UseParallelsCheckBox_Checked"
                       Unchecked="UseParallelsCheckBox_UnChecked" />
-            <CheckBox Content="Declination events"
-                      Margin="6"
-                      Style="{StaticResource MaterialDesignCheckBox}"
-                      IsChecked="{Binding UseDeclEvents}"
-                      Checked="UseDeclEventsCheckBox_Checked"
-                      Unchecked="UseDeclEventsCheckBox_UnChecked" />
-            <CheckBox Content="Retrograde / direct"
-                      Margin="6"
-                      Style="{StaticResource MaterialDesignCheckBox}"
-                      IsChecked="{Binding UseRetroDirectEvents}"
-                      Checked="UseRetroDirectCheckBox_Checked"
-                      Unchecked="UseRetroDirectCheckBox_UnChecked" />
         </StackPanel>
         <!-- Main Content Area -->
 
@@ -79,8 +67,6 @@
                               VerticalAlignment="Top">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Date/time" Width="Auto" Binding="{Binding DateTime, Mode=TwoWay}"
-                                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
-                            <DataGridTextColumn Header="Event" Width="Auto" Binding="{Binding EventType, Mode=TwoWay}"
                                                 IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
                             <DataGridTextColumn Header="" Width="Auto" Binding="{Binding ProgPointGlyph, Mode=TwoWay}"
                                                 IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />

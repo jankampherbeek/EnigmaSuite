@@ -48,22 +48,7 @@ public partial class ProgCalWindow
             viewModel.UpdateParallels(false);
         }
     }
-    
-    private void UseDeclEventsCheckBox_Checked(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is ProgCalViewModel viewModel)
-        {
-            viewModel.UpdateDeclEvents(true);
-        }
-    }
-    
-    private void UseDeclEventsCheckBox_UnChecked(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is ProgCalViewModel viewModel)
-        {
-            viewModel.UpdateDeclEvents(false);
-        }
-    }
+
     
     private void UseRetroDirectCheckBox_Checked(object sender, RoutedEventArgs e)
     {
