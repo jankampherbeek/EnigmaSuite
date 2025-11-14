@@ -8,7 +8,7 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.ProgCalendar;
 
-public record ProgCalMatch(ChartPoints ProgPoint, double Jd, double ProgPosition);
+public record ProgCalMatch(ChartPoints ProgPoint, ProgressionTypes ProgType, double Jd, double ProgPosition);
 
 public enum DeclinationParallels
 {
@@ -51,11 +51,12 @@ public record ProgCalAspectPoint(ChartPoints ChartPoint, AspectTypes Aspect, dou
 public record ProgCalAspectMatch (
     ChartPoints ProgPoint,
     ChartPoints RadixPoint,
+    ProgressionTypes ProgressionType,
     double ProgPosition,
     double RadixLongitude,
     AspectTypes Aspect,
     ProgressionTypes ProgType,
-    double Jd): ProgCalMatch(ProgPoint, Jd, ProgPosition);
+    double Jd): ProgCalMatch(ProgPoint, ProgressionType, Jd, ProgPosition);
 
 /// <summary>
 /// An acually formed declination parallel or contra parallel
@@ -69,10 +70,11 @@ public record ProgCalAspectMatch (
 public record ProgCalDeclinationParallelMatch(
     ChartPoints ProgPoint,
     ChartPoints RadixPoint,
+    ProgressionTypes ProgType,
     double ProgDeclination,
     double RadixDeclination,
     DeclinationParallels DeclParallel,
-    double Jd): ProgCalMatch(ProgPoint, Jd, ProgDeclination);
+    double Jd): ProgCalMatch(ProgPoint, ProgType, Jd, ProgDeclination);
 
 /// <summary>
 /// Request for progressive calendar
@@ -104,6 +106,7 @@ public record ProgCalRequest(
 /// Presetable version of a progressive calendar item
 /// </summary>
 /// <param name="DateTime">Date and time</param>
+/// <param name="ProgType">Progression type</param>
 /// <param name="ProgPointGlyph">Glyph for the progressive point</param>
 /// <param name="AspectGlyph">Optional glyph for the aspect</param>
 /// <param name="RadixGlyph">Optional glyph for the radix point</param>
@@ -111,6 +114,7 @@ public record ProgCalRequest(
 /// <param name="SignGlyph">Optional glyph for the sign</param>
   public record PresentableProgCalItem(
       string DateTime,
+      string ProgType,
       char ProgPointGlyph,
       char AspectGlyph,
       char RadixGlyph,

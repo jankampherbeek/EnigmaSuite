@@ -67,7 +67,7 @@ public static class ProgCalOrchestrator
         foreach (var match in secAspectsFound)
         {
             var realJd = DefineRealJdFromSecundary(jdRadix, match.Jd);
-            realAspectsFound.Add(new ProgCalAspectMatch(match.ProgPoint, match.RadixPoint, match.ProgPosition,
+            realAspectsFound.Add(new ProgCalAspectMatch(match.ProgPoint, match.RadixPoint, progType, match.ProgPosition,
                 match.RadixLongitude, match.Aspect, progType, realJd));
         }
 

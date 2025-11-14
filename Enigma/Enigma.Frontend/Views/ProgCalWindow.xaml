@@ -68,6 +68,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Date/time" Width="Auto" Binding="{Binding DateTime, Mode=TwoWay}"
                                                 IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                            <DataGridTextColumn Header="Method" Width="Auto" Binding="{Binding ProgType, Mode=TwoWay}"
+                                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
                             <DataGridTextColumn Header="" Width="Auto" Binding="{Binding ProgPointGlyph, Mode=TwoWay}"
                                                 IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
                             <DataGridTextColumn Header="" Width="Auto" Binding="{Binding AspectGlyph, Mode=TwoWay}"

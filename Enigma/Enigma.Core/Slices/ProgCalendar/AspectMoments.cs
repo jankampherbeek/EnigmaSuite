@@ -61,6 +61,7 @@ public static class AspectMoments
                         newAspects.Add(new ProgCalAspectMatch(
                             progPoint,
                             aspectPoint.ChartPoint,
+                            progType,
                             longProgCurrent,
                             radixLongitude,
                             aspectPoint.Aspect,

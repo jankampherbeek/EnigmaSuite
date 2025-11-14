@@ -28,33 +28,34 @@ public class ProgCalItemPresFactory(IDateTimeCalc dateTimeCalc)
         foreach (var pcItem in progCalItems)
         {
             var progPointGlyph = GlyphsForChartPoints.FindGlyph(pcItem.ProgPoint);
+            var progType = pcItem.ProgType == ProgressionTypes.Transit ? "Tr." : "Sec.";
             var dateTime = JdToDateTimeString(pcItem.Jd, cal);
             switch (pcItem)
             {
                 case ProgCalAspectMatch:
-                    presEvents.Add(CreateAspect(pcItem, dateTime, progPointGlyph));
+                    presEvents.Add(CreateAspect(pcItem, progType, dateTime, progPointGlyph));
                     break;
                 case ProgCalDeclinationParallelMatch:
-                    presEvents.Add(CreateDeclParallel(pcItem, dateTime, progPointGlyph));
+                    presEvents.Add(CreateDeclParallel(pcItem, progType, dateTime, progPointGlyph));
                     break;
             }          
         }
         return presEvents;
     }
 
-    private PresentableProgCalItem CreateAspect(ProgCalMatch pcItem, string dateTime, char progPointGlyph)
+    private PresentableProgCalItem CreateAspect(ProgCalMatch pcItem, string progType, string dateTime, char progPointGlyph)
     {
         string eventType = "Aspect";
         var aspectItem = pcItem as ProgCalAspectMatch;
         var aspectGlyph = aspectItem.Aspect.GetDetails().Glyph;
         var radixGlyph = GlyphsForChartPoints.FindGlyph(aspectItem.RadixPoint);
         var (progPointPosition, signGlyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(aspectItem.ProgPosition);
-        var presItem = new PresentableProgCalItem(dateTime, progPointGlyph, aspectGlyph, radixGlyph,
+        var presItem = new PresentableProgCalItem(dateTime, progType, progPointGlyph, aspectGlyph, radixGlyph,
             progPointPosition, signGlyph);
         return presItem;
     }
 
-    private PresentableProgCalItem CreateDeclParallel(ProgCalMatch pcItem, string dateTime, char progPointGlyph)
+    private PresentableProgCalItem CreateDeclParallel(ProgCalMatch pcItem, string progType, string dateTime, char progPointGlyph)
     {
         var parallelItem = pcItem as ProgCalDeclinationParallelMatch;
         var eventType = parallelItem.DeclParallel == DeclinationParallels.Parallel ? "Parallel" : "Contra-parallel";
@@ -62,7 +63,7 @@ public class ProgCalItemPresFactory(IDateTimeCalc dateTimeCalc)
         var radixGlyph = GlyphsForChartPoints.FindGlyph(parallelItem.RadixPoint);
         var progPointPosition = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(parallelItem.ProgPosition);
         var signGlyph = ' ';
-        var presItem = new PresentableProgCalItem(dateTime, progPointGlyph, aspectGlyph, radixGlyph,
+        var presItem = new PresentableProgCalItem(dateTime, progType, progPointGlyph, aspectGlyph, radixGlyph,
             progPointPosition, signGlyph);
         return presItem;
     }

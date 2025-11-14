@@ -17,6 +17,8 @@ namespace Enigma.Core.Slices.ProgCalendar;
 public static class ParallelMoments
 {
 
+    // TODO handle secundary
+    
     private static readonly ICalcUtFacade CalcUtFacade = new CalcUtFacade();
     
     public static List<ProgCalDeclinationParallelMatch> FindParallelMoments(ProgressionTypes progType,
@@ -77,6 +79,7 @@ public static class ParallelMoments
                         newParallels.Add(new ProgCalDeclinationParallelMatch(
                             progPoint,
                             radixPoint,
+                            progType,
                             declProgCurrent,
                             radixDeclination,
                             parallelType,
