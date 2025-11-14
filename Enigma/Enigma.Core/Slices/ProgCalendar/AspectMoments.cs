@@ -36,6 +36,26 @@ public static class AspectMoments
         
         return aspectMoments;
     }
+
+    public static List<ProgCalAspectPeriodMatch> FindAspectPeriods(ProgressionTypes progType, CalculatedChart calcChart,
+        List<ProgCalAspectPoint> aspectPoints, List<ChartPoints> progPoints, double jdStart, double jdEnd, double orb)
+    {
+        var aspectPeriods = new List<ProgCalAspectPeriodMatch>();
+        foreach (var progPoint in progPoints)
+        {
+            if (progPoint == ChartPoints.Moon) continue;   // skip Moon for periods
+            var initialStepSize = DefineInitialStepSize(progPoint);
+            foreach (var aspectPoint in aspectPoints)
+            {                
+                var radixLongitude = FindRadixLongitude(aspectPoint.ChartPoint, calcChart);
+                var newPeriodsFound = SearchForAspectPeriod(progType, aspectPoint.ChartPoint, 
+                    progPoint, aspectPoint, radixLongitude, jdStart, jdEnd, orb);
+                aspectPeriods.AddRange(newPeriodsFound);
+            }
+        }
+        return aspectPeriods;
+    }
+
     private static List<ProgCalAspectMatch> BinarySearchForAspectMoment(ProgressionTypes progType, ChartPoints progPoint, 
         ProgCalAspectPoint aspectPoint, double radixLongitude, double jdStart, double jdEnd, double stepSize)
     {
@@ -61,7 +81,6 @@ public static class AspectMoments
                         newAspects.Add(new ProgCalAspectMatch(
                             progPoint,
                             aspectPoint.ChartPoint,
-                            progType,
                             longProgCurrent,
                             radixLongitude,
                             aspectPoint.Aspect,
@@ -81,6 +100,50 @@ public static class AspectMoments
         return newAspects;
     }
 
+    private static List<ProgCalAspectPeriodMatch> SearchForAspectPeriod(ProgressionTypes progType, ChartPoints radixPoint, 
+        ChartPoints progPoint, ProgCalAspectPoint aspectPoint, double radixLongitude, double jdStart, double jdEnd, double orb)
+    {
+        var newPeriods = new List<ProgCalAspectPeriodMatch>();
+        const double stepSize = 1.0;
+        var targetLongitude = aspectPoint.Longitude;
+        var jdCurrent = jdStart - stepSize;  // start early to be able to check the first step
+
+        var startDateFound = false;
+        var endDateFound = false;
+        var startDate = 0.0;
+        var endDate = 0.0;
+        while (jdCurrent <= jdEnd)
+        {
+            var jdNew = jdCurrent + stepSize;
+            var longProg = CalcLongitude(progPoint, jdCurrent);
+            if (CheckForAspectPeriod(longProg, targetLongitude, orb))
+            {
+                if (!startDateFound)
+                {
+                    startDateFound = true;
+                    startDate = jdCurrent;
+                }
+            }
+            else
+            {
+                if (startDateFound && !endDateFound)
+                {
+                    endDateFound = true;
+                    endDate = jdCurrent;    
+                }                
+            }
+
+            jdCurrent++;
+            if (!startDateFound || !endDateFound) continue;
+            newPeriods.Add(new ProgCalAspectPeriodMatch(progPoint, radixPoint, aspectPoint.Aspect, progType, startDate, endDate));
+            Console.WriteLine($"Aspect period found: {progPoint} {aspectPoint.Aspect} {startDate} {endDate}");
+            startDateFound = false;     // Continue search for more aspects
+            endDateFound = false;
+        }
+        return newPeriods;
+    }
+    
+    
     /// <summary>
     /// Define initial stepsize based on the ProgPoint involved
     /// </summary>
@@ -130,6 +193,13 @@ public static class AspectMoments
         return false;
     }
 
+    private static bool CheckForAspectPeriod(double longCurrent, double targetLon, double orb)
+    {
+        var distanceCurrent = DefineDistance(longCurrent, targetLon);
+        return distanceCurrent < orb;
+    }
+    
+    
     /// <summary>
     /// Define the shortest distance between two longitudes
     /// </summary>

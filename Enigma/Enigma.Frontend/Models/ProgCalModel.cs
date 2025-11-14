@@ -68,9 +68,15 @@ public class ProgCalModel(IJulianDayApi jdApi)
             declParallels, orbAspects, orbParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);
 
-        var result = _progCalItemPresFactory.CreatePresProgCalItems(response);
-        Console.WriteLine(result.Count);
-        return result;
+        var aspectsResult = _progCalItemPresFactory.CreatePresProgCalItems(response.Matches);
+
+        var periodResults = response.PeriodMatches;
+        foreach (var periodResult in periodResults)
+        {
+            Console.WriteLine(periodResult.ToString());
+        }
+        // TODO handle periodMatches
+        return aspectsResult;
     }
     
 }

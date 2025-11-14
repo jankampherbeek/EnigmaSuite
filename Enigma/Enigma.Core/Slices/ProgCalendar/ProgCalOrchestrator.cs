@@ -12,18 +12,29 @@ namespace Enigma.Core.Slices.ProgCalendar;
 
 public static class ProgCalOrchestrator
 {
-    public static List<ProgCalMatch> DefineProgressiveCalendar(ProgCalRequest request)
+    public static ProgCalResponse DefineProgressiveCalendar(ProgCalRequest request)
     {
         var allMatches = new List<ProgCalMatch>();
+        var allPeriodMatches = new List<ProgCalPeriodMatch>();
+        // ToDO populate allPeriodMatches
+        
+        
         var sortedAspPoints =
             ProgCalSortAspectPoints.CreateSortedAspectPoints(request.CalcChart, request.ProgPoints, request.Aspects);
         var transitAspects = new List<ProgCalAspectMatch>();
+        var transitPeriodAspects = new List<ProgCalAspectPeriodMatch>();
         if (request.ProgTypes.Contains(ProgressionTypes.Transit))
         {
             transitAspects = FindTransitAspects(ProgressionTypes.Transit, sortedAspPoints, request.CalcChart,
                 request.ProgPoints,
                 request.StartJd,
                 request.EndJd);
+            transitPeriodAspects = FindTransitPeriodAspects(ProgressionTypes.Transit, sortedAspPoints, request.CalcChart,
+                request.ProgPoints,
+                request.StartJd,
+                request.EndJd,
+                request.OrbAspects);
+
         }
 
         var secundaryAspects = FindSecundaryAspects(ProgressionTypes.Secundary, sortedAspPoints, request.CalcChart,
@@ -39,7 +50,12 @@ public static class ProgCalOrchestrator
 
         allMatches.AddRange(declinationParallels);
         allMatches = allMatches.OrderBy(x => x.Jd).ToList();
-        return allMatches;
+        
+        allPeriodMatches.AddRange(transitPeriodAspects);
+        allPeriodMatches = allPeriodMatches.OrderBy(x => x.JdStart).ToList();
+
+        
+        return new ProgCalResponse(allMatches, allPeriodMatches);
     }
 
     private static List<ProgCalAspectMatch> FindTransitAspects(ProgressionTypes progType,
@@ -51,6 +67,16 @@ public static class ProgCalOrchestrator
         return aspectsFound;
     }
 
+    private static List<ProgCalAspectPeriodMatch> FindTransitPeriodAspects(ProgressionTypes progType,
+        List<ProgCalAspectPoint> sortedAspPoints, CalculatedChart calcChart, List<ChartPoints> progPoints,
+        double jdStart, double jdEnd, double orb)
+    {
+        var periodsFound = AspectMoments.FindAspectPeriods(progType, calcChart, sortedAspPoints, progPoints, jdStart, jdEnd, orb);
+        return periodsFound;
+    }
+    
+    
+    
     private static List<ProgCalAspectMatch> FindSecundaryAspects(ProgressionTypes progType,
         List<ProgCalAspectPoint> sortedAspPoints, CalculatedChart calcChart, List<ChartPoints> progPoints,
         double jdStart, double jdEnd)
@@ -67,10 +93,9 @@ public static class ProgCalOrchestrator
         foreach (var match in secAspectsFound)
         {
             var realJd = DefineRealJdFromSecundary(jdRadix, match.Jd);
-            realAspectsFound.Add(new ProgCalAspectMatch(match.ProgPoint, match.RadixPoint, progType, match.ProgPosition,
+            realAspectsFound.Add(new ProgCalAspectMatch(match.ProgPoint, match.RadixPoint, match.ProgPosition,
                 match.RadixLongitude, match.Aspect, progType, realJd));
         }
-
         return realAspectsFound;
     }
 

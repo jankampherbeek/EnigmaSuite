@@ -57,7 +57,7 @@
         <TabControl Grid.Row="3">
             <TabItem Header="List">
                 <Border Margin="6">
-                    <DataGrid Grid.Row="5" x:Name="ProgCalList"
+                    <DataGrid Grid.Row="5" x:Name="MomentsDataGrid"
                               AutoGenerateColumns="False"
                               Height="Auto"
                               Margin="12,0"

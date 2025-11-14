@@ -28,7 +28,7 @@ public class ProgCalItemPresFactory(IDateTimeCalc dateTimeCalc)
         foreach (var pcItem in progCalItems)
         {
             var progPointGlyph = GlyphsForChartPoints.FindGlyph(pcItem.ProgPoint);
-            var progType = pcItem.ProgType == ProgressionTypes.Transit ? "Tr." : "Sec.";
+            var progType = pcItem.ProgType == ProgressionTypes.Transit ? "Transit" : "Secundary";
             var dateTime = JdToDateTimeString(pcItem.Jd, cal);
             switch (pcItem)
             {

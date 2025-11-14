@@ -10,6 +10,8 @@ namespace Enigma.Core.Slices.ProgCalendar;
 
 public record ProgCalMatch(ChartPoints ProgPoint, ProgressionTypes ProgType, double Jd, double ProgPosition);
 
+public record ProgCalPeriodMatch(ChartPoints ProgPoint, ChartPoints RadixPoint, ProgressionTypes ProgType, double JdStart, double JdEnd);
+
 public enum DeclinationParallels
 {
     Parallel = 1,
@@ -51,12 +53,21 @@ public record ProgCalAspectPoint(ChartPoints ChartPoint, AspectTypes Aspect, dou
 public record ProgCalAspectMatch (
     ChartPoints ProgPoint,
     ChartPoints RadixPoint,
-    ProgressionTypes ProgressionType,
     double ProgPosition,
     double RadixLongitude,
     AspectTypes Aspect,
     ProgressionTypes ProgType,
-    double Jd): ProgCalMatch(ProgPoint, ProgressionType, Jd, ProgPosition);
+    double Jd): ProgCalMatch(ProgPoint, ProgType, Jd, ProgPosition);
+
+
+public record ProgCalAspectPeriodMatch(
+    ChartPoints ProgPoint,
+    ChartPoints RadixPoint,
+    AspectTypes Aspect,
+    ProgressionTypes ProgType,
+    double JdStart,
+    double JdEnd): ProgCalPeriodMatch(ProgPoint, RadixPoint, ProgType, JdStart, JdEnd);
+
 
 /// <summary>
 /// An acually formed declination parallel or contra parallel
@@ -76,6 +87,17 @@ public record ProgCalDeclinationParallelMatch(
     DeclinationParallels DeclParallel,
     double Jd): ProgCalMatch(ProgPoint, ProgType, Jd, ProgDeclination);
 
+public record ProgCalDeclinationParallelPeriodMatch(
+    ChartPoints ProgPoint,
+    ChartPoints RadixPoint,
+    DeclinationParallels DeclParallel,
+    ProgressionTypes ProgType,
+    double JdStart,
+    double JdEnd): ProgCalPeriodMatch(ProgPoint, RadixPoint, ProgType, JdStart, JdEnd);
+    
+
+
+
 /// <summary>
 /// Request for progressive calendar
 /// </summary>
@@ -86,7 +108,6 @@ public record ProgCalDeclinationParallelMatch(
 /// <param name="ProgPoints">Progressive chartpoints to include</param>
 /// <param name="RadixPoints">Radix chartpoints to include</param>
 /// <param name="Aspects">Aspects to include</param>
-/// <param name="DeclEvents">Declination events to include</param>
 /// <param name="DeclParallels">Declination parallels to include</param>
 /// <param name="OrbAspects">Orb for aspects</param>
 /// <param name="OrbParallels">Orb for declination parallels</param>
@@ -102,8 +123,13 @@ public record ProgCalRequest(
     double OrbAspects,
     double OrbParallels);
 
+public record ProgCalResponse(List<ProgCalMatch> Matches, List<ProgCalPeriodMatch> PeriodMatches);
+
+
+
+
 /// <summary>
-/// Presetable version of a progressive calendar item
+/// Presentable version of a progressive calendar item
 /// </summary>
 /// <param name="DateTime">Date and time</param>
 /// <param name="ProgType">Progression type</param>
@@ -121,3 +147,6 @@ public record ProgCalRequest(
       string ProgPointPosition,
       char SignGlyph
       );
+      
+      
+      
