@@ -129,12 +129,20 @@ public partial class ProgCalWindow
         {
             NoPeriodsText.Visibility = Visibility.Visible;
             ProgCalPeriodsPlot.Visibility = Visibility.Collapsed;
+            if (ProgCalAxisPlot is not null)
+            {
+                ProgCalAxisPlot.Visibility = Visibility.Collapsed;
+            }
             ProgCalPeriodsPlot.Refresh();
             return;
         }
 
         NoPeriodsText.Visibility = Visibility.Collapsed;
         ProgCalPeriodsPlot.Visibility = Visibility.Visible;
+        if (ProgCalAxisPlot is not null)
+        {
+            ProgCalAxisPlot.Visibility = Visibility.Visible;
+        }
 
         var orderedPeriods = periods
             .OrderBy(p => p.DateTimeStart)
@@ -197,7 +205,13 @@ public partial class ProgCalWindow
 
         plot.Axes.SetLimitsY(-0.5, yLabels.Count - 0.5);
 
-        plot.Axes.Bottom.TickGenerator = new DateTimeAutomatic();
+        if (Math.Abs(maxDate - minDate) < double.Epsilon)
+        {
+            maxDate = minDate + 1.0 / 24.0;
+        }
+
+        var dateTicks = new DateTimeAutomatic();
+        plot.Axes.Bottom.TickGenerator = dateTicks;
         if (minDate < maxDate)
         {
             plot.Axes.SetLimitsX(minDate, maxDate);
@@ -225,16 +239,47 @@ public partial class ProgCalWindow
             }
         }
 
-        plot.Axes.Bottom.TickLabelStyle.Rotation = 45;
-        plot.Axes.Bottom.TickLabelStyle.Alignment = Alignment.LowerRight;
-        plot.Axes.Bottom.Label.Text = "Date";
+        plot.Axes.Bottom.IsVisible = false;
+        plot.Axes.Top.IsVisible = false;
 
         plot.FigureBackground.Color = Color.FromHex("#FFFFFF");
         plot.DataBackground.Color = Color.FromHex("#FFFFFF");
 
         plot.Legend.IsVisible = false;
 
+        UpdateAxisPlot(minDate, maxDate, dateTicks);
+
         ProgCalPeriodsPlot.Refresh();
+    }
+
+    private void UpdateAxisPlot(double minDate, double maxDate, ITickGenerator tickGenerator)
+    {
+        if (ProgCalAxisPlot is null)
+        {
+            return;
+        }
+
+        var axisPlot = ProgCalAxisPlot.Plot;
+        axisPlot.Clear();
+
+        axisPlot.Axes.Left.IsVisible = false;
+        axisPlot.Axes.Top.IsVisible = false;
+        axisPlot.Axes.Right.IsVisible = false;
+
+        axisPlot.Axes.Bottom.IsVisible = true;
+        axisPlot.Axes.Bottom.TickGenerator = tickGenerator;
+        axisPlot.Axes.Bottom.TickLabelStyle.Rotation = 45;
+        axisPlot.Axes.Bottom.TickLabelStyle.Alignment = Alignment.LowerRight;
+        axisPlot.Axes.Bottom.Label.Text = "Date";
+
+        axisPlot.Axes.SetLimitsX(minDate, maxDate);
+        axisPlot.Axes.SetLimitsY(-1, 1);
+
+        var baseline = axisPlot.Add.Line(minDate, 0, maxDate, 0);
+        baseline.LineWidth = 0;
+        baseline.Color = Color.FromHex("#00000000");
+
+        ProgCalAxisPlot.Refresh();
     }
 
     protected override void OnClosed(EventArgs e)
