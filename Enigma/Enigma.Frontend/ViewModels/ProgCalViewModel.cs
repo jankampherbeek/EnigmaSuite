@@ -25,6 +25,7 @@ public partial class ProgCalViewModel : ObservableObject
     
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private List<PresentableProgCalItem> _progCalItems;
+    [ObservableProperty] private List<PresentableProgCalPeriod> _progCalPeriods;
     [ObservableProperty] private bool _useAspects;
     [ObservableProperty] private bool _useParallels;
     [ObservableProperty] private bool _useRetroDirect;
@@ -46,11 +47,15 @@ public partial class ProgCalViewModel : ObservableObject
 
     public ProgCalViewModel()
     {
-        ProgCalItems = _model.TestProgCal();
+        _model.TestProgCal();
+        Populate();
+        
     }
 
     private void Populate()
     {
+        ProgCalItems = _model.allItems;
+        ProgCalPeriods = _model.allPeriods;
         
     }
     

@@ -147,6 +147,13 @@ public record ProgCalResponse(List<ProgCalMatch> Matches, List<ProgCalPeriodMatc
       string ProgPointPosition,
       char SignGlyph
       );
-      
-      
+
+
+
+  public record PresentableProgCalPeriod(
+      DateTime DateTimeStart,
+      DateTime DateTimeEnd,
+      char ProgPointGlyph,
+      char AspectGlyph,
+      char RadixGlyph);
       

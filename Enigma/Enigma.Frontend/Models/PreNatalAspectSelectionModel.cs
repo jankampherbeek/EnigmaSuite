@@ -31,7 +31,6 @@ public class PreNatalAspectSelectionModel
             AspectDetails aspDetails = currentAspSpec.Key.GetDetails();
             char glyph = currentAspSpec.Value.Glyph;
             var aspName = Rosetta.Instance.GetText(aspDetails.RbKey);
-            Console.WriteLine($"Aspect:  {aspName}  Glyph:  {glyph}");
             _selAspDetails.Add(new SelectableAspectDetails() { Selected = false, Aspect = aspDetails.Aspect, Glyph = glyph, Name = aspName});
         }
         return _selAspDetails;

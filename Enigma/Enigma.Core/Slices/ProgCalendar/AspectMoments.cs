@@ -109,37 +109,35 @@ public static class AspectMoments
         var jdCurrent = jdStart - stepSize;  // start early to be able to check the first step
 
         var startDateFound = false;
-        var endDateFound = false;
         var startDate = 0.0;
-        var endDate = 0.0;
         while (jdCurrent <= jdEnd)
         {
-            var jdNew = jdCurrent + stepSize;
             var longProg = CalcLongitude(progPoint, jdCurrent);
-            if (CheckForAspectPeriod(longProg, targetLongitude, orb))
+            var inOrb = CheckForAspectPeriod(longProg, targetLongitude, orb);
+
+            if (inOrb)
             {
                 if (!startDateFound)
                 {
                     startDateFound = true;
-                    startDate = jdCurrent;
+                    startDate = Math.Max(jdCurrent, jdStart);
                 }
             }
-            else
+            else if (startDateFound)
             {
-                if (startDateFound && !endDateFound)
-                {
-                    endDateFound = true;
-                    endDate = jdCurrent;    
-                }                
+                var endDate = Math.Min(jdCurrent, jdEnd);
+                newPeriods.Add(new ProgCalAspectPeriodMatch(progPoint, radixPoint, aspectPoint.Aspect, progType, startDate, endDate));
+                startDateFound = false;
             }
 
-            jdCurrent++;
-            if (!startDateFound || !endDateFound) continue;
-            newPeriods.Add(new ProgCalAspectPeriodMatch(progPoint, radixPoint, aspectPoint.Aspect, progType, startDate, endDate));
-            Console.WriteLine($"Aspect period found: {progPoint} {aspectPoint.Aspect} {startDate} {endDate}");
-            startDateFound = false;     // Continue search for more aspects
-            endDateFound = false;
+            jdCurrent += stepSize;
         }
+
+        if (startDateFound)
+        {
+            newPeriods.Add(new ProgCalAspectPeriodMatch(progPoint, radixPoint, aspectPoint.Aspect, progType, startDate, jdEnd));
+        }
+
         return newPeriods;
     }
     

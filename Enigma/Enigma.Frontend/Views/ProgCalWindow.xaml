@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -86,7 +87,23 @@
                 
             </TabItem>
             <TabItem Header="Graph">
-                
+                <Border Margin="12" Background="{DynamicResource MaterialDesignCardBackground}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <ScottPlot:WpfPlot x:Name="ProgCalPeriodsPlot"
+                                               Background="{DynamicResource MaterialDesignPaper}"
+                                               Margin="4"/>
+                            <TextBlock x:Name="NoPeriodsText"
+                                       Text="No periods available"
+                                       Foreground="{DynamicResource MaterialDesignBody}"
+                                       FontStyle="Italic"
+                                       FontSize="16"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Visibility="Collapsed" />
+                        </Grid>
+                    </ScrollViewer>
+                </Border>
             </TabItem>
 
         </TabControl>

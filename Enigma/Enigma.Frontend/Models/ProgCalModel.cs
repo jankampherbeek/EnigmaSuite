@@ -19,7 +19,10 @@ public class ProgCalModel(IJulianDayApi jdApi)
 {
     private ProgCalItemPresFactory _progCalItemPresFactory = App.ServiceProvider.GetRequiredService<ProgCalItemPresFactory>();
     
-    public List<PresentableProgCalItem> TestProgCal()
+    public List<PresentableProgCalItem> allItems { get; set;}
+    public List<PresentableProgCalPeriod> allPeriods { get; set;}    
+    
+    public void TestProgCal()
     {
         var startDate = new SimpleDateTime(2025, 11, 1, 0.0, Calendars.Gregorian);
         var startJd = jdApi.GetJulianDay(startDate).JulDayEt;
@@ -68,15 +71,9 @@ public class ProgCalModel(IJulianDayApi jdApi)
             declParallels, orbAspects, orbParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);
 
-        var aspectsResult = _progCalItemPresFactory.CreatePresProgCalItems(response.Matches);
-
-        var periodResults = response.PeriodMatches;
-        foreach (var periodResult in periodResults)
-        {
-            Console.WriteLine(periodResult.ToString());
-        }
-        // TODO handle periodMatches
-        return aspectsResult;
+        allItems = _progCalItemPresFactory.CreatePresProgCalItems(response.Matches);
+        allPeriods = _progCalItemPresFactory.CreatePresProgCalPeriods(response.PeriodMatches);
+        
     }
     
 }
