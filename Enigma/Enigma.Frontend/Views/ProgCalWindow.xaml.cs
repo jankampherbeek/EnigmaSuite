@@ -169,6 +169,8 @@ public partial class ProgCalWindow
             return idx;
         }
 
+        // First pass: determine all row indices and date ranges
+        var periodData = new List<(int RowIndex, double Start, double End)>();
         foreach (var period in orderedPeriods)
         {
             var y = GetRowIndex(period);
@@ -186,14 +188,33 @@ public partial class ProgCalWindow
 
             minDate = Math.Min(minDate, start);
             maxDate = Math.Max(maxDate, end);
+            periodData.Add((y, start, end));
+        }
 
-            var top = y + halfHeight - spacing;
-            var bottom = y - halfHeight + spacing;
+        // Create a mapping from original row index to reversed row index
+        // Original row 0 (earliest) should map to row totalRows-1 (top)
+        var rowMapping = new Dictionary<int, int>();
+        for (var i = 0; i < yLabels.Count; i++)
+        {
+            rowMapping[i] = yLabels.Count - 1 - i;
+        }
+
+        // Second pass: plot with reversed row indices so earliest periods appear at the top
+        var totalRows = yLabels.Count;
+        foreach (var (y, start, end) in periodData)
+        {
+            // Map to reversed row index: original row 0 (earliest) becomes row totalRows-1 (top)
+            var yReversed = rowMapping[y];
+            var top = yReversed + halfHeight - spacing;
+            var bottom = yReversed - halfHeight + spacing;
             var rect = plot.Add.Rectangle(start, end, bottom, top);
             rect.FillStyle.Color = Color.FromHex("#3F51B5");
             rect.LineStyle.Width = 0;
         }
 
+        // Reverse labels so they match the reversed row positions
+        // yLabels[0] (earliest) should be at position totalRows-1 (top)
+        yLabels.Reverse();
         var yTicks = Enumerable.Range(0, yLabels.Count).Select(v => (double)v).ToArray();
         const double rowPixelHeight = 18d;
         ProgCalPeriodsPlot.Height = Math.Max(rowPixelHeight * yLabels.Count, 200d);
@@ -203,6 +224,7 @@ public partial class ProgCalWindow
         plot.Axes.Left.TickLabelStyle.FontSize = 24;
         plot.Axes.Left.Label.Text = string.Empty;
 
+        // Normal Y limits: 0 at bottom, max at top
         plot.Axes.SetLimitsY(-0.5, yLabels.Count - 0.5);
 
         if (Math.Abs(maxDate - minDate) < double.Epsilon)
@@ -220,7 +242,8 @@ public partial class ProgCalWindow
         if (yLabels.Count > 0 && minDate < double.MaxValue && maxDate > double.MinValue)
         {
             var separatorEnd = Math.Abs(maxDate - minDate) < double.Epsilon ? maxDate + 1.0 / 24 : maxDate;
-            for (var boundary = -0.5; boundary <= yLabels.Count - 0.5; boundary += 1.0)
+            // Y limits are inverted, so boundaries are from max to min
+            for (var boundary = yLabels.Count - 0.5; boundary >= -0.5; boundary -= 1.0)
             {
                 var separator = plot.Add.Line(minDate, boundary, separatorEnd, boundary);
                 separator.LineWidth = 1;
@@ -229,6 +252,7 @@ public partial class ProgCalWindow
 
             var dayStart = Math.Floor(minDate);
             var dayEnd = Math.Ceiling(separatorEnd);
+            // Y limits are inverted: max at bottom, min at top
             var yMin = -0.5;
             var yMax = yLabels.Count - 0.5;
             for (var day = dayStart; day <= dayEnd; day += 1.0)

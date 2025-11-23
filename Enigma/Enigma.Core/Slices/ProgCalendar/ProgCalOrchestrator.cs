@@ -53,8 +53,6 @@ public static class ProgCalOrchestrator
         
         allPeriodMatches.AddRange(transitPeriodAspects);
         allPeriodMatches = allPeriodMatches.OrderBy(x => x.JdStart).ToList();
-
-        
         return new ProgCalResponse(allMatches, allPeriodMatches);
     }
 
