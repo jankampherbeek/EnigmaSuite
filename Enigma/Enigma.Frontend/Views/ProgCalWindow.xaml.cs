@@ -199,8 +199,31 @@ public partial class ProgCalWindow
             rowMapping[i] = yLabels.Count - 1 - i;
         }
 
-        // Second pass: plot with reversed row indices so earliest periods appear at the top
+        // Ensure we have valid date range for background rectangles
+        var finalMaxDate = maxDate;
+        if (Math.Abs(finalMaxDate - minDate) < double.Epsilon)
+        {
+            finalMaxDate = minDate + 1.0 / 24.0;
+        }
+
+        // Add alternating background colors for each row to improve visual alignment
+        // Draw these first so they appear behind the period rectangles
         var totalRows = yLabels.Count;
+        if (totalRows > 0 && minDate < double.MaxValue && finalMaxDate > double.MinValue)
+        {
+            for (var row = 0; row < totalRows; row++)
+            {
+                var rowBottom = row - 0.5;
+                var rowTop = row + 0.5;
+                // Alternate between light blue and white (starting with light blue for row 0)
+                var backgroundColor = row % 2 == 0 ? Color.FromHex("#ADD8E6") : Color.FromHex("#FFFFFF");
+                var backgroundRect = plot.Add.Rectangle(minDate, finalMaxDate, rowBottom, rowTop);
+                backgroundRect.FillStyle.Color = backgroundColor;
+                backgroundRect.LineStyle.Width = 0;
+            }
+        }
+
+        // Second pass: plot with reversed row indices so earliest periods appear at the top
         foreach (var (y, start, end) in periodData)
         {
             // Map to reversed row index: original row 0 (earliest) becomes row totalRows-1 (top)
