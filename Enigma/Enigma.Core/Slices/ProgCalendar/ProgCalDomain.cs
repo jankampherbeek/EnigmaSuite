@@ -8,10 +8,6 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.ProgCalendar;
 
-public record ProgCalMatch(ChartPoints ProgPoint, ProgressionTypes ProgType, double Jd, double ProgPosition);
-
-public record ProgCalPeriodMatch(ChartPoints ProgPoint, ChartPoints RadixPoint, ProgressionTypes ProgType, double JdStart, double JdEnd);
-
 public enum DeclinationParallels
 {
     Parallel = 1,
@@ -23,6 +19,12 @@ public enum ProgressionTypes
     Secundary = 1,
     Transit = 2
 }
+
+public record ProgCalMatch(ChartPoints ProgPoint, ProgressionTypes ProgType, double Jd, double ProgPosition);
+
+public record ProgCalPeriodMatch(ChartPoints ProgPoint, ChartPoints RadixPoint, ProgressionTypes ProgType, double JdStart, double JdEnd);
+
+
 
 /// <summary>
 /// Chartpoijnt, combined with longitude
@@ -153,6 +155,7 @@ public record ProgCalResponse(List<ProgCalMatch> Matches, List<ProgCalPeriodMatc
   public record PresentableProgCalPeriod(
       DateTime DateTimeStart,
       DateTime DateTimeEnd,
+      ProgressionTypes ProgType,
       char ProgPointGlyph,
       char AspectGlyph,
       char RadixGlyph);

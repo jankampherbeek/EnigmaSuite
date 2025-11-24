@@ -26,7 +26,7 @@ public class ProgCalModel(IJulianDayApi jdApi)
     {
         var startDate = new SimpleDateTime(2025, 11, 1, 0.0, Calendars.Gregorian);
         var startJd = jdApi.GetJulianDay(startDate).JulDayEt;
-        var endDate = new SimpleDateTime(2026, 1, 1, 0.0, Calendars.Gregorian);
+        var endDate = new SimpleDateTime(2025, 12, 1, 0.0, Calendars.Gregorian);
         var endJd = jdApi.GetJulianDay(endDate).JulDayEt;
         var calcChart = DataVaultCharts.Instance.GetCurrentChart();
         var progPoints = new List<ChartPoints>()
@@ -48,6 +48,9 @@ public class ProgCalModel(IJulianDayApi jdApi)
             ChartPoints.Mars,
             ChartPoints.Jupiter,
             ChartPoints.Saturn,
+            ChartPoints.Uranus,
+            ChartPoints.Neptune,
+            ChartPoints.Pluto,
             ChartPoints.Mc,
             ChartPoints.Mars
         };
@@ -66,7 +69,7 @@ public class ProgCalModel(IJulianDayApi jdApi)
         };
         var orbAspects = 1.0;
         var orbParallels = 0.25;
-        var progTypes = new List<ProgressionTypes>() { ProgressionTypes.Transit, ProgressionTypes.Secundary };
+        var progTypes = new List<ProgressionTypes>() {ProgressionTypes.Secundary, ProgressionTypes.Transit };
         var request = new ProgCalRequest(startJd, endJd, calcChart, progTypes, progPoints, radixPoints, aspects,
             declParallels, orbAspects, orbParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);

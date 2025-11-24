@@ -3,7 +3,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Reflection.Metadata;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -17,8 +16,8 @@ public static class ProgCalOrchestrator
         var allMatches = new List<ProgCalMatch>();
         var allPeriodMatches = new List<ProgCalPeriodMatch>();
         // ToDO populate allPeriodMatches
-        
-        
+
+
         var sortedAspPoints =
             ProgCalSortAspectPoints.CreateSortedAspectPoints(request.CalcChart, request.ProgPoints, request.Aspects);
         var transitAspects = new List<ProgCalAspectMatch>();
@@ -29,29 +28,45 @@ public static class ProgCalOrchestrator
                 request.ProgPoints,
                 request.StartJd,
                 request.EndJd);
-            transitPeriodAspects = FindTransitPeriodAspects(ProgressionTypes.Transit, sortedAspPoints, request.CalcChart,
+            transitPeriodAspects = FindTransitPeriodAspects(ProgressionTypes.Transit, sortedAspPoints,
+                request.CalcChart,
                 request.ProgPoints,
                 request.StartJd,
                 request.EndJd,
                 request.OrbAspects);
-
         }
 
-        var secundaryAspects = FindSecundaryAspects(ProgressionTypes.Secundary, sortedAspPoints, request.CalcChart,
-            request.ProgPoints,
-            request.StartJd,
-            request.EndJd);
+        var secundaryAspects = new List<ProgCalAspectMatch>();
+        var secundaryPeriodAspects = new List<ProgCalAspectPeriodMatch>();
+        if (request.ProgTypes.Contains(ProgressionTypes.Secundary))
+        {
+            secundaryAspects = FindSecundaryAspects(ProgressionTypes.Secundary, sortedAspPoints, request.CalcChart,
+                request.ProgPoints,
+                request.StartJd,
+                request.EndJd);
+            secundaryPeriodAspects = FindSecundaryPeriodAspects(ProgressionTypes.Secundary, sortedAspPoints,
+                request.CalcChart,
+                request.ProgPoints,
+                request.StartJd,
+                request.EndJd,
+                request.OrbAspects);
+        }
+
 
         var aspects = transitAspects.Concat(secundaryAspects).ToList();
         aspects = aspects.OrderBy(asp => asp.Jd).ToList();
         var declinationParallels =
             FindDeclionationParallel(request.ProgPoints, request.CalcChart, request.StartJd, request.EndJd);
+        var secundaryDeclinationParallels =
+            FindSecundaryDeclionationParallel(request.ProgPoints, request.CalcChart, request.StartJd, request.EndJd);
         allMatches.AddRange(aspects);
 
         allMatches.AddRange(declinationParallels);
+        allMatches.AddRange(secundaryDeclinationParallels);
         allMatches = allMatches.OrderBy(x => x.Jd).ToList();
-        
+
         allPeriodMatches.AddRange(transitPeriodAspects);
+        allPeriodMatches.AddRange(secundaryPeriodAspects);
         allPeriodMatches = allPeriodMatches.OrderBy(x => x.JdStart).ToList();
         return new ProgCalResponse(allMatches, allPeriodMatches);
     }
@@ -69,12 +84,12 @@ public static class ProgCalOrchestrator
         List<ProgCalAspectPoint> sortedAspPoints, CalculatedChart calcChart, List<ChartPoints> progPoints,
         double jdStart, double jdEnd, double orb)
     {
-        var periodsFound = AspectMoments.FindAspectPeriods(progType, calcChart, sortedAspPoints, progPoints, jdStart, jdEnd, orb);
+        var periodsFound =
+            AspectMoments.FindAspectPeriods(progType, calcChart, sortedAspPoints, progPoints, jdStart, jdEnd, orb);
         return periodsFound;
     }
-    
-    
-    
+
+
     private static List<ProgCalAspectMatch> FindSecundaryAspects(ProgressionTypes progType,
         List<ProgCalAspectPoint> sortedAspPoints, CalculatedChart calcChart, List<ChartPoints> progPoints,
         double jdStart, double jdEnd)
@@ -94,10 +109,31 @@ public static class ProgCalOrchestrator
             realAspectsFound.Add(new ProgCalAspectMatch(match.ProgPoint, match.RadixPoint, match.ProgPosition,
                 match.RadixLongitude, match.Aspect, progType, realJd));
         }
+
         return realAspectsFound;
     }
 
+    private static List<ProgCalAspectPeriodMatch> FindSecundaryPeriodAspects(ProgressionTypes progType,
+        List<ProgCalAspectPoint> sortedAspPoints, CalculatedChart calcChart, List<ChartPoints> progPoints,
+        double jdStart, double jdEnd, double orb)
+    {
+        var jdRadix = calcChart.InputtedChartData.FullDateTime.JulianDayForEt;
+        // convert jd's to secundary direction scale
+        var jdStartSec = DefineSecundaryJd(jdRadix, jdStart);
+        var jdEndSec = DefineSecundaryJd(jdRadix, jdEnd);
+        var secPeriodsFound = AspectMoments.FindAspectPeriods(progType, calcChart, sortedAspPoints, progPoints,
+            jdStartSec, jdEndSec, orb);
+        var realPeriodsFound = new List<ProgCalAspectPeriodMatch>();
+        foreach (var match in secPeriodsFound)
+        {
+            var realJdStart = DefineRealJdFromSecundary(jdRadix, match.JdStart);
+            var realJdEnd = DefineRealJdFromSecundary(jdRadix, match.JdEnd);
+            realPeriodsFound.Add(new ProgCalAspectPeriodMatch(match.ProgPoint, match.RadixPoint, match.Aspect,
+                match.ProgType, realJdStart, realJdEnd));
+        }
 
+        return realPeriodsFound;
+    }
 
 
     private static List<ProgCalDeclinationParallelMatch> FindDeclionationParallel(List<ChartPoints> progPoints,
@@ -106,6 +142,28 @@ public static class ProgCalOrchestrator
         var declParallelsFound =
             ParallelMoments.FindParallelMoments(ProgressionTypes.Transit, calcChart, progPoints, jdStart, jdEnd);
         return declParallelsFound;
+    }
+
+    private static List<ProgCalDeclinationParallelMatch> FindSecundaryDeclionationParallel(List<ChartPoints> progPoints,
+        CalculatedChart calcChart, double jdStart, double jdEnd)
+    {
+        var jdRadix = calcChart.InputtedChartData.FullDateTime.JulianDayForEt;
+        // convert jd's to secundary direction scale
+        var jdStartSec = DefineSecundaryJd(jdRadix, jdStart);
+        var jdEndSec = DefineSecundaryJd(jdRadix, jdEnd);
+        var secParallelsFound =
+            ParallelMoments.FindParallelMoments(ProgressionTypes.Secundary, calcChart, progPoints, jdStartSec,
+                jdEndSec);
+        // convert jd's for matches to jd in lifetime
+        var realParallelsFound = new List<ProgCalDeclinationParallelMatch>();
+        foreach (var match in secParallelsFound)
+        {
+            var realJd = DefineRealJdFromSecundary(jdRadix, match.Jd);
+            realParallelsFound.Add(new ProgCalDeclinationParallelMatch(match.ProgPoint, match.RadixPoint,
+                ProgressionTypes.Secundary, match.ProgPosition,
+                match.RadixDeclination, match.DeclParallel, realJd));
+        }
+        return realParallelsFound;
     }
 
     private static double DefineSecundaryJd(double jdRadix, double jdProg)

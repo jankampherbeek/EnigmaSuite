@@ -98,7 +98,7 @@ public class ProgCalItemPresFactory(IDateTimeCalc dateTimeCalc)
             aspectGlyph = pMatch.DeclParallel == DeclinationParallels.Parallel ? 'O' : 'P';
         }
 
-        return new PresentableProgCalPeriod(dateTimeStart, dateTimeEnd, progGlyph, aspectGlyph, radixGlyph);
+        return new PresentableProgCalPeriod(dateTimeStart, dateTimeEnd, period.ProgType, progGlyph, aspectGlyph, radixGlyph);
     }
     
     
