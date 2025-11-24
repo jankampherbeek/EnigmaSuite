@@ -47,7 +47,7 @@ public partial class ProgCalViewModel : ObservableObject
 
     public ProgCalViewModel()
     {
-        _model.TestProgCal();
+        _model.DefineProgCal();
         Populate();
         
     }

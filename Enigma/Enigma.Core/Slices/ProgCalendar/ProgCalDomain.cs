@@ -107,7 +107,8 @@ public record ProgCalDeclinationParallelPeriodMatch(
 /// <param name="EndJd">Last julian day number</param>
 /// <param name="CalcChart">Chart with calculated positions</param>
 /// <param name="ProgTypes">Progression type</param>
-/// <param name="ProgPoints">Progressive chartpoints to include</param>
+/// <param name="TransitPoints">Transit points to include</param>
+/// <param name="SecundaryPoints">Secundary points to include</param>
 /// <param name="RadixPoints">Radix chartpoints to include</param>
 /// <param name="Aspects">Aspects to include</param>
 /// <param name="DeclParallels">Declination parallels to include</param>
@@ -118,7 +119,8 @@ public record ProgCalRequest(
     double EndJd,
     CalculatedChart CalcChart,
     List<ProgressionTypes> ProgTypes,
-    List<ChartPoints> ProgPoints,
+    List<ChartPoints> TransitPoints,
+    List<ChartPoints> SecundaryPoints,
     List<ChartPoints> RadixPoints,
     List<AspectTypes> Aspects,
     List<DeclinationParallels> DeclParallels,

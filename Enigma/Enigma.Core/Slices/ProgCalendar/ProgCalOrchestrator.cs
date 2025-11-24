@@ -19,18 +19,18 @@ public static class ProgCalOrchestrator
 
 
         var sortedAspPoints =
-            ProgCalSortAspectPoints.CreateSortedAspectPoints(request.CalcChart, request.ProgPoints, request.Aspects);
+            ProgCalSortAspectPoints.CreateSortedAspectPoints(request.CalcChart, request.TransitPoints, request.Aspects);
         var transitAspects = new List<ProgCalAspectMatch>();
         var transitPeriodAspects = new List<ProgCalAspectPeriodMatch>();
         if (request.ProgTypes.Contains(ProgressionTypes.Transit))
         {
             transitAspects = FindTransitAspects(ProgressionTypes.Transit, sortedAspPoints, request.CalcChart,
-                request.ProgPoints,
+                request.TransitPoints,
                 request.StartJd,
                 request.EndJd);
             transitPeriodAspects = FindTransitPeriodAspects(ProgressionTypes.Transit, sortedAspPoints,
                 request.CalcChart,
-                request.ProgPoints,
+                request.TransitPoints,
                 request.StartJd,
                 request.EndJd,
                 request.OrbAspects);
@@ -41,12 +41,12 @@ public static class ProgCalOrchestrator
         if (request.ProgTypes.Contains(ProgressionTypes.Secundary))
         {
             secundaryAspects = FindSecundaryAspects(ProgressionTypes.Secundary, sortedAspPoints, request.CalcChart,
-                request.ProgPoints,
+                request.SecundaryPoints,
                 request.StartJd,
                 request.EndJd);
             secundaryPeriodAspects = FindSecundaryPeriodAspects(ProgressionTypes.Secundary, sortedAspPoints,
                 request.CalcChart,
-                request.ProgPoints,
+                request.SecundaryPoints,
                 request.StartJd,
                 request.EndJd,
                 request.OrbAspects);
@@ -56,9 +56,9 @@ public static class ProgCalOrchestrator
         var aspects = transitAspects.Concat(secundaryAspects).ToList();
         aspects = aspects.OrderBy(asp => asp.Jd).ToList();
         var declinationParallels =
-            FindDeclionationParallel(request.ProgPoints, request.CalcChart, request.StartJd, request.EndJd);
+            FindDeclionationParallel(request.TransitPoints, request.CalcChart, request.StartJd, request.EndJd);
         var secundaryDeclinationParallels =
-            FindSecundaryDeclionationParallel(request.ProgPoints, request.CalcChart, request.StartJd, request.EndJd);
+            FindSecundaryDeclionationParallel(request.SecundaryPoints, request.CalcChart, request.StartJd, request.EndJd);
         allMatches.AddRange(aspects);
 
         allMatches.AddRange(declinationParallels);
