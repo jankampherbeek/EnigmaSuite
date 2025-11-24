@@ -86,7 +86,7 @@
                 </Border>
                 
             </TabItem>
-            <TabItem Header="Graph">
+            <TabItem Header="Aspects graph">
                 <Border Margin="12" Background="{DynamicResource MaterialDesignCardBackground}">
                     <Grid>
                         <Grid.RowDefinitions>
