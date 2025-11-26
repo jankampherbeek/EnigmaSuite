@@ -11,6 +11,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support.Parsers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -18,12 +19,23 @@ namespace Enigma.Frontend.Ui.Models;
 public class ProgCalModel(IJulianDayApi jdApi)
 {
     private ProgCalItemPresFactory _progCalItemPresFactory = App.ServiceProvider.GetRequiredService<ProgCalItemPresFactory>();
-    
+    private readonly IDateInputParser _dateInputParser = App.ServiceProvider.GetRequiredService<IDateInputParser>();
+    public bool useSecundary { get; set; }
+    public bool useParallels { get; set; }
+    public bool useExtPeriod { get; set; }
     public List<PresentableProgCalItem> allItems { get; set;}
-    public List<PresentableProgCalPeriod> allPeriods { get; set;}    
+    public List<PresentableProgCalPeriod> allPeriods { get; set;}
+    private FullDate? _fullDate;
+    
+    
     
     public void DefineProgCal()
     {
+        var startDateItems = _fullDate.YearMonthDay;   
+        var startDate = new SimpleDateTime(startDateItems[0], startDateItems[1], startDateItems[2],0.0, Calendars.Gregorian);
+        var startJd = jdApi.GetJulianDay(startDate).JulDayEt;
+        var endJd = useExtPeriod ? startJd + 100: startJd + 33;
+        
         AstroConfig radixConfig = CurrentConfig.Instance.GetConfig();
         ConfigProg progConfig = CurrentConfig.Instance.GetConfigProg();
         var radixPoints = new List<ChartPoints>();
@@ -55,21 +67,18 @@ public class ProgCalModel(IJulianDayApi jdApi)
             secundaryPoints.Add(secundaryPointSpec.Key);
         }
         
-        
-        var startDate = new SimpleDateTime(2025, 11, 1, 0.0, Calendars.Gregorian);
-        var startJd = jdApi.GetJulianDay(startDate).JulDayEt;
-        var endDate = new SimpleDateTime(2025, 12, 1, 0.0, Calendars.Gregorian);
-        var endJd = jdApi.GetJulianDay(endDate).JulDayEt;
         var calcChart = DataVaultCharts.Instance.GetCurrentChart();
         
-        var declParallels = new List<DeclinationParallels>
-        {
-            DeclinationParallels.ContraParallel,
-            DeclinationParallels.Parallel
-        };
         var orbAspects = 1.0;
         var orbParallels = 0.25;
-        var progTypes = new List<ProgressionTypes>() {ProgressionTypes.Secundary, ProgressionTypes.Transit };
+        var progTypes = new List<ProgressionTypes>() {ProgressionTypes.Transit };
+        if (useSecundary) progTypes.Add(ProgressionTypes.Secundary);
+        var declParallels = new List<DeclinationParallels>();
+        if (useParallels)
+        {
+            declParallels.Add(DeclinationParallels.Parallel);
+            declParallels.Add(DeclinationParallels.ContraParallel);
+        }
         var request = new ProgCalRequest(startJd, endJd, calcChart, progTypes, transitPoints, secundaryPoints, radixPoints, aspects,
             declParallels, orbAspects, orbParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);
@@ -77,6 +86,13 @@ public class ProgCalModel(IJulianDayApi jdApi)
         allItems = _progCalItemPresFactory.CreatePresProgCalItems(response.Matches);
         allPeriods = _progCalItemPresFactory.CreatePresProgCalPeriods(response.PeriodMatches);
         
+    }
+
+    public bool CheckDate(string inputDate)
+    {
+        bool isValid = _dateInputParser.HandleDate(inputDate, Calendars.Gregorian, YearCounts.CE, out FullDate? fullDate);
+        if (isValid) _fullDate = fullDate;
+        return isValid;
     }
     
 }

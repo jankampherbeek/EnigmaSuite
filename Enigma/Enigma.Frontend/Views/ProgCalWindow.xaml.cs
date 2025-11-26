@@ -32,21 +32,6 @@ public partial class ProgCalWindow
         }
     }
     
-    private void UseAspectsCheckBox_Checked(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is ProgCalViewModel viewModel)
-        {
-            viewModel.UpdateAspects(true);
-        }
-    }
-    
-    private void UseAspectsCheckBox_UnChecked(object sender, RoutedEventArgs e)
-    {
-        if (DataContext is ProgCalViewModel viewModel)
-        {
-            viewModel.UpdateAspects(false);
-        }
-    }
 
 
     private void UseParallelsCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -65,23 +50,38 @@ public partial class ProgCalWindow
         }
     }
 
-    
-    private void UseRetroDirectCheckBox_Checked(object sender, RoutedEventArgs e)
+    private void UseSecundaryCheckBox_Checked(object sender, RoutedEventArgs e)
     {
         if (DataContext is ProgCalViewModel viewModel)
         {
-            viewModel.UpdateRetroDirect(true);
+            viewModel.UpdateSecundary(true);
         }
     }
     
-    private void UseRetroDirectCheckBox_UnChecked(object sender, RoutedEventArgs e)
+    private void UseSecundaryCheckBox_UnChecked(object sender, RoutedEventArgs e)
     {
         if (DataContext is ProgCalViewModel viewModel)
         {
-            viewModel.UpdateRetroDirect(false);
+            viewModel.UpdateSecundary(false);
         }
     }
 
+    private void UseExtPeriodCheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is ProgCalViewModel viewModel)
+        {
+            viewModel.UpdateExtPeriod(true);
+        }
+    }
+    
+    private void UseExtPeriodCheckBox_UnChecked(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is ProgCalViewModel viewModel)
+        {
+            viewModel.UpdateExtPeriod(false);
+        }
+    }
+    
     private void ProgCalWindow_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         if (e.OldValue is ProgCalViewModel oldViewModel)

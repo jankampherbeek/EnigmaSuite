@@ -18,8 +18,12 @@
         <viewModels:ProgCalViewModel />
     </Window.DataContext>
     <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -27,35 +31,47 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Grid.Row="0" Margin="6,0,0,6"
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="6,0,0,6"
                    VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="Progressive Calendar" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    FontWeight="Bold" />
 
         <!-- Chart Name -->
-        <TextBlock Grid.Row="1" Margin="6,12,6,6"
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="6,12,6,6"
                    Text="{Binding ChartName}" Name="ChartNameText"
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                    FontWeight="Bold" />
         <!-- Options -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <CheckBox Content="Aspects"
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical">
+            <TextBox Margin="6 0" VerticalAlignment="Center"                   
+                     materialDesign:HintAssist.Hint="Start date yyyy/mm/dd"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                     Text="{Binding Date, Mode=TwoWay}"/>             
+            <CheckBox Content="Extended period (3 months)"
                       Margin="6"
                       Style="{StaticResource MaterialDesignCheckBox}"
-                      IsChecked="{Binding UseAspects}"
-                      Checked="UseAspectsCheckBox_Checked"
-                      Unchecked="UseAspectsCheckBox_UnChecked" />
-            <CheckBox Content="Parallels"
+                      IsChecked="{Binding UseExtendedPeriod}"
+                      Checked="UseExtPeriodCheckBox_Checked"
+                      Unchecked="UseExtPeriodCheckBox_UnChecked" />
+            <CheckBox Content="Include secundary directions"
+                      Margin="6"
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding UseSecundary}"
+                      Checked="UseSecundaryCheckBox_Checked"
+                      Unchecked="UseSecundaryCheckBox_UnChecked" />
+            <CheckBox Content="Include (contra) parallels"
                       Margin="6"
                       Style="{StaticResource MaterialDesignCheckBox}"
                       IsChecked="{Binding UseParallels}"
                       Checked="UseParallelsCheckBox_Checked"
                       Unchecked="UseParallelsCheckBox_UnChecked" />
         </StackPanel>
+        
+        
         <!-- Main Content Area -->
 
-        <TabControl Grid.Row="3">
+        <TabControl Grid.Column="1" Grid.Row="2">
             <TabItem Header="List">
                 <Border Margin="6">
                     <DataGrid Grid.Row="5" x:Name="MomentsDataGrid"
@@ -121,7 +137,7 @@
 
         </TabControl>
         <!-- Bottom buttons -->
-        <StackPanel Grid.Row="4" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}" />
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>
