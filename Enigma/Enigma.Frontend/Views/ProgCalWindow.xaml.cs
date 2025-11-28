@@ -170,7 +170,7 @@ public partial class ProgCalWindow
         }
 
         // First pass: determine all row indices and date ranges
-        var periodData = new List<(int RowIndex, double Start, double End)>();
+        var periodData = new List<(int RowIndex, double Start, double End, ProgressionTypes ProgType)>();
         foreach (var period in orderedPeriods)
         {
             var y = GetRowIndex(period);
@@ -188,7 +188,7 @@ public partial class ProgCalWindow
 
             minDate = Math.Min(minDate, start);
             maxDate = Math.Max(maxDate, end);
-            periodData.Add((y, start, end));
+            periodData.Add((y, start, end, period.ProgType));
         }
 
         // Create a mapping from original row index to reversed row index
@@ -224,14 +224,17 @@ public partial class ProgCalWindow
         }
 
         // Second pass: plot with reversed row indices so earliest periods appear at the top
-        foreach (var (y, start, end) in periodData)
+        foreach (var (y, start, end, progType) in periodData)
         {
             // Map to reversed row index: original row 0 (earliest) becomes row totalRows-1 (top)
             var yReversed = rowMapping[y];
             var top = yReversed + halfHeight - spacing;
             var bottom = yReversed - halfHeight + spacing;
             var rect = plot.Add.Rectangle(start, end, bottom, top);
-            rect.FillStyle.Color = Color.FromHex("#3F51B5");
+            // Use green for Secundary progressions, blue for transits
+            rect.FillStyle.Color = progType == ProgressionTypes.Secundary 
+                ? Color.FromHex("#4CAF50") 
+                : Color.FromHex("#3F51B5");
             rect.LineStyle.Width = 0;
         }
 
