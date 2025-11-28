@@ -34,7 +34,7 @@ public class ProgCalModel(IJulianDayApi jdApi)
         var startDateItems = _fullDate.YearMonthDay;   
         var startDate = new SimpleDateTime(startDateItems[0], startDateItems[1], startDateItems[2],0.0, Calendars.Gregorian);
         var startJd = jdApi.GetJulianDay(startDate).JulDayEt;
-        var endJd = useExtPeriod ? startJd + 100: startJd + 33;
+        var periodLength = useExtPeriod ? 100: 33;
         
         AstroConfig radixConfig = CurrentConfig.Instance.GetConfig();
         ConfigProg progConfig = CurrentConfig.Instance.GetConfigProg();
@@ -79,7 +79,7 @@ public class ProgCalModel(IJulianDayApi jdApi)
             declParallels.Add(DeclinationParallels.Parallel);
             declParallels.Add(DeclinationParallels.ContraParallel);
         }
-        var request = new ProgCalRequest(startJd, endJd, calcChart, progTypes, transitPoints, secundaryPoints, radixPoints, aspects,
+        var request = new ProgCalRequest(startJd, periodLength, calcChart, progTypes, transitPoints, secundaryPoints, radixPoints, aspects,
             declParallels, orbAspects, orbParallels);
         var response = ProgCalOrchestrator.DefineProgressiveCalendar(request);
 

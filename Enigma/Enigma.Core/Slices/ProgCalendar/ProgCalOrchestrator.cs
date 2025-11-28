@@ -27,12 +27,12 @@ public static class ProgCalOrchestrator
             transitAspects = FindTransitAspects(ProgressionTypes.Transit, sortedAspPoints, request.CalcChart,
                 request.TransitPoints,
                 request.StartJd,
-                request.EndJd);
+                request.StartJd + request.PeriodLength);
             transitPeriodAspects = FindTransitPeriodAspects(ProgressionTypes.Transit, sortedAspPoints,
                 request.CalcChart,
                 request.TransitPoints,
                 request.StartJd,
-                request.EndJd,
+                request.StartJd + request.PeriodLength,
                 request.OrbAspects);
         }
 
@@ -43,12 +43,12 @@ public static class ProgCalOrchestrator
             secundaryAspects = FindSecundaryAspects(ProgressionTypes.Secundary, sortedAspPoints, request.CalcChart,
                 request.SecundaryPoints,
                 request.StartJd,
-                request.EndJd);
+                request.StartJd + request.PeriodLength);
             secundaryPeriodAspects = FindSecundaryPeriodAspects(ProgressionTypes.Secundary, sortedAspPoints,
                 request.CalcChart,
                 request.SecundaryPoints,
                 request.StartJd,
-                request.EndJd,
+                request.StartJd + request.PeriodLength,
                 request.OrbAspects);
         }
 
@@ -61,13 +61,13 @@ public static class ProgCalOrchestrator
         if (request.DeclParallels.Contains(DeclinationParallels.Parallel))
         {
             var declinationParallels =
-                FindDeclionationParallel(request.TransitPoints, request.CalcChart, request.StartJd, request.EndJd);
+                FindDeclionationParallel(request.TransitPoints, request.CalcChart, request.StartJd, request.StartJd + request.PeriodLength);
             allMatches.AddRange(declinationParallels);
             if (request.ProgTypes.Contains(ProgressionTypes.Secundary))
             {
                 var secundaryDeclinationParallels =
                     FindSecundaryDeclionationParallel(request.SecundaryPoints, request.CalcChart, request.StartJd,
-                        request.EndJd);
+                        request.StartJd + request.PeriodLength);
                 allMatches.AddRange(secundaryDeclinationParallels);                
             }
         }
@@ -104,13 +104,11 @@ public static class ProgCalOrchestrator
         double jdStart, double jdEnd)
     {
         var jdRadix = calcChart.InputtedChartData.FullDateTime.JulianDayForEt;
-        // convert jd's to secundary direction scale
         var jdStartSec = DefineSecundaryJd(jdRadix, jdStart);
         var jdEndSec = DefineSecundaryJd(jdRadix, jdEnd);
-        // call AspectMoments.FindAspectMoments
+        
         var secAspectsFound =
             AspectMoments.FindAspectMoments(progType, calcChart, sortedAspPoints, progPoints, jdStartSec, jdEndSec);
-        // convert jd's for matches to jd in lifetime
         var realAspectsFound = new List<ProgCalAspectMatch>();
         foreach (var match in secAspectsFound)
         {
@@ -185,6 +183,7 @@ public static class ProgCalOrchestrator
     private static double DefineRealJdFromSecundary(double jdRadix, double jdProg)
     {
         var lengthInDays = jdProg - jdRadix;
-        return jdRadix + lengthInDays * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
+        var realJd = jdRadix + lengthInDays * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
+        return realJd;
     }
 }

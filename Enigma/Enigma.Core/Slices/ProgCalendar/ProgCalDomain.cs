@@ -104,7 +104,7 @@ public record ProgCalDeclinationParallelPeriodMatch(
 /// Request for progressive calendar
 /// </summary>
 /// <param name="StartJd">First julian day number</param>
-/// <param name="EndJd">Last julian day number</param>
+/// <param name="PeriodLength">Length of period</param>
 /// <param name="CalcChart">Chart with calculated positions</param>
 /// <param name="ProgTypes">Progression type</param>
 /// <param name="TransitPoints">Transit points to include</param>
@@ -116,7 +116,7 @@ public record ProgCalDeclinationParallelPeriodMatch(
 /// <param name="OrbParallels">Orb for declination parallels</param>
 public record ProgCalRequest(
     double StartJd,
-    double EndJd,
+    int PeriodLength,
     CalculatedChart CalcChart,
     List<ProgressionTypes> ProgTypes,
     List<ChartPoints> TransitPoints,

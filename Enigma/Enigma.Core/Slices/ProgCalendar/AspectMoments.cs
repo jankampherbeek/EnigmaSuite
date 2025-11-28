@@ -21,10 +21,9 @@ public static class AspectMoments
         List<ProgCalAspectPoint> aspectPoints, List<ChartPoints> progPoints, double jdStart, double jdEnd)
     {
         var aspectMoments = new List<ProgCalAspectMatch>();
-        
         foreach (var progPoint in progPoints)
         {
-            var initialStepSize = DefineInitialStepSize(progPoint);
+            var initialStepSize = DefineInitialStepSize(progPoint, progType);
             foreach (var aspectPoint in aspectPoints)
             {
                 var radixLongitude = FindRadixLongitude(aspectPoint.ChartPoint, calcChart);
@@ -40,11 +39,13 @@ public static class AspectMoments
     public static List<ProgCalAspectPeriodMatch> FindAspectPeriods(ProgressionTypes progType, CalculatedChart calcChart,
         List<ProgCalAspectPoint> aspectPoints, List<ChartPoints> progPoints, double jdStart, double jdEnd, double orb)
     {
+
         var aspectPeriods = new List<ProgCalAspectPeriodMatch>();
         foreach (var progPoint in progPoints)
         {
             if (progPoint == ChartPoints.Moon) continue;   // skip Moon for periods
-            var initialStepSize = DefineInitialStepSize(progPoint);
+            var initialStepSize = DefineInitialStepSize(progPoint, progType);
+
             foreach (var aspectPoint in aspectPoints)
             {                
                 var radixLongitude = FindRadixLongitude(aspectPoint.ChartPoint, calcChart);
@@ -60,10 +61,11 @@ public static class AspectMoments
         ProgCalAspectPoint aspectPoint, double radixLongitude, double jdStart, double jdEnd, double stepSize)
     {
         const double marginForJd = 0.000001;  // better than 0.1 second of time
+        var jdTotalEnd = jdEnd;         // aspect van never be later than jdTotalEnd
         var newAspects = new List<ProgCalAspectMatch>();
         var targetLongitude = aspectPoint.Longitude;
         var jdCurrent = jdStart - stepSize;  // start early to be able to check the first step
-        
+
         while (jdCurrent <= jdEnd)
         {
             if (jdCurrent >= jdStart)
@@ -76,7 +78,7 @@ public static class AspectMoments
                 
                 if (aspectDetected)
                 {
-                    if (Math.Abs(jdNew - jdCurrent) < marginForJd)
+                    if (Math.Abs(jdNew - jdCurrent) < marginForJd && jdCurrent <= jdTotalEnd)
                     {
                         newAspects.Add(new ProgCalAspectMatch(
                             progPoint,
@@ -147,7 +149,7 @@ public static class AspectMoments
     /// </summary>
     /// <param name="factor">The progressive chart point</param>
     /// <returns>Step size: 0.2 for Moon, 2.0 for fast planets, 4.0 for slow planets</returns>
-    private static double DefineInitialStepSize(ChartPoints factor)
+    private static double DefineInitialStepSize(ChartPoints factor, ProgressionTypes progType)
     {
         var fastFactors = new List<ChartPoints>
         {
@@ -156,10 +158,19 @@ public static class AspectMoments
             ChartPoints.Venus,
             ChartPoints.Mars
         };
-        
-        if (factor == ChartPoints.Moon) return 0.2;
-        if (fastFactors.Contains(factor)) return 2.0;
-        return 4.0;
+        var stepSize = 1.0;
+        if (progType == ProgressionTypes.Transit)
+        {
+            stepSize = 4.0;
+            if (factor == ChartPoints.Moon) stepSize = 0.2;    
+            if (fastFactors.Contains(factor)) stepSize = 2.0;
+        }
+
+        if (progType == ProgressionTypes.Transit)
+        {
+            stepSize = 0.1;
+        }
+        return stepSize;
     }
 
     /// <summary>
