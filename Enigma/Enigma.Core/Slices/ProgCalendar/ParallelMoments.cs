@@ -54,6 +54,7 @@ public static class ParallelMoments
         ChartPoints radixPoint,double radixDeclination, double jdStart, double jdEnd, double stepSize)
     {
         const double marginForJd = 0.000001;  // better than 0.1 second of time
+        var jdTotalEnd = jdEnd;         // aspects can never be later than jdTotalEnd
         var newParallels = new List<ProgCalDeclinationParallelMatch>();
         var jdCurrent = jdStart - stepSize;  // start early to be able to check the first step
         
@@ -74,7 +75,7 @@ public static class ParallelMoments
 
                     
                     
-                    if (Math.Abs(jdNew - jdCurrent) < marginForJd)
+                    if (Math.Abs(jdNew - jdCurrent) < marginForJd && jdCurrent <= jdTotalEnd)
                     {
                         newParallels.Add(new ProgCalDeclinationParallelMatch(
                             progPoint,

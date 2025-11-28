@@ -61,7 +61,7 @@ public static class AspectMoments
         ProgCalAspectPoint aspectPoint, double radixLongitude, double jdStart, double jdEnd, double stepSize)
     {
         const double marginForJd = 0.000001;  // better than 0.1 second of time
-        var jdTotalEnd = jdEnd;         // aspect van never be later than jdTotalEnd
+        var jdTotalEnd = jdEnd;         // aspect can never be later than jdTotalEnd
         var newAspects = new List<ProgCalAspectMatch>();
         var targetLongitude = aspectPoint.Longitude;
         var jdCurrent = jdStart - stepSize;  // start early to be able to check the first step
