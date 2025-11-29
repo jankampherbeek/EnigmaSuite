@@ -43,8 +43,8 @@ public static class AltZodiacStartOrchestrator
             var deviation = radixPoint.Value.Ecliptical.DeviationPosSpeed;
             var distance = radixPoint.Value.Ecliptical.DistancePosSpeed;
             var speed = radixPoint.Value.Ecliptical.MainPosSpeed.Speed;
-            var altLongitude = radixPoint.Value.Ecliptical.MainPosSpeed.Position + offset;
-            if (altLongitude > 360.0) altLongitude -= 360.0;
+            var altLongitude = radixPoint.Value.Ecliptical.MainPosSpeed.Position - offset;
+            if (altLongitude < 0.0) altLongitude += 360.0;
             var main = new PosSpeed(altLongitude, speed);
             PointPosSpeeds newEcliptical = new(main, deviation, distance);
             FullPointPos newPos = new(newEcliptical, equatorial, horizontal);

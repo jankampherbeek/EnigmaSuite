@@ -24,6 +24,7 @@ public sealed class DataVaultCharts
 
     private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _currentChart;
+    private CalculatedChart? _altChart;
     private bool _newChartAdded;
     private int _indexCurrentChart;
 
@@ -120,6 +121,16 @@ public sealed class DataVaultCharts
     public bool GetNewChartAdded()
     {
         return _newChartAdded;
+    }
+
+    public void DefineAltChart(CalculatedChart altZodiacChart)
+    {
+        _altChart = altZodiacChart;
+    }
+    
+    public CalculatedChart? GetAltChart()
+    {
+        return _altChart;
     }
 
 

@@ -74,10 +74,32 @@
         
         <!-- Main Content Area -->
         <Grid Grid.Column="1" Grid.Row="2" Margin="6">
-            <TextBlock Text="Startpoint Zodiac content will be implemented here." 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
-                       Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+                    
+                <!-- Chart Wheel Canvas -->
+                <Grid Grid.Row="0" Grid.RowSpan="2" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121">
+                    <Canvas x:Name="WheelCanvas" ClipToBounds="True"/>
+                </Grid>
+                    
+                <!-- Chart Options -->
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                    <CheckBox Content="No time" Margin="6,0" 
+                              Style="{StaticResource MaterialDesignCheckBox}"
+                              Checked="NoTime_Checked" Unchecked="NoTime_Unchecked"/>
+                    <CheckBox Content="No aspects" Margin="6,0" 
+                              Style="{StaticResource MaterialDesignCheckBox}"
+                              Checked="NoAspects_Checked" Unchecked="NoAspects_UnChecked"/>
+                    <CheckBox Content="No sign colors" Margin="6,0" 
+                              Style="{StaticResource MaterialDesignCheckBox}"
+                              Checked="SignColors_Checked" Unchecked="SignColors_Unchecked"/>
+                </StackPanel>
+                <Button Grid.Row="2" HorizontalAlignment="Right" Margin="6" Content="Export" Click="ExportClick"/>
+            </Grid>
         </Grid>
 
         <!-- Bottom buttons -->
