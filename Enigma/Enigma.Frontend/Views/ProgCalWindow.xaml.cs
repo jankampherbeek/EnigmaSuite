@@ -8,10 +8,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using Enigma.Core.Slices.ProgCalendar;
+using Enigma.Domain.Constants;
 using Enigma.Frontend.Ui.ViewModels;
 using ScottPlot;
 using ScottPlot.TickGenerators;
+using Color = ScottPlot.Color;
 
 namespace Enigma.Frontend.Ui.Views;
 
@@ -23,6 +26,7 @@ public partial class ProgCalWindow
     public ProgCalWindow()
     {
         InitializeComponent();
+        DefineColors();
         DataContextChanged += ProgCalWindow_DataContextChanged;
 
         if (DataContext is ProgCalViewModel existingViewModel)
@@ -339,6 +343,12 @@ public partial class ProgCalWindow
         {
             _viewModel.PropertyChanged -= ViewModelOnPropertyChanged;
         }
+    }
+    
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+        ChartNameText.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
     }
 }
 

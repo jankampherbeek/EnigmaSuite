@@ -17,6 +17,11 @@
         <viewModels:StartZodViewModel/>
     </Window.DataContext>
     <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -25,20 +30,50 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Grid.Row="0" Margin="6,0,0,6" 
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0,6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="Startpoint Zodiac" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
                    FontWeight="Bold" />
 
         <!-- Chart Name -->
-        <TextBlock Grid.Row="1" Margin="6,12,6,6" 
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,6" 
                    Text="{Binding ChartName}" Name="ChartNameText"
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    FontWeight="Bold"/>
         
+        <!-- Point Selection -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical" Margin="6">
+            <TextBlock Text="Select starting point" Margin="0,0,0,8" 
+                       Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
+            <ListBox ItemsSource="{Binding AllChartPointDetails}" 
+                     SelectedItem="{Binding SelectedChartPoint, Mode=TwoWay}"
+                     SelectionMode="Single"
+                     BorderThickness="1"
+                     BorderBrush="{DynamicResource MaterialDesignDivider}"
+                     MaxHeight="400">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" 
+                                         Margin="0,0,8,0"
+                                         VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Glyph}" 
+                                       FontFamily="EnigmaAstrologyBLA2" 
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,8,0"
+                                       Width="24"/>
+                            <TextBlock Text="{Binding Name}" 
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
         <!-- Main Content Area -->
-        <Grid Grid.Row="2" Margin="6">
+        <Grid Grid.Column="1" Grid.Row="2" Margin="6">
             <TextBlock Text="Startpoint Zodiac content will be implemented here." 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center"
@@ -46,7 +81,7 @@
         </Grid>
 
         <!-- Bottom buttons -->
-        <StackPanel Grid.Row="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>

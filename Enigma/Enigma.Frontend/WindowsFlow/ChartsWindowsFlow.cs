@@ -40,7 +40,7 @@ public class ChartsWindowsFlow:
     
     
     
-    // old style naming
+    public const string ALT_ZODIAC_START = "AltZodiacStart";
     public const string CHARTS_IMPORT = "ChartsImport";
     public const string CHARTS_WHEEL = "ChartsWheel";
     public const string CONFIG_PROG = "ConfigProg";
@@ -195,10 +195,6 @@ public class ChartsWindowsFlow:
                 _preNatalAspectSelectionWindow = new PreNatalAspectSelectionWindow();
                 _preNatalAspectSelectionWindow.ShowDialog();
                 break;
-            // case SOLAR_RESULTS:
-            //     _solarResultsWindow = new SolarResultsWindow();
-            //     _solarResultsWindow.ShowDialog();
-            //     break;
             default:
                 HandleNonDialogView(message.ViewToOpen, message.ParentView);
                 break;

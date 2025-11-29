@@ -143,6 +143,7 @@ public partial class App
         serviceCollection.AddTransient<SolarResultsViewModel>();
         serviceCollection.AddTransient<SolarResultsWindow>();
         serviceCollection.AddSingleton<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
+        serviceCollection.AddSingleton<StartZodModel>();
         serviceCollection.AddSingleton<ITextToDateConverter, TextToDateConverter>();
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();

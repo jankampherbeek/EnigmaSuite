@@ -48,7 +48,7 @@
                      materialDesign:HintAssist.Hint="Start date yyyy/mm/dd"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                      Text="{Binding Date, Mode=TwoWay}"/>             
-            <CheckBox Content="Extended period (3 months)"
+            <CheckBox Content="Extended period (100 days)"
                       Margin="6"
                       Style="{StaticResource MaterialDesignCheckBox}"
                       IsChecked="{Binding UseExtendedPeriod}"
