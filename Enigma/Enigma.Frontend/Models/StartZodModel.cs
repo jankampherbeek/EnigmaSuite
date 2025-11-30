@@ -16,7 +16,6 @@ public class StartZodModel
 {
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     public CalculatedChart? AltChart { get; set; }
-    public string ChartName { get; set; } = "";
     public ChartPoints SelectedPoint { get; set; } = ChartPoints.Sun;
     
     public void DefineAltChart(ChartPoints offsetPoint)
@@ -24,7 +23,6 @@ public class StartZodModel
         SelectedPoint = offsetPoint;
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return;
-        ChartName = currentChart.InputtedChartData.MetaData.Name ?? "";
         AltChart = AltZodiacStartOrchestrator.ChangeStartingPoint(currentChart, offsetPoint);
         DataVaultCharts.Instance.DefineAltChart(AltChart);
     }
@@ -47,5 +45,15 @@ public class StartZodModel
             });
         }
         return selCpDetails;
+    }
+    
+    /// <summary>
+    /// Get the current chart name
+    /// </summary>
+    /// <returns>Name of the current chart or empty string if no chart</returns>
+    public string GetCurrentChartName()
+    {
+        var currentChart = _dataVaultCharts.GetCurrentChart();
+        return currentChart?.InputtedChartData.MetaData.Name ?? "";
     }
 }

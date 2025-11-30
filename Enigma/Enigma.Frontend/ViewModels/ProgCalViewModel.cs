@@ -51,6 +51,7 @@ public partial class ProgCalViewModel : ObservableObject
 
     public ProgCalViewModel()
     {
+        ChartName = _model.GetCurrentChartName();
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
         _date = $"{currentDate.Year}/{currentDate.Month}/{currentDate.Day}";
         _model.CheckDate(_date);

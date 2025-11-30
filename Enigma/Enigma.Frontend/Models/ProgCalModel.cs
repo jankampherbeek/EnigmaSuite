@@ -23,6 +23,7 @@ public class ProgCalModel(IJulianDayApi jdApi)
     public bool useSecundary { get; set; }
     public bool useParallels { get; set; }
     public bool useExtPeriod { get; set; }
+    public string ChartName { get; set; } = string.Empty;
     public List<PresentableProgCalItem> allItems { get; set;}
     public List<PresentableProgCalPeriod> allPeriods { get; set;}
     private FullDate? _fullDate;
@@ -68,6 +69,7 @@ public class ProgCalModel(IJulianDayApi jdApi)
         }
         
         var calcChart = DataVaultCharts.Instance.GetCurrentChart();
+        ChartName = calcChart?.InputtedChartData.MetaData.Name ?? "";
         
         var orbAspects = 1.0;
         var orbParallels = 0.25;
@@ -93,6 +95,16 @@ public class ProgCalModel(IJulianDayApi jdApi)
         bool isValid = _dateInputParser.HandleDate(inputDate, Calendars.Gregorian, YearCounts.CE, out FullDate? fullDate);
         if (isValid) _fullDate = fullDate;
         return isValid;
+    }
+    
+    /// <summary>
+    /// Get the current chart name
+    /// </summary>
+    /// <returns>Name of the current chart or empty string if no chart</returns>
+    public string GetCurrentChartName()
+    {
+        var currentChart = DataVaultCharts.Instance.GetCurrentChart();
+        return currentChart?.InputtedChartData.MetaData.Name ?? "";
     }
     
 }

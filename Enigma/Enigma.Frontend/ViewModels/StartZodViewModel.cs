@@ -29,6 +29,7 @@ public partial class StartZodViewModel : ObservableObject
 
     public StartZodViewModel()
     {
+        ChartName = _model.GetCurrentChartName();
         AllChartPointDetails = new ObservableCollection<SelectableChartPointDetails>(_model.GetAllCelPointDetails());
         // Default to first ChartPoint in collection
         SelectedChartPoint = AllChartPointDetails[0];
