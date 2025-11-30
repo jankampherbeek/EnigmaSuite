@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Startpoint Zodiac" Height="600" Width="800">
+        Title="Enigma - Startpoint Zodiac" Height="900" Width="1200">
     <Window.DataContext>
         <viewModels:StartZodViewModel/>
     </Window.DataContext>
@@ -77,12 +77,11 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
                     
                 <!-- Chart Wheel Canvas -->
-                <Grid Grid.Row="0" Grid.RowSpan="2" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121">
+                <Grid Grid.Row="0" Grid.RowSpan="2" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,0">
                     <Canvas x:Name="WheelCanvas" ClipToBounds="True"/>
                 </Grid>
                     
@@ -97,13 +96,14 @@
                     <CheckBox Content="No sign colors" Margin="6,0" 
                               Style="{StaticResource MaterialDesignCheckBox}"
                               Checked="SignColors_Checked" Unchecked="SignColors_Unchecked"/>
+  
                 </StackPanel>
-                <Button Grid.Row="2" HorizontalAlignment="Right" Margin="6" Content="Export" Click="ExportClick"/>
-            </Grid>
+              </Grid>
         </Grid>
 
         <!-- Bottom buttons -->
         <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6 6 0 6" Content="Export" Click="ExportClick"/>
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>

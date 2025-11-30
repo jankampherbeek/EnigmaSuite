@@ -49,6 +49,7 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
     {
         List<Line> cardinalLines = new();
         double angle = leftAnchorPoint < 0.0 ? 90.0 : longAscendant - leftAnchorPoint + 90.0;
+        if (leftAnchorPoint < 0.0 ) leftAnchorPoint = longAscendant;
         if (angle < 0.0) angle += 360.0;
         if (angle >= 360.0) angle -= 360.0;
         double hypothenusa1 = metrics.OuterSignRadius;
@@ -66,7 +67,8 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
         return cardinalLines;
     }
-
+    
+    
     private static Line CreateSingleCuspLine(ChartsWheelMetrics metrics, Point centerPoint, double angle, double hypothenusa1, double hypothenusa2, double strokeSize)
     {
         DimPoint dimPoint = new(centerPoint);
@@ -85,6 +87,7 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
 
         // Asc
         double angle = leftAnchorPoint < 0.0 ? 90.0 : longAscendant - leftAnchorPoint + 90.0;
+        if (leftAnchorPoint < 0.0 ) leftAnchorPoint = longAscendant;
         if (angle < 0.0) angle += 360.0;
         if (angle >= 360.0) angle -= 360.0;
         string text = "A";
