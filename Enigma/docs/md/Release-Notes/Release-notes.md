@@ -4,21 +4,39 @@
 
 ## Release 0.8.0 beta - December 31 2025
 
-Adding Venus Star Point, Schema for Black Lights Astrology, Prenatal technique (Eg Sneek), Progressive calendar and shifting the startpoint of the zodiac.
+Adding Venus Star Point, Schema for Black Lights Astrology, Prenatal technique (Eg Sneek), Progressive calendar, changing the startpoint of the zodiac and updated data for time changes and coordinates.
 
+### Updated time changes and coordinates
 
+Data for the calculation for time changes and for coordinates is updated to the most recent version (November, 29, 2025).
+
+### Alternative starting point for zodiac
+
+An alternative startpoint for a zodiac. You can use this to create a draconic zodiac or any zodiac relative to a celestial point.
+
+### Venus Star Point
+
+The Venus Star Point, as defined by Arielle Guttman. The star point figure is shown based on suggestions by Arielle Guttman.
+
+### Prenatal technique
+
+The prenatal technique, as proposed by Eg Sneek. 
+
+### Black Lights Astrology Schema
+
+A schema with an extensive overview of Black Lights Astrology, as defined by Cees Jansen.
+
+### Progressive calendar
+
+A progressive calendar that shows both transits and secundary directions, both as list and as a graphic.
 
 
 
 ### Bugfixes
 
 - The calculation of the position for the Interpolated Black Moon is now correct. It showed the Mean Black Moon instead.
-- Symbols for planets in the chart wheel could, in rare circumstances, overlap. This has been finished.
+- Symbols for planets in the chart wheel could, in rare circumstances, overlap. This has been fixed.
 - An incorrect symbol was shown for the Quintile aspect.
-
-
-
-
 
 
 
