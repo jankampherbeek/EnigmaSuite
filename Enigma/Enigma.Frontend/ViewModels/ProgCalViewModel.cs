@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -34,6 +35,7 @@ public partial class ProgCalViewModel : ObservableObject
     [ObservableProperty] private bool _useParallels;
     [ObservableProperty] private bool _useExtPeriod;
     [ObservableProperty] private string _date;
+    [ObservableProperty] private bool _isLoading;
     
     [RelayCommand]
     private void Help()
@@ -55,36 +57,48 @@ public partial class ProgCalViewModel : ObservableObject
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
         _date = $"{currentDate.Year}/{currentDate.Month}/{currentDate.Day}";
         _model.CheckDate(_date);
-        Populate();
+        _ = PopulateAsync();
     }
 
-    private void Populate()
+    private async Task PopulateAsync()
     {
-        _model.useExtPeriod = UseExtPeriod;
-        _model.useSecundary = UseSecundary;
-        _model.useParallels = UseParallels;
-        _model.DefineProgCal();
-        ProgCalItems = _model.allItems;
-        ProgCalPeriods = _model.allPeriods;
+        IsLoading = true;
+        try
+        {
+            await Task.Run(() =>
+            {
+                _model.useExtPeriod = UseExtPeriod;
+                _model.useSecundary = UseSecundary;
+                _model.useParallels = UseParallels;
+                _model.DefineProgCal();
+            });
+
+            ProgCalItems = _model.allItems;
+            ProgCalPeriods = _model.allPeriods;
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
     
     
     public void UpdateParallels(bool useIt)
     {
         UseParallels = useIt;
-        Populate();
+        _ = PopulateAsync();
     }
 
     public void UpdateSecundary(bool useIt)
     {
         UseSecundary = useIt;
-        Populate();       
+        _ = PopulateAsync();       
     }
 
     public void UpdateExtPeriod(bool useIt)
     {
         UseExtPeriod = useIt;
-        Populate();       
+        _ = PopulateAsync();       
     }
 
     partial void OnDateChanged(string value)
@@ -92,7 +106,7 @@ public partial class ProgCalViewModel : ObservableObject
         if (_model.CheckDate(value))
         {
             Date = value;
-            Populate();
+            _ = PopulateAsync();
         }
         else
         {

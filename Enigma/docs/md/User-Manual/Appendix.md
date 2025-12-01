@@ -1,4 +1,4 @@
-# Enigma 0.7 - Appendix
+# Enigma 0.8 - Appendix
 
 [TOC]
 
@@ -214,6 +214,52 @@ Enigma supports the following time keys for primary directions:
 - Brahe: the movement of the Sun at the day of birth.
 - Placidus: the total movement of the Sun in secundary directions, measured in right ascension.
 - Van Dam: as Placidus, but measured in longitude.
+
+
+
+## Information on Black Lights Astrology
+
+Black Lights Astrology (BLA) finds its roots in the French astrologer Dom Neroman. The approach was extended by another French astrologer: Jean Carteret. It was the Dutch astrologer George Bode who gave BLA it's final form. Currently, the technique is mostly used in The Netherlands.
+
+The most important elements of BLA:
+
+- the use of the empty focal points in the Keplerian ellipses that are formed by the celestial bodies: the Black Moon and the Black Sun. Astronomically, these are the aphelion for the Sun and apogee for the Moon.
+
+- introduction of two hypothetical planets: Persephone and Vulcanus.
+
+- introduction of points that form oppositions or squares with the Lunar nodes or with the aphelion and apogee.
+
+- a redefinition of the rulerships.
+
+  
+
+### Black Moon
+
+The Black Moon is the apogee, the point in the lunar orbit that is at the most remote point from earth. This point coincides with the empty focal point in the orbit of the Moon. 
+
+Because the orbit of the Moon is highly irregular, corrections have been introduced to calculated the Corrected Black Moon. The most popular approach is from Max Duval who unfortunately did not explain his approach nor give any formula, but only a printed ephemeris. The Dutch astrologer Cees Jansen succeeded in the construction of a formula that mimics the values of Duval very closely, mostly within a minute of arc, but always within 3 minutes of arc.
+
+The Swiss Ephemeris provides an alternative approach that uses the theory of the Moon that is the astronomical standard.
+
+BLA uses both the Mean Black Moon and the Corrected Black Moon.
+
+The Black Sun is the aphelion, the point in the orbit of the earth around the Sun that represents the empty focus point in the ellipse. The position of the Black Sun changes veryn slowly.
+
+### Persephone and Vulcanus
+
+Jean Carteret introduced the hypothetical planets Persephone and Vulcanus that should have an orbit outside of Pluto. An ephemeris for these points exists but the positions are astronomically impossible as the laws of Kepler nor retrogradation are taken into account. The effect of retrogradation should be large because of the remote positions of these hypotheticals. The hypotheticals can of course be seen as symbolic points with no material existence. 
+
+The ephemerides cover about a century but Enigma extrapolates the positions for other periods. As the movement is uniform, this does make sense.
+
+### Additional points
+
+
+
+
+
+
+
+
 
 
 

@@ -29,6 +29,28 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
+        <!-- Loading Overlay -->
+        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"
+              Background="#80000000"
+              Panel.ZIndex="1000">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoading}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <TextBlock Text="Please wait..."
+                       Foreground="White"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+        </Grid>
 
         <!-- Header -->
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="6,0,0,6"
