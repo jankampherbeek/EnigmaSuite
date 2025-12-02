@@ -117,6 +117,15 @@
                           SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
                           SelectionMode="Single"
                           VerticalAlignment="Top">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Description" Width="Auto" Binding="{Binding Description, Mode=TwoWay}"
                                             IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
@@ -136,6 +145,15 @@
                           SelectedItem="{Binding SelectedMoment, Mode=TwoWay}"
                           SelectionMode="Single"
                           VerticalAlignment="Top">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="Red"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding RealDateTime, Mode=TwoWay}"
                                             IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
