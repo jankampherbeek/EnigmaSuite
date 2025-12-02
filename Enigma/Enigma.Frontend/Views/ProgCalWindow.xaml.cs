@@ -29,6 +29,16 @@ public partial class ProgCalWindow
         DefineColors();
         DataContextChanged += ProgCalWindow_DataContextChanged;
 
+        // Disable mouse wheel zoom on both plots by handling PreviewMouseWheel event
+        if (ProgCalPeriodsPlot != null)
+        {
+            ProgCalPeriodsPlot.PreviewMouseWheel += (sender, e) => { e.Handled = true; };
+        }
+        if (ProgCalAxisPlot != null)
+        {
+            ProgCalAxisPlot.PreviewMouseWheel += (sender, e) => { e.Handled = true; };
+        }
+
         if (DataContext is ProgCalViewModel existingViewModel)
         {
             AttachViewModel(existingViewModel);
