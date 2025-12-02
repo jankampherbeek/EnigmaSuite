@@ -321,6 +321,12 @@ https://astrology-research.nl/mystiek/enneagram/famous.html
 
 
 
+## Analysis: Venus Star Point
+
+After creating a new chart, or retrieving a chart from the database, you can calculate the Venus Star Point (VSP). 
+
+
+
 ## Progressive: Primary directions
 
 If you selected a chart in the charts main window, you can use the menu-option *Progressive - Primary Directions* to calculate several types of directions. Which type Enigma will use, and which time key, depends on your configuration for progressions.

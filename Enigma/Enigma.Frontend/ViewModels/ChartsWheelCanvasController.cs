@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Graphics;
@@ -171,6 +172,7 @@ public class ChartsWheelCanvasController(
     {
         var ascLongitude = GetAscendantLongitude();
         var leftStartPoint = LeftAnchorPoint < 0.0 ? ascLongitude : LeftAnchorPoint;
+        leftStartPoint = RangeUtil.ValueToRange(leftStartPoint, 0.0, 360.0);
         return leftStartPoint;
     }
 }
