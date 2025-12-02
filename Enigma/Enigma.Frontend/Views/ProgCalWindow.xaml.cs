@@ -301,12 +301,34 @@ public partial class ProgCalWindow
 
         plot.Legend.IsVisible = false;
 
-        UpdateAxisPlot(minDate, maxDate, dateTicks);
+        // Calculate left padding needed for y-axis labels
+        // Font size is 24, calculate based on actual label lengths
+        const float fontSize = 24f;
+        const float labelSpacing = 15f; // Extra spacing for tick marks and padding
+        const float charWidthFactor = 0.6f; // Approximate character width factor for font size
+        
+        // Find the longest label to calculate max width needed
+        var maxLabelLength = yLabels.Count > 0 
+            ? yLabels.Max(label => label?.Length ?? 0) 
+            : 4; // Default to 4 characters if no labels
+        var estimatedMaxLabelWidth = fontSize * maxLabelLength * charWidthFactor;
+        var leftPadding = (float)(estimatedMaxLabelWidth + labelSpacing);
+        
+        // Ensure minimum padding for visibility
+        if (leftPadding < 80f)
+        {
+            leftPadding = 80f;
+        }
+        
+        // Apply fixed left padding to periods plot to ensure consistent layout
+        plot.Layout.Fixed(new PixelPadding(leftPadding, 50, 50, 50));
 
         ProgCalPeriodsPlot.Refresh();
+
+        UpdateAxisPlot(minDate, maxDate, dateTicks, leftPadding);
     }
 
-    private void UpdateAxisPlot(double minDate, double maxDate, ITickGenerator tickGenerator)
+    private void UpdateAxisPlot(double minDate, double maxDate, ITickGenerator tickGenerator, float leftPadding)
     {
         if (ProgCalAxisPlot is null)
         {
@@ -328,6 +350,11 @@ public partial class ProgCalWindow
 
         axisPlot.Axes.SetLimitsX(minDate, maxDate);
         axisPlot.Axes.SetLimitsY(-1, 1);
+
+        // Apply the same left padding as periods plot to align x-axis ticks
+        // Use same padding values: left padding matches, other paddings are standard
+        // PixelPadding constructor: (left, right, bottom, top)
+        axisPlot.Layout.Fixed(new PixelPadding(leftPadding, 50, 50, 50));
 
         var baseline = axisPlot.Add.Line(minDate, 0, maxDate, 0);
         baseline.LineWidth = 0;
