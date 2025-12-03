@@ -31,17 +31,6 @@ public static class PreNatalTimeConversion
         var offset = astronJd - eventJd;
         var correctedOffset = offset / conversionFactor;
         var correctedConceptionJd = baseConceptionJd + correctedOffset;  
-
-     
-// eventJd: 2386788 --> 14 sept 1822 OK
-// radixJd: 2375200.5776901389    --> 23-Dec-1790  is jd voor radix
-// astronJd: 2387389.4575634757   --> 7 mei 1824  
-// 
         return correctedConceptionJd; 
-        // var timeSpanRealDateTime = astronJd - eventJd;
-        // var deltaBaseConceptionJd = timeSpanRealDateTime / conversionFactor;
-        // var correctedConceptionJd = baseConceptionJd + deltaBaseConceptionJd;
-        // return correctedConceptionJd; 
-        
     }
 }

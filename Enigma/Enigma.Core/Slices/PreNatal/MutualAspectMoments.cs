@@ -127,8 +127,8 @@ public static class MutualAspectMoments
         };
         
         if (factor1 == ChartPoints.Moon || factor2 == ChartPoints.Moon) return 0.2;
-        if (fastFactors.Contains(factor1) || fastFactors.Contains(factor2)) return 2.0;
-        return 4.0;
+        if (fastFactors.Contains(factor1) || fastFactors.Contains(factor2)) return 1.0;
+        return 2.0;
     }
 
     /// <summary>
