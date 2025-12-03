@@ -13,6 +13,44 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Enigma - Prenatal" Height="900" Width="1200" >
+    <Window.Resources>
+        <!-- Styles that extend base column styles with selection trigger -->
+        <Style x:Key="NameColumnStyleWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource NameColumnStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NumberColumnStyleWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource NumberColumnStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="GlyphColumnStyleWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource GlyphColumnStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="GlyphColumnStyleRightAlignedWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource GlyphColumnStyleRightAligned}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="GlyphColumnStyleCenterAlignedWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource GlyphColumnStyleCenterAligned}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Window.DataContext>
         <viewModels:PrenatalViewModel/>
     </Window.DataContext>
@@ -119,18 +157,13 @@
                           VerticalAlignment="Top">
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="Red"/>
-                                </Trigger>
-                            </Style.Triggers>
                         </Style>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Description" Width="Auto" Binding="{Binding Description, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyleWithSelection}" />
                         <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding DateTime, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyleWithSelection}" />
                     </DataGrid.Columns>
                 </DataGrid>              
             </Border>
@@ -147,32 +180,27 @@
                           VerticalAlignment="Top">
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="Red"/>
-                                </Trigger>
-                            </Style.Triggers>
                         </Style>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Date" Width="Auto" Binding="{Binding RealDateTime, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyleWithSelection}" />
                         <DataGridTextColumn Header="Type" Width="Auto" Binding="{Binding TypeGlyphs, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleCenterAligned}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleCenterAlignedWithSelection}" />
                         <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor1Glyph, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAlignedWithSelection}" />
                         <DataGridTextColumn Header="Longitude" Width="Auto" Binding="{Binding Position1, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyleWithSelection}" />
                         <DataGridTextColumn Header="" Width="Auto" Binding="{Binding SignGlyph1, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleWithSelection}" />
                         <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Factor2Glyph, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAligned}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleRightAlignedWithSelection}" />
                         <DataGridTextColumn Header="Longitude" Width="Auto" Binding="{Binding Position2, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyleWithSelection}" />
                         <DataGridTextColumn Header="" Width="Auto" Binding="{Binding SignGlyph2, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyleWithSelection}" />
                         <DataGridTextColumn Header="Prenatal date/time" Width="Auto" Binding="{Binding PreNatalDateTime, Mode=TwoWay}"
-                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}" />
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyleWithSelection}" />
                     </DataGrid.Columns>
                 </DataGrid>         
                                  
