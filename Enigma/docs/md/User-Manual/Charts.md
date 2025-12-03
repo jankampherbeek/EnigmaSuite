@@ -323,7 +323,21 @@ https://astrology-research.nl/mystiek/enneagram/famous.html
 
 ## Analysis: Venus Star Point
 
-After creating a new chart, or retrieving a chart from the database, you can calculate the Venus Star Point (VSP). 
+After creating a new chart, or retrieving a chart from the database, you can calculate the Venus Star Point (VSP). Subsequent conjunctions between Venus and Sun follow a peculiar pattern: a pentagram. Arielle Gutman introduced the term 'Venus Star Point' for this phenomena.
+
+Select the menu options **Analysis** - **Venus Star Point** to see a result as shown below.
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\vsp.png" style="zoom:50%;" />
+
+At the left, you see a chart drawing without aspects but with a pentagram ficture that connects 5 different conjunctions between Venus and the Sun. 
+
+The top point, marked with a reddish color, is called the *Head*. It is the last conjunction that occurred before birth. The conjunctions that precede and follow the Head are the *Arms*, and the first and last conjunction are called the *Legs*. 
+
+The Head is shown at the top, therefore the positions of the corners will vary, in the example the asendant is close to the top.
+
+At the right, Enigma shows a short table with all conjunctions, the exact timing and longitude. The column *Conjunction* shows if the conjunctions was either inferior (Venus between Earth and Sun) or superior (Sun between Earth and Venus).
+
+For more information on the VSP, you should read *Venus Star Rising* by Arielle Guttman.
 
 
 
