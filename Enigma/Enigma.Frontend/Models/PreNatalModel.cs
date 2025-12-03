@@ -141,7 +141,7 @@ public sealed class PreNatalModel(
 
     public void DefineActualConceptionJd(double eventJd, double momentJd)
     {
-        var actConcJd = PreNatalOrchestrator.ActualFromBaseConceptionDate(_baseConceptionJd, eventJd, momentJd);
+        var actConcJd = PreNatalOrchestrator.ActualFromBaseConceptionDate(_radixJd, _baseConceptionJd, eventJd, momentJd);
         _actualConceptionJd = actConcJd;
         actualConception = preNatalPresFactory.JdToDateTimeString(_actualConceptionJd, _calendar);
     }
