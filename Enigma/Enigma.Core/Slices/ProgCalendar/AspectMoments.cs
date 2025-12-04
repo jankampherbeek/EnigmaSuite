@@ -161,9 +161,9 @@ public static class AspectMoments
         var stepSize = 1.0;
         if (progType == ProgressionTypes.Transit)
         {
-            stepSize = 4.0;
+            stepSize = 2.0;
             if (factor == ChartPoints.Moon) stepSize = 0.2;    
-            if (fastFactors.Contains(factor)) stepSize = 2.0;
+            if (fastFactors.Contains(factor)) stepSize = 1.0;
         }
 
         if (progType == ProgressionTypes.Transit)
