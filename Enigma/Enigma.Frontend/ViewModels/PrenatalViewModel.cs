@@ -8,6 +8,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Api.Calc;
 using Enigma.Core.Slices.PreNatal;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -15,6 +16,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support.Parsers;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -27,6 +29,10 @@ public partial class PrenatalViewModel : ObservableObject
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.PRENATAL;
 
     private PreNatalModel _preNatalModel = App.ServiceProvider.GetRequiredService<PreNatalModel>();
+    private IDateInputParser _dateInputParser = App.ServiceProvider.GetRequiredService<IDateInputParser>();
+    private IJulianDayApi _julianDayApi = App.ServiceProvider.GetRequiredService<IJulianDayApi>();
+    private double _originalConceptionJd;
+    private bool _hasRecalculation;
 
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private bool _useAspects;
@@ -41,6 +47,9 @@ public partial class PrenatalViewModel : ObservableObject
     [ObservableProperty] private string _actualConception;
     [ObservableProperty] private PresentablePreNatalMoment? _selectedMoment;
     [ObservableProperty] private PresentablePreNatalEvent? _selectedEvent;
+    [ObservableProperty] private string _combineDate = string.Empty;
+    [ObservableProperty] private bool _isResetEnabled;
+    [ObservableProperty] private bool _isCombineEnabled = true;
     
     public PrenatalViewModel()
     {
@@ -69,6 +78,10 @@ public partial class PrenatalViewModel : ObservableObject
         _preNatalModel.selectedAspects = selectedAspects;
         DataVaultCharts.Instance.CurrentAspectsSelection = selectedAspects;
         _preNatalModel.SetInitialConception();
+        _originalConceptionJd = DataVaultCharts.Instance.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt - 273.217;
+        _hasRecalculation = false;
+        IsResetEnabled = false;
+        IsCombineEnabled = true;
     }
     
     
@@ -88,19 +101,84 @@ public partial class PrenatalViewModel : ObservableObject
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 
+    partial void OnSelectedEventChanged(PresentablePreNatalEvent? value)
+    {
+        if (value != null && !string.IsNullOrEmpty(value.DateTime))
+        {
+            // Extract date part (yyyy/mm/dd) from DateTime string (format: "yyyy/mm/dd hh:mi:ss")
+            var dateTimeParts = value.DateTime.Split(' ');
+            if (dateTimeParts.Length > 0)
+            {
+                CombineDate = dateTimeParts[0];
+            }
+        }
+    }
+
     [RelayCommand]
     private void CorrectConception()
     {
-        if (SelectedMoment == null || SelectedEvent == null)
+        if (SelectedMoment == null)
         {
-            MessageBox.Show("Please select both a moment and an event to combine.");
+            MessageBox.Show("Please select a moment from the moments datagrid.");
             return;
         }
-        var eventJd = SelectedEvent.Jd;
+
+        if (string.IsNullOrWhiteSpace(CombineDate))
+        {
+            MessageBox.Show("Please enter a valid date in the CombineDate field.");
+            return;
+        }
+
+        // Get calendar from current chart
+        var currentChart = DataVaultCharts.Instance.GetCurrentChart();
+        var calendar = currentChart.InputtedChartData.FullDateTime.DateText.Contains("[g]")
+            ? Calendars.Gregorian
+            : Calendars.Julian;
+
+        // Validate the date
+        if (!_dateInputParser.HandleDate(CombineDate, calendar, YearCounts.CE, out FullDate? fullDate))
+        {
+            MessageBox.Show("The date in CombineDate is not valid. Please enter a valid date in the format yyyy/mm/dd.");
+            return;
+        }
+
+        if (fullDate == null)
+        {
+            MessageBox.Show("The date in CombineDate is not valid. Please enter a valid date in the format yyyy/mm/dd.");
+            return;
+        }
+
+        // Convert date to Julian Day
+        var simpleDateTime = new SimpleDateTime(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], 0.0, calendar);
+        var julianDayResponse = _julianDayApi.GetJulianDay(simpleDateTime);
+        var eventJd = julianDayResponse.JulDayEt;
+
         var momentJd = SelectedMoment.Jd;
         _preNatalModel.DefineActualConceptionJd(eventJd, momentJd);
-        Log.Information($"PrenatalViewModel.CorrectConception(): Combining moment {SelectedMoment.RealDateTime} with event {SelectedEvent.Description}");
+        Log.Information($"PrenatalViewModel.CorrectConception(): Combining moment {SelectedMoment.RealDateTime} with date {CombineDate}");
+        
+        _hasRecalculation = true;
+        IsResetEnabled = true;
+        IsCombineEnabled = false;
         Populate();       
+    }
+
+    [RelayCommand]
+    private void Reset()
+    {
+        if (!_hasRecalculation) return;
+
+        // Restore original conception by calling DefineActualConceptionJd with baseConceptionJd for both parameters
+        // This will result in: baseConceptionJd + (baseConceptionJd - baseConceptionJd) / conversionFactor = baseConceptionJd
+        var currentChart = DataVaultCharts.Instance.GetCurrentChart();
+        var radixJd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
+        var baseConceptionJd = radixJd - 273.217;
+        _preNatalModel.DefineActualConceptionJd(baseConceptionJd, baseConceptionJd);
+        
+        _hasRecalculation = false;
+        IsResetEnabled = false;
+        IsCombineEnabled = true;
+        Populate();
     }
 
     [RelayCommand]
