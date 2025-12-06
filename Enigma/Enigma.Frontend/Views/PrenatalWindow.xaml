@@ -172,9 +172,9 @@
                     <TextBox Margin="6 0"                   
                              materialDesign:HintAssist.Hint="Date yyyy/mm/dd"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                             Text="{Binding CombineDate, Mode=TwoWay}"/>  
-                    <Button Margin="6 6 0 6" Content="Combine" Command="{Binding CorrectConceptionCommand}" IsEnabled="{Binding IsCombineEnabled}"/>
-                    <Button Margin="6 6 0 6" Content="Reset" Command="{Binding ResetCommand}" IsEnabled="{Binding IsResetEnabled}"/>
+                             Text="{Binding CombineDate}"/>  
+                    <Button Margin="6 6 0 6" Content="Combine" Command="{Binding CorrectConceptionCommand}"/>
+                    <Button Margin="6 6 0 6" Content="Reset" Command="{Binding ResetCommand}"/>
                     <Button Margin="6 6 0 6" Content="New event" Command="{Binding NewEventCommand}"/>
                 </StackPanel>
                 

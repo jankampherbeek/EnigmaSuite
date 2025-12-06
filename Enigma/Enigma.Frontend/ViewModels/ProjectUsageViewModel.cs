@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -38,6 +39,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(PrepareTestCommand))]
     [ObservableProperty] private int _methodIndex = -1;
     [ObservableProperty] private ObservableCollection<PresentableMethodDetails> _testMethods = new();
+    [ObservableProperty] private bool _isLoading;
     
     private readonly ProjectUsageModel _model = App.ServiceProvider.GetRequiredService<ProjectUsageModel>();
 
@@ -64,7 +66,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
  
     
     [RelayCommand(CanExecute = nameof(IsMethodSelected))]
-    private void PrepareTest()
+    private async Task PrepareTest()
     {
         _testCanceled = false;
         _sufficientSelections = false;
@@ -102,10 +104,21 @@ public partial class ProjectUsageViewModel: ObservableObject,
         }
         if (_testCanceled) return;
         
-        _model.PerformRequest(method);
-        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,
-            ResearchWindowsFlow.RESEARCH_RESULT));
-
+        IsLoading = true;
+        try
+        {
+            await Task.Run(() =>
+            {
+                _model.PerformRequest(method);
+            });
+            
+            WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,
+                ResearchWindowsFlow.RESEARCH_RESULT));
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void CompleteRequest()
