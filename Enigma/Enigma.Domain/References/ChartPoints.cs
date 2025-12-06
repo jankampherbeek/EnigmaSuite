@@ -64,9 +64,9 @@ public static class PointsExtensions
             ChartPoints.Pluto => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 9, "Pluto", "plut"),
             ChartPoints.NorthNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 10, "North node", "nndm"),
             ChartPoints.TrueNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 11, "North node (true)", "nndt"),
-            ChartPoints.ApogeeMean => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 12,"Apogee-mean", "apom"),
+            ChartPoints.ApogeeMean => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 12,"Black moon (apogee)", "apom"),
             // TODO add variable type for CalculationCats to Apogeecorrected
-            ChartPoints.ApogeeCorrected => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 13,"Apogee-corrected", "apoc"),
+            ChartPoints.ApogeeCorrected => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 13,"Corrected Black Moon (apogee-corr.)", "apoc"),
             ChartPoints.Earth => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 14,"Earth", "eart"),            
             ChartPoints.Chiron => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 15,"Chiron", "chir"),            
             ChartPoints.Pholus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 16,"Pholus", "phol"),
