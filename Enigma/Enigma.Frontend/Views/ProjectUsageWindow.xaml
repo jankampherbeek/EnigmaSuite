@@ -27,6 +27,7 @@
             <RowDefinition Height="40*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="40*"/>
+            <RowDefinition Height="15*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
@@ -85,7 +86,15 @@
             <Button Content="Perform Test" Margin="4" Command="{Binding PrepareTestCommand}" />
             <Button Content="Config" Margin="4" Command="{Binding ConfigCommand}"/>
         </StackPanel>
-        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" 
+        <materialDesign:Card Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Padding="8" Margin="6"
+                             Background="#D5E6F2" UniformCornerRadius="6">
+            <TextBlock Name="WarningText" TextWrapping="Wrap"
+                       Text="Performing a test can take considerable time. On a modern PC think about one second for 5000 charts."/>            
+        </materialDesign:Card>
+
+        
+        
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" 
                     HorizontalAlignment="Right" Margin="6">
             <Button Content="Help" Margin="4" Command="{Binding HelpCommand}"/>
             <Button Content="Close" Margin="4" Command="{Binding CloseCommand}"/>
