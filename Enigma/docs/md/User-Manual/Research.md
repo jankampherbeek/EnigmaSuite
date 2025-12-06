@@ -84,6 +84,10 @@ You will also see a button **Config**. By clicking this button, you can access t
 
 Select the test that you want to perform and click the button **Perform Test**. Depending on the type of test, you will need to enter additional information.
 
+These tests can take very long.
+
+
+
 ### Select celestial points
 
 <img src="img/research-select-points.png" style="zoom: 50%;" />
