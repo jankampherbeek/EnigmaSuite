@@ -69,7 +69,7 @@
             <TextBox Margin="6 0" VerticalAlignment="Center"                   
                      materialDesign:HintAssist.Hint="Start date yyyy/mm/dd"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                     Text="{Binding Date, Mode=TwoWay}"/>             
+                     Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>             
             <CheckBox Content="Extended period (100 days)"
                       Margin="6"
                       Style="{StaticResource MaterialDesignCheckBox}"
