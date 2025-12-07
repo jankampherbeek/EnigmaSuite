@@ -369,20 +369,6 @@ Please not that only celestial points that are defined in the radix configuratio
 
 
 
-## Progressive: Out of Bounds Calendar
-
-<img src="img\oobcal.png" alt="oobcal" style="zoom:50%;" />
-
-The Out of Bounds Calendar shows the start date and end date for OOB periods. It covers a period of 120 years and calculates the secondary positions, so the moments that a planet goes OOB or In Bounds again is calculated for the first 120 days of life and projected onto the first 120 years of life.
-
-The calendar shows the positions in the radix, followed by a list of OOB related events events in chronological sequence.
-
-Enigma omits points that have no latitude as they cannot be OOB. It also omits hypothetical planets because the declinations for these points are too unsure.
-
-The calculations are based on the true obliquity, the obliquity corrected for nutation. Enigma calculates the obliquity separately for each day. 
-
-Please note that the dates for slow moving planets like Pluto are not exact: there is a margin of a few days. 
-
 
 
 ## Progressive techniques
@@ -489,3 +475,36 @@ Enigma checks for a solar position with a precision of about 7 decimals (less th
 
 
 
+## Progressive: Progressive calendar
+
+After entering or opening a chart, you can create a *Progressive Calendar* via the menu: **Progressive** - **Progressive Calendar**.
+
+The calendar is automatically populated for a period of little more than a month (33 days) and default settings.
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\progcal.png" style="zoom:67%;" />
+
+The list shows the exact date and time of the aspect, the method: mostly a transit but you an include secondary directions.
+
+The next column shows the aspect that is formed, you can optionally include parallels and contra parallels.
+
+You can select another start date and/or use a longer period of 100 days. 
+
+Default, Enigma shows the tab *List*, you can also select the tab Aspects Graph. This will result in a graphic presentation of the periods that the aspects are within orb. 
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\progcal-graph.png" style="zoom:67%;" />
+
+Enigma uses the planets, aspects and orbs as defined by you in the *Configuration* and *Progressive configuration*.
+
+## Progressive: Out of Bounds Calendar
+
+<img src="img\oobcal.png" alt="oobcal" style="zoom:50%;" />
+
+The Out of Bounds Calendar shows the start date and end date for OOB periods. It covers a period of 120 years and calculates the secondary positions, so the moments that a planet goes OOB or In Bounds again is calculated for the first 120 days of life and projected onto the first 120 years of life.
+
+The calendar shows the positions in the radix, followed by a list of OOB related events events in chronological sequence.
+
+Enigma omits points that have no latitude as they cannot be OOB. It also omits hypothetical planets because the declinations for these points are too unsure.
+
+The calculations are based on the true obliquity, the obliquity corrected for nutation. Enigma calculates the obliquity separately for each day. 
+
+Please note that the dates for slow moving planets like Pluto are not exact: there is a margin of a few days. 

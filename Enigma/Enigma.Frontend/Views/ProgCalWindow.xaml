@@ -76,7 +76,7 @@
                       IsChecked="{Binding UseExtendedPeriod}"
                       Checked="UseExtPeriodCheckBox_Checked"
                       Unchecked="UseExtPeriodCheckBox_UnChecked" />
-            <CheckBox Content="Include secundary directions"
+            <CheckBox Content="Include secondary directions"
                       Margin="6"
                       Style="{StaticResource MaterialDesignCheckBox}"
                       IsChecked="{Binding UseSecundary}"

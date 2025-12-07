@@ -245,7 +245,7 @@ public partial class ProgCalWindow
             var top = yReversed + halfHeight - spacing;
             var bottom = yReversed - halfHeight + spacing;
             var rect = plot.Add.Rectangle(start, end, bottom, top);
-            // Use green for Secundary progressions, blue for transits
+            // Use green for Secondary progressions, blue for transits
             rect.FillStyle.Color = progType == ProgressionTypes.Secundary 
                 ? Color.FromHex("#4CAF50") 
                 : Color.FromHex("#3F51B5");
