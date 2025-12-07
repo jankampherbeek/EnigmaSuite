@@ -182,6 +182,7 @@
                         <Image Source="/Images/prenatal.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator/>
                 <MenuItem Header="Progressive Calendar" Command="{Binding ProgCalCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/prog_cal.png"/>
