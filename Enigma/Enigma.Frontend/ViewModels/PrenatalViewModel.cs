@@ -48,6 +48,7 @@ public partial class PrenatalViewModel : ObservableObject
     [ObservableProperty] private PresentablePreNatalMoment? _selectedMoment;
     [ObservableProperty] private PresentablePreNatalEvent? _selectedEvent;
     [ObservableProperty] private string _combineDate = string.Empty;
+    [ObservableProperty] private string _combineTime = "12:00:00";
     [ObservableProperty] private bool _isResetEnabled;
     [ObservableProperty] private bool _isCombineEnabled = true;
     
@@ -105,11 +106,15 @@ public partial class PrenatalViewModel : ObservableObject
     {
         if (value != null && !string.IsNullOrEmpty(value.DateTime))
         {
-            // Extract date part (yyyy/mm/dd) from DateTime string (format: "yyyy/mm/dd hh:mi:ss")
+            // Extract date part (yyyy/mm/dd) and time part (hh:mm:ss) from DateTime string (format: "yyyy/mm/dd hh:mm:ss")
             var dateTimeParts = value.DateTime.Split(' ');
             if (dateTimeParts.Length > 0)
             {
                 CombineDate = dateTimeParts[0];
+            }
+            if (dateTimeParts.Length > 1)
+            {
+                CombineTime = dateTimeParts[1];
             }
         }
     }
@@ -126,6 +131,12 @@ public partial class PrenatalViewModel : ObservableObject
         if (string.IsNullOrWhiteSpace(CombineDate))
         {
             MessageBox.Show("Please enter a valid date in the CombineDate field.");
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(CombineTime))
+        {
+            MessageBox.Show("Please enter a valid time in the CombineTime field.");
             return;
         }
 
@@ -148,14 +159,50 @@ public partial class PrenatalViewModel : ObservableObject
             return;
         }
 
-        // Convert date to Julian Day
-        var simpleDateTime = new SimpleDateTime(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2],0.0, calendar);
+        // Parse and validate the time (format: hh:mm:ss)
+        var timeParts = CombineTime.Split(':');
+        if (timeParts.Length < 2 || timeParts.Length > 3)
+        {
+            MessageBox.Show("The time in CombineTime is not valid. Please enter a valid time in the format hh:mm:ss.");
+            return;
+        }
+
+        if (!int.TryParse(timeParts[0], out var hour) || hour < 0 || hour > 23)
+        {
+            MessageBox.Show("The hour in CombineTime is not valid. Please enter a value between 0 and 23.");
+            return;
+        }
+
+        if (!int.TryParse(timeParts[1], out var minute) || minute < 0 || minute > 59)
+        {
+            MessageBox.Show("The minute in CombineTime is not valid. Please enter a value between 0 and 59.");
+            return;
+        }
+
+        var second = 0;
+        if (timeParts.Length == 3)
+        {
+            if (!int.TryParse(timeParts[2], out second) || second < 0 || second > 59)
+            {
+                MessageBox.Show("The second in CombineTime is not valid. Please enter a value between 0 and 59.");
+                return;
+            }
+        }
+
+        // Convert time to UT (Universal Time) decimal format
+        var ut = hour + minute / 60.0 + second / 3600.0;
+
+        // Create SimpleDateTime with date and time
+        var simpleDateTime = new SimpleDateTime(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], ut, calendar);
         var julianDayResponse = _julianDayApi.GetJulianDay(simpleDateTime);
-        var eventJd = julianDayResponse.JulDayEt;
+
+        // Create FullDateTime from FullDate and time (replacing FullDate with FullDateTime)
+        var timeText = $"{hour:D2}:{minute:D2}:{second:D2}";
+        var fullDateTime = new FullDateTime(fullDate.DateFullText, timeText, julianDayResponse.JulDayEt);
 
         var momentJd = SelectedMoment.Jd;
-        _preNatalModel.DefineActualConceptionJd(eventJd, momentJd);
-        Log.Information($"PrenatalViewModel.CorrectConception(): Combining moment {SelectedMoment.RealDateTime} with date {CombineDate}");
+        _preNatalModel.DefineActualConceptionJd(fullDateTime.JulianDayForEt, momentJd);
+        Log.Information($"PrenatalViewModel.CorrectConception(): Combining moment {SelectedMoment.RealDateTime} with date {CombineDate} and time {CombineTime}");
         
         _hasRecalculation = true;
         IsResetEnabled = true;
