@@ -78,17 +78,23 @@ public static class Dispositors
             
             // for mainRuler and subRuler, define points in the signs they rule
             //      for each point, if it is a ruler and not the same as the mainRuler or subRuler
+            //          a celestial point can only be used once
             //          define the sign these points rule and count the number of points in these signs --> indirectSignCount
             var indirectSignCount = 0;
+            var processedSigns = new List<int>();
             foreach (var point in PlanetsInSign)
             {
                 if (point.Key == mainRuler || point.Key == subRuler || !IsRuler(point.Key)) continue;
                 if (point.Value == signMainRuler || point.Value == signSubRuler)
                 {
                     var signs = FindSignsRuledBy(point.Key);
+                    if (processedSigns.Contains(signs.Item1) || processedSigns.Contains(signs.Item2)) continue;
                     indirectSignCount += SignCounts[signs.Item1];
                     indirectSignCount += SignCounts[signs.Item2];
+                    processedSigns.Add(signs.Item1);
+                    processedSigns.Add(signs.Item2);
                 }
+
             }
             var totalSignCount = directSignCount + indirectSignCount;
             
