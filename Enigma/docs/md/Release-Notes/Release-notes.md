@@ -4,7 +4,7 @@
 
 ## Release 0.8.0 beta - December 31 2025
 
-Adding Venus Star Point, Schema for Black Lights Astrology, Prenatal technique (Eg Sneek), Progressive calendar, changing the startpoint of the zodiac and updated data for time changes and coordinates.
+Adding Venus Star Point, Schema for Invisible Luminaries Astrology, Prenatal technique (Eg Sneek), Progressive calendar, changing the startpoint of the zodiac and updated data for time changes and coordinates.
 
 ### Updated time changes and coordinates
 
@@ -22,9 +22,9 @@ The Venus Star Point, as defined by Arielle Guttman. The star point figure is sh
 
 The prenatal technique, as proposed by Eg Sneek. 
 
-### Black Lights Astrology Schema
+### Invisible Luminaries Astrology Schema
 
-A schema with an extensive overview of Black Lights Astrology, as defined by Cees Jansen.
+A schema with an extensive overview of Invisible Luminaries Astrology, as defined by Cees Jansen.
 
 ### Progressive calendar
 

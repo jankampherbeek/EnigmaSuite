@@ -39,7 +39,7 @@
         <!-- Header -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="12,0,0,6"
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Black Lights Astrology Schema" Name="Header"
+                   Text="Invisible Luminaries Astrology Schema" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    FontWeight="Bold" />
         <!-- Chart Name -->
@@ -166,7 +166,7 @@
                         Padding="6,6,6,8">
                     <TextBlock Margin="0,0,0,0" TextWrapping="Wrap">
                         This schema is originally developed by the Dutch researcher/astrologer Cees Jansen. It is based on the 
-                        'Black Lights Astrology' as defined by the Dutch astrologer George Bode. You should be familiar
+                        'Invisible Luminaries Astrology' as defined by the Dutch astrologer George Bode. You should be familiar
                         with this approach to use this schema. In the user manual, you will find more information on this 
                         technique.
                         </TextBlock>
