@@ -345,7 +345,7 @@ public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi c
     
     private ChartLongitudes GetChartLongitudes()
     {
-        if (_blaPositions == null) throw new InvalidOperationException("No data available for BLA");
+        if (_blaPositions == null) throw new InvalidOperationException("No data available for ILA");
         var currentChart = DataVaultCharts.Instance.GetCurrentChart();
         if (currentChart == null) throw new InvalidOperationException("No current chart available");
         var pointLongitudes = new Dictionary<ChartPoints, double>();

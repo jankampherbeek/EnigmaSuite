@@ -36,11 +36,6 @@ public static class BlaDetails
                 sisterSignAsc = rulerPair.SignIndex;
             }
         }    
-        
-       // var sisterSignAsc = (int)Math.Truncate(chart.Points[sisterRulerAsc] / 30.0) + 1;
-        
-        
-        
         var clampedHouses = InterceptedClamped.DefineClampedHouses(chart);
         var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
         var groundNote = new List<int>();  // Groundnote: asc, mundaneHouseAsc,
@@ -60,6 +55,14 @@ public static class BlaDetails
                     }
                 }
             }
+        }
+        // add houses with same ruler as ascendant
+        foreach (var sign in signsOnCusps)
+        {
+            if (sign.Key != 1 && sign.Value == asc)
+            {
+                groundNote.Add(sign.Key);
+            } 
         }
 
         var lordAscInHouses = new List<int>
