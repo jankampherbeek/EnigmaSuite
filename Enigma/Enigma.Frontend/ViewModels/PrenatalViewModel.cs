@@ -149,7 +149,7 @@ public partial class PrenatalViewModel : ObservableObject
         }
 
         // Convert date to Julian Day
-        var simpleDateTime = new SimpleDateTime(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], 0.0, calendar);
+        var simpleDateTime = new SimpleDateTime(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2],0.0, calendar);
         var julianDayResponse = _julianDayApi.GetJulianDay(simpleDateTime);
         var eventJd = julianDayResponse.JulDayEt;
 
