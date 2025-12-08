@@ -145,7 +145,7 @@
                         <Image Source="/Images/enneagram.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Invisible Lights Astrology schema" Command="{Binding BlaSchemaCommand}">
+                <MenuItem Header="Invisible Luminaries Astrology schema" Command="{Binding BlaSchemaCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/bla.png"/>
                     </MenuItem.Icon>

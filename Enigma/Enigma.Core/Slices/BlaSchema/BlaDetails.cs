@@ -27,8 +27,20 @@ public static class BlaDetails
         
         var asc = signsOnCusps[1];
         var ascRulers = BlaDomain.RulerPairs()[asc-1];
-        var sisterRulerAsc = ascRulers.SubRuler;
-        var sisterSignAsc = (int)Math.Truncate(chart.Points[sisterRulerAsc] / 30.0) + 1;
+        var subRulerAsc = ascRulers.SubRuler;
+        var sisterSignAsc = 0;
+        foreach (var rulerPair in BlaDomain.RulerPairs())
+        {
+            if (rulerPair.MainRuler == subRulerAsc)
+            {
+                sisterSignAsc = rulerPair.SignIndex;
+            }
+        }    
+        
+       // var sisterSignAsc = (int)Math.Truncate(chart.Points[sisterRulerAsc] / 30.0) + 1;
+        
+        
+        
         var clampedHouses = InterceptedClamped.DefineClampedHouses(chart);
         var interceptedSigns = InterceptedClamped.DefineInterceptedSigns(chart);
         var groundNote = new List<int>();  // Groundnote: asc, mundaneHouseAsc,
@@ -37,7 +49,7 @@ public static class BlaDetails
         // check sister signs   
         foreach (var rulerPair in BlaDomain.RulerPairs())
         {
-            if (rulerPair.MainRuler == sisterRulerAsc)
+            if (rulerPair.MainRuler == subRulerAsc)
             {
                 var signIndex = rulerPair.SignIndex;
                 foreach (var cuspSign in signsOnCusps)
