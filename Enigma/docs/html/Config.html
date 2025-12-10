@@ -1,11 +1,10 @@
 <!doctype html>
 <html>
 <head>
-<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'><style type='text/css'>html {overflow-x: initial !important;}</style>
+<style type='text/css'  id="style-base">:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
 .mac-os-11 { --title-bar-height: 28px; }
-html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI Emoji", "SF Pro", sans-serif; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, h4, h5 { white-space: pre-wrap; }
 body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
 iframe { margin: auto; }
@@ -14,7 +13,7 @@ a:active, a:hover { outline: 0px; }
 .in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
 #write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
 #write.first-line-indent p { text-indent: 2em; }
-#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li p, #write.first-line-indent p *, #write.first-line-indent svg * { text-indent: 0px; }
 #write.first-line-indent li { margin-left: 2em; }
 .for-image #write { padding-left: 8px; padding-right: 8px; }
 body.typora-export { padding-left: 30px; padding-right: 30px; }
@@ -31,7 +30,8 @@ button, input, select, textarea { color: inherit; font: inherit; }
 input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
 *, ::after, ::before { box-sizing: border-box; }
 #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; position: relative; }
-#write svg h1, #write svg h2, #write svg h3, #write svg h4, #write svg h5, #write svg h6, #write svg p { position: static; }
+#write svg h1, #write svg h2, #write svg h3, #write svg h4, #write svg h5, #write svg h6, #write svg p { position: static; white-space: nowrap; overflow: visible; }
+foreignobject { overflow: visible; }
 p { line-height: inherit; }
 h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
 p { orphans: 4; }
@@ -219,8 +219,9 @@ mjx-container { break-inside: avoid; }
 .md-alert-text svg { fill: currentcolor; position: relative; top: 0.125em; margin-right: 1ch; overflow: visible; }
 .md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
 
-
-:root {
+</style>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&amp;subset=latin,latin-ext' type='text/css' />
+<style type='text/css'  id="style-theme_css">:root {
     --side-bar-bg-color: #fafafa;
     --control-text-color: #777;
 }
@@ -237,7 +238,7 @@ mjx-container { break-inside: avoid; }
 }
 
 body {
-    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', 'SF Pro', sans-serif;
     color: rgb(51, 51, 51);
     line-height: 1.6;
 }
@@ -607,13 +608,13 @@ header, .context-menu, .megamenu-content, footer{
     background-color: #f5f8fa;
     background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
 }
+</style>
+<style type='text/css'  id="style-lp">ol, ul {padding-left: 40px}</style>
 
-
-
-</style><title>Config</title>
+<title>Config</title>
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><h1 id='enigma-07---configuration-and-settings'><span>Enigma 0.7 - Configuration and settings</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#enigma-07---configuration-and-settings">Enigma 0.7 - Configuration and settings</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n5"><a class="md-toc-inner" href="#settings">Settings</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n17"><a class="md-toc-inner" href="#standard-configuration">Standard configuration</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n29"><a class="md-toc-inner" href="#general-selections">General selections</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n40"><a class="md-toc-inner" href="#points">Points</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n48"><a class="md-toc-inner" href="#aspects">Aspects</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n54"><a class="md-toc-inner" href="#aspect-colors">Aspect colors</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n59"><a class="md-toc-inner" href="#configuration-for-progressive-astrology">Configuration for progressive astrology</a></span></p></div><p>&nbsp;</p><h2 id='settings'><span>Settings</span></h2><p><img src="img/settings.png" style="zoom: 50%;" /></p><p><span>You can access </span><em><span>Settings</span></em><span> from both modules </span><em><span>Charts</span></em><span> and </span><em><span>Research</span></em><span> and check them, but in this release of Enigma, you can not change anything.</span></p><p><span>Select the menu option </span><strong><span>General - Settings</span></strong><span>. You will see a window with information about the location of several files. The location depends on the work folder you defined during the first tie you started this version of Enigma. </span></p><ul><li><p><strong><span>Data files</span></strong><span>. This folder contains the data files you imported.</span></p></li><li><p><span>The location of </span><strong><span>Projects</span></strong><span>. All projects will have a sub folder with the name of the project. These sub folders contain all data that is generated for this project.</span></p></li><li><p><span>Enigma writes remarks to </span><strong><span>Log files</span></strong><span>. In case of an error, these log files will be helpful.</span></p><p>&nbsp;</p></li></ul><h2 id='standard-configuration'><span>Standard configuration</span></h2><p><img src="img\configuration-general.png" alt="configuration-general" style="zoom:50%;" /></p><p><span>You can check and change the configuration via the module </span><em><span>Charts</span></em><span> or via the module </span><em><span>Research</span></em><span>.</span>
+<div id='write'  class=''><h1 id='enigma-08---configuration-and-settings'><span>Enigma 0.8 - Configuration and settings</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#enigma-08---configuration-and-settings">Enigma 0.8 - Configuration and settings</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n5"><a class="md-toc-inner" href="#settings">Settings</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n17"><a class="md-toc-inner" href="#standard-configuration">Standard configuration</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n29"><a class="md-toc-inner" href="#general-selections">General selections</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n40"><a class="md-toc-inner" href="#points">Points</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n48"><a class="md-toc-inner" href="#aspects">Aspects</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n54"><a class="md-toc-inner" href="#aspect-colors">Aspect colors</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n59"><a class="md-toc-inner" href="#configuration-for-progressive-astrology">Configuration for progressive astrology</a></span></p></div><p>&nbsp;</p><h2 id='settings'><span>Settings</span></h2><p><img src="img/settings.png" style="zoom: 50%;" /></p><p><span>You can access </span><em><span>Settings</span></em><span> from both modules </span><em><span>Charts</span></em><span> and </span><em><span>Research</span></em><span> and check them, but in this release of Enigma, you can not change anything.</span></p><p><span>Select the menu option </span><strong><span>General - Settings</span></strong><span>. You will see a window with information about the location of several files. The location depends on the work folder you defined during the first tie you started this version of Enigma. </span></p><ul><li><p><strong><span>Data files</span></strong><span>. This folder contains the data files you imported.</span></p></li><li><p><span>The location of </span><strong><span>Projects</span></strong><span>. All projects will have a sub folder with the name of the project. These sub folders contain all data that is generated for this project.</span></p></li><li><p><span>Enigma writes remarks to </span><strong><span>Log files</span></strong><span>. In case of an error, these log files will be helpful.</span></p><p>&nbsp;</p></li></ul><h2 id='standard-configuration'><span>Standard configuration</span></h2><p><img src="img\configuration-general.png" alt="configuration-general" style="zoom:50%;" /></p><p><span>You can check and change the configuration via the module </span><em><span>Charts</span></em><span> or via the module </span><em><span>Research</span></em><span>.</span>
 <span>Select the menu option </span><strong><span>General - Configuration</span></strong><span>. This will show a window with a wide range of configurable items. The window comprises 4 tabs:</span></p><ul><li><p><span>The tab </span><strong><span>General</span></strong><span> shows astronomical settings and settings for orbs. Enigma initially shows this tab.</span></p></li><li><p><strong><span>Points</span></strong><span> shows the most planets and other points.</span></p></li><li><p><strong><span>Aspects</span></strong><span> shows all available aspects.</span></p></li><li><p><strong><span>Colors</span></strong><span> shows the colors for aspect lines.</span></p></li></ul><h3 id='general-selections'><span>General selections</span></h3><p><span>If you select the tab </span><em><span>General</span></em><span>, you can define the following preferences:</span></p><p><strong><span>House system</span></strong><span>. Currently, Enigma supports only house systems with 12 houses. </span>
 <span>The default selection is Regiomontanus.</span>
 <span>Select </span><em><span>None</span></em><span> if you do not want to use a house system.</span></p><p><strong><span>Type of zodiac</span></strong><span>. Select either </span><em><span>sidereal</span></em><span> or </span><em><span>tropical</span></em><span>.</span>

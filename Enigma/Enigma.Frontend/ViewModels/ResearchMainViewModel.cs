@@ -24,7 +24,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class ResearchMainViewModel: ObservableObject, IRecipient<CompletedMessage>
 {
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.RESEARCH_MAIN;
-    private const string ABOUT_RESEARCH = "AboutResearch";
+    private const string ABOUT = "About";
     private readonly ResearchMainModel _model;
     // ReSharper disable once NotAccessedField.Local  An instance of ResearchWindowsFlow must be instantiated so it can
     // handle incoming messages.
@@ -123,7 +123,7 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     private static void About()
     {
         Log.Information("ResearchMainViewModel.About(): send HelpMessage"); 
-        WeakReferenceMessenger.Default.Send(new HelpMessage(ABOUT_RESEARCH));
+        WeakReferenceMessenger.Default.Send(new HelpMessage(ABOUT));
     }
     
     [RelayCommand]

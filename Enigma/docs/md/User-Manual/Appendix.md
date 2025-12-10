@@ -227,7 +227,7 @@ The most important elements of ILA:
 
 - the use of the empty focal points in the Keplerian ellipses that are formed by the celestial bodies: the Black Moon and the Black Sun. Astronomically, these are the aphelion for the Sun and apogee for the Moon.
 
-- introduction of two hypothetical planets: Persephone and Vulcanus.
+- introduction of two hypothetical planets beyond the orbit of Pluto: Persephone and Vulcanus.
 
 - introduction of points that form oppositions or squares with the Lunar nodes or with the aphelion and apogee.
 
@@ -243,7 +243,7 @@ Because the orbit of the Moon is highly irregular, corrections have been introdu
 
 The Swiss Ephemeris provides an alternative approach that uses the theory of the Moon that is the astronomical standard.
 
-ILA uses both the Mean Black Moon and the Corrected Black Moon.
+The astronomical apogee is usually called Lilith or True Lilith but ILA uses the names Mean Black Moon and Corrected Black Moon.
 
 The Black Sun is the aphelion, the point in the orbit of the earth around the Sun that represents the empty focus point in the ellipse. The position of the Black Sun changes very slowly.
 
@@ -259,16 +259,16 @@ ILA uses several other points that have a position relative to one of the existi
 
 | Point                | Definition                                                   | Short meaning                                                |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Persephone           | Hypothetical point                                           | Relates to Pluto as Venus relates to Mars. Communication.    |
-| Vulcanus             | Hypothetical point                                           | Comparable to Mercury. Coordination.                         |
-| Black Moon           | Mean apogee in the orbit of the Moon                         | Unicity, introversion, absorbs but does not reflect (like the Moon does). |
+| Persephone           | Hypothetical point                                           | Relates to Pluto as Venus relates to Mars. Partner of Venus. |
+| Vulcanus             | Hypothetical point                                           | Partner of Mercury. (Co-)ordination.                         |
+| Black Moon           | Mean apogee in the orbit of the Moon                         | Unicity, introversion, absorbs but does not reflect (like the Moon does). Cosmic Treasure. |
 | Corrected Black Moon | The apogee of the Moon with corrections for disturbances     | As the Black Moon                                            |
-| Priapus              | Mean perigee of the Moon (opposite to the Black Moon)        | Opposite meaning of the Black Moon, as the Moon but more explicit. |
+| Priapus              | Mean perigee of the Moon (opposite to the Black Moon)        | Adaptation, survival.                                        |
 | Corrected Priapus    | The perigee of the Moon with corrections for disturbances (opposite to the corrected Black Moon) | As Priapus                                                   |
-| Black Sun            | Aphelion in the orbit of the Earth around the Sun            | Opposite meaning as the Sun. Anti-authority, chaos.          |
+| Black Sun            | Aphelion in the orbit of the Earth around the Sun            | Opposite meaning as the Sun. Anti-authority, chaos, deconditioning. |
 | Diamond              | Perihelion of the Sun (opposite to the Black Sun)            | Very much like the Sun, but more explicit. Counterpart of the Black Sun. |
-| Dragon               | The point that forms a square with the Northern Lunar Node, in the direction of the signs | The hard armor of the ultimate possible form of consciousness. |
-| Beast                | The point that forms a square with Northern Lunar Node, in the direction opposite to the direction of the signs. | Opposite to the Dragon: pure life, consuming everything.     |
+| Dragon               | The point that forms a square with the Northern Lunar Node, in the direction of the signs | The hard armor of the ultimate possible form of consciousness. Perfectionism. |
+| Beast                | The point that forms a square with Northern Lunar Node, in the direction opposite to the direction of the signs. | Opposite to the Dragon: pure energy. Inspiration, where anything is possible. |
 
 
 
@@ -280,24 +280,24 @@ ILA uses several other points that have a position relative to one of the existi
 
 ### Rulerships
 
-In ILA, the rulerships differ strongly from the usual approach. Each sign has two rulers, a main ruler and a sub ruler.
+In ILA, the rulerships differ strongly from the usual approach. Each sign has two rulers, a day ruler and a night ruler.
 
-Each ruler pair rules two signs, but they exchange the roles of mainruler and subruler.
+Each ruler pair rules two signs, but they exchange the roles of day ruler and night ruler.
 
-| Sign        | Main ruler | Sub ruler  |
-| ----------- | ---------- | ---------- |
-| Aries       | Mars       | Pluto      |
-| Taurus      | Venus      | Persephone |
-| Gemini      | Mercury    | Vulcanus   |
-| Cancer      | Moon       | Priapus    |
-| Leo         | Sun        | Black Moon |
-| Virgo       | Vulcanus   | Mercury    |
-| Libra       | Persephone | Venus      |
-| Scorpio     | Pluto      | Mars       |
-| Sagittarius | Jupiter    | Neptune    |
-| Capricorn   | Black Moon | Sun        |
-| Aquarius    | Priapus    | Moon       |
-| Pisces      | Neptune    | Jupiter    |
+| Sign        | Day ruler  | Night ruler |
+| ----------- | ---------- | ----------- |
+| Aries       | Mars       | Pluto       |
+| Taurus      | Venus      | Persephone  |
+| Gemini      | Mercury    | Vulcanus    |
+| Cancer      | Moon       | Priapus     |
+| Leo         | Sun        | Black Moon  |
+| Virgo       | Vulcanus   | Mercury     |
+| Libra       | Persephone | Venus       |
+| Scorpio     | Pluto      | Mars        |
+| Sagittarius | Jupiter    | Neptune     |
+| Capricorn   | Black Moon | Sun         |
+| Aquarius    | Priapus    | Moon        |
+| Pisces      | Neptune    | Jupiter     |
 
 
 

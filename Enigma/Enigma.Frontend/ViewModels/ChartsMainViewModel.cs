@@ -27,7 +27,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     IRecipient<CloseRadixDataInputViewMessage>
 {
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.CHARTS_MAIN;
-    private const string ABOUT_CHARTS = "AboutCharts";
+    private const string ABOUT = "About";
     private readonly ChartsMainModel _model;
     // ReSharper disable once NotAccessedField.Local  An instance of ChartsWindowsFlow must be instantiated so it can
     // handle incoming messages.
@@ -308,7 +308,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     private static void About()
     {
         Log.Information("ChartsMainViewModel.About(): send HelpMessage");
-        WeakReferenceMessenger.Default.Send(new HelpMessage(ABOUT_CHARTS));
+        WeakReferenceMessenger.Default.Send(new HelpMessage(ABOUT));
     }
     
     [RelayCommand]

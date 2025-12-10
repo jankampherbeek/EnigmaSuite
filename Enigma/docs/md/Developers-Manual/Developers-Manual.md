@@ -1,6 +1,6 @@
 # Developers Documentation Enigma Research
 
-## Version 0.6
+## Version 0.8
 
 ## Enigma Research - introduction
 
@@ -14,7 +14,7 @@ Please read the User Manual for information about the functionality of Enigma Re
 
 I want to thank Gökhan Yu for convincing me to use C#. It was the right choice for building a Windows based astrology application. Gökhan also provided valuable insights into the technicalities of C# and .Net.
 
-I also want to thank Cees Jansen for providing valuable insights on the use of randomness, which was important for the realization of control groups.
+I also want to thank Cees Jansen for providing valuable insights on the use of randomness, which was important for the realization of control groups. Cees also gave a lot of information on the use of Invisible Lights Astrology.
 
 
 
@@ -77,11 +77,15 @@ For a definition check: https://docs.microsoft.com/en-us/dotnet/csharp/fundament
 ### Architectural decisions
 
 #### Windows based
-Enigma works on Windows platforms. Starting with version 1.0, Enigma will be cross-platform. Initially, I intended to rewrite the application in Go and use Flutter/Dart for the frontend. But that would work only if I use the Go backend as a local web server or implement complex solutions. I also tried to replace Flutter with Fyne. Fyne is a good GUI, written in Go, but it is too limited. So I will use another alternative: C# with Avalonia. Avalonia will replace WPF, which is Windows-only. 
+Enigma works on Windows platforms. Starting with version 1.0, Enigma can be used on WEindows and Apple computers.
 
-Before I start working on the cross-platform version 1.0 there will be one or two releases that are only for Windows. This release 0.6 and maybe a relase 0.7.
+For Windows, I will use C# with Avalonia, which replaces WPF. And for Apple Swift with SwiftUI.
 
-I will restructure the code in Enigma, moving to a more functional separation of folders. This will be an ongoing process. 
+This is the last release before I start working on version 1.0.
+
+#### Several approaches
+
+I have been experimenting with different architectural approaches and this reflects in the code. The new version 1.0 will be based on Vertical Sliced Architecture.
 
 #### Using separated projects
 The code of Enigma comprises 6 separate projects:

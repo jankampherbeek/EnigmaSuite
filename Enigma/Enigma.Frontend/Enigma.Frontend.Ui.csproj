@@ -946,10 +946,7 @@
     <None Update="Images\StartupCalculations.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\AboutResearch-en.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="res\help\AboutCharts-en.html">
+    <None Update="res\help\About-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\ChartsMain-en.html">

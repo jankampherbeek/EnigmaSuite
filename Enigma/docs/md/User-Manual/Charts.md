@@ -341,6 +341,38 @@ For more information on the VSP, you should read *Venus Star Rising* by Arielle 
 
 
 
+## Analysis: Invisible Luminaries Schema
+
+The Invisible Lights Schema is based upon the astrology as promoted by George Bode in the Netherlands. It is a very distinct form of astrology. In the appendix in the user manual you will find a short introduction. The schema itself has been defined by Cees Jansen.
+
+After defining a new chart, or selecting one from the database, you can click on the menu item: **Analysis** - **Invisible Luminaries Astrology Schema**.
+
+This schema overrules the settings in your configuration. That is necessary because Invisible Lights Astrology (ILA) requires a rather precise set of celestial bodies that should be included.
+
+The schema contains many counts and other analyses. Please refer to the on line help in Enigma (use the Help button) for an explanation of the many tables you see.
+
+You have a few options. You can define the type of correction for the Black Moon and the house system. The house systems are limited to quadrant houses (Ascendant is cusp 1 and MC is cusp 10). You can also select the true lunar node (the mean node is default), to include Chiron and/or Ceres and if you want to include decanates in the counts for dispositors.
+
+It is possible to export the schema to a PNG file, that you can print. However, the export will only contain the visible part of the schema. Unless you have a large screen, you probably need to scroll to see everything. And it can be necessary to perform the export in two parts: for the upper part and the lower part of the screen.
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\bla-schema.png" style="zoom:67%;" />
+
+
+
+## Analysis: Startpoint zodiac
+
+Select a chart and click on the menu item **Analysis** - **Startpoint zodiac** to define alternative startpoints for the zodiac.
+
+You can select one of the celestial points on the left and Enigma will show a chart where zero Aries coincides with that point. By selecting the lunar node, you will get a draconic chart.
+
+You can only select celestial points that you defined in your configuration.
+
+The example shows a zodiac which starts with the point of fortune.
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\startpoint-zodiac.png" style="zoom:67%;" />
+
+
+
 ## Progressive: Primary directions
 
 If you selected a chart in the charts main window, you can use the menu-option *Progressive - Primary Directions* to calculate several types of directions. Which type Enigma will use, and which time key, depends on your configuration for progressions.
@@ -475,6 +507,30 @@ Enigma checks for a solar position with a precision of about 7 decimals (less th
 
 
 
+## Progresssive: Prenatal Astrology
+
+Prenatal astrology compares the time from conception with the events in real life. The Dutch astrologer Eg Sneek defined an own approach of this technique. A period of 10 sidereal months is compared with the first 70 years of life. As people often live longer than 70 years, the time starting from the conception is prolonged. 
+
+The time and date of conception is of course not known. That is why one should correct this time. This can be done by combining an event in real life with a moment in 'conception time'. 
+
+Enigma uses events the same way as for transits, secondary directions and symbolic directions. You will find existing events in the left table. You can add an event but you van also enter a date and time without using an event. If you click one of the events, the date and time is automatically used. If a date and time is defined, you can click a moment in the table on the right. You should try to find a date that is not too far away from the date in real life, and a Type (second column in the table) that corresponds to the event. This example is about Champollion. He deciphered the Egyptian hieroglyphs on September 14, 1822. This could very well correspond to the Sun/Uranus conjunction at May, 7 1824.
+
+If you select both dates, and click the button **Combine**, Enigma will recalculate the table on the right, based on the connection of those dates and times.
+
+Please note that the times are in UT.
+
+The default approach is to use only conjunctions and eclipses. But you can also look for ingresses in signs and changes of direction from retrograde to direct and vice versa.
+
+Enigma shows the selected points and aspects, you can change these values by clicking the corresponding buttons. The approach as advocated by Eg Sneek is to use only the standard planets, the conjunction and eclipses. Selecting more is possible but will result in a very long list.
+
+The standard and actual conception date are shown. Initially, these are the same. After combining an event with a prenatal moment, the corrected conception date and time is shown.
+
+If you want to try a new correction, you need to click the button **Reset** first. Enigma will return to the situation before you applied corrections. 
+
+ 
+
+![](E:\csharp\Enigma\docs\md\User-Manual\img\prenatal.png)
+
 ## Progressive: Progressive calendar
 
 After entering or opening a chart, you can create a *Progressive Calendar* via the menu: **Progressive** - **Progressive Calendar**.
@@ -493,7 +549,9 @@ Default, Enigma shows the tab *List*, you can also select the tab Aspects Graph.
 
 <img src="E:\csharp\Enigma\docs\md\User-Manual\img\progcal-graph.png" style="zoom:67%;" />
 
-Enigma uses the planets, aspects and orbs as defined by you in the *Configuration* and *Progressive configuration*.
+Enigma uses the planets, aspects and orbs as defined by you in the *Configuration* and *Progressive configuration*. The Moon is automatically omitted from the transits.
+
+
 
 ## Progressive: Out of Bounds Calendar
 

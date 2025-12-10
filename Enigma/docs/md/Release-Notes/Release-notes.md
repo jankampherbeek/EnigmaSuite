@@ -2,7 +2,7 @@
 
 
 
-## Release 0.8.0 beta - December 31 2025
+## Release 0.8.0 beta - December 12, 2025
 
 Adding Venus Star Point, Schema for Invisible Luminaries Astrology, Prenatal technique (Eg Sneek), Progressive calendar, changing the startpoint of the zodiac and updated data for time changes and coordinates.
 

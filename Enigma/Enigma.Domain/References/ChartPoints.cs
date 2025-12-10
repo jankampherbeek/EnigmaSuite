@@ -159,7 +159,7 @@ public static class PointsExtensions
             ChartPoints.ZeroAries => new PointDetails(point, PointCats.Zodiac, CalculationCats.ZodiacFixed, 800,"Zero-Aries", "zari"),
             // Lots
             ChartPoints.FortunaSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, 900,"Pars-sect", "fors"),
-            ChartPoints.FortunaNoSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, 901,"Pars-no-sect)", "forn"),
+            ChartPoints.FortunaNoSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, 901,"Pars-no-sect", "forn"),
 
             _ => throw new ArgumentException("Point unknown : " + point)
         };

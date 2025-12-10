@@ -64,7 +64,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About Enigma Research" Command="{Binding AboutCommand}">
+                <MenuItem Header="About Enigma" Command="{Binding AboutCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/help_2.png"/>
                     </MenuItem.Icon>
