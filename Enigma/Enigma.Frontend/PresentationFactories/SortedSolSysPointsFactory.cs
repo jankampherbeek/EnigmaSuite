@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.Generic;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Graphics;
@@ -21,7 +22,6 @@ public interface ISortedGraphicCelPointsFactory
     /// <returns>The sorted positions.</returns>
     public List<GraphicCelPointForWheelPositions> CreateSortedListForWheel(
         Dictionary<ChartPoints, FullPointPos> celPointPositions, double longitudeAsc, double minDistance);
-    
 }
 
 /// <inheritdoc/>
@@ -38,11 +38,11 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
     public List<GraphicCelPointForWheelPositions> CreateSortedListForWheel(
         Dictionary<ChartPoints, FullPointPos> celPointPositions, double longitudeAsc, double minDistance)
     {
-        List<GraphicCelPointForWheelPositions> graphPositions = 
+        List<GraphicCelPointForWheelPositions> graphPositions =
             CreateGraphicPositionsInWheel(celPointPositions, longitudeAsc);
-        graphPositions.Sort((pos1, pos2) => 
+        graphPositions.Sort((pos1, pos2) =>
             pos1.MundanePos.CompareTo(pos2.MundanePos));
-        
+
         // Forward pass: ensure minimum distance between consecutive items
         GraphicCelPointForWheelPositions? lastPos = null;
         foreach (var pos in graphPositions)
@@ -55,37 +55,39 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
                     pos.PlotPos += minDistance - actDistance;
                 }
             }
+
             lastPos = pos;
         }
-        
-        // Check for circular overlap between last and first item
+
+        //  Check for circular overlap between last and first item
         if (graphPositions.Count > 1)
         {
             var firstPos = graphPositions[0];
             var lastPosItem = graphPositions[^1];
-            
+
             // Calculate circular distance from last to first (wrapping around 360)
             double circularDistance = (firstPos.PlotPos + 360.0 - lastPosItem.PlotPos);
             if (circularDistance >= 360.0) circularDistance -= 360.0;
-            
+
             if (circularDistance < minDistance)
             {
                 // There's overlap - need to adjust. Do a backward pass to redistribute spacing.
                 double deficit = minDistance - circularDistance;
-                
+
                 // Adjust positions backward, starting from the last item
                 for (int i = graphPositions.Count - 1; i >= 0; i--)
                 {
                     graphPositions[i].PlotPos -= deficit;
-                    
+
                     // Ensure we maintain minDistance with the previous item (or wrap to last)
                     if (i > 0)
                     {
                         double distToPrevious = graphPositions[i].PlotPos - graphPositions[i - 1].PlotPos;
-                        if (distToPrevious < minDistance)
+                        if (distToPrevious < minDistance && deficit < 20.0)
                         {
                             // Need to push previous items back further
-                            deficit += (minDistance - distToPrevious);
+
+                          deficit += (minDistance - distToPrevious);
                         }
                         else
                         {
@@ -103,6 +105,7 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
             while (pos.PlotPos >= 360.0) pos.PlotPos -= 360.0;
             while (pos.PlotPos < 0.0) pos.PlotPos += 360.0;
         }
+
         return graphPositions;
     }
 
@@ -117,7 +120,8 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
         Dictionary<ChartPoints, FullPointPos> fullPositions, double longitudeAsc)
     {
         List<GraphicCelPointForWheelPositions> graphPositions = new();
-        List<PresentableCommonPositions> presentablePositions = _celPointFactory.CreateCelPointPosForDataGrid(fullPositions);
+        List<PresentableCommonPositions> presentablePositions =
+            _celPointFactory.CreateCelPointPosForDataGrid(fullPositions);
         int count = 0;
         foreach ((ChartPoints celPoint, FullPointPos? value) in fullPositions)
         {
@@ -131,8 +135,7 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
             graphPositions.Add(graphicPos);
             count++;
         }
+
         return graphPositions;
     }
-
-
 }
