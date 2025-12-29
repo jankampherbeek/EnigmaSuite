@@ -26,9 +26,9 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
 
     private static AstroConfig CombineDefaultDetails()
     {
-        const HouseSystems houseSystem = HouseSystems.Regiomontanus;
+        const HouseSystems houseSystem = HouseSystems.Placidus;
         const Ayanamshas ayanamsha = Ayanamshas.None;
-        const ObserverPositions observerPosition = ObserverPositions.TopoCentric;
+        const ObserverPositions observerPosition = ObserverPositions.GeoCentric;
         const ZodiacTypes zodiacType = ZodiacTypes.Tropical;
         const ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
         const OrbMethods orbMethod = OrbMethods.Weighted;
