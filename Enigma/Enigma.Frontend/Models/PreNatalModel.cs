@@ -47,7 +47,7 @@ public sealed class PreNatalModel(
     
 
     private const double CONCEPTION_PERIOD = 273.217;
-    private const double MAX_LIFETIME_IN_DAYS = 390.31; // corresponds to 100 years
+    private const double MAX_LIFETIME_IN_DAYS = 468.372; // corresponds to 120 years
     private const double MARGIN_BEFORE_CONCEPTION = 30.0;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
 
