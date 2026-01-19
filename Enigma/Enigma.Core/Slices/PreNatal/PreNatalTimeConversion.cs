@@ -33,7 +33,6 @@ public static class PreNatalTimeConversion
         var offset = astronJd - eventJd;
         var correctedOffset = offset / CONVERSION_FACTOR;
         var correctedConceptionJd = baseConceptionJd + correctedOffset;  
-        Console.WriteLine($"Corrected Conception: {correctedConceptionJd}, radixJd {radixJd}, baseConceptionJd {baseConceptionJd}, eventJd {eventJd}, astronJd {astronJd}");
         return correctedConceptionJd; 
     }
 }

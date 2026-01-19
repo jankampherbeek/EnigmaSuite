@@ -46,7 +46,8 @@ public sealed class ChartAllPositionsApi : IChartAllPositionsApi
         Guard.Against.Null(request.CalculationPreferences.ActualZodiacType);
 
         Log.Information("ChartAllPositionsApi.GetChart()");
-        return _handler.CalcFullChart(request);
+        var result = _handler.CalcFullChart(request);
+        return result;
     }
 
 }

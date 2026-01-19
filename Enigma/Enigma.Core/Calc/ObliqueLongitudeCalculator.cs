@@ -30,6 +30,7 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
     public List<NamedEclipticLongitude> CalcObliqueLongitudes(ObliqueLongitudeRequest request)
     {
         EclipticCoordinates southPoint = _southPointCalculator.CalculateSouthPoint(request.Armc, request.Obliquity, request.GeoLat);
+        
         return (from celPointCoordinate in request.CelPointCoordinates 
             let oblLong = OblLongForCelPoint(celPointCoordinate, southPoint, request.AyanamshaOffset) - request.AyanamshaOffset 
             select new NamedEclipticLongitude(celPointCoordinate.CelPoint, oblLong)).ToList();
@@ -49,8 +50,9 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         double tanSRad = Math.Tan(MathExtra.DegToRad(s));
         double qRad = Math.Sin(MathExtra.DegToRad(latSouthPMinusPlanet)) / Math.Sin(MathExtra.DegToRad(latSouthPPlusPlanet));
         double v = MathExtra.RadToDeg(Math.Atan(tanSRad * qRad)) - s;
+        
         double absoluteV = RangeUtil.ValueToRange(Math.Abs(v), -90.0, 90.0);
-        absoluteV = Math.Abs(absoluteV); // TODO 0.3 Check if this is required, copied this from my original Java version. It partially repeats the line above.
+        absoluteV = Math.Abs(absoluteV); 
         double correctedV;
         if (IsRising(longSp, longPl))
         {
