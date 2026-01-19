@@ -2,6 +2,12 @@
 
 
 
+## Release 0.8.1 beta - January 20, 2026
+
+Extended supported period for PreNatal to 120 years.
+
+Fixed problem with chart wheel. If an extremely large amount of planets was selected an endless loop could occur because not enough positions were available. Now it is accepted that symbols can partly overlap so that there is always space.
+
 ## Release 0.8.0 beta - December 12, 2025
 
 Adding Venus Star Point, Schema for Invisible Luminaries Astrology, Prenatal technique (Eg Sneek), Progressive calendar, changing the startpoint of the zodiac and updated data for time changes and coordinates.
