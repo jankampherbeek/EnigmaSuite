@@ -18,35 +18,35 @@
         <Style x:Key="NameColumnStyleWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource NameColumnStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
-                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Foreground" Value="Yellow"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="NumberColumnStyleWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource NumberColumnStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
-                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Foreground" Value="Yellow"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="GlyphColumnStyleWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource GlyphColumnStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
-                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Foreground" Value="Yellow"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="GlyphColumnStyleRightAlignedWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource GlyphColumnStyleRightAligned}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
-                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Foreground" Value="Yellow"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="GlyphColumnStyleCenterAlignedWithSelection" TargetType="DataGridCell" BasedOn="{StaticResource GlyphColumnStyleCenterAligned}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
-                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Foreground" Value="Yellow"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
