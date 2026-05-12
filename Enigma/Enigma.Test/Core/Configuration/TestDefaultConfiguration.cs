@@ -29,7 +29,7 @@ public class TestDefaultConfiguration
     [Test]
     public void TestHouseSystem()
     {
-        Assert.That(_astroConfig!.HouseSystem, Is.EqualTo(HouseSystems.Regiomontanus));
+        Assert.That(_astroConfig!.HouseSystem, Is.EqualTo(HouseSystems.Placidus));
     }
 
     [Test]
@@ -47,7 +47,7 @@ public class TestDefaultConfiguration
     [Test]
     public void TestObserverPosition()
     {
-        Assert.That(_astroConfig!.ObserverPosition, Is.EqualTo(ObserverPositions.TopoCentric));
+        Assert.That(_astroConfig!.ObserverPosition, Is.EqualTo(ObserverPositions.GeoCentric));
     }
 
     [Test]

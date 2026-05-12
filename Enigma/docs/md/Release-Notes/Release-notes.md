@@ -2,6 +2,14 @@
 
 
 
+## Release 0.8.2 beta - February 25, 2026
+
+Enigma could not find city names with accented characters. Replaced all accented characters in city names with plain characters.
+
+Improved the visibility of a selected line in PreNatal.
+
+
+
 ## Release 0.8.1 beta - January 20, 2026
 
 Extended supported period for PreNatal to 120 years.

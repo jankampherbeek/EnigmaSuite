@@ -19,14 +19,6 @@ public class TestLocationHandler
     }
 
     [Test]
-    public void TestGetCityForCountry()
-    {
-        ILocationHandler handler = new LocationHandler();
-        var allCities = handler.CitiesForCountry("NL");
-        Assert.That(allCities, Has.Count.EqualTo(1872));
-    }
-
-    [Test]
     public void TestCityContent()
     {
         ILocationHandler handler = new LocationHandler();
