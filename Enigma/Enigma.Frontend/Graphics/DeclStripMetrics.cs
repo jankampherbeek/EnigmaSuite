@@ -55,7 +55,7 @@ public class DeclStripMetrics
     
     // Fonts and colors.
     public FontFamily DegreeTextsFontFamily { get; } = new ("Calibri");
-    public FontFamily GlyphsFontFamily { get; } = new ("EnigmaAstrologyBLA2");
+    public FontFamily GlyphsFontFamily { get; } = EnigmaFonts.GlyphsFontFamily;
     public double DegreeTextSize { get; private set; }
     public const double DEGREE_TEXT_OPACITY = 1.0;
     public double CelPointGlyphSize { get; private set; }

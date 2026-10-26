@@ -37,11 +37,25 @@ public partial class RadixDataInputViewModel : ObservableObject
     private Country _selectedCountry;
     private City _selectedCity;
     private double _offset;
+    private double _baseOffset;
+    private double _dstSave;
     private bool _dst;
     private bool _isManualCoordinateEdit;
     private bool _isManualTimeZoneEdit;
     private bool _isUpdatingCoordinatesProgrammatically;
+    private bool _isUpdatingTimeZoneProgrammatically;
     private static readonly Dictionary<string, List<City>> _cityCache = new();
+
+    private static readonly HashSet<string> UsMainlandTimezones = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "America/New_York", "America/Chicago", "America/Denver", "America/Los_Angeles",
+        "America/Phoenix", "America/Detroit", "America/Indiana/Indianapolis",
+        "America/Indiana/Knox", "America/Indiana/Marengo", "America/Indiana/Petersburg",
+        "America/Indiana/Tell_City", "America/Indiana/Vevay", "America/Indiana/Vincennes",
+        "America/Indiana/Winamac", "America/Kentucky/Louisville", "America/Kentucky/Monticello",
+        "America/North_Dakota/Beulah", "America/North_Dakota/Center", "America/North_Dakota/New_Salem",
+        "America/Boise", "America/Menominee"
+    };
     
     [ObservableProperty] private string _nameId = "";
     [ObservableProperty] private string _description = "";
@@ -80,6 +94,15 @@ public partial class RadixDataInputViewModel : ObservableObject
     }
 
     [ObservableProperty] private bool _applyDst;
+    [ObservableProperty] private bool _showPreUs1967DstWarning;
+
+    partial void OnApplyDstChanged(bool value)
+    {
+        var effectiveOffset = value ? _baseOffset + _dstSave : _baseOffset;
+        _isUpdatingTimeZoneProgrammatically = true;
+        TimeZone = FormatTimeZone(effectiveOffset);
+        _isUpdatingTimeZoneProgrammatically = false;
+    }
     [ObservableProperty] private int _categoryIndex;
     [ObservableProperty] private int _ratingIndex;
     [ObservableProperty] private int _dirLatIndex;
@@ -133,8 +156,8 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     partial void OnTimeZoneChanged(string value)
     {
-        // Mark as manual edit when user changes timezone
-        _isManualTimeZoneEdit = true;
+        if (!_isUpdatingTimeZoneProgrammatically)
+            _isManualTimeZoneEdit = true;
     }
     
     [ObservableProperty]
@@ -313,22 +336,18 @@ public partial class RadixDataInputViewModel : ObservableObject
             var longitude = ParseLongitudeFromCity(SelectedCity);
             var zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz, longitude);
             
-            // The following three lines are repeated later. But they prevent retrieving wrong values when caching
-            // large amounts of data, e.g. for the USA.
-            _offset = zoneInfo.Offset;
             _dst = zoneInfo.Dst;
-            TimeZone = FormatTimeZone(_offset);
-            
-            
-            // Use only the base timezone offset without DST
+            _dstSave = zoneInfo.Dst ? 1.0 : 0.0;
+            _baseOffset = zoneInfo.Offset - _dstSave;
             _offset = zoneInfo.Offset;
-            _dst = zoneInfo.Dst;
-            
-            // Reset manual edit flag when updating automatically
+
             _isManualTimeZoneEdit = false;
-            
-            TimeZone = FormatTimeZone(_offset);
+            _isUpdatingTimeZoneProgrammatically = true;
+            TimeZone = FormatTimeZone(_baseOffset);
             ApplyDst = zoneInfo.Dst;
+            _isUpdatingTimeZoneProgrammatically = false;
+
+            ShowPreUs1967DstWarning = IsPreUs1967DstWarningNeeded(zoneInfo.Dst);
             
 
         }
@@ -338,6 +357,17 @@ public partial class RadixDataInputViewModel : ObservableObject
             TimeZone = "";
             ApplyDst = false;
         }
+    }
+
+    private bool IsPreUs1967DstWarningNeeded(bool dstActive)
+    {
+        if (!dstActive) return false;
+        if (SelectedCity == null || string.IsNullOrEmpty(SelectedCity.IndicationTz)) return false;
+        if (!UsMainlandTimezones.Contains(SelectedCity.IndicationTz)) return false;
+        if (string.IsNullOrEmpty(Date)) return false;
+        var dateParts = Date.Split('/');
+        if (dateParts.Length < 1 || !int.TryParse(dateParts[0], out var year)) return false;
+        return year < 1967;
     }
 
     private string FormatTimeZone(double offset)
@@ -404,8 +434,8 @@ public partial class RadixDataInputViewModel : ObservableObject
             }
         }
         
-        // Use the calculated offset with DST if applicable
-        return _offset;
+        // Base offset plus DST save if checkbox is checked
+        return _baseOffset + (ApplyDst ? _dstSave : 0.0);
     }
 
     [RelayCommand]

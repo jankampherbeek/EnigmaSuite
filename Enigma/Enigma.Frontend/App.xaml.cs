@@ -17,6 +17,7 @@ using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 using Enigma.Frontend.Ui.Graphics;
+using System;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.Support.Parsers;
@@ -37,6 +38,8 @@ public partial class App
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
+        ScottPlot.Fonts.AddFontFile(EnigmaFonts.GlyphsFontFamilyName,
+            Path.Combine(AppContext.BaseDirectory, EnigmaFonts.GlyphsFontFile));
         var seApi = ServiceProvider.GetRequiredService<ISeApi>();
         seApi.SetupSe("se");
     }

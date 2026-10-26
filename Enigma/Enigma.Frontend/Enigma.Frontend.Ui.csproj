@@ -2,7 +2,9 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
 	<EnableTypeInfoReflection>false</EnableTypeInfoReflection>
@@ -850,9 +852,35 @@
     <Resource Include="Images\wheel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <EmbeddedResource Include="res\swedll64.dll">
+    <None Include="res\swedll64.dll">
+      <Link>swedll64.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
+    <None Include="res\fonts\EnigmaAstrologyBLA2.ttf">
+      <Link>res\fonts\EnigmaAstrologyBLA2.ttf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Resource Include="res\fonts\EnigmaAstrologyBLA2.ttf" />
+    <None Include="res\tz-coord\countries.csv">
+      <Link>tz-coord\countries.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\tz-coord\cities.csv">
+      <Link>tz-coord\cities.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\tz-coord\regions.csv">
+      <Link>tz-coord\regions.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\tz-coord\tzdata.csv">
+      <Link>tz-coord\tzdata.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="res\tz-coord\dstdata.csv">
+      <Link>tz-coord\dstdata.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Remove="Images\daterange.png" />
     <Resource Include="Images\daterange.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

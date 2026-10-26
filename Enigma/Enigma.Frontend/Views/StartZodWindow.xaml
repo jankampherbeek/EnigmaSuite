@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        xmlns:graphics="clr-namespace:Enigma.Frontend.Ui.Graphics"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -58,8 +59,8 @@
                             <RadioButton IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" 
                                          Margin="0,0,8,0"
                                          VerticalAlignment="Center"/>
-                            <TextBlock Text="{Binding Glyph}" 
-                                       FontFamily="EnigmaAstrologyBLA2" 
+                            <TextBlock Text="{Binding Glyph}"
+                                       FontFamily="{x:Static graphics:EnigmaFonts.GlyphsFontFamily}"
                                        FontSize="16"
                                        VerticalAlignment="Center"
                                        Margin="0,0,8,0"

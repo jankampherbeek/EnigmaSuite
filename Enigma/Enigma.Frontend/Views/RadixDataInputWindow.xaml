@@ -15,6 +15,7 @@
         Title="Enigma - Data input for radix" Height="800" Width="520">
     <Window.Resources>
         <viewModels:RadixDataInputViewModel x:Key="ViewModel"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}">    
         <Grid.ColumnDefinitions>
@@ -39,6 +40,7 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -158,11 +160,18 @@
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding TimeZoneValid}"
                  Text="{Binding TimeZone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <CheckBox Grid.Row="16" Grid.Column="1" VerticalAlignment="Center" IsTabStop="False" Content="Apply DST"  
+        <CheckBox Grid.Row="16" Grid.Column="1" VerticalAlignment="Center" IsTabStop="False" Content="Apply DST"
                   Style="{StaticResource MaterialDesignCheckBox}"
-                  IsChecked="{Binding ApplyDst}" 
-                  IsEnabled="False" />
-        <StackPanel Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+                  IsChecked="{Binding ApplyDst, Mode=TwoWay}"
+                  IsEnabled="True" />
+        <TextBlock Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 4 6 4"
+                   TextWrapping="Wrap"
+                   Foreground="OrangeRed"
+                   FontWeight="SemiBold"
+                   FontSize="12"
+                   Visibility="{Binding ShowPreUs1967DstWarning, Converter={StaticResource BooleanToVisibilityConverter}}"
+                   Text="Warning: DST was not federally mandated in the US before 1967. Verify your source and uncheck DST if the recorded time is standard time." />
+        <StackPanel Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal"
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
                     Command="{Binding HelpCommand}"/>

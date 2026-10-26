@@ -70,7 +70,7 @@ public static class AspectTypesExtensions
             AspectTypes.Novile => new AspectDetails(aspect, 40.0, "ref.aspecttype.novile", 'Ü', 0.0),
             AspectTypes.BiNovile => new AspectDetails(aspect, 80.0, "ref.aspecttype.binovile", 'Ñ', 0.0),
             AspectTypes.QuadraNovile => new AspectDetails(aspect, 160.0, "ref.aspecttype.quadranovile", '|', 0.0),
-            AspectTypes.Undecile => new AspectDetails(aspect, 33.0, "ref.aspecttype.undecile", 'ç', 0.0),
+            AspectTypes.Undecile => new AspectDetails(aspect, 32.727272727272, "ref.aspecttype.undecile", 'ç', 0.0),
             AspectTypes.Centile => new AspectDetails(aspect, 100.0, "ref.aspecttype.centile", 'Ç', 0.0),
             AspectTypes.Vigintile => new AspectDetails(aspect, 18.0, "ref.aspecttype.vigintile", 'Ï', 0.0),
             _ => throw new ArgumentException("Aspect unknown : " + aspect)
