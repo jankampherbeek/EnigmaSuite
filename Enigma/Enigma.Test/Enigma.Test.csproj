@@ -6,7 +6,8 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
 	<EnableTypeInfoReflection>false</EnableTypeInfoReflection>		
-	<LangVersion>12</LangVersion>		
+	<LangVersion>12</LangVersion>
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier>		
   </PropertyGroup>
 
   <ItemGroup>

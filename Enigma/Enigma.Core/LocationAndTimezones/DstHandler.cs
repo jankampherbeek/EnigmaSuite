@@ -3,7 +3,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Data.Entity.Infrastructure;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
