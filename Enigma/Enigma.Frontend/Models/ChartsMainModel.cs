@@ -25,14 +25,17 @@ public sealed class ChartsMainModel
     private readonly IChartDataConverter _chartDataConverter;
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
     private readonly IChartDataForDataGridFactory _chartDataForDataGridFactory;
-    
+    private readonly IPdDataImportExportApi _importExportApi;
+
     public ChartsMainModel(IChartDataConverter chartDataConverter,
                            IChartDataPersistencyApi chartDataPersistencyApi,
-                           IChartDataForDataGridFactory chartDataForDataGridFactory)
+                           IChartDataForDataGridFactory chartDataForDataGridFactory,
+                           IPdDataImportExportApi importExportApi)
     {
         _chartDataConverter = chartDataConverter;
         _chartDataPersistencyApi = chartDataPersistencyApi;
         _chartDataForDataGridFactory = chartDataForDataGridFactory;
+        _importExportApi = importExportApi;
         _dataVaultCharts = DataVaultCharts.Instance;
     }
 
@@ -113,6 +116,17 @@ public sealed class ChartsMainModel
     public int IndexCurrentChart()
     {
         return _dataVaultCharts.GetIndexCurrentChart();
+    }
+
+    /// <summary>Export all charts and events to a JSON file that can be imported by Enigma 1.0.</summary>
+    /// <param name="jsonFilename">Full path of the file to write.</param>
+    /// <returns>Descriptive text with the result of the export.</returns>
+    public string ExportForEnigma(string jsonFilename)
+    {
+        var result = _importExportApi.ExportToEnigmaJson(jsonFilename);
+        return result.Success
+            ? $"Export completed: {result.ChartsExported} charts and {result.EventsExported} events."
+            : "Export failed, please check the log for details.";
     }
 
 }

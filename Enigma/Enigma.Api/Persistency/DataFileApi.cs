@@ -67,6 +67,11 @@ public interface IPdDataImportExportApi
     /// <param name="csvFilename">Full path of the csv file.</param>
     /// <returns>True if no errors occurred, otherwise false.</returns>
     public bool ImportPdDataToRdbms(string csvFilename);
+
+    /// <summary>Export all charts and events to the Enigma JSON format, as used by EnigmaWin and the Apple version.</summary>
+    /// <param name="jsonFilename">Full path of the json file to write.</param>
+    /// <returns>Success indication and the number of exported charts and events.</returns>
+    public EnigmaExportResult ExportToEnigmaJson(string jsonFilename);
 }
 
 /// <inheritdoc/>
@@ -135,10 +140,19 @@ public sealed class DataFileApi(
 }
 
 /// <inheritdoc/>
-public sealed class PdDataImportExportApi(IPdDataFromToRdbmsHandler handler) : IPdDataImportExportApi
+public sealed class PdDataImportExportApi(IPdDataFromToRdbmsHandler handler, IEnigmaExportHandler enigmaExportHandler)
+    : IPdDataImportExportApi
 {
     public bool ImportPdDataToRdbms(string csvFilename)
     {
         return handler.ImportPdDataToRdbms(csvFilename);
+    }
+
+    /// <inheritdoc/>
+    public EnigmaExportResult ExportToEnigmaJson(string jsonFilename)
+    {
+        Guard.Against.NullOrEmpty(jsonFilename);
+        Log.Information("PdDataImportExportApi.ExportToEnigmaJson() requested for file {File}", jsonFilename);
+        return enigmaExportHandler.ExportToJson(jsonFilename);
     }
 }

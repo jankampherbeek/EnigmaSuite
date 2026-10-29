@@ -57,6 +57,11 @@
                         <Image Source="/Images/download.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Export for Enigma 1.0" Command="{Binding ExportForEnigmaCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/upload.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <Separator/>
                 <MenuItem Header="Close module Charts" Click="CloseClick">
                     <MenuItem.Icon>

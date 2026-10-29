@@ -75,6 +75,7 @@ public static class CoreServices
         serviceCollection.AddTransient<DefineJdRange>();
         serviceCollection.AddTransient<IDeltaTexts, DeltaTexts>();
         serviceCollection.AddTransient<IDirectConversionCalc, DirectConversionCalc>();
+        serviceCollection.AddTransient<IEnigmaExportHandler, EnigmaExportHandler>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<ExactConjunctionDate>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();

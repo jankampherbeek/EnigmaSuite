@@ -128,6 +128,19 @@ public partial class ChartsMainViewModel: ObservableObject,
         ChartsImportWindow importWindow = new ChartsImportWindow();
         importWindow.Show();
     }
+
+    [RelayCommand]
+    private void ExportForEnigma()
+    {
+        Microsoft.Win32.SaveFileDialog saveFileDlg = new()
+        {
+            FileName = "enigma-export.json",
+            DefaultExt = ".json",
+            Filter = "JSON files (*.json)|*.json"
+        };
+        if (saveFileDlg.ShowDialog() != true) return;
+        MessageBox.Show(_model.ExportForEnigma(saveFileDlg.FileName), "Export for Enigma 1.0");
+    }
     
 
     [RelayCommand]
